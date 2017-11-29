@@ -543,6 +543,208 @@ package component_pack is
             );
   end COMPONENT;
 
+  COMPONENT LBDR_bubble_combinatory_with_sequential is
+    generic (
+        cur_addr_rst: integer := 8;
+        Rxy_rst: integer := 8;
+        Cx_rst: integer := 8;
+        NoC_size: integer := 4
+    );
+    port (  reset: in  std_logic;
+            clk: in  std_logic;
+
+            Faulty_C_N, Faulty_C_E, Faulty_C_W, Faulty_C_S: in std_logic;
+
+            empty: in  std_logic;
+            flit_type: in std_logic_vector(2 downto 0);
+            dst_addr: in std_logic_vector(NoC_size-1 downto 0);
+            faulty: in std_logic;
+            packet_drop_order: out std_logic;
+            grant_N, grant_E, grant_W, grant_S, grant_L: in std_logic;
+            Req_N, Req_E, Req_W, Req_S, Req_L:out std_logic;
+
+            Rxy_reconf_PE: in  std_logic_vector(7 downto 0);
+            Cx_reconf_PE: in  std_logic_vector(3 downto 0);
+            Reconfig_command : in std_logic;
+
+            -- Checker outputs
+            -- Routing part checkers
+            err_header_empty_Requests_FF_Requests_in,
+            err_tail_Requests_in_all_zero,
+            err_tail_empty_Requests_FF_Requests_in,
+            err_tail_not_empty_not_grants_Requests_FF_Requests_in,
+            err_grants_onehot,
+            err_grants_mismatch,
+            err_header_tail_Requests_FF_Requests_in,
+            err_dst_addr_cur_addr_N1,
+            err_dst_addr_cur_addr_not_N1,
+            err_dst_addr_cur_addr_E1,
+            err_dst_addr_cur_addr_not_E1,
+            err_dst_addr_cur_addr_W1,
+            err_dst_addr_cur_addr_not_W1,
+            err_dst_addr_cur_addr_S1,
+            err_dst_addr_cur_addr_not_S1,
+            err_dst_addr_cur_addr_Req_L_in,
+            err_dst_addr_cur_addr_not_Req_L_in,
+            err_header_not_empty_faulty_drop_packet_in, -- added according to new design
+            err_header_not_empty_not_faulty_drop_packet_in_packet_drop_not_change, -- added according to new design
+            err_header_not_empty_faulty_Req_in_all_zero, -- added according to new design
+            --err_header_not_empty_Req_L_in, -- added according to new design
+            err_header_not_empty_Req_N_in,
+            err_header_not_empty_Req_E_in,
+            err_header_not_empty_Req_W_in,
+            err_header_not_empty_Req_S_in,
+            err_header_empty_packet_drop_in_packet_drop_equal,
+            err_tail_not_empty_packet_drop_not_packet_drop_in,
+            err_tail_not_empty_not_packet_drop_packet_drop_in_packet_drop_equal,
+            err_invalid_or_body_flit_packet_drop_in_packet_drop_equal,
+            err_packet_drop_order,
+
+            -- Cx_Reconf checkers
+            err_reconfig_cx_flit_type_Tail_not_empty_grants_Cx_in_Temp_Cx_equal,
+            err_reconfig_cx_flit_type_Tail_not_empty_grants_not_reconfig_cx_in,
+            err_not_reconfig_cx_flit_type_not_Tail_empty_not_grants_Cx_in_Cx_equal,
+            err_not_reconfig_cx_flit_type_not_Tail_empty_not_grants_Faulty_C_reconfig_cx_in,
+            err_not_reconfig_cx_flit_type_not_Tail_empty_not_grants_Faulty_C_Temp_Cx_in,
+            err_not_reconfig_cx_flit_type_not_Tail_empty_not_grants_not_Faulty_C_Reconfig_command_reconfig_cx_in,
+            err_reconfig_cx_flit_type_Tail_not_empty_grants_Temp_Cx_in_Temp_Cx_equal,
+            err_not_reconfig_cx_flit_type_not_Tail_empty_not_grants_not_Faulty_C_Temp_Cx_in_Cx_reconf_PE_equal,
+            err_not_reconfig_cx_flit_type_not_Tail_empty_not_grants_not_Faulty_C_not_Reconfig_command_reconfig_cx_in_reconfig_cx_equal, -- Added
+            err_not_reconfig_cx_flit_type_not_Tail_empty_not_grants_not_Faulty_C_not_Reconfig_command_Temp_Cx_in_Temp_Cx_equal, -- Added
+
+            -- Rxy_Reconf checkers
+            err_ReConf_FF_out_flit_type_Tail_not_empty_grants_Rxy_in_Rxy_tmp,
+            err_ReConf_FF_out_flit_type_Tail_not_empty_grants_not_ReConf_FF_in,
+            err_not_ReConf_FF_out_flit_type_not_Tail_empty_not_grants_Rxy_in_Rxy_equal,
+            err_not_ReConf_FF_out_flit_type_not_Tail_empty_not_grants_Reconfig_command_ReConf_FF_in,
+            err_not_ReConf_FF_out_flit_type_not_Tail_empty_not_grants_Reconfig_command_Rxy_tmp_in_Rxy_reconf_PE_equal,
+            err_not_ReConf_FF_out_flit_type_not_Tail_empty_not_grants_not_Reconfig_command_Rxy_tmp_in_Rxy_tmp_equal,
+            err_not_ReConf_FF_out_flit_type_not_Tail_empty_not_grants_not_Reconfig_command_ReConf_FF_in_ReConf_FF_out_equal : out std_logic
+            );
+  end COMPONENT;
+
+  COMPONENT LBDR_bubble_comb is
+    generic (
+        cur_addr_rst: integer := 8;
+        Rxy_rst: integer      := 8;
+        Cx_rst: integer       := 8;
+        NoC_size: integer     := 4
+    );
+    port (  
+            -- INPUTS
+            reset:            in std_logic;
+            clk:              in std_logic;
+
+            -- OUTPUTS
+            packet_drop_order:                  out std_logic;
+            Req_N, Req_E, Req_W, Req_S, Req_L:  out std_logic;
+
+            -- INPUTS INNER
+            Faulty_C_N, Faulty_C_E, Faulty_C_W, Faulty_C_S: in std_logic;
+
+            empty:            in std_logic;
+            flit_type:        in std_logic_vector(2 downto 0);
+            dst_addr:         in std_logic_vector(NoC_size-1 downto 0);
+            faulty:           in std_logic;
+              grant_N, grant_E, grant_W, grant_S, grant_L: in std_logic;
+
+            Rxy_reconf_PE:    in std_logic_vector(7 downto 0);
+            Cx_reconf_PE:     in std_logic_vector(3 downto 0);
+            Reconfig_command: in std_logic; 
+
+            Cx:               in std_logic_vector(3 downto 0);
+            Temp_Cx:          in std_logic_vector(3 downto 0);
+            reconfig_cx:      in std_logic;
+            ReConf_FF_out:    in std_logic;
+            Rxy:              in std_logic_vector(7 downto 0);
+            Rxy_tmp:          in std_logic_vector(7 downto 0);
+            Req_N_FF, Req_E_FF, Req_W_FF, Req_S_FF, Req_L_FF: in std_logic;
+            packet_drop:      in std_logic;
+
+            -- OUTPUTS INNER
+            Cx_in:            out std_logic_vector(3 downto 0);
+            Temp_Cx_in:       out std_logic_vector(3 downto 0);
+            reconfig_cx_in:   out std_logic;
+            ReConf_FF_in:     out std_logic;
+            Rxy_in:           out std_logic_vector(7 downto 0);
+            Rxy_tmp_in:       out std_logic_vector(7 downto 0);
+            Req_N_in, Req_E_in, Req_W_in, Req_S_in, Req_L_in: out std_logic;
+            packet_drop_in:   out std_logic;
+
+
+            -- Checker outputs
+            -- Routing part checkers            
+            err_header_empty_Requests_FF_Requests_in, err_tail_Requests_in_all_zero, err_tail_empty_Requests_FF_Requests_in, 
+            err_tail_not_empty_not_grants_Requests_FF_Requests_in, err_grants_onehot, err_grants_mismatch, 
+            err_header_tail_Requests_FF_Requests_in, err_dst_addr_cur_addr_N1, err_dst_addr_cur_addr_not_N1, 
+            err_dst_addr_cur_addr_E1, err_dst_addr_cur_addr_not_E1, err_dst_addr_cur_addr_W1, err_dst_addr_cur_addr_not_W1,
+            err_dst_addr_cur_addr_S1, err_dst_addr_cur_addr_not_S1, err_dst_addr_cur_addr_Req_L_in, err_dst_addr_cur_addr_not_Req_L_in, 
+            err_header_not_empty_faulty_drop_packet_in, -- added according to new design
+            err_header_not_empty_not_faulty_drop_packet_in_packet_drop_not_change, -- added according to new design
+            err_header_not_empty_faulty_Req_in_all_zero, -- added according to new design
+            err_header_not_empty_Req_N_in, err_header_not_empty_Req_E_in, err_header_not_empty_Req_W_in, err_header_not_empty_Req_S_in, 
+            err_header_empty_packet_drop_in_packet_drop_equal, err_tail_not_empty_packet_drop_not_packet_drop_in, 
+            err_tail_not_empty_not_packet_drop_packet_drop_in_packet_drop_equal, 
+            err_invalid_or_body_flit_packet_drop_in_packet_drop_equal, 
+            err_packet_drop_order, 
+
+            -- Cx_Reconf checkers
+            err_reconfig_cx_flit_type_Tail_not_empty_grants_Cx_in_Temp_Cx_equal, 
+            err_reconfig_cx_flit_type_Tail_not_empty_grants_not_reconfig_cx_in, 
+            err_not_reconfig_cx_flit_type_not_Tail_empty_not_grants_Cx_in_Cx_equal, 
+            err_not_reconfig_cx_flit_type_not_Tail_empty_not_grants_Faulty_C_reconfig_cx_in, 
+            err_not_reconfig_cx_flit_type_not_Tail_empty_not_grants_Faulty_C_Temp_Cx_in, 
+            err_not_reconfig_cx_flit_type_not_Tail_empty_not_grants_not_Faulty_C_Reconfig_command_reconfig_cx_in, 
+            err_reconfig_cx_flit_type_Tail_not_empty_grants_Temp_Cx_in_Temp_Cx_equal, 
+            err_not_reconfig_cx_flit_type_not_Tail_empty_not_grants_not_Faulty_C_Temp_Cx_in_Cx_reconf_PE_equal, 
+            err_not_reconfig_cx_flit_type_not_Tail_empty_not_grants_not_Faulty_C_not_Reconfig_command_reconfig_cx_in_reconfig_cx_equal, -- Added 
+            err_not_reconfig_cx_flit_type_not_Tail_empty_not_grants_not_Faulty_C_not_Reconfig_command_Temp_Cx_in_Temp_Cx_equal, -- Added
+
+            -- Rxy_Reconf checkers
+            err_ReConf_FF_out_flit_type_Tail_not_empty_grants_Rxy_in_Rxy_tmp, 
+            err_ReConf_FF_out_flit_type_Tail_not_empty_grants_not_ReConf_FF_in, 
+            err_not_ReConf_FF_out_flit_type_not_Tail_empty_not_grants_Rxy_in_Rxy_equal, 
+            err_not_ReConf_FF_out_flit_type_not_Tail_empty_not_grants_Reconfig_command_ReConf_FF_in, 
+            err_not_ReConf_FF_out_flit_type_not_Tail_empty_not_grants_Reconfig_command_Rxy_tmp_in_Rxy_reconf_PE_equal, 
+            err_not_ReConf_FF_out_flit_type_not_Tail_empty_not_grants_not_Reconfig_command_Rxy_tmp_in_Rxy_tmp_equal, 
+            err_not_ReConf_FF_out_flit_type_not_Tail_empty_not_grants_not_Reconfig_command_ReConf_FF_in_ReConf_FF_out_equal : out std_logic            
+            );
+  end COMPONENT;
+
+  COMPONENT  LBDR_bubble_seq is
+    generic (
+        --cur_addr_rst: integer := 8;
+        Rxy_rst: integer    := 8;
+        Cx_rst: integer     := 8--;
+        --NoC_size: integer := 4
+    );
+    port (  
+            -- INPUTS
+            reset:          in std_logic;
+            clk:            in std_logic;
+
+            -- INPUTS INNER
+            Cx_in:          in std_logic_vector(3 downto 0);
+            reconfig_cx_in: in std_logic;
+            Rxy_in:         in std_logic_vector(7 downto 0);
+            Rxy_tmp_in:     in std_logic_vector(7 downto 0);
+            Req_N_in, Req_E_in, Req_W_in, Req_S_in, Req_L_in: in std_logic;
+            Temp_Cx_in:     in std_logic_vector(3 downto 0);
+            ReConf_FF_in:   in std_logic;
+            packet_drop_in: in std_logic;
+
+            -- OUTPUTS INNER
+            Cx:             out std_logic_vector(3 downto 0);
+            reconfig_cx:    out std_logic;
+            Rxy:            out std_logic_vector(7 downto 0);
+            Rxy_tmp:        out std_logic_vector(7 downto 0);
+            Req_N_FF, Req_E_FF, Req_W_FF, Req_S_FF, Req_L_FF: out std_logic;
+            Temp_Cx:        out std_logic_vector(3 downto 0);
+            --reconfig_cx:  out std_logic;
+            ReConf_FF_out:  out std_logic;
+            packet_drop:    out std_logic
+            );
+  end COMPONENT;
   COMPONENT XBAR is
     generic (
         DATA_WIDTH: integer := 32
