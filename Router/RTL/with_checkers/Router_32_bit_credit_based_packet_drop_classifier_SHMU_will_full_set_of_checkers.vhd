@@ -38,6 +38,8 @@ entity router_credit_based_PD_C_SHMU_with_checkers is  --fault classifier plus p
     Rxy_reconf_PE: in  std_logic_vector(7 downto 0);
     Cx_reconf_PE: in  std_logic_vector(3 downto 0);
     Reconfig_command : in std_logic;
+    --hold_in: in std_logic;
+    --hold_out: out std_logic;
 
     ---- Outputs for non-classified fault information
     link_faults_async: out std_logic_vector(4 downto 0);

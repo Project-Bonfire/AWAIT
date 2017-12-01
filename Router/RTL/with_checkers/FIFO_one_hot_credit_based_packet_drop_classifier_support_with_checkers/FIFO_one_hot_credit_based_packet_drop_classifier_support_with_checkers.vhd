@@ -11,10 +11,10 @@ entity FIFO_credit_based is
     generic (
         DATA_WIDTH: integer := 32
     );
-    port (  reset: in  std_logic;
-            clk: in  std_logic;
-            RX: in std_logic_vector(DATA_WIDTH-1 downto 0); 
-            valid_in: in std_logic;  
+    port (  reset:      in std_logic;
+            clk:        in std_logic;
+            RX:         in std_logic_vector(DATA_WIDTH-1 downto 0); 
+            valid_in:   in std_logic;  
             read_en_N : in std_logic;
             read_en_E : in std_logic;
             read_en_W : in std_logic;
@@ -22,8 +22,8 @@ entity FIFO_credit_based is
             read_en_L : in std_logic;
 
             credit_out: out std_logic; 
-            empty_out: out std_logic; 
-            Data_out: out std_logic_vector(DATA_WIDTH-1 downto 0);
+            empty_out:  out std_logic; 
+            Data_out:   out std_logic_vector(DATA_WIDTH-1 downto 0);
 
             fault_info, health_info: out  std_logic;
 

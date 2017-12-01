@@ -571,7 +571,7 @@ FIFO_L_read_en_S <= Grant_SL;   FIFO_S_read_en_L <= Grant_LS;
 ------------------------------------------------------------------------------------------------------------------------------
 
 --- all the LBDRs
-LBDR_N: LBDR_packet_drop generic map (cur_addr_rst => cur_addr_rst, Cx_rst => Cx_rst, Rxy_rst => Rxy_rst, NoC_size => NoC_size)
+LBDR_N: LBDR_bubble_combinatory_with_sequential generic map (cur_addr_rst => cur_addr_rst, Cx_rst => Cx_rst, Rxy_rst => Rxy_rst, NoC_size => NoC_size)
        PORT MAP (reset => reset, clk => clk, empty => empty_N, 
              Faulty_C_N => Faulty_N_in, Faulty_C_E => Faulty_E_in, Faulty_C_W => Faulty_W_in, Faulty_C_S => Faulty_S_in,  
              flit_type => flit_type_N, dst_addr=> dst_addr_N,
@@ -631,7 +631,7 @@ LBDR_N: LBDR_packet_drop generic map (cur_addr_rst => cur_addr_rst, Cx_rst => Cx
             err_not_ReConf_FF_out_flit_type_not_Tail_empty_not_grants_not_Reconfig_command_ReConf_FF_in_ReConf_FF_out_equal => N_err_not_ReConf_FF_out_flit_type_not_Tail_empty_not_grants_not_Reconfig_command_ReConf_FF_in_ReConf_FF_out_equal
           );
 
-LBDR_E: LBDR_packet_drop generic map (cur_addr_rst => cur_addr_rst, Cx_rst => Cx_rst, Rxy_rst => Rxy_rst, NoC_size => NoC_size)
+LBDR_E: LBDR_bubble_combinatory_with_sequential generic map (cur_addr_rst => cur_addr_rst, Cx_rst => Cx_rst, Rxy_rst => Rxy_rst, NoC_size => NoC_size)
    PORT MAP (reset =>  reset, clk => clk, empty => empty_E, 
              Faulty_C_N => Faulty_N_in, Faulty_C_E => Faulty_E_in, Faulty_C_W => Faulty_W_in, Faulty_C_S => Faulty_S_in,  
              flit_type => flit_type_E, dst_addr=> dst_addr_E,
@@ -691,7 +691,7 @@ LBDR_E: LBDR_packet_drop generic map (cur_addr_rst => cur_addr_rst, Cx_rst => Cx
             err_not_ReConf_FF_out_flit_type_not_Tail_empty_not_grants_not_Reconfig_command_ReConf_FF_in_ReConf_FF_out_equal => E_err_not_ReConf_FF_out_flit_type_not_Tail_empty_not_grants_not_Reconfig_command_ReConf_FF_in_ReConf_FF_out_equal
            );
 
-LBDR_W: LBDR_packet_drop generic map (cur_addr_rst => cur_addr_rst, Cx_rst => Cx_rst, Rxy_rst => Rxy_rst, NoC_size => NoC_size)
+LBDR_W: LBDR_bubble_combinatory_with_sequential generic map (cur_addr_rst => cur_addr_rst, Cx_rst => Cx_rst, Rxy_rst => Rxy_rst, NoC_size => NoC_size)
    PORT MAP (reset =>  reset, clk => clk, empty => empty_W,  
              Faulty_C_N => Faulty_N_in, Faulty_C_E => Faulty_E_in, Faulty_C_W => Faulty_W_in, Faulty_C_S => Faulty_S_in,  
              flit_type => flit_type_W, dst_addr=> dst_addr_W,
@@ -751,7 +751,7 @@ LBDR_W: LBDR_packet_drop generic map (cur_addr_rst => cur_addr_rst, Cx_rst => Cx
             err_not_ReConf_FF_out_flit_type_not_Tail_empty_not_grants_not_Reconfig_command_ReConf_FF_in_ReConf_FF_out_equal => W_err_not_ReConf_FF_out_flit_type_not_Tail_empty_not_grants_not_Reconfig_command_ReConf_FF_in_ReConf_FF_out_equal
            );
 
-LBDR_S: LBDR_packet_drop generic map (cur_addr_rst => cur_addr_rst, Cx_rst => Cx_rst, Rxy_rst => Rxy_rst, NoC_size => NoC_size)
+LBDR_S: LBDR_bubble_combinatory_with_sequential generic map (cur_addr_rst => cur_addr_rst, Cx_rst => Cx_rst, Rxy_rst => Rxy_rst, NoC_size => NoC_size)
    PORT MAP (reset =>  reset, clk => clk, empty => empty_S, 
              Faulty_C_N => Faulty_N_in, Faulty_C_E => Faulty_E_in, Faulty_C_W => Faulty_W_in, Faulty_C_S => Faulty_S_in,  
              flit_type => flit_type_S, dst_addr=> dst_addr_S,
@@ -811,7 +811,7 @@ LBDR_S: LBDR_packet_drop generic map (cur_addr_rst => cur_addr_rst, Cx_rst => Cx
             err_not_ReConf_FF_out_flit_type_not_Tail_empty_not_grants_not_Reconfig_command_ReConf_FF_in_ReConf_FF_out_equal => S_err_not_ReConf_FF_out_flit_type_not_Tail_empty_not_grants_not_Reconfig_command_ReConf_FF_in_ReConf_FF_out_equal
            );
 
-LBDR_L: LBDR_packet_drop generic map (cur_addr_rst => cur_addr_rst, Cx_rst => Cx_rst, Rxy_rst => Rxy_rst, NoC_size => NoC_size)
+LBDR_L: LBDR_bubble_combinatory_with_sequential generic map (cur_addr_rst => cur_addr_rst, Cx_rst => Cx_rst, Rxy_rst => Rxy_rst, NoC_size => NoC_size)
    PORT MAP (reset =>  reset, clk => clk, empty => empty_L, 
              Faulty_C_N => Faulty_N_in, Faulty_C_E => Faulty_E_in, Faulty_C_W => Faulty_W_in, Faulty_C_S => Faulty_S_in,  
              flit_type => flit_type_L, dst_addr=> dst_addr_L,

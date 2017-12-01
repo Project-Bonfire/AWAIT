@@ -30,7 +30,9 @@ entity LBDR_bubble_combinatory_with_sequential is
 
             Rxy_reconf_PE:      in std_logic_vector(7 downto 0);
             Cx_reconf_PE:       in std_logic_vector(3 downto 0);
-            Reconfig_command:   in std_logic; 
+            Reconfig_command:   in std_logic;
+            --hold_in:            in std_logic;
+            --hold_out:           out std_logic;
 
             -- Checker outputs
             -- Routing part checkers            

@@ -56,7 +56,6 @@ entity LBDR_bubble_comb is
             Req_N_in, Req_E_in, Req_W_in, Req_S_in, Req_L_in: out std_logic;
             packet_drop_in:   out std_logic;
 
-
             -- Checker outputs
             -- Routing part checkers            
             err_header_empty_Requests_FF_Requests_in, err_tail_Requests_in_all_zero, err_tail_empty_Requests_FF_Requests_in, 

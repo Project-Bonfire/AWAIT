@@ -15,29 +15,29 @@ entity FIFO_credit_based_control_part_checkers is
 			read_en_S : in std_logic;
 			read_en_L : in std_logic;
 
-			read_pointer: in std_logic_vector(3 downto 0);
-			read_pointer_in: in std_logic_vector(3 downto 0);
-			write_pointer: in std_logic_vector(3 downto 0); 
-			write_pointer_in: in std_logic_vector(3 downto 0); 
-			credit_out: in std_logic; -- Behrad: In FIFO, this is actually an internal signal "named as credit_in", which I guess should keep the previous value of credit_out.
-			empty_out: in std_logic;
-			full_out: in std_logic;
-			read_en_out: in std_logic;
-			write_en_out: in std_logic; 
-			fake_credit: in std_logic;
-			fake_credit_counter: in std_logic_vector(1 downto 0);
+			read_pointer: 			in std_logic_vector(3 downto 0);
+			read_pointer_in: 		in std_logic_vector(3 downto 0);
+			write_pointer: 			in std_logic_vector(3 downto 0); 
+			write_pointer_in: 		in std_logic_vector(3 downto 0); 
+			credit_out: 			in std_logic; -- Behrad: In FIFO, this is actually an internal signal "named as credit_in", which I guess should keep the previous value of credit_out.
+			empty_out: 				in std_logic;
+			full_out: 				in std_logic;
+			read_en_out: 			in std_logic;
+			write_en_out: 			in std_logic; 
+			fake_credit: 			in std_logic;
+			fake_credit_counter: 	in std_logic_vector(1 downto 0);
 			fake_credit_counter_in: in std_logic_vector(1 downto 0);  
-			state_out: in std_logic_vector(4 downto 0);
-			state_in: in std_logic_vector(4 downto 0);
-            fault_info: in std_logic;			
-            fault_info_out: in std_logic;			
-			fault_info_in: in std_logic;     
-			health_info: in std_logic;
-			faulty_packet_out: in std_logic;                      
-			faulty_packet_in: in std_logic;
-			flit_type: in std_logic_vector(2 downto 0);
-			fault_out: in std_logic;
-			write_fake_flit: in std_logic;
+			state_out: 				in std_logic_vector(4 downto 0);
+			state_in: 				in std_logic_vector(4 downto 0);
+            fault_info: 			in std_logic;			
+            fault_info_out: 		in std_logic;			
+			fault_info_in: 			in std_logic;     
+			health_info: 			in std_logic;
+			faulty_packet_out: 		in std_logic;                      
+			faulty_packet_in: 		in std_logic;
+			flit_type: 				in std_logic_vector(2 downto 0);
+			fault_out: 				in std_logic;
+			write_fake_flit: 		in std_logic;
 
             -- Functional checkers
 			err_empty_full, 
@@ -167,13 +167,15 @@ end FIFO_credit_based_control_part_checkers;
 
 architecture behavior of FIFO_credit_based_control_part_checkers is
 
-CONSTANT Idle: std_logic_vector (4 downto 0) := "00001";
-CONSTANT Header_flit: std_logic_vector (4 downto 0) := "00010";
-CONSTANT Body_flit: std_logic_vector (4 downto 0) := "00100";
-CONSTANT Tail_flit: std_logic_vector (4 downto 0) := "01000";
-CONSTANT Packet_drop: std_logic_vector (4 downto 0) := "10000";
+CONSTANT Idle: 			std_logic_vector (4 downto 0) := "00001";
+CONSTANT Header_flit: 	std_logic_vector (4 downto 0) := "00010";
+CONSTANT Body_flit: 	std_logic_vector (4 downto 0) := "00100";
+CONSTANT Tail_flit: 	std_logic_vector (4 downto 0) := "01000";
+CONSTANT Packet_drop: 	std_logic_vector (4 downto 0) := "10000";
 
 begin 
+
+-- COMBINATIONAL LOGIC
 
 -- Functional Checkers (Might cover or be covered by some of the structural checkers)
 
