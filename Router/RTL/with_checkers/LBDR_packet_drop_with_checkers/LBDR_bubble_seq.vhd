@@ -10,10 +10,8 @@ use work.component_pack.all;
 
 entity LBDR_bubble_seq is
     generic (
-      --cur_addr_rst: integer := 8;
       Rxy_rst: integer 	:= 8;
       Cx_rst: integer 	:= 8--;
-      --NoC_size: integer := 4
     );
     port (  
     	-- INPUTS
@@ -29,32 +27,22 @@ entity LBDR_bubble_seq is
 			Temp_Cx_in: 	  in std_logic_vector(3 downto 0);
 			ReConf_FF_in: 	in std_logic;
 			packet_drop_in: in std_logic;
-      --hold_in:        in std_logic;
+      hold_in:        in std_logic;
+      fault_in:       in std_logic;
 
 			-- OUTPUTS INNER
-			Cx: 			    out std_logic_vector(3 downto 0);
-			reconfig_cx: 	out std_logic;
-			Rxy: 			    out std_logic_vector(7 downto 0);
-			Rxy_tmp: 		  out std_logic_vector(7 downto 0);
+			Cx: 			      out std_logic_vector(3 downto 0);
+			reconfig_cx: 	  out std_logic;
+			Rxy: 			      out std_logic_vector(7 downto 0);
+			Rxy_tmp: 		    out std_logic_vector(7 downto 0);
 			Req_N_FF, Req_E_FF, Req_W_FF, Req_S_FF, Req_L_FF: out std_logic;
-			Temp_Cx: 		  out std_logic_vector(3 downto 0);
-			--reconfig_cx: 	out std_logic;
+			Temp_Cx: 		    out std_logic_vector(3 downto 0);
 			ReConf_FF_out: 	out std_logic;
 			packet_drop: 	  out std_logic
       );
 end LBDR_bubble_seq;
 
 architecture behavior of LBDR_bubble_seq is
-
---signal Cx, Cx_in:  std_logic_vector(3 downto 0);
---signal reconfig_cx, reconfig_cx_in: std_logic;
---signal Rxy, Rxy_in:  std_logic_vector(7 downto 0);
---signal Rxy_tmp, Rxy_tmp_in:  std_logic_vector(7 downto 0);
---signal Req_N_in, Req_E_in, Req_W_in, Req_S_in, Req_L_in: std_logic;
---signal Req_N_FF, Req_E_FF, Req_W_FF, Req_S_FF, Req_L_FF: std_logic;
---signal Temp_Cx, Temp_Cx_in:  std_logic_vector(3 downto 0);
---signal ReConf_FF_in, ReConf_FF_out: std_logic;
---signal packet_drop, packet_drop_in: std_logic;
 
 begin
 
@@ -63,8 +51,8 @@ begin
 process(clk, reset)
 begin
 if reset = '0' then 
-  Rxy <= std_logic_vector(to_unsigned(Rxy_rst, Rxy'length));
-  Rxy_tmp <= (others => '0');
+  Rxy      <= std_logic_vector(to_unsigned(Rxy_rst, Rxy'length));
+  Rxy_tmp  <= (others => '0');
 
   Req_N_FF <= '0'; 
   Req_E_FF <= '0'; 
@@ -72,15 +60,15 @@ if reset = '0' then
   Req_S_FF <= '0'; 
   Req_L_FF <= '0';
 
-  Cx <= std_logic_vector(to_unsigned(Cx_rst, Cx'length));
-  Temp_Cx <= (others => '0');
+  Cx            <= std_logic_vector(to_unsigned(Cx_rst, Cx'length));
+  Temp_Cx       <= (others => '0');
   ReConf_FF_out <= '0';
   reconfig_cx   <= '0';
   packet_drop   <= '0';
 
-elsif clk'event and clk = '1' then
-  Rxy <= Rxy_in;	
-  Rxy_tmp <=  Rxy_tmp_in;
+elsif clk'event and clk = '1' and fault_in = '0' and hold_in = '0' then
+  Rxy      <= Rxy_in;	
+  Rxy_tmp  <=  Rxy_tmp_in;
 
   Req_N_FF <= Req_N_in; 
   Req_E_FF <= Req_E_in; 
@@ -89,10 +77,10 @@ elsif clk'event and clk = '1' then
   Req_L_FF <= Req_L_in;
 
   ReConf_FF_out <= ReConf_FF_in;
-  Cx <= Cx_in;
-  reconfig_cx <= reconfig_cx_in;
-  Temp_Cx <= Temp_Cx_in;
-  packet_drop <= packet_drop_in;
+  Cx            <= Cx_in;
+  reconfig_cx   <= reconfig_cx_in;
+  Temp_Cx       <= Temp_Cx_in;
+  packet_drop   <= packet_drop_in;
 end if;
 end process;
 end behavior;

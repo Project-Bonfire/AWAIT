@@ -27,6 +27,8 @@ entity router_credit_based_PD_C_SHMU_control_part_with_checkers is  --fault clas
     flit_type_N, flit_type_E, flit_type_W, flit_type_S, flit_type_L: in std_logic_vector(2 downto 0);
     LBDR_Fault_N, LBDR_Fault_E, LBDR_Fault_W, LBDR_Fault_S, LBDR_Fault_L: in std_logic;
 
+    hold_in_N, hold_in_E, hold_in_S, hold_in_W, hold_in_L: in std_logic;
+
     valid_out_N, valid_out_E, valid_out_W, valid_out_S, valid_out_L : out std_logic;
     Xbar_sel_N, Xbar_sel_E, Xbar_sel_W, Xbar_sel_S, Xbar_sel_L: out std_logic_vector (4 downto 0);
     packet_drop_order_N, packet_drop_order_E, packet_drop_order_W, packet_drop_order_S, packet_drop_order_L: out std_logic;
@@ -35,6 +37,8 @@ entity router_credit_based_PD_C_SHMU_control_part_with_checkers is  --fault clas
     FIFO_W_read_en_N, FIFO_W_read_en_E, FIFO_W_read_en_S, FIFO_W_read_en_L: out std_logic;
     FIFO_S_read_en_N, FIFO_S_read_en_E, FIFO_S_read_en_W, FIFO_S_read_en_L: out std_logic;
     FIFO_L_read_en_N, FIFO_L_read_en_E, FIFO_L_read_en_W, FIFO_L_read_en_S: out std_logic;
+
+    hold_out_N, hold_out_E, hold_out_S, hold_out_W, hold_out_L: out std_logic;
 
     -- LBDR checkers (5 LBDR modules)
     -- North
@@ -547,6 +551,11 @@ architecture behavior of router_credit_based_PD_C_SHMU_control_part_with_checker
     signal Grant_WN, Grant_WE, Grant_WS, Grant_WL: std_logic;
     signal Grant_SN, Grant_SE, Grant_SW, Grant_SL: std_logic;
     signal Grant_LN, Grant_LE, Grant_LW, Grant_LS: std_logic;
+
+    -- valid_out_X: LBDR signaled the validity of output
+    signal valid_LBDR_N_sig, valid_LBDR_E_sig, valid_LBDR_S_sig, valid_LBDR_W_sig, valid_LBDR_L_sig: std_logic;
+
+    signal valid_out_N_sig, valid_out_E_sig, valid_out_S_sig, valid_out_W_sig, valid_out_L_sig: std_logic;
     
 ------------------------------------------------------------------------------------------------------------------------------
 ------------------------------------------------------------------------------------------------------------------------------
@@ -578,7 +587,9 @@ LBDR_N: LBDR_bubble_combinatory_with_sequential generic map (cur_addr_rst => cur
              faulty => LBDR_Fault_N, packet_drop_order => packet_drop_order_N,
              grant_N => '0', grant_E =>Grant_EN, grant_W => Grant_WN, grant_S=>Grant_SN, grant_L =>Grant_LN,
              Req_N=> open, Req_E=>Req_NE, Req_W=>Req_NW, Req_S=>Req_NS, Req_L=>Req_NL,
-             Rxy_reconf_PE => Rxy_reconf_PE, Cx_reconf_PE => Cx_reconf_PE, Reconfig_command=>Reconfig_command, 
+             Rxy_reconf_PE => Rxy_reconf_PE, Cx_reconf_PE => Cx_reconf_PE, Reconfig_command=>Reconfig_command,
+
+             hold_in => hold_in_N, hold_out => hold_out_N, valid_out => valid_LBDR_N_sig,
 
              -- Checker outputs
             err_header_empty_Requests_FF_Requests_in => N_err_header_empty_Requests_FF_Requests_in, 
@@ -638,7 +649,9 @@ LBDR_E: LBDR_bubble_combinatory_with_sequential generic map (cur_addr_rst => cur
              faulty => LBDR_Fault_E, packet_drop_order => packet_drop_order_E,
              grant_N => Grant_NE, grant_E =>'0', grant_W => Grant_WE, grant_S=>Grant_SE, grant_L =>Grant_LE,
              Req_N=> Req_EN, Req_E=>open, Req_W=>Req_EW, Req_S=>Req_ES, Req_L=>Req_EL,
-             Rxy_reconf_PE => Rxy_reconf_PE, Cx_reconf_PE => Cx_reconf_PE, Reconfig_command=>Reconfig_command, 
+             Rxy_reconf_PE => Rxy_reconf_PE, Cx_reconf_PE => Cx_reconf_PE, Reconfig_command=>Reconfig_command,
+
+             hold_in => hold_in_E, hold_out => hold_out_E, valid_out => valid_LBDR_E_sig,
 
              -- Checker outputs
             err_header_empty_Requests_FF_Requests_in => E_err_header_empty_Requests_FF_Requests_in, 
@@ -698,7 +711,9 @@ LBDR_W: LBDR_bubble_combinatory_with_sequential generic map (cur_addr_rst => cur
              faulty => LBDR_Fault_W, packet_drop_order => packet_drop_order_W,
              grant_N => Grant_NW, grant_E =>Grant_EW, grant_W =>'0' ,grant_S=>Grant_SW, grant_L =>Grant_LW,
              Req_N=> Req_WN, Req_E=>Req_WE, Req_W=>open, Req_S=>Req_WS, Req_L=>Req_WL,
-             Rxy_reconf_PE => Rxy_reconf_PE, Cx_reconf_PE => Cx_reconf_PE, Reconfig_command=>Reconfig_command, 
+             Rxy_reconf_PE => Rxy_reconf_PE, Cx_reconf_PE => Cx_reconf_PE, Reconfig_command=>Reconfig_command,
+
+             hold_in => hold_in_W, hold_out => hold_out_W, valid_out => valid_LBDR_W_sig,
 
              -- Checker outputs
             err_header_empty_Requests_FF_Requests_in => W_err_header_empty_Requests_FF_Requests_in, 
@@ -758,7 +773,9 @@ LBDR_S: LBDR_bubble_combinatory_with_sequential generic map (cur_addr_rst => cur
              faulty => LBDR_Fault_S, packet_drop_order => packet_drop_order_S,
              grant_N => Grant_NS, grant_E =>Grant_ES, grant_W =>Grant_WS ,grant_S=>'0', grant_L =>Grant_LS,
              Req_N=> Req_SN, Req_E=>Req_SE, Req_W=>Req_SW, Req_S=>open, Req_L=>Req_SL,
-             Rxy_reconf_PE => Rxy_reconf_PE, Cx_reconf_PE => Cx_reconf_PE, Reconfig_command=>Reconfig_command, 
+             Rxy_reconf_PE => Rxy_reconf_PE, Cx_reconf_PE => Cx_reconf_PE, Reconfig_command=>Reconfig_command,
+
+             hold_in => hold_in_S, hold_out => hold_out_S, valid_out => valid_LBDR_S_sig,
 
              -- Checker outputs
             err_header_empty_Requests_FF_Requests_in => S_err_header_empty_Requests_FF_Requests_in, 
@@ -818,7 +835,9 @@ LBDR_L: LBDR_bubble_combinatory_with_sequential generic map (cur_addr_rst => cur
              faulty => LBDR_Fault_L, packet_drop_order => packet_drop_order_L,
              grant_N => Grant_NL, grant_E =>Grant_EL, grant_W => Grant_WL,grant_S=>Grant_SL, grant_L =>'0',
              Req_N=> Req_LN, Req_E=>Req_LE, Req_W=>Req_LW, Req_S=>Req_LS, Req_L=>open,
-             Rxy_reconf_PE => Rxy_reconf_PE, Cx_reconf_PE => Cx_reconf_PE, Reconfig_command=>Reconfig_command, 
+             Rxy_reconf_PE => Rxy_reconf_PE, Cx_reconf_PE => Cx_reconf_PE, Reconfig_command=>Reconfig_command,
+
+             hold_in => hold_in_L, hold_out => hold_out_L, valid_out => valid_LBDR_L_sig,
 
              -- Checker outputs
             err_header_empty_Requests_FF_Requests_in => L_err_header_empty_Requests_FF_Requests_in, 
@@ -888,7 +907,7 @@ allocator_unit: allocator port map ( reset => reset, clk => clk,
             req_S_N => Req_SN, req_S_E => Req_SE, req_S_W => Req_SW, req_S_S => '0', req_S_L => Req_SL,
             req_L_N => Req_LN, req_L_E => Req_LE, req_L_W => Req_LW, req_L_S => Req_LS, req_L_L => '0',
             empty_N => empty_N, empty_E => empty_E, empty_w => empty_W, empty_S => empty_S, empty_L => empty_L, 
-            valid_N => valid_out_N, valid_E => valid_out_E, valid_W => valid_out_W, valid_S => valid_out_S, valid_L => valid_out_L,
+            valid_N => valid_out_N_sig, valid_E => valid_out_E_sig, valid_W => valid_out_W_sig, valid_S => valid_out_S_sig, valid_L => valid_out_L_sig,
             -- grant_X_Y means the grant for X output port towards Y input port
             -- this means for any X in [N, E, W, S, L] then set grant_X_Y is one hot!
             grant_N_N => open, grant_N_E => Grant_NE, grant_N_W => Grant_NW, grant_N_S => Grant_NS, grant_N_L => Grant_NL,
@@ -1407,5 +1426,11 @@ Xbar_sel_L <= Grant_LN & Grant_LE & Grant_LW & Grant_LS & '0';
 ------------------------------------------------------------------------------------------------------------------------------
 ------------------------------------------------------------------------------------------------------------------------------
 ------------------------------------------------------------------------------------------------------------------------------
+
+valid_out_N <= valid_out_N_sig and valid_LBDR_N_sig;
+valid_out_E <= valid_out_E_sig and valid_LBDR_E_sig;
+valid_out_S <= valid_out_S_sig and valid_LBDR_S_sig;
+valid_out_W <= valid_out_W_sig and valid_LBDR_W_sig;
+valid_out_L <= valid_out_L_sig and valid_LBDR_L_sig;
 
 end;
