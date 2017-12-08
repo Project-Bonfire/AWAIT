@@ -31,8 +31,8 @@ entity LBDR_bubble_combinatory_with_sequential is
             Rxy_reconf_PE:      in std_logic_vector(7 downto 0);
             Cx_reconf_PE:       in std_logic_vector(3 downto 0);
             Reconfig_command:   in std_logic;
-            hold_in:            in std_logic := '0';
-            hold_out:           out std_logic := '0';
+            hold_in:            in std_logic;
+            hold_out:           out std_logic;
             valid_out:          out std_logic;
             --fault_out:          out std_logic;
 
@@ -361,41 +361,43 @@ err_not_ReConf_FF_out_flit_type_not_Tail_empty_not_grants_Reconfig_command_Rxy_t
 err_not_ReConf_FF_out_flit_type_not_Tail_empty_not_grants_not_Reconfig_command_Rxy_tmp_in_Rxy_tmp_equal <= err_not_ReConf_FF_out_flit_type_not_Tail_empty_not_grants_not_Reconfig_command_Rxy_tmp_in_Rxy_tmp_equal_sig; 
 err_not_ReConf_FF_out_flit_type_not_Tail_empty_not_grants_not_Reconfig_command_ReConf_FF_in_ReConf_FF_out_equal <= err_not_ReConf_FF_out_flit_type_not_Tail_empty_not_grants_not_Reconfig_command_ReConf_FF_in_ReConf_FF_out_equal_sig;
 
-fault_in_sig <= err_header_empty_Requests_FF_Requests_in_sig or err_tail_Requests_in_all_zero_sig or err_tail_empty_Requests_FF_Requests_in_sig or 
-            err_tail_not_empty_not_grants_Requests_FF_Requests_in_sig or err_grants_onehot_sig or err_grants_mismatch_sig or 
-            err_header_tail_Requests_FF_Requests_in_sig or err_dst_addr_cur_addr_N1_sig or err_dst_addr_cur_addr_not_N1_sig or 
-            err_dst_addr_cur_addr_E1_sig or err_dst_addr_cur_addr_not_E1_sig or err_dst_addr_cur_addr_W1_sig or err_dst_addr_cur_addr_not_W1_sig or
-            err_dst_addr_cur_addr_S1_sig or err_dst_addr_cur_addr_not_S1_sig or err_dst_addr_cur_addr_Req_L_in_sig or err_dst_addr_cur_addr_not_Req_L_in_sig or 
-            err_header_not_empty_faulty_drop_packet_in_sig or -- added according to new design
-            err_header_not_empty_not_faulty_drop_packet_in_packet_drop_not_change_sig or -- added according to new design
-            err_header_not_empty_faulty_Req_in_all_zero_sig or -- added according to new design
-            err_header_not_empty_Req_N_in_sig or err_header_not_empty_Req_E_in_sig or err_header_not_empty_Req_W_in_sig or err_header_not_empty_Req_S_in_sig or 
-            err_header_empty_packet_drop_in_packet_drop_equal_sig or err_tail_not_empty_packet_drop_not_packet_drop_in_sig or 
-            err_tail_not_empty_not_packet_drop_packet_drop_in_packet_drop_equal_sig or 
-            err_invalid_or_body_flit_packet_drop_in_packet_drop_equal_sig or 
-            err_packet_drop_order_sig or 
+fault_in_sig <= err_header_empty_Requests_FF_Requests_in_sig; -- or err_tail_Requests_in_all_zero_sig or err_tail_empty_Requests_FF_Requests_in_sig or 
+            --err_tail_not_empty_not_grants_Requests_FF_Requests_in_sig or err_grants_onehot_sig or err_grants_mismatch_sig or 
+            --err_header_tail_Requests_FF_Requests_in_sig or err_dst_addr_cur_addr_N1_sig or err_dst_addr_cur_addr_not_N1_sig or 
+            --err_dst_addr_cur_addr_E1_sig or err_dst_addr_cur_addr_not_E1_sig or err_dst_addr_cur_addr_W1_sig or err_dst_addr_cur_addr_not_W1_sig or
+            --err_dst_addr_cur_addr_S1_sig or err_dst_addr_cur_addr_not_S1_sig or err_dst_addr_cur_addr_Req_L_in_sig or err_dst_addr_cur_addr_not_Req_L_in_sig or 
+            --err_header_not_empty_faulty_drop_packet_in_sig or -- added according to new design
+            --err_header_not_empty_not_faulty_drop_packet_in_packet_drop_not_change_sig or -- added according to new design
+            --err_header_not_empty_faulty_Req_in_all_zero_sig or -- added according to new design
+            --err_header_not_empty_Req_N_in_sig or err_header_not_empty_Req_E_in_sig or err_header_not_empty_Req_W_in_sig or err_header_not_empty_Req_S_in_sig or 
+            --err_header_empty_packet_drop_in_packet_drop_equal_sig or err_tail_not_empty_packet_drop_not_packet_drop_in_sig or 
+            --err_tail_not_empty_not_packet_drop_packet_drop_in_packet_drop_equal_sig or 
+            --err_invalid_or_body_flit_packet_drop_in_packet_drop_equal_sig or 
+            --err_packet_drop_order_sig or 
 
-            -- Cx_Reconf checkers
-            err_reconfig_cx_flit_type_Tail_not_empty_grants_Cx_in_Temp_Cx_equal_sig or 
-            err_reconfig_cx_flit_type_Tail_not_empty_grants_not_reconfig_cx_in_sig or 
-            err_not_reconfig_cx_flit_type_not_Tail_empty_not_grants_Cx_in_Cx_equal_sig or 
-            err_not_reconfig_cx_flit_type_not_Tail_empty_not_grants_Faulty_C_reconfig_cx_in_sig or 
-            err_not_reconfig_cx_flit_type_not_Tail_empty_not_grants_Faulty_C_Temp_Cx_in_sig or 
-            err_not_reconfig_cx_flit_type_not_Tail_empty_not_grants_not_Faulty_C_Reconfig_command_reconfig_cx_in_sig or 
-            err_reconfig_cx_flit_type_Tail_not_empty_grants_Temp_Cx_in_Temp_Cx_equal_sig or 
-            err_not_reconfig_cx_flit_type_not_Tail_empty_not_grants_not_Faulty_C_Temp_Cx_in_Cx_reconf_PE_equal_sig or 
-            err_not_reconfig_cx_flit_type_not_Tail_empty_not_grants_not_Faulty_C_not_Reconfig_command_reconfig_cx_in_reconfig_cx_equal_sig or -- Added 
-            err_not_reconfig_cx_flit_type_not_Tail_empty_not_grants_not_Faulty_C_not_Reconfig_command_Temp_Cx_in_Temp_Cx_equal_sig or -- Added
+            ---- Cx_Reconf checkers
+            --err_reconfig_cx_flit_type_Tail_not_empty_grants_Cx_in_Temp_Cx_equal_sig or 
+            --err_reconfig_cx_flit_type_Tail_not_empty_grants_not_reconfig_cx_in_sig or 
+            --err_not_reconfig_cx_flit_type_not_Tail_empty_not_grants_Cx_in_Cx_equal_sig or 
+            --err_not_reconfig_cx_flit_type_not_Tail_empty_not_grants_Faulty_C_reconfig_cx_in_sig or 
+            --err_not_reconfig_cx_flit_type_not_Tail_empty_not_grants_Faulty_C_Temp_Cx_in_sig or 
+            --err_not_reconfig_cx_flit_type_not_Tail_empty_not_grants_not_Faulty_C_Reconfig_command_reconfig_cx_in_sig or 
+            --err_reconfig_cx_flit_type_Tail_not_empty_grants_Temp_Cx_in_Temp_Cx_equal_sig or 
+            --err_not_reconfig_cx_flit_type_not_Tail_empty_not_grants_not_Faulty_C_Temp_Cx_in_Cx_reconf_PE_equal_sig or 
+            --err_not_reconfig_cx_flit_type_not_Tail_empty_not_grants_not_Faulty_C_not_Reconfig_command_reconfig_cx_in_reconfig_cx_equal_sig or -- Added 
+            --err_not_reconfig_cx_flit_type_not_Tail_empty_not_grants_not_Faulty_C_not_Reconfig_command_Temp_Cx_in_Temp_Cx_equal_sig or -- Added
 
-            -- Rxy_Reconf checkers
-            err_ReConf_FF_out_flit_type_Tail_not_empty_grants_Rxy_in_Rxy_tmp_sig or 
-            err_ReConf_FF_out_flit_type_Tail_not_empty_grants_not_ReConf_FF_in_sig or 
-            err_not_ReConf_FF_out_flit_type_not_Tail_empty_not_grants_Rxy_in_Rxy_equal_sig or 
-            err_not_ReConf_FF_out_flit_type_not_Tail_empty_not_grants_Reconfig_command_ReConf_FF_in_sig or 
-            err_not_ReConf_FF_out_flit_type_not_Tail_empty_not_grants_Reconfig_command_Rxy_tmp_in_Rxy_reconf_PE_equal_sig or 
-            err_not_ReConf_FF_out_flit_type_not_Tail_empty_not_grants_not_Reconfig_command_Rxy_tmp_in_Rxy_tmp_equal_sig or 
-            err_not_ReConf_FF_out_flit_type_not_Tail_empty_not_grants_not_Reconfig_command_ReConf_FF_in_ReConf_FF_out_equal_sig;
+            ---- Rxy_Reconf checkers
+            --err_ReConf_FF_out_flit_type_Tail_not_empty_grants_Rxy_in_Rxy_tmp_sig or 
+            --err_ReConf_FF_out_flit_type_Tail_not_empty_grants_not_ReConf_FF_in_sig or 
+            --err_not_ReConf_FF_out_flit_type_not_Tail_empty_not_grants_Rxy_in_Rxy_equal_sig or 
+            --err_not_ReConf_FF_out_flit_type_not_Tail_empty_not_grants_Reconfig_command_ReConf_FF_in_sig or 
+            --err_not_ReConf_FF_out_flit_type_not_Tail_empty_not_grants_Reconfig_command_Rxy_tmp_in_Rxy_reconf_PE_equal_sig or 
+            --err_not_ReConf_FF_out_flit_type_not_Tail_empty_not_grants_not_Reconfig_command_Rxy_tmp_in_Rxy_tmp_equal_sig or 
+            --err_not_ReConf_FF_out_flit_type_not_Tail_empty_not_grants_not_Reconfig_command_ReConf_FF_in_ReConf_FF_out_equal_sig;
 
+--process (fault_in_sig, hold_in)
+--begin
 --valid_out <= fault_in_sig = '0' and hold_in = '0';
 valid_out <= not fault_in_sig and not hold_in;
 
@@ -406,6 +408,7 @@ valid_out <= not fault_in_sig and not hold_in;
     --hold_out <= fault_in_sig = '1' or hold_in = '1';
     hold_out <= fault_in_sig or hold_in;
   --end if;
+--end process;
 --end process;
 
 --packet_drop_order_sig <= packet_drop;

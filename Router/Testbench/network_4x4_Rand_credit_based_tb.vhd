@@ -252,72 +252,72 @@ port (reset: in  std_logic;
     Cx_reconf_PE_15: in  std_logic_vector(3 downto 0);
     Reconfig_command_15 : in std_logic;
     link_faults_async_15: out std_logic_vector(4 downto 0);
-    turn_faults_async_15: out std_logic_vector(19 downto 0);
+    turn_faults_async_15: out std_logic_vector(19 downto 0) --;
 
-    -- for bubbles
-    --------------
-    hold_in_N_0, hold_in_E_0, hold_in_S_0, hold_in_W_0, hold_in_L_0: in std_logic;
-    hold_out_N_0, hold_out_E_0, hold_out_S_0, hold_out_W_0, hold_out_L_0: out std_logic;
+ --   -- for bubbles
+ --   --------------
+ --   hold_in_N_0, hold_in_E_0, hold_in_S_0, hold_in_W_0, hold_in_L_0: in std_logic;
+ --   hold_out_N_0, hold_out_E_0, hold_out_S_0, hold_out_W_0, hold_out_L_0: out std_logic;
 
-	--------------
-    hold_in_N_1, hold_in_E_1, hold_in_S_1, hold_in_W_1, hold_in_L_1: in std_logic;
-    hold_out_N_1, hold_out_E_1, hold_out_S_1, hold_out_W_1, hold_out_L_1: out std_logic;
+	----------------
+ --   hold_in_N_1, hold_in_E_1, hold_in_S_1, hold_in_W_1, hold_in_L_1: in std_logic;
+ --   hold_out_N_1, hold_out_E_1, hold_out_S_1, hold_out_W_1, hold_out_L_1: out std_logic;
 
-	--------------
-    hold_in_N_2, hold_in_E_2, hold_in_S_2, hold_in_W_2, hold_in_L_2: in std_logic;
-    hold_out_N_2, hold_out_E_2, hold_out_S_2, hold_out_W_2, hold_out_L_2: out std_logic;
+	----------------
+ --   hold_in_N_2, hold_in_E_2, hold_in_S_2, hold_in_W_2, hold_in_L_2: in std_logic;
+ --   hold_out_N_2, hold_out_E_2, hold_out_S_2, hold_out_W_2, hold_out_L_2: out std_logic;
 
-	--------------
-    hold_in_N_3, hold_in_E_3, hold_in_S_3, hold_in_W_3, hold_in_L_3: in std_logic;
-    hold_out_N_3, hold_out_E_3, hold_out_S_3, hold_out_W_3, hold_out_L_3: out std_logic;
+	----------------
+ --   hold_in_N_3, hold_in_E_3, hold_in_S_3, hold_in_W_3, hold_in_L_3: in std_logic;
+ --   hold_out_N_3, hold_out_E_3, hold_out_S_3, hold_out_W_3, hold_out_L_3: out std_logic;
 
-	--------------
-    hold_in_N_4, hold_in_E_4, hold_in_S_4, hold_in_W_4, hold_in_L_4: in std_logic;
-    hold_out_N_4, hold_out_E_4, hold_out_S_4, hold_out_W_4, hold_out_L_4: out std_logic;
+	----------------
+ --   hold_in_N_4, hold_in_E_4, hold_in_S_4, hold_in_W_4, hold_in_L_4: in std_logic;
+ --   hold_out_N_4, hold_out_E_4, hold_out_S_4, hold_out_W_4, hold_out_L_4: out std_logic;
 
-	--------------
-    hold_in_N_5, hold_in_E_5, hold_in_S_5, hold_in_W_5, hold_in_L_5: in std_logic;
-    hold_out_N_5, hold_out_E_5, hold_out_S_5, hold_out_W_5, hold_out_L_5: out std_logic;
+	----------------
+ --   hold_in_N_5, hold_in_E_5, hold_in_S_5, hold_in_W_5, hold_in_L_5: in std_logic;
+ --   hold_out_N_5, hold_out_E_5, hold_out_S_5, hold_out_W_5, hold_out_L_5: out std_logic;
 
-	--------------
-    hold_in_N_6, hold_in_E_6, hold_in_S_6, hold_in_W_6, hold_in_L_6: in std_logic;
-    hold_out_N_6, hold_out_E_6, hold_out_S_6, hold_out_W_6, hold_out_L_6: out std_logic;
+	----------------
+ --   hold_in_N_6, hold_in_E_6, hold_in_S_6, hold_in_W_6, hold_in_L_6: in std_logic;
+ --   hold_out_N_6, hold_out_E_6, hold_out_S_6, hold_out_W_6, hold_out_L_6: out std_logic;
 
-	--------------
-    hold_in_N_7, hold_in_E_7, hold_in_S_7, hold_in_W_7, hold_in_L_7: in std_logic;
-    hold_out_N_7, hold_out_E_7, hold_out_S_7, hold_out_W_7, hold_out_L_7: out std_logic;
+	----------------
+ --   hold_in_N_7, hold_in_E_7, hold_in_S_7, hold_in_W_7, hold_in_L_7: in std_logic;
+ --   hold_out_N_7, hold_out_E_7, hold_out_S_7, hold_out_W_7, hold_out_L_7: out std_logic;
 
-	--------------
-    hold_in_N_8, hold_in_E_8, hold_in_S_8, hold_in_W_8, hold_in_L_8: in std_logic;
-    hold_out_N_8, hold_out_E_8, hold_out_S_8, hold_out_W_8, hold_out_L_8: out std_logic;
+	----------------
+ --   hold_in_N_8, hold_in_E_8, hold_in_S_8, hold_in_W_8, hold_in_L_8: in std_logic;
+ --   hold_out_N_8, hold_out_E_8, hold_out_S_8, hold_out_W_8, hold_out_L_8: out std_logic;
 
-	--------------
-    hold_in_N_9, hold_in_E_9, hold_in_S_9, hold_in_W_9, hold_in_L_9: in std_logic;
-    hold_out_N_9, hold_out_E_9, hold_out_S_9, hold_out_W_9, hold_out_L_9: out std_logic;
+	----------------
+ --   hold_in_N_9, hold_in_E_9, hold_in_S_9, hold_in_W_9, hold_in_L_9: in std_logic;
+ --   hold_out_N_9, hold_out_E_9, hold_out_S_9, hold_out_W_9, hold_out_L_9: out std_logic;
 
-	--------------
-    hold_in_N_10, hold_in_E_10, hold_in_S_10, hold_in_W_10, hold_in_L_10: in std_logic;
-    hold_out_N_10, hold_out_E_10, hold_out_S_10, hold_out_W_10, hold_out_L_10: out std_logic;
+	----------------
+ --   hold_in_N_10, hold_in_E_10, hold_in_S_10, hold_in_W_10, hold_in_L_10: in std_logic;
+ --   hold_out_N_10, hold_out_E_10, hold_out_S_10, hold_out_W_10, hold_out_L_10: out std_logic;
 
-	--------------
-    hold_in_N_11, hold_in_E_11, hold_in_S_11, hold_in_W_11, hold_in_L_11: in std_logic;
-    hold_out_N_11, hold_out_E_11, hold_out_S_11, hold_out_W_11, hold_out_L_11: out std_logic;
+	----------------
+ --   hold_in_N_11, hold_in_E_11, hold_in_S_11, hold_in_W_11, hold_in_L_11: in std_logic;
+ --   hold_out_N_11, hold_out_E_11, hold_out_S_11, hold_out_W_11, hold_out_L_11: out std_logic;
 
-	--------------
-    hold_in_N_12, hold_in_E_12, hold_in_S_12, hold_in_W_12, hold_in_L_12: in std_logic;
-    hold_out_N_12, hold_out_E_12, hold_out_S_12, hold_out_W_12, hold_out_L_12: out std_logic;
+	----------------
+ --   hold_in_N_12, hold_in_E_12, hold_in_S_12, hold_in_W_12, hold_in_L_12: in std_logic;
+ --   hold_out_N_12, hold_out_E_12, hold_out_S_12, hold_out_W_12, hold_out_L_12: out std_logic;
 
-	--------------
-    hold_in_N_13, hold_in_E_13, hold_in_S_13, hold_in_W_13, hold_in_L_13: in std_logic;
-    hold_out_N_13, hold_out_E_13, hold_out_S_13, hold_out_W_13, hold_out_L_13: out std_logic;
+	----------------
+ --   hold_in_N_13, hold_in_E_13, hold_in_S_13, hold_in_W_13, hold_in_L_13: in std_logic;
+ --   hold_out_N_13, hold_out_E_13, hold_out_S_13, hold_out_W_13, hold_out_L_13: out std_logic;
 
-	--------------
-    hold_in_N_14, hold_in_E_14, hold_in_S_14, hold_in_W_14, hold_in_L_14: in std_logic;
-    hold_out_N_14, hold_out_E_14, hold_out_S_14, hold_out_W_14, hold_out_L_14: out std_logic;
+	----------------
+ --   hold_in_N_14, hold_in_E_14, hold_in_S_14, hold_in_W_14, hold_in_L_14: in std_logic;
+ --   hold_out_N_14, hold_out_E_14, hold_out_S_14, hold_out_W_14, hold_out_L_14: out std_logic;
 
-	--------------
-    hold_in_N_15, hold_in_E_15, hold_in_S_15, hold_in_W_15, hold_in_L_15: in std_logic;
-    hold_out_N_15, hold_out_E_15, hold_out_S_15, hold_out_W_15, hold_out_L_15: out std_logic
+	----------------
+ --   hold_in_N_15, hold_in_E_15, hold_in_S_15, hold_in_W_15, hold_in_L_15: in std_logic;
+ --   hold_out_N_15, hold_out_E_15, hold_out_S_15, hold_out_W_15, hold_out_L_15: out std_logic
 
    ); 
 
@@ -504,39 +504,39 @@ end component;
 	signal link_faults_async_15 : std_logic_vector(4 downto 0);
 	signal turn_faults_async_15 : std_logic_vector(19 downto 0);
 
-	-- for bubble
-    signal hold_in_N_0_sig, hold_in_E_0_sig, hold_in_S_0_sig, hold_in_W_0_sig, hold_in_L_0_sig: std_logic := '1';
-    signal hold_out_N_0_sig, hold_out_E_0_sig, hold_out_S_0_sig, hold_out_W_0_sig, hold_out_L_0_sig: std_logic;
-    signal hold_in_N_1_sig, hold_in_E_1_sig, hold_in_S_1_sig, hold_in_W_1_sig, hold_in_L_1_sig: std_logic := '1';
-    signal hold_out_N_1_sig, hold_out_E_1_sig, hold_out_S_1_sig, hold_out_W_1_sig, hold_out_L_1_sig: std_logic;
-    signal hold_in_N_2_sig, hold_in_E_2_sig, hold_in_S_2_sig, hold_in_W_2_sig, hold_in_L_2_sig: std_logic := '1';
-    signal hold_out_N_2_sig, hold_out_E_2_sig, hold_out_S_2_sig, hold_out_W_2_sig, hold_out_L_2_sig: std_logic;
-    signal hold_in_N_3_sig, hold_in_E_3_sig, hold_in_S_3_sig, hold_in_W_3_sig, hold_in_L_3_sig: std_logic := '1';
-    signal hold_out_N_3_sig, hold_out_E_3_sig, hold_out_S_3_sig, hold_out_W_3_sig, hold_out_L_3_sig: std_logic;
-    signal hold_in_N_4_sig, hold_in_E_4_sig, hold_in_S_4_sig, hold_in_W_4_sig, hold_in_L_4_sig: std_logic := '1';
-    signal hold_out_N_4_sig, hold_out_E_4_sig, hold_out_S_4_sig, hold_out_W_4_sig, hold_out_L_4_sig: std_logic;
-    signal hold_in_N_5_sig, hold_in_E_5_sig, hold_in_S_5_sig, hold_in_W_5_sig, hold_in_L_5_sig: std_logic := '1';
-    signal hold_out_N_5_sig, hold_out_E_5_sig, hold_out_S_5_sig, hold_out_W_5_sig, hold_out_L_5_sig: std_logic;
-    signal hold_in_N_6_sig, hold_in_E_6_sig, hold_in_S_6_sig, hold_in_W_6_sig, hold_in_L_6_sig: std_logic := '1';
-    signal hold_out_N_6_sig, hold_out_E_6_sig, hold_out_S_6_sig, hold_out_W_6_sig, hold_out_L_6_sig: std_logic;
-    signal hold_in_N_7_sig, hold_in_E_7_sig, hold_in_S_7_sig, hold_in_W_7_sig, hold_in_L_7_sig: std_logic := '1';
-    signal hold_out_N_7_sig, hold_out_E_7_sig, hold_out_S_7_sig, hold_out_W_7_sig, hold_out_L_7_sig: std_logic;
-    signal hold_in_N_8_sig, hold_in_E_8_sig, hold_in_S_8_sig, hold_in_W_8_sig, hold_in_L_8_sig: std_logic := '1';
-    signal hold_out_N_8_sig, hold_out_E_8_sig, hold_out_S_8_sig, hold_out_W_8_sig, hold_out_L_8_sig: std_logic;
-    signal hold_in_N_9_sig, hold_in_E_9_sig, hold_in_S_9_sig, hold_in_W_9_sig, hold_in_L_9_sig: std_logic := '1';
-    signal hold_out_N_9_sig, hold_out_E_9_sig, hold_out_S_9_sig, hold_out_W_9_sig, hold_out_L_9_sig: std_logic;
-    signal hold_in_N_10_sig, hold_in_E_10_sig, hold_in_S_10_sig, hold_in_W_10_sig, hold_in_L_10_sig: std_logic := '1';
-    signal hold_out_N_10_sig, hold_out_E_10_sig, hold_out_S_10_sig, hold_out_W_10_sig, hold_out_L_10_sig: std_logic;
-    signal hold_in_N_11_sig, hold_in_E_11_sig, hold_in_S_11_sig, hold_in_W_11_sig, hold_in_L_11_sig: std_logic := '1';
-    signal hold_out_N_11_sig, hold_out_E_11_sig, hold_out_S_11_sig, hold_out_W_11_sig, hold_out_L_11_sig: std_logic;
-    signal hold_in_N_12_sig, hold_in_E_12_sig, hold_in_S_12_sig, hold_in_W_12_sig, hold_in_L_12_sig: std_logic := '1';
-    signal hold_out_N_12_sig, hold_out_E_12_sig, hold_out_S_12_sig, hold_out_W_12_sig, hold_out_L_12_sig: std_logic;
-    signal hold_in_N_13_sig, hold_in_E_13_sig, hold_in_S_13_sig, hold_in_W_13_sig, hold_in_L_13_sig: std_logic := '1';
-    signal hold_out_N_13_sig, hold_out_E_13_sig, hold_out_S_13_sig, hold_out_W_13_sig, hold_out_L_13_sig: std_logic;
-    signal hold_in_N_14_sig, hold_in_E_14_sig, hold_in_S_14_sig, hold_in_W_14_sig, hold_in_L_14_sig: std_logic := '1';
-    signal hold_out_N_14_sig, hold_out_E_14_sig, hold_out_S_14_sig, hold_out_W_14_sig, hold_out_L_14_sig: std_logic;
-    signal hold_in_N_15_sig, hold_in_E_15_sig, hold_in_S_15_sig, hold_in_W_15_sig, hold_in_L_15_sig: std_logic := '1';
-    signal hold_out_N_15_sig, hold_out_E_15_sig, hold_out_S_15_sig, hold_out_W_15_sig, hold_out_L_15_sig: std_logic;
+	---- for bubble
+ --   signal hold_in_N_0_sig, hold_in_E_0_sig, hold_in_S_0_sig, hold_in_W_0_sig, hold_in_L_0_sig: std_logic := '0';
+ --   signal hold_out_N_0_sig, hold_out_E_0_sig, hold_out_S_0_sig, hold_out_W_0_sig, hold_out_L_0_sig: std_logic;
+ --   signal hold_in_N_1_sig, hold_in_E_1_sig, hold_in_S_1_sig, hold_in_W_1_sig, hold_in_L_1_sig: std_logic := '0';
+ --   signal hold_out_N_1_sig, hold_out_E_1_sig, hold_out_S_1_sig, hold_out_W_1_sig, hold_out_L_1_sig: std_logic;
+ --   signal hold_in_N_2_sig, hold_in_E_2_sig, hold_in_S_2_sig, hold_in_W_2_sig, hold_in_L_2_sig: std_logic := '0';
+ --   signal hold_out_N_2_sig, hold_out_E_2_sig, hold_out_S_2_sig, hold_out_W_2_sig, hold_out_L_2_sig: std_logic;
+ --   signal hold_in_N_3_sig, hold_in_E_3_sig, hold_in_S_3_sig, hold_in_W_3_sig, hold_in_L_3_sig: std_logic := '0';
+ --   signal hold_out_N_3_sig, hold_out_E_3_sig, hold_out_S_3_sig, hold_out_W_3_sig, hold_out_L_3_sig: std_logic;
+ --   signal hold_in_N_4_sig, hold_in_E_4_sig, hold_in_S_4_sig, hold_in_W_4_sig, hold_in_L_4_sig: std_logic := '0';
+ --   signal hold_out_N_4_sig, hold_out_E_4_sig, hold_out_S_4_sig, hold_out_W_4_sig, hold_out_L_4_sig: std_logic;
+ --   signal hold_in_N_5_sig, hold_in_E_5_sig, hold_in_S_5_sig, hold_in_W_5_sig, hold_in_L_5_sig: std_logic := '0';
+ --   signal hold_out_N_5_sig, hold_out_E_5_sig, hold_out_S_5_sig, hold_out_W_5_sig, hold_out_L_5_sig: std_logic;
+ --   signal hold_in_N_6_sig, hold_in_E_6_sig, hold_in_S_6_sig, hold_in_W_6_sig, hold_in_L_6_sig: std_logic := '0';
+ --   signal hold_out_N_6_sig, hold_out_E_6_sig, hold_out_S_6_sig, hold_out_W_6_sig, hold_out_L_6_sig: std_logic;
+ --   signal hold_in_N_7_sig, hold_in_E_7_sig, hold_in_S_7_sig, hold_in_W_7_sig, hold_in_L_7_sig: std_logic := '0';
+ --   signal hold_out_N_7_sig, hold_out_E_7_sig, hold_out_S_7_sig, hold_out_W_7_sig, hold_out_L_7_sig: std_logic;
+ --   signal hold_in_N_8_sig, hold_in_E_8_sig, hold_in_S_8_sig, hold_in_W_8_sig, hold_in_L_8_sig: std_logic := '0';
+ --   signal hold_out_N_8_sig, hold_out_E_8_sig, hold_out_S_8_sig, hold_out_W_8_sig, hold_out_L_8_sig: std_logic;
+ --   signal hold_in_N_9_sig, hold_in_E_9_sig, hold_in_S_9_sig, hold_in_W_9_sig, hold_in_L_9_sig: std_logic := '0';
+ --   signal hold_out_N_9_sig, hold_out_E_9_sig, hold_out_S_9_sig, hold_out_W_9_sig, hold_out_L_9_sig: std_logic;
+ --   signal hold_in_N_10_sig, hold_in_E_10_sig, hold_in_S_10_sig, hold_in_W_10_sig, hold_in_L_10_sig: std_logic := '0';
+ --   signal hold_out_N_10_sig, hold_out_E_10_sig, hold_out_S_10_sig, hold_out_W_10_sig, hold_out_L_10_sig: std_logic;
+ --   signal hold_in_N_11_sig, hold_in_E_11_sig, hold_in_S_11_sig, hold_in_W_11_sig, hold_in_L_11_sig: std_logic := '0';
+ --   signal hold_out_N_11_sig, hold_out_E_11_sig, hold_out_S_11_sig, hold_out_W_11_sig, hold_out_L_11_sig: std_logic;
+ --   signal hold_in_N_12_sig, hold_in_E_12_sig, hold_in_S_12_sig, hold_in_W_12_sig, hold_in_L_12_sig: std_logic := '0';
+ --   signal hold_out_N_12_sig, hold_out_E_12_sig, hold_out_S_12_sig, hold_out_W_12_sig, hold_out_L_12_sig: std_logic;
+ --   signal hold_in_N_13_sig, hold_in_E_13_sig, hold_in_S_13_sig, hold_in_W_13_sig, hold_in_L_13_sig: std_logic := '0';
+ --   signal hold_out_N_13_sig, hold_out_E_13_sig, hold_out_S_13_sig, hold_out_W_13_sig, hold_out_L_13_sig: std_logic;
+ --   signal hold_in_N_14_sig, hold_in_E_14_sig, hold_in_S_14_sig, hold_in_W_14_sig, hold_in_L_14_sig: std_logic := '0';
+ --   signal hold_out_N_14_sig, hold_out_E_14_sig, hold_out_S_14_sig, hold_out_W_14_sig, hold_out_L_14_sig: std_logic;
+ --   signal hold_in_N_15_sig, hold_in_E_15_sig, hold_in_S_15_sig, hold_in_W_15_sig, hold_in_L_15_sig: std_logic := '0';
+ --   signal hold_out_N_15_sig, hold_out_E_15_sig, hold_out_S_15_sig, hold_out_W_15_sig, hold_out_L_15_sig: std_logic;
 
 begin
 
@@ -585,41 +585,41 @@ port map (reset, clk,
 	link_faults_12, turn_faults_12,	Rxy_reconf_PE_12, Cx_reconf_PE_12, Reconfig_command_12, link_faults_async_12, turn_faults_async_12, 
 	link_faults_13, turn_faults_13,	Rxy_reconf_PE_13, Cx_reconf_PE_13, Reconfig_command_13, link_faults_async_13, turn_faults_async_13, 
 	link_faults_14, turn_faults_14,	Rxy_reconf_PE_14, Cx_reconf_PE_14, Reconfig_command_14, link_faults_async_14, turn_faults_async_14, 
-	link_faults_15, turn_faults_15,	Rxy_reconf_PE_15, Cx_reconf_PE_15, Reconfig_command_15, link_faults_async_15, turn_faults_async_15,
+	link_faults_15, turn_faults_15,	Rxy_reconf_PE_15, Cx_reconf_PE_15, Reconfig_command_15, link_faults_async_15, turn_faults_async_15--,
 
-	-- for bubbles
-	hold_in_N_0_sig, hold_in_E_0_sig, hold_in_S_0_sig, hold_in_W_0_sig, hold_in_L_0_sig,
-    hold_out_N_0_sig, hold_out_E_0_sig, hold_out_S_0_sig, hold_out_W_0_sig, hold_out_L_0_sig,
-    hold_in_N_1_sig, hold_in_E_1_sig, hold_in_S_1_sig, hold_in_W_1_sig, hold_in_L_1_sig,
-    hold_out_N_1_sig, hold_out_E_1_sig, hold_out_S_1_sig, hold_out_W_1_sig, hold_out_L_1_sig,
-    hold_in_N_2_sig, hold_in_E_2_sig, hold_in_S_2_sig, hold_in_W_2_sig, hold_in_L_2_sig,
-    hold_out_N_2_sig, hold_out_E_2_sig, hold_out_S_2_sig, hold_out_W_2_sig, hold_out_L_2_sig,
-    hold_in_N_3_sig, hold_in_E_3_sig, hold_in_S_3_sig, hold_in_W_3_sig, hold_in_L_3_sig,
-    hold_out_N_3_sig, hold_out_E_3_sig, hold_out_S_3_sig, hold_out_W_3_sig, hold_out_L_3_sig,
-    hold_in_N_4_sig, hold_in_E_4_sig, hold_in_S_4_sig, hold_in_W_4_sig, hold_in_L_4_sig,
-    hold_out_N_4_sig, hold_out_E_4_sig, hold_out_S_4_sig, hold_out_W_4_sig, hold_out_L_4_sig,
-    hold_in_N_5_sig, hold_in_E_5_sig, hold_in_S_5_sig, hold_in_W_5_sig, hold_in_L_5_sig,
-    hold_out_N_5_sig, hold_out_E_5_sig, hold_out_S_5_sig, hold_out_W_5_sig, hold_out_L_5_sig,
-    hold_in_N_6_sig, hold_in_E_6_sig, hold_in_S_6_sig, hold_in_W_6_sig, hold_in_L_6_sig,
-    hold_out_N_6_sig, hold_out_E_6_sig, hold_out_S_6_sig, hold_out_W_6_sig, hold_out_L_6_sig,
-    hold_in_N_7_sig, hold_in_E_7_sig, hold_in_S_7_sig, hold_in_W_7_sig, hold_in_L_7_sig,
-    hold_out_N_7_sig, hold_out_E_7_sig, hold_out_S_7_sig, hold_out_W_7_sig, hold_out_L_7_sig,
-    hold_in_N_8_sig, hold_in_E_8_sig, hold_in_S_8_sig, hold_in_W_8_sig, hold_in_L_8_sig,
-    hold_out_N_8_sig, hold_out_E_8_sig, hold_out_S_8_sig, hold_out_W_8_sig, hold_out_L_8_sig,
-    hold_in_N_9_sig, hold_in_E_9_sig, hold_in_S_9_sig, hold_in_W_9_sig, hold_in_L_9_sig,
-    hold_out_N_9_sig, hold_out_E_9_sig, hold_out_S_9_sig, hold_out_W_9_sig, hold_out_L_9_sig,
-    hold_in_N_10_sig, hold_in_E_10_sig, hold_in_S_10_sig, hold_in_W_10_sig, hold_in_L_10_sig,
-    hold_out_N_10_sig, hold_out_E_10_sig, hold_out_S_10_sig, hold_out_W_10_sig, hold_out_L_10_sig,
-    hold_in_N_11_sig, hold_in_E_11_sig, hold_in_S_11_sig, hold_in_W_11_sig, hold_in_L_11_sig,
-    hold_out_N_11_sig, hold_out_E_11_sig, hold_out_S_11_sig, hold_out_W_11_sig, hold_out_L_11_sig,
-    hold_in_N_12_sig, hold_in_E_12_sig, hold_in_S_12_sig, hold_in_W_12_sig, hold_in_L_12_sig,
-    hold_out_N_12_sig, hold_out_E_12_sig, hold_out_S_12_sig, hold_out_W_12_sig, hold_out_L_12_sig,
-    hold_in_N_13_sig, hold_in_E_13_sig, hold_in_S_13_sig, hold_in_W_13_sig, hold_in_L_13_sig,
-    hold_out_N_13_sig, hold_out_E_13_sig, hold_out_S_13_sig, hold_out_W_13_sig, hold_out_L_13_sig,
-    hold_in_N_14_sig, hold_in_E_14_sig, hold_in_S_14_sig, hold_in_W_14_sig, hold_in_L_14_sig,
-    hold_out_N_14_sig, hold_out_E_14_sig, hold_out_S_14_sig, hold_out_W_14_sig, hold_out_L_14_sig,
-    hold_in_N_15_sig, hold_in_E_15_sig, hold_in_S_15_sig, hold_in_W_15_sig, hold_in_L_15_sig,
-    hold_out_N_15_sig, hold_out_E_15_sig, hold_out_S_15_sig, hold_out_W_15_sig, hold_out_L_15_sig
+	---- for bubbles
+	--hold_in_N_0_sig, hold_in_E_0_sig, hold_in_S_0_sig, hold_in_W_0_sig, hold_in_L_0_sig,
+ --   hold_out_N_0_sig, hold_out_E_0_sig, hold_out_S_0_sig, hold_out_W_0_sig, hold_out_L_0_sig,
+ --   hold_in_N_1_sig, hold_in_E_1_sig, hold_in_S_1_sig, hold_in_W_1_sig, hold_in_L_1_sig,
+ --   hold_out_N_1_sig, hold_out_E_1_sig, hold_out_S_1_sig, hold_out_W_1_sig, hold_out_L_1_sig,
+ --   hold_in_N_2_sig, hold_in_E_2_sig, hold_in_S_2_sig, hold_in_W_2_sig, hold_in_L_2_sig,
+ --   hold_out_N_2_sig, hold_out_E_2_sig, hold_out_S_2_sig, hold_out_W_2_sig, hold_out_L_2_sig,
+ --   hold_in_N_3_sig, hold_in_E_3_sig, hold_in_S_3_sig, hold_in_W_3_sig, hold_in_L_3_sig,
+ --   hold_out_N_3_sig, hold_out_E_3_sig, hold_out_S_3_sig, hold_out_W_3_sig, hold_out_L_3_sig,
+ --   hold_in_N_4_sig, hold_in_E_4_sig, hold_in_S_4_sig, hold_in_W_4_sig, hold_in_L_4_sig,
+ --   hold_out_N_4_sig, hold_out_E_4_sig, hold_out_S_4_sig, hold_out_W_4_sig, hold_out_L_4_sig,
+ --   hold_in_N_5_sig, hold_in_E_5_sig, hold_in_S_5_sig, hold_in_W_5_sig, hold_in_L_5_sig,
+ --   hold_out_N_5_sig, hold_out_E_5_sig, hold_out_S_5_sig, hold_out_W_5_sig, hold_out_L_5_sig,
+ --   hold_in_N_6_sig, hold_in_E_6_sig, hold_in_S_6_sig, hold_in_W_6_sig, hold_in_L_6_sig,
+ --   hold_out_N_6_sig, hold_out_E_6_sig, hold_out_S_6_sig, hold_out_W_6_sig, hold_out_L_6_sig,
+ --   hold_in_N_7_sig, hold_in_E_7_sig, hold_in_S_7_sig, hold_in_W_7_sig, hold_in_L_7_sig,
+ --   hold_out_N_7_sig, hold_out_E_7_sig, hold_out_S_7_sig, hold_out_W_7_sig, hold_out_L_7_sig,
+ --   hold_in_N_8_sig, hold_in_E_8_sig, hold_in_S_8_sig, hold_in_W_8_sig, hold_in_L_8_sig,
+ --   hold_out_N_8_sig, hold_out_E_8_sig, hold_out_S_8_sig, hold_out_W_8_sig, hold_out_L_8_sig,
+ --   hold_in_N_9_sig, hold_in_E_9_sig, hold_in_S_9_sig, hold_in_W_9_sig, hold_in_L_9_sig,
+ --   hold_out_N_9_sig, hold_out_E_9_sig, hold_out_S_9_sig, hold_out_W_9_sig, hold_out_L_9_sig,
+ --   hold_in_N_10_sig, hold_in_E_10_sig, hold_in_S_10_sig, hold_in_W_10_sig, hold_in_L_10_sig,
+ --   hold_out_N_10_sig, hold_out_E_10_sig, hold_out_S_10_sig, hold_out_W_10_sig, hold_out_L_10_sig,
+ --   hold_in_N_11_sig, hold_in_E_11_sig, hold_in_S_11_sig, hold_in_W_11_sig, hold_in_L_11_sig,
+ --   hold_out_N_11_sig, hold_out_E_11_sig, hold_out_S_11_sig, hold_out_W_11_sig, hold_out_L_11_sig,
+ --   hold_in_N_12_sig, hold_in_E_12_sig, hold_in_S_12_sig, hold_in_W_12_sig, hold_in_L_12_sig,
+ --   hold_out_N_12_sig, hold_out_E_12_sig, hold_out_S_12_sig, hold_out_W_12_sig, hold_out_L_12_sig,
+ --   hold_in_N_13_sig, hold_in_E_13_sig, hold_in_S_13_sig, hold_in_W_13_sig, hold_in_L_13_sig,
+ --   hold_out_N_13_sig, hold_out_E_13_sig, hold_out_S_13_sig, hold_out_W_13_sig, hold_out_L_13_sig,
+ --   hold_in_N_14_sig, hold_in_E_14_sig, hold_in_S_14_sig, hold_in_W_14_sig, hold_in_L_14_sig,
+ --   hold_out_N_14_sig, hold_out_E_14_sig, hold_out_S_14_sig, hold_out_W_14_sig, hold_out_L_14_sig,
+ --   hold_in_N_15_sig, hold_in_E_15_sig, hold_in_S_15_sig, hold_in_W_15_sig, hold_in_L_15_sig,
+ --   hold_out_N_15_sig, hold_out_E_15_sig, hold_out_S_15_sig, hold_out_W_15_sig, hold_out_L_15_sig
         ); 
 not_reset <= not reset; 
 
