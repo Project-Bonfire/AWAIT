@@ -32,8 +32,8 @@ entity router_credit_based_PD_C_SHMU_with_checkers is  --fault classifier plus p
     Faulty_N_out, Faulty_E_out, Faulty_W_out, Faulty_S_out: out std_logic;
 
     -- For bubbles
-    hold_in_N, hold_in_E, hold_in_S, hold_in_W, hold_in_L: in std_logic := '0';
-    hold_out_N, hold_out_E, hold_out_S, hold_out_W, hold_out_L: out std_logic := '0';
+    --hold_in_N, hold_in_E, hold_in_S, hold_in_W, hold_in_L: in std_logic := '0';
+    --hold_out_N, hold_out_E, hold_out_S, hold_out_W, hold_out_L: out std_logic := '0';
 
     -- should be connected to NI (Outputs for classified fault information)
     link_faults: out std_logic_vector(4 downto 0);
@@ -73,7 +73,7 @@ architecture behavior of router_credit_based_PD_C_SHMU_with_checkers is
         flit_type_N, flit_type_E, flit_type_W, flit_type_S, flit_type_L: in std_logic_vector(2 downto 0);
         LBDR_Fault_N, LBDR_Fault_E, LBDR_Fault_W, LBDR_Fault_S, LBDR_Fault_L: in std_logic;
 
-        hold_in_N, hold_in_E, hold_in_S, hold_in_W, hold_in_L: in std_logic := '0';
+        --hold_in_N, hold_in_E, hold_in_S, hold_in_W, hold_in_L: in std_logic := '0';
 
         valid_out_N, valid_out_E, valid_out_W,  valid_out_S,  valid_out_L : out std_logic;
         Xbar_sel_N, Xbar_sel_E, Xbar_sel_W, Xbar_sel_S, Xbar_sel_L: out std_logic_vector (4 downto 0);
@@ -5319,7 +5319,7 @@ CONTROL_PART_WITH_CHECKERS: router_credit_based_PD_C_SHMU_control_part_with_chec
                 FIFO_D_out_L(DATA_WIDTH-1 downto DATA_WIDTH-3), 
                 LBDR_Fault_N, LBDR_Fault_E, LBDR_Fault_W, LBDR_Fault_S, LBDR_Fault_L,
 
-                hold_in_N, hold_in_E, hold_in_S, hold_in_W, hold_in_L,
+                --hold_in_N, hold_in_E, hold_in_S, hold_in_W, hold_in_L,
 
                 valid_out_N, valid_out_E, valid_out_W, valid_out_S, valid_out_L, 
                 Xbar_sel_N, Xbar_sel_E, Xbar_sel_W, Xbar_sel_S, Xbar_sel_L, 
@@ -5330,7 +5330,7 @@ CONTROL_PART_WITH_CHECKERS: router_credit_based_PD_C_SHMU_control_part_with_chec
                 FIFO_S_read_en_N, FIFO_S_read_en_E, FIFO_S_read_en_W, FIFO_S_read_en_L, 
                 FIFO_L_read_en_N, FIFO_L_read_en_E, FIFO_L_read_en_W, FIFO_L_read_en_S,
 
-                hold_out_N, hold_out_E, hold_out_S, hold_out_W, hold_out_L,
+                --hold_out_N, hold_out_E, hold_out_S, hold_out_W, hold_out_L,
 
                 -- LBDR checkers (5 LBDR modules)
                 -- North

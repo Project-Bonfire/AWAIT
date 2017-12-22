@@ -31,9 +31,9 @@ entity LBDR_bubble_combinatory_with_sequential is
             Rxy_reconf_PE:      in std_logic_vector(7 downto 0);
             Cx_reconf_PE:       in std_logic_vector(3 downto 0);
             Reconfig_command:   in std_logic;
-            hold_in:            in std_logic;
+            --hold_in:            in std_logic;
             hold_out:           out std_logic;
-            valid_out:          out std_logic;
+            --valid_out:          out std_logic;
             --fault_out:          out std_logic;
 
             -- Checker outputs
@@ -168,7 +168,7 @@ LBDR_bubble_seq_c:
               Temp_Cx_in      => Temp_Cx_in_sig,
               ReConf_FF_in    => ReConf_FF_in_sig,
               packet_drop_in  => packet_drop_in_sig,
-              hold_in         => hold_in,
+              --hold_in         => hold_in,
               fault_in        => fault_in_sig,
 
               -- OUTPUTS INNER
@@ -399,14 +399,16 @@ fault_in_sig <= err_header_empty_Requests_FF_Requests_in_sig; -- or err_tail_Req
 --process (fault_in_sig, hold_in)
 --begin
 --valid_out <= fault_in_sig = '0' and hold_in = '0';
-valid_out <= not fault_in_sig and not hold_in;
+--valid_out <= not fault_in_sig and not hold_in;
+--valid_out <= not fault_in_sig;
 
 -- buffered output?
 --hold_out_p: process (clk)
 --begin
   --if clk'event and clk = '1' then
     --hold_out <= fault_in_sig = '1' or hold_in = '1';
-    hold_out <= fault_in_sig or hold_in;
+    --hold_out <= fault_in_sig or hold_in;
+hold_out <= fault_in_sig;
   --end if;
 --end process;
 --end process;

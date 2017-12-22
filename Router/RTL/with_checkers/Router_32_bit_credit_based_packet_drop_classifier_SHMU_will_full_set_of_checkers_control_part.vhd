@@ -589,7 +589,9 @@ LBDR_N: LBDR_bubble_combinatory_with_sequential generic map (cur_addr_rst => cur
              Req_N=> open, Req_E=>Req_NE, Req_W=>Req_NW, Req_S=>Req_NS, Req_L=>Req_NL,
              Rxy_reconf_PE => Rxy_reconf_PE, Cx_reconf_PE => Cx_reconf_PE, Reconfig_command=>Reconfig_command,
 
-             hold_in => hold_in_N, hold_out => hold_out_N, valid_out => valid_LBDR_N_sig,
+             --hold_in => hold_in_N, 
+             hold_out => hold_out_N, 
+             --valid_out => valid_LBDR_N_sig,
 
              -- Checker outputs
             err_header_empty_Requests_FF_Requests_in => N_err_header_empty_Requests_FF_Requests_in, 
@@ -651,7 +653,9 @@ LBDR_E: LBDR_bubble_combinatory_with_sequential generic map (cur_addr_rst => cur
              Req_N=> Req_EN, Req_E=>open, Req_W=>Req_EW, Req_S=>Req_ES, Req_L=>Req_EL,
              Rxy_reconf_PE => Rxy_reconf_PE, Cx_reconf_PE => Cx_reconf_PE, Reconfig_command=>Reconfig_command,
 
-             hold_in => hold_in_E, hold_out => hold_out_E, valid_out => valid_LBDR_E_sig,
+             --hold_in => hold_in_E, 
+             hold_out => hold_out_E, 
+             --valid_out => valid_LBDR_E_sig,
 
              -- Checker outputs
             err_header_empty_Requests_FF_Requests_in => E_err_header_empty_Requests_FF_Requests_in, 
@@ -713,7 +717,9 @@ LBDR_W: LBDR_bubble_combinatory_with_sequential generic map (cur_addr_rst => cur
              Req_N=> Req_WN, Req_E=>Req_WE, Req_W=>open, Req_S=>Req_WS, Req_L=>Req_WL,
              Rxy_reconf_PE => Rxy_reconf_PE, Cx_reconf_PE => Cx_reconf_PE, Reconfig_command=>Reconfig_command,
 
-             hold_in => hold_in_W, hold_out => hold_out_W, valid_out => valid_LBDR_W_sig,
+             --hold_in => hold_in_W, 
+             hold_out => hold_out_W, 
+             --valid_out => valid_LBDR_W_sig,
 
              -- Checker outputs
             err_header_empty_Requests_FF_Requests_in => W_err_header_empty_Requests_FF_Requests_in, 
@@ -775,7 +781,9 @@ LBDR_S: LBDR_bubble_combinatory_with_sequential generic map (cur_addr_rst => cur
              Req_N=> Req_SN, Req_E=>Req_SE, Req_W=>Req_SW, Req_S=>open, Req_L=>Req_SL,
              Rxy_reconf_PE => Rxy_reconf_PE, Cx_reconf_PE => Cx_reconf_PE, Reconfig_command=>Reconfig_command,
 
-             hold_in => hold_in_S, hold_out => hold_out_S, valid_out => valid_LBDR_S_sig,
+             --hold_in => hold_in_S, 
+             hold_out => hold_out_S, 
+             --valid_out => valid_LBDR_S_sig,
 
              -- Checker outputs
             err_header_empty_Requests_FF_Requests_in => S_err_header_empty_Requests_FF_Requests_in, 
@@ -837,7 +845,9 @@ LBDR_L: LBDR_bubble_combinatory_with_sequential generic map (cur_addr_rst => cur
              Req_N=> Req_LN, Req_E=>Req_LE, Req_W=>Req_LW, Req_S=>Req_LS, Req_L=>open,
              Rxy_reconf_PE => Rxy_reconf_PE, Cx_reconf_PE => Cx_reconf_PE, Reconfig_command=>Reconfig_command,
 
-             hold_in => hold_in_L, hold_out => hold_out_L, valid_out => valid_LBDR_L_sig,
+             --hold_in => hold_in_L, 
+             hold_out => hold_out_L, 
+             --valid_out => valid_LBDR_L_sig,
 
              -- Checker outputs
             err_header_empty_Requests_FF_Requests_in => L_err_header_empty_Requests_FF_Requests_in, 
@@ -1427,10 +1437,10 @@ Xbar_sel_L <= Grant_LN & Grant_LE & Grant_LW & Grant_LS & '0';
 ------------------------------------------------------------------------------------------------------------------------------
 ------------------------------------------------------------------------------------------------------------------------------
 
-valid_out_N <= valid_out_N_sig and valid_LBDR_N_sig;
-valid_out_E <= valid_out_E_sig and valid_LBDR_E_sig;
-valid_out_S <= valid_out_S_sig and valid_LBDR_S_sig;
-valid_out_W <= valid_out_W_sig and valid_LBDR_W_sig;
-valid_out_L <= valid_out_L_sig and valid_LBDR_L_sig;
+valid_out_N <= valid_out_N_sig; -- and valid_LBDR_N_sig;
+valid_out_E <= valid_out_E_sig; -- and valid_LBDR_E_sig;
+valid_out_S <= valid_out_S_sig; -- and valid_LBDR_S_sig;
+valid_out_W <= valid_out_W_sig; -- and valid_LBDR_W_sig;
+valid_out_L <= valid_out_L_sig; -- and valid_LBDR_L_sig;
 
 end;

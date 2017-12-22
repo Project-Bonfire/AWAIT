@@ -27,7 +27,7 @@ entity LBDR_bubble_seq is
 			Temp_Cx_in: 	  in std_logic_vector(3 downto 0);
 			ReConf_FF_in: 	in std_logic;
 			packet_drop_in: in std_logic;
-      hold_in:        in std_logic;
+      --hold_in:        in std_logic;
       fault_in:       in std_logic;
 
 			-- OUTPUTS INNER
@@ -66,7 +66,7 @@ if reset = '0' then
   reconfig_cx   <= '0';
   packet_drop   <= '0';
 
-elsif clk'event and clk = '1' and fault_in = '0' and hold_in = '0' then
+elsif clk'event and clk = '1' and fault_in = '0' then -- and hold_in = '0' then
   Rxy      <= Rxy_in;	
   Rxy_tmp  <=  Rxy_tmp_in;
 

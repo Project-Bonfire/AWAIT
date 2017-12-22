@@ -339,8 +339,8 @@ COMPONENT router_credit_based_PD_C_SHMU_with_checkers is  --fault classifier plu
     Faulty_N_out, Faulty_E_out, Faulty_W_out, Faulty_S_out: out std_logic;
 
     -- For bubbles
-    hold_in_N, hold_in_E, hold_in_S, hold_in_W, hold_in_L: in std_logic;
-    hold_out_N, hold_out_E, hold_out_S, hold_out_W, hold_out_L: out std_logic;
+    --hold_in_N, hold_in_E, hold_in_S, hold_in_W, hold_in_L: in std_logic;
+    --hold_out_N, hold_out_E, hold_out_S, hold_out_W, hold_out_L: out std_logic;
 
     -- should be connected to NI (Outputs for classified fault information)
     link_faults: out std_logic_vector(4 downto 0);
@@ -509,30 +509,30 @@ end COMPONENT;
 	--signal hold_in_N_14_sig, hold_in_E_14_sig, hold_in_S_14_sig, hold_in_W_14_sig, hold_in_L_14_sig: std_logic := '0';
 	--signal hold_in_N_15_sig, hold_in_E_15_sig, hold_in_S_15_sig, hold_in_W_15_sig, hold_in_L_15_sig: std_logic := '0';
 
-	signal 	hold_N_X_0, hold_N_0_4, hold_N_4_8,  hold_N_8_12,  hold_N_X_12,
-			hold_N_X_1, hold_N_1_5, hold_N_5_9,  hold_N_9_13,  hold_N_X_13,
-			hold_N_X_2, hold_N_2_6, hold_N_6_10, hold_N_10_14, hold_N_X_14,
-			hold_N_X_3, hold_N_3_7, hold_N_7_11, hold_N_11_15, hold_N_X_15,
+	--signal 	hold_N_X_0, hold_N_0_4, hold_N_4_8,  hold_N_8_12,  hold_N_X_12,
+	--		hold_N_X_1, hold_N_1_5, hold_N_5_9,  hold_N_9_13,  hold_N_X_13,
+	--		hold_N_X_2, hold_N_2_6, hold_N_6_10, hold_N_10_14, hold_N_X_14,
+	--		hold_N_X_3, hold_N_3_7, hold_N_7_11, hold_N_11_15, hold_N_X_15,
 
-			hold_S_X_0, hold_S_0_4, hold_S_4_8,  hold_S_8_12,  hold_S_X_12,
-			hold_S_X_1, hold_S_1_5, hold_S_5_9,  hold_S_9_13,  hold_S_X_13,
-			hold_S_X_2, hold_S_2_6, hold_S_6_10, hold_S_10_14, hold_S_X_14,
-			hold_S_X_3, hold_S_3_7, hold_S_7_11, hold_S_11_15, hold_S_X_15,
+	--		hold_S_X_0, hold_S_0_4, hold_S_4_8,  hold_S_8_12,  hold_S_X_12,
+	--		hold_S_X_1, hold_S_1_5, hold_S_5_9,  hold_S_9_13,  hold_S_X_13,
+	--		hold_S_X_2, hold_S_2_6, hold_S_6_10, hold_S_10_14, hold_S_X_14,
+	--		hold_S_X_3, hold_S_3_7, hold_S_7_11, hold_S_11_15, hold_S_X_15,
 
-			hold_E_X_0,  hold_E_0_1,   hold_E_1_2,   hold_E_2_3,   hold_E_X_3,
-			hold_E_X_4,  hold_E_4_5,   hold_E_5_6,   hold_E_6_7,   hold_E_X_7,
-			hold_E_X_8,  hold_E_8_9,   hold_E_9_10,  hold_E_10_11, hold_E_X_11,
-			hold_E_X_12, hold_E_12_13, hold_E_13_14, hold_E_14_15, hold_E_X_15,
+	--		hold_E_X_0,  hold_E_0_1,   hold_E_1_2,   hold_E_2_3,   hold_E_X_3,
+	--		hold_E_X_4,  hold_E_4_5,   hold_E_5_6,   hold_E_6_7,   hold_E_X_7,
+	--		hold_E_X_8,  hold_E_8_9,   hold_E_9_10,  hold_E_10_11, hold_E_X_11,
+	--		hold_E_X_12, hold_E_12_13, hold_E_13_14, hold_E_14_15, hold_E_X_15,
 
-			hold_W_X_0,  hold_W_0_1,   hold_W_1_2,   hold_W_2_3,   hold_W_X_3,
-			hold_W_X_4,  hold_W_4_5,   hold_W_5_6,   hold_W_6_7,   hold_W_X_7,
-			hold_W_X_8,  hold_W_8_9,   hold_W_9_10,  hold_W_10_11, hold_W_X_11,
-			hold_W_X_12, hold_W_12_13, hold_W_13_14, hold_W_14_15, hold_W_X_15,
+	--		hold_W_X_0,  hold_W_0_1,   hold_W_1_2,   hold_W_2_3,   hold_W_X_3,
+	--		hold_W_X_4,  hold_W_4_5,   hold_W_5_6,   hold_W_6_7,   hold_W_X_7,
+	--		hold_W_X_8,  hold_W_8_9,   hold_W_9_10,  hold_W_10_11, hold_W_X_11,
+	--		hold_W_X_12, hold_W_12_13, hold_W_13_14, hold_W_14_15, hold_W_X_15,
 
-			hold_L_in_0,  hold_L_out_0,  hold_L_in_1,  hold_L_out_1,  hold_L_in_2,  hold_L_out_2,  hold_L_in_3,  hold_L_out_3,
-			hold_L_in_4,  hold_L_out_4,  hold_L_in_5,  hold_L_out_5,  hold_L_in_6,  hold_L_out_6,  hold_L_in_7,  hold_L_out_7,
-			hold_L_in_8,  hold_L_out_8,  hold_L_in_9,  hold_L_out_9,  hold_L_in_10, hold_L_out_10, hold_L_in_11, hold_L_out_11,
-			hold_L_in_12, hold_L_out_12, hold_L_in_13, hold_L_out_13, hold_L_in_14, hold_L_out_14, hold_L_in_15, hold_L_out_15: std_logic := '0';
+	--		hold_L_in_0,  hold_L_out_0,  hold_L_in_1,  hold_L_out_1,  hold_L_in_2,  hold_L_out_2,  hold_L_in_3,  hold_L_out_3,
+	--		hold_L_in_4,  hold_L_out_4,  hold_L_in_5,  hold_L_out_5,  hold_L_in_6,  hold_L_out_6,  hold_L_in_7,  hold_L_out_7,
+	--		hold_L_in_8,  hold_L_out_8,  hold_L_in_9,  hold_L_out_9,  hold_L_in_10, hold_L_out_10, hold_L_in_11, hold_L_out_11,
+	--		hold_L_in_12, hold_L_out_12, hold_L_in_13, hold_L_out_13, hold_L_in_14, hold_L_out_14, hold_L_in_15, hold_L_out_15: std_logic := '0';
 
 
 --        organizaiton of the network:
@@ -573,8 +573,8 @@ R_0: router_credit_based_PD_C_SHMU_with_checkers
 	Faulty_N_in0,Faulty_E_in0,Faulty_W_in0,Faulty_S_in0,
 	Faulty_N_out0,Faulty_E_out0,Faulty_W_out0,Faulty_S_out0,
 	-- FOR BUBBLES
-	hold_N_X_0, hold_E_0_1, hold_S_0_4, hold_W_X_0, hold_L_in_0,
-	hold_N_0_4, hold_E_X_0, hold_S_X_0, hold_W_0_1, hold_L_out_0,
+	--hold_N_X_0, hold_E_0_1, hold_S_0_4, hold_W_X_0, hold_L_in_0,
+	--hold_N_0_4, hold_E_X_0, hold_S_X_0, hold_W_0_1, hold_L_out_0,
 	-- should be connected to NI
 	link_faults_0, turn_faults_0,
 	Rxy_reconf_PE_0, Cx_reconf_PE_0, Reconfig_command_0, 
@@ -594,8 +594,8 @@ R_1: router_credit_based_PD_C_SHMU_with_checkers
 	Faulty_N_in1,Faulty_E_in1,Faulty_W_in1,Faulty_S_in1,
 	Faulty_N_out1,Faulty_E_out1,Faulty_W_out1,Faulty_S_out1,
 	-- FOR BUBBLES
-	hold_N_X_1, hold_E_1_2, hold_S_1_5, hold_W_0_1, hold_L_in_1,
-	hold_N_1_5, hold_E_0_1, hold_S_X_1, hold_W_1_2, hold_L_out_1,
+	--hold_N_X_1, hold_E_1_2, hold_S_1_5, hold_W_0_1, hold_L_in_1,
+	--hold_N_1_5, hold_E_0_1, hold_S_X_1, hold_W_1_2, hold_L_out_1,
 	-- should be connected to NI
 	link_faults_1, turn_faults_1,
 	Rxy_reconf_PE_1, Cx_reconf_PE_1, Reconfig_command_1, 
@@ -615,8 +615,8 @@ R_2: router_credit_based_PD_C_SHMU_with_checkers
 	Faulty_N_in2,Faulty_E_in2,Faulty_W_in2,Faulty_S_in2,
 	Faulty_N_out2,Faulty_E_out2,Faulty_W_out2,Faulty_S_out2,
 	-- FOR BUBBLES
-	hold_N_X_2, hold_E_2_3, hold_S_2_6, hold_W_1_2, hold_L_in_2,
-	hold_N_2_6, hold_E_1_2, hold_S_X_2, hold_W_2_3, hold_L_out_2,
+	--hold_N_X_2, hold_E_2_3, hold_S_2_6, hold_W_1_2, hold_L_in_2,
+	--hold_N_2_6, hold_E_1_2, hold_S_X_2, hold_W_2_3, hold_L_out_2,
 	-- should be connected to NI
 	link_faults_2, turn_faults_2,
 	Rxy_reconf_PE_2, Cx_reconf_PE_2, Reconfig_command_2, 
@@ -636,8 +636,8 @@ R_3: router_credit_based_PD_C_SHMU_with_checkers
 	Faulty_N_in3,Faulty_E_in3,Faulty_W_in3,Faulty_S_in3,
 	Faulty_N_out3,Faulty_E_out3,Faulty_W_out3,Faulty_S_out3,
 	-- FOR BUBBLES
-	hold_N_X_3, hold_E_X_3, hold_S_3_7, hold_W_2_3, hold_L_in_3,
-	hold_N_3_7, hold_E_2_3, hold_S_X_3, hold_W_X_3, hold_L_out_3,
+	--hold_N_X_3, hold_E_X_3, hold_S_3_7, hold_W_2_3, hold_L_in_3,
+	--hold_N_3_7, hold_E_2_3, hold_S_X_3, hold_W_X_3, hold_L_out_3,
 	-- should be connected to NI
 	link_faults_3, turn_faults_3,
 	Rxy_reconf_PE_3, Cx_reconf_PE_3, Reconfig_command_3, 
@@ -657,8 +657,8 @@ R_4: router_credit_based_PD_C_SHMU_with_checkers
 	Faulty_N_in4,Faulty_E_in4,Faulty_W_in4,Faulty_S_in4,
 	Faulty_N_out4,Faulty_E_out4,Faulty_W_out4,Faulty_S_out4,
 	-- FOR BUBBLES
-	hold_N_0_4, hold_E_4_5, hold_S_4_8, hold_W_X_4, hold_L_in_4,
-	hold_N_4_8, hold_E_X_4, hold_S_0_4, hold_W_4_5, hold_L_out_4,
+	--hold_N_0_4, hold_E_4_5, hold_S_4_8, hold_W_X_4, hold_L_in_4,
+	--hold_N_4_8, hold_E_X_4, hold_S_0_4, hold_W_4_5, hold_L_out_4,
 -- should be connected to NI
 	link_faults_4, turn_faults_4,
 	Rxy_reconf_PE_4, Cx_reconf_PE_4, Reconfig_command_4, 
@@ -678,8 +678,8 @@ R_5: router_credit_based_PD_C_SHMU_with_checkers
 	Faulty_N_in5,Faulty_E_in5,Faulty_W_in5,Faulty_S_in5,
 	Faulty_N_out5,Faulty_E_out5,Faulty_W_out5,Faulty_S_out5,
 	-- FOR BUBBLES
-	hold_N_1_5, hold_E_5_6, hold_S_5_9, hold_W_4_5, hold_L_in_5,
-	hold_N_5_9, hold_E_4_5, hold_S_1_5, hold_W_5_6, hold_L_out_5,
+	--hold_N_1_5, hold_E_5_6, hold_S_5_9, hold_W_4_5, hold_L_in_5,
+	--hold_N_5_9, hold_E_4_5, hold_S_1_5, hold_W_5_6, hold_L_out_5,
 -- should be connected to NI
 	link_faults_5, turn_faults_5,
 	Rxy_reconf_PE_5, Cx_reconf_PE_5, Reconfig_command_5, 
@@ -699,8 +699,8 @@ R_6: router_credit_based_PD_C_SHMU_with_checkers
 	Faulty_N_in6,Faulty_E_in6,Faulty_W_in6,Faulty_S_in6,
 	Faulty_N_out6,Faulty_E_out6,Faulty_W_out6,Faulty_S_out6,
 	-- FOR BUBBLES
-	hold_N_2_6, hold_E_6_7, hold_S_6_10, hold_W_5_6, hold_L_in_6,
-	hold_N_6_10, hold_E_5_6, hold_S_2_6, hold_W_6_7, hold_L_out_6,
+	--hold_N_2_6, hold_E_6_7, hold_S_6_10, hold_W_5_6, hold_L_in_6,
+	--hold_N_6_10, hold_E_5_6, hold_S_2_6, hold_W_6_7, hold_L_out_6,
 	-- should be connected to NI
 	link_faults_6, turn_faults_6,
 	Rxy_reconf_PE_6, Cx_reconf_PE_6, Reconfig_command_6, 
@@ -720,8 +720,8 @@ R_7: router_credit_based_PD_C_SHMU_with_checkers
 	Faulty_N_in7,Faulty_E_in7,Faulty_W_in7,Faulty_S_in7,
 	Faulty_N_out7,Faulty_E_out7,Faulty_W_out7,Faulty_S_out7,
 	-- FOR BUBBLES
-	hold_N_3_7, hold_E_X_7, hold_S_7_11, hold_W_6_7, hold_L_in_7,
-	hold_N_7_11, hold_E_5_6, hold_S_3_7, hold_W_X_7, hold_L_out_7,
+	--hold_N_3_7, hold_E_X_7, hold_S_7_11, hold_W_6_7, hold_L_in_7,
+	--hold_N_7_11, hold_E_5_6, hold_S_3_7, hold_W_X_7, hold_L_out_7,
 	-- should be connected to NI
 	link_faults_7, turn_faults_7,
 	Rxy_reconf_PE_7, Cx_reconf_PE_7, Reconfig_command_7, 
@@ -741,8 +741,8 @@ R_8: router_credit_based_PD_C_SHMU_with_checkers
 	Faulty_N_in8,Faulty_E_in8,Faulty_W_in8,Faulty_S_in8,
 	Faulty_N_out8,Faulty_E_out8,Faulty_W_out8,Faulty_S_out8,
 	-- FOR BUBBLES
-	hold_N_4_8, hold_E_8_9, hold_S_8_12, hold_W_X_8, hold_L_in_8,
-	hold_N_8_12, hold_E_X_8, hold_S_4_8, hold_W_8_9, hold_L_out_8,
+	--hold_N_4_8, hold_E_8_9, hold_S_8_12, hold_W_X_8, hold_L_in_8,
+	--hold_N_8_12, hold_E_X_8, hold_S_4_8, hold_W_8_9, hold_L_out_8,
 	-- should be connected to NI
 	link_faults_8, turn_faults_8,
 	Rxy_reconf_PE_8, Cx_reconf_PE_8, Reconfig_command_8, 
@@ -762,8 +762,8 @@ R_9: router_credit_based_PD_C_SHMU_with_checkers
 	Faulty_N_in9,Faulty_E_in9,Faulty_W_in9,Faulty_S_in9,
 	Faulty_N_out9,Faulty_E_out9,Faulty_W_out9,Faulty_S_out9,
 	-- FOR BUBBLES
-	hold_N_5_9, hold_E_9_10, hold_S_9_13, hold_W_8_9, hold_L_in_9,
-	hold_N_9_13, hold_E_8_9, hold_S_5_9, hold_W_9_10, hold_L_out_9,
+	--hold_N_5_9, hold_E_9_10, hold_S_9_13, hold_W_8_9, hold_L_in_9,
+	--hold_N_9_13, hold_E_8_9, hold_S_5_9, hold_W_9_10, hold_L_out_9,
 	-- should be connected to NI
 	link_faults_9, turn_faults_9,
 	Rxy_reconf_PE_9, Cx_reconf_PE_9, Reconfig_command_9, 
@@ -783,8 +783,8 @@ R_10: router_credit_based_PD_C_SHMU_with_checkers
 	Faulty_N_in10,Faulty_E_in10,Faulty_W_in10,Faulty_S_in10,
 	Faulty_N_out10,Faulty_E_out10,Faulty_W_out10,Faulty_S_out10,
 	-- FOR BUBBLES
-	hold_N_6_10, hold_E_10_11, hold_S_10_14, hold_W_9_10, hold_L_in_10,
-	hold_N_10_14, hold_E_9_10, hold_S_6_10, hold_W_10_11, hold_L_out_10,
+	--hold_N_6_10, hold_E_10_11, hold_S_10_14, hold_W_9_10, hold_L_in_10,
+	--hold_N_10_14, hold_E_9_10, hold_S_6_10, hold_W_10_11, hold_L_out_10,
 	-- should be connected to NI
 	link_faults_10, turn_faults_10,
 	Rxy_reconf_PE_10, Cx_reconf_PE_10, Reconfig_command_10, 
@@ -804,8 +804,8 @@ R_11: router_credit_based_PD_C_SHMU_with_checkers
 	Faulty_N_in11,Faulty_E_in11,Faulty_W_in11,Faulty_S_in11,
 	Faulty_N_out11,Faulty_E_out11,Faulty_W_out11,Faulty_S_out11,
 	-- FOR BUBBLES
-	hold_N_7_11, hold_E_X_11, hold_S_11_15, hold_W_10_11, hold_L_in_11,
-	hold_N_11_15, hold_E_10_11, hold_S_7_11, hold_W_X_11, hold_L_out_11,
+	--hold_N_7_11, hold_E_X_11, hold_S_11_15, hold_W_10_11, hold_L_in_11,
+	--hold_N_11_15, hold_E_10_11, hold_S_7_11, hold_W_X_11, hold_L_out_11,
 	-- should be connected to NI
 	link_faults_11, turn_faults_11,
 	Rxy_reconf_PE_11, Cx_reconf_PE_11, Reconfig_command_11, 
@@ -825,8 +825,8 @@ R_12: router_credit_based_PD_C_SHMU_with_checkers
 	Faulty_N_in12,Faulty_E_in12,Faulty_W_in12,Faulty_S_in12,
 	Faulty_N_out12,Faulty_E_out12,Faulty_W_out12,Faulty_S_out12,
 	-- FOR BUBBLES
-	hold_N_8_12, hold_E_12_13, hold_S_X_12, hold_W_X_12, hold_L_in_12,
-	hold_N_X_12, hold_E_X_12, hold_S_8_12, hold_W_12_13, hold_L_out_12,
+	--hold_N_8_12, hold_E_12_13, hold_S_X_12, hold_W_X_12, hold_L_in_12,
+	--hold_N_X_12, hold_E_X_12, hold_S_8_12, hold_W_12_13, hold_L_out_12,
 	-- should be connected to NI
 	link_faults_12, turn_faults_12,
 	Rxy_reconf_PE_12, Cx_reconf_PE_12, Reconfig_command_12, 
@@ -846,8 +846,8 @@ R_13: router_credit_based_PD_C_SHMU_with_checkers
 	Faulty_N_in13,Faulty_E_in13,Faulty_W_in13,Faulty_S_in13,
 	Faulty_N_out13,Faulty_E_out13,Faulty_W_out13,Faulty_S_out13,
 	-- FOR BUBBLES
-	hold_N_9_13, hold_E_13_14, hold_S_X_13, hold_W_12_13, hold_L_in_13,
-	hold_N_X_13, hold_E_12_13, hold_S_9_13, hold_W_13_14, hold_L_out_13,
+	--hold_N_9_13, hold_E_13_14, hold_S_X_13, hold_W_12_13, hold_L_in_13,
+	--hold_N_X_13, hold_E_12_13, hold_S_9_13, hold_W_13_14, hold_L_out_13,
 	-- should be connected to NI
 	link_faults_13, turn_faults_13,
 	Rxy_reconf_PE_13, Cx_reconf_PE_13, Reconfig_command_13, 
@@ -867,8 +867,8 @@ R_14: router_credit_based_PD_C_SHMU_with_checkers
 	Faulty_N_in14,Faulty_E_in14,Faulty_W_in14,Faulty_S_in14,
 	Faulty_N_out14,Faulty_E_out14,Faulty_W_out14,Faulty_S_out14,
 	-- FOR BUBBLES
-	hold_N_10_14, hold_E_14_15, hold_S_X_14, hold_W_13_14, hold_L_in_14,
-	hold_N_X_15, hold_E_13_14, hold_S_10_14, hold_W_14_15, hold_L_out_14,
+	--hold_N_10_14, hold_E_14_15, hold_S_X_14, hold_W_13_14, hold_L_in_14,
+	--hold_N_X_15, hold_E_13_14, hold_S_10_14, hold_W_14_15, hold_L_out_14,
 	-- should be connected to NI
 	link_faults_14, turn_faults_14,
 	Rxy_reconf_PE_14, Cx_reconf_PE_14, Reconfig_command_14, 
@@ -888,8 +888,8 @@ R_15: router_credit_based_PD_C_SHMU_with_checkers
 	Faulty_N_in15,Faulty_E_in15,Faulty_W_in15,Faulty_S_in15,
 	Faulty_N_out15,Faulty_E_out15,Faulty_W_out15,Faulty_S_out15,
 	-- FOR BUBBLES
-	hold_N_11_15, hold_E_X_15, hold_S_X_15, hold_W_14_15, hold_L_in_15,
-	hold_N_X_15, hold_E_14_15, hold_S_11_15, hold_W_X_15, hold_L_out_15,
+	--hold_N_11_15, hold_E_X_15, hold_S_X_15, hold_W_14_15, hold_L_in_15,
+	--hold_N_X_15, hold_E_14_15, hold_S_11_15, hold_W_X_15, hold_L_out_15,
 	-- should be connected to NI
 	link_faults_15, turn_faults_15,
 	Rxy_reconf_PE_15, Cx_reconf_PE_15, Reconfig_command_15, 

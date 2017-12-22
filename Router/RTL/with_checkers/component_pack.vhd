@@ -39,8 +39,8 @@ package component_pack is
         Faulty_N_out, Faulty_E_out, Faulty_W_out, Faulty_S_out: out std_logic;
 
         -- For bubbles
-        hold_in_N, hold_in_E, hold_in_S, hold_in_W, hold_in_L: in std_logic := '0';
-        hold_out_N, hold_out_E, hold_out_S, hold_out_W, hold_out_L: out std_logic := '0';
+        --hold_in_N, hold_in_E, hold_in_S, hold_in_W, hold_in_L: in std_logic := '0';
+        --hold_out_N, hold_out_E, hold_out_S, hold_out_W, hold_out_L: out std_logic := '0';
 
 
         -- should be connected to NI (Outputs for classified fault information)
@@ -572,9 +572,9 @@ package component_pack is
             Cx_reconf_PE: in  std_logic_vector(3 downto 0);
             Reconfig_command : in std_logic;
 
-            hold_in:            in std_logic := '0';
+            --hold_in:            in std_logic := '0';
             hold_out:           out std_logic := '0';
-            valid_out:          out std_logic;
+            --valid_out:          out std_logic;
 
             -- Checker outputs
             -- Routing part checkers
@@ -742,7 +742,7 @@ package component_pack is
             ReConf_FF_in:   in std_logic;
             packet_drop_in: in std_logic;
 
-            hold_in:        in std_logic := '0';
+            --hold_in:        in std_logic := '0';
             fault_in:       in std_logic := '0';
 
             -- OUTPUTS INNER
