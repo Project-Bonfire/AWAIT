@@ -45,6 +45,14 @@ vcom "Testbench/network_4x4_Rand_credit_based_tb.vhd"
 vsim work.tb_network_4x4
 
 # Draw waves
-do wave_4x4.do
+ do wave_4x4.do
 # Run the simulation
+ run 2210 ns
+force -freeze sim/:tb_network_4x4:NoC:R_0:CONTROL_PART_WITH_CHECKERS:LBDR_L:LBDR_bubble_comb_c:Req_S_FF '0' 1ns
+force -freeze sim/:tb_network_4x4:NoC:R_0:CONTROL_PART_WITH_CHECKERS:LBDR_L:LBDR_bubble_comb_c:Req_S_in_sig '1' 1ns
+force -deposit sim/:tb_network_4x4:NoC:R_0:CONTROL_PART_WITH_CHECKERS:LBDR_L:LBDR_bubble_comb_c:empty '1' 1ns
+run 4000 ns
+noforce sim/:tb_network_4x4:NoC:R_0:CONTROL_PART_WITH_CHECKERS:LBDR_L:LBDR_bubble_comb_c:Req_S_FF
+noforce sim/:tb_network_4x4:NoC:R_0:CONTROL_PART_WITH_CHECKERS:LBDR_L:LBDR_bubble_comb_c:Req_S_in_sig
+noforce sim/:tb_network_4x4:NoC:R_0:CONTROL_PART_WITH_CHECKERS:LBDR_L:LBDR_bubble_comb_c:empty
 run 11000 ns

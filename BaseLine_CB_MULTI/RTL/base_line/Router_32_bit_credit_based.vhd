@@ -71,6 +71,7 @@ architecture behavior of router_credit_based is
     --signal hold_in_sig_N,  hold_in_sig_E,  hold_in_sig_W,  hold_in_sig_S,  hold_in_sig_L  : std_logic;
     --signal hold_out_sig_N, hold_out_sig_E, hold_out_sig_W, hold_out_sig_S, hold_out_sig_L : std_logic;
     signal faulty_N, faulty_E, faulty_W, faulty_S, faulty_L: std_logic;
+    signal faulty_N_sync, faulty_E_sync, faulty_W_sync, faulty_S_sync, faulty_L_sync: std_logic;
     signal valid_not_faulty_N, valid_not_faulty_E, valid_not_faulty_W, valid_not_faulty_S, valid_not_faulty_L: std_logic;
     --signal valid_and_not_faulty: std_logic;
 begin
@@ -94,20 +95,67 @@ INPUT_PARITY_S:  parity_checker_for_router_links generic map (DATA_WIDTH => DATA
 INPUT_PARITY_L:  parity_checker_for_router_links generic map (DATA_WIDTH => DATA_WIDTH)
     port map (RX => RX_L, valid_in => valid_in_L, faulty => faulty_L);
 
-valid_not_faulty_N <= valid_in_N and not faulty_N;
-valid_not_faulty_E <= valid_in_E and not faulty_E;
-valid_not_faulty_W <= valid_in_W and not faulty_W;
-valid_not_faulty_S <= valid_in_S and not faulty_S;
-valid_not_faulty_L <= valid_in_L and not faulty_L;
+process(faulty_N,faulty_E,faulty_W,faulty_S,faulty_L, clk)begin
+    
+    if faulty_N = '1' then
+        faulty_N_sync <= '1';
+    else
+        if clk'event and clk = '0' then 
+           faulty_N_sync <= '0';
+        end if;
+    end if; 
+
+    if faulty_E = '1' then
+        faulty_E_sync <= '1';
+    else
+        if clk'event and clk = '0' then 
+           faulty_E_sync <= '0';
+        end if;
+    end if; 
+
+
+    if faulty_W = '1' then
+        faulty_W_sync <= '1';
+    else
+        if clk'event and clk = '0' then 
+           faulty_W_sync <= '0';
+        end if;
+    end if; 
+
+    if faulty_S = '1' then
+        faulty_S_sync <= '1';
+    else
+        if clk'event and clk = '0' then 
+           faulty_S_sync <= '0';
+        end if;
+    end if; 
+
+    if faulty_L = '1' then
+        faulty_L_sync <= '1';
+    else
+        if clk'event and clk = '0' then 
+           faulty_L_sync <= '0';
+        end if;
+    end if; 
+ 
+    
+end process;
+
+
+valid_not_faulty_N <= valid_in_N and not faulty_N_sync;
+valid_not_faulty_E <= valid_in_E and not faulty_E_sync;
+valid_not_faulty_W <= valid_in_W and not faulty_W_sync;
+valid_not_faulty_S <= valid_in_S and not faulty_S_sync;
+valid_not_faulty_L <= valid_in_L and not faulty_L_sync;
 
 --hold_out <= faulty_N or faulty_E or faulty_W or faulty_S or faulty_L;
 
 -- can we block just some inputs/outputs?
-hold_out_N <= faulty_N;
-hold_out_E <= faulty_E;
-hold_out_W <= faulty_W;
-hold_out_S <= faulty_S;
-hold_out_L <= faulty_L;
+hold_out_N <= faulty_N_sync;
+hold_out_E <= faulty_E_sync;
+hold_out_W <= faulty_W_sync;
+hold_out_S <= faulty_S_sync;
+hold_out_L <= faulty_L_sync;
 
 -- don't do this, no fault propagation!
 --hold_out_N <= hold_in_N or faulty_N;

@@ -158,6 +158,10 @@ package body TB_Package is
           uniform(seed1, seed2, rand);
           destination_id := integer(rand*real((network_size**2)-1));
       end loop;
+      -- Siavoosh: for bubble, forcing source to one destination
+      if source = 1 then
+        destination_id := 4;
+      end if;
       --------------------------------------
       write(LINEVARIABLE, "Packet generated at " & time'image(now) & " From " & integer'image(source) & " to " & integer'image(destination_id) & " with length: " & integer'image(Packet_length) & " id: " & integer'image(id_counter));
       writeline(VEC_FILE, LINEVARIABLE);

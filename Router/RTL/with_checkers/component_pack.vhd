@@ -1010,6 +1010,9 @@ end component;
           req_L_N, req_L_E, req_L_W, req_L_S, req_L_L: in std_logic;
 
           empty_N, empty_E, empty_W, empty_S, empty_L: in std_logic;
+
+            -- BUBBLES
+          hold_in_N, hold_in_E, hold_in_W, hold_in_S, hold_in_L : in std_logic;
           -- grant_X_Y means the grant for X output port towards Y input port
           -- this means for any X in [N, E, W, S, L] then set grant_X_Y is one hot!
           valid_N, valid_E, valid_W, valid_S, valid_L : out std_logic;

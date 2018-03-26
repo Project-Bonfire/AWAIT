@@ -556,6 +556,9 @@ architecture behavior of router_credit_based_PD_C_SHMU_control_part_with_checker
     signal valid_LBDR_N_sig, valid_LBDR_E_sig, valid_LBDR_S_sig, valid_LBDR_W_sig, valid_LBDR_L_sig: std_logic;
 
     signal valid_out_N_sig, valid_out_E_sig, valid_out_S_sig, valid_out_W_sig, valid_out_L_sig: std_logic;
+
+    -- BUBBLES
+    signal hold_out_N_sig, hold_out_E_sig, hold_out_S_sig, hold_out_W_sig, hold_out_L_sig: std_logic := '0';
     
 ------------------------------------------------------------------------------------------------------------------------------
 ------------------------------------------------------------------------------------------------------------------------------
@@ -590,7 +593,7 @@ LBDR_N: LBDR_bubble_combinatory_with_sequential generic map (cur_addr_rst => cur
              Rxy_reconf_PE => Rxy_reconf_PE, Cx_reconf_PE => Cx_reconf_PE, Reconfig_command=>Reconfig_command,
 
              --hold_in => hold_in_N, 
-             hold_out => hold_out_N, 
+             hold_out => hold_out_N_sig, 
              --valid_out => valid_LBDR_N_sig,
 
              -- Checker outputs
@@ -654,7 +657,7 @@ LBDR_E: LBDR_bubble_combinatory_with_sequential generic map (cur_addr_rst => cur
              Rxy_reconf_PE => Rxy_reconf_PE, Cx_reconf_PE => Cx_reconf_PE, Reconfig_command=>Reconfig_command,
 
              --hold_in => hold_in_E, 
-             hold_out => hold_out_E, 
+             hold_out => hold_out_E_sig, 
              --valid_out => valid_LBDR_E_sig,
 
              -- Checker outputs
@@ -718,7 +721,7 @@ LBDR_W: LBDR_bubble_combinatory_with_sequential generic map (cur_addr_rst => cur
              Rxy_reconf_PE => Rxy_reconf_PE, Cx_reconf_PE => Cx_reconf_PE, Reconfig_command=>Reconfig_command,
 
              --hold_in => hold_in_W, 
-             hold_out => hold_out_W, 
+             hold_out => hold_out_W_sig, 
              --valid_out => valid_LBDR_W_sig,
 
              -- Checker outputs
@@ -782,7 +785,7 @@ LBDR_S: LBDR_bubble_combinatory_with_sequential generic map (cur_addr_rst => cur
              Rxy_reconf_PE => Rxy_reconf_PE, Cx_reconf_PE => Cx_reconf_PE, Reconfig_command=>Reconfig_command,
 
              --hold_in => hold_in_S, 
-             hold_out => hold_out_S, 
+             hold_out => hold_out_S_sig, 
              --valid_out => valid_LBDR_S_sig,
 
              -- Checker outputs
@@ -846,7 +849,7 @@ LBDR_L: LBDR_bubble_combinatory_with_sequential generic map (cur_addr_rst => cur
              Rxy_reconf_PE => Rxy_reconf_PE, Cx_reconf_PE => Cx_reconf_PE, Reconfig_command=>Reconfig_command,
 
              --hold_in => hold_in_L, 
-             hold_out => hold_out_L, 
+             hold_out => hold_out_L_sig, 
              --valid_out => valid_LBDR_L_sig,
 
              -- Checker outputs
@@ -917,6 +920,10 @@ allocator_unit: allocator port map ( reset => reset, clk => clk,
             req_S_N => Req_SN, req_S_E => Req_SE, req_S_W => Req_SW, req_S_S => '0', req_S_L => Req_SL,
             req_L_N => Req_LN, req_L_E => Req_LE, req_L_W => Req_LW, req_L_S => Req_LS, req_L_L => '0',
             empty_N => empty_N, empty_E => empty_E, empty_w => empty_W, empty_S => empty_S, empty_L => empty_L, 
+
+            -- BUBBLES
+            hold_in_N => hold_out_N_sig, hold_in_E => hold_out_E_sig, hold_in_W => hold_out_W_sig, hold_in_S => hold_out_S_sig, hold_in_L => hold_out_L_sig, 
+
             valid_N => valid_out_N_sig, valid_E => valid_out_E_sig, valid_W => valid_out_W_sig, valid_S => valid_out_S_sig, valid_L => valid_out_L_sig,
             -- grant_X_Y means the grant for X output port towards Y input port
             -- this means for any X in [N, E, W, S, L] then set grant_X_Y is one hot!
@@ -1442,5 +1449,14 @@ valid_out_E <= valid_out_E_sig; -- and valid_LBDR_E_sig;
 valid_out_S <= valid_out_S_sig; -- and valid_LBDR_S_sig;
 valid_out_W <= valid_out_W_sig; -- and valid_LBDR_W_sig;
 valid_out_L <= valid_out_L_sig; -- and valid_LBDR_L_sig;
+
+-- BUBBLES OUT  -- do we need it?
+
+hold_out_N <= hold_out_N_sig;
+hold_out_E <= hold_out_E_sig;
+hold_out_W <= hold_out_W_sig;
+hold_out_S <= hold_out_S_sig;
+hold_out_L <= hold_out_L_sig;
+
 
 end;

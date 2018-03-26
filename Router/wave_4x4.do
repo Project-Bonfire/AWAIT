@@ -1,21 +1,21 @@
 onerror {resume}
 quietly WaveActivateNextPane {} 0
-add wave -noupdate -group {NoC RX} -color green -radix decimal :tb_network_4x4:RX_L_0
-add wave -noupdate -group {NoC RX} -color green -radix decimal :tb_network_4x4:RX_L_1
-add wave -noupdate -group {NoC RX} -color green -radix decimal :tb_network_4x4:RX_L_2
-add wave -noupdate -group {NoC RX} -color green -radix decimal :tb_network_4x4:RX_L_3
-add wave -noupdate -group {NoC RX} -color green -radix decimal :tb_network_4x4:RX_L_4
-add wave -noupdate -group {NoC RX} -color green -radix decimal :tb_network_4x4:RX_L_5
-add wave -noupdate -group {NoC RX} -color green -radix decimal :tb_network_4x4:RX_L_6
-add wave -noupdate -group {NoC RX} -color green -radix decimal :tb_network_4x4:RX_L_7
-add wave -noupdate -group {NoC RX} -color green -radix decimal :tb_network_4x4:RX_L_8
-add wave -noupdate -group {NoC RX} -color green -radix decimal :tb_network_4x4:RX_L_9
-add wave -noupdate -group {NoC RX} -color green -radix decimal :tb_network_4x4:RX_L_10
-add wave -noupdate -group {NoC RX} -color green -radix decimal :tb_network_4x4:RX_L_11
-add wave -noupdate -group {NoC RX} -color green -radix decimal :tb_network_4x4:RX_L_12
-add wave -noupdate -group {NoC RX} -color green -radix decimal :tb_network_4x4:RX_L_13
-add wave -noupdate -group {NoC RX} -color green -radix decimal :tb_network_4x4:RX_L_14
-add wave -noupdate -group {NoC RX} -color green -radix decimal :tb_network_4x4:RX_L_15
+add wave -noupdate -expand -group {NoC RX} -color green -radix decimal :tb_network_4x4:RX_L_0
+add wave -noupdate -expand -group {NoC RX} -color green -radix decimal :tb_network_4x4:RX_L_1
+add wave -noupdate -expand -group {NoC RX} -color green -radix decimal :tb_network_4x4:RX_L_2
+add wave -noupdate -expand -group {NoC RX} -color green -radix decimal :tb_network_4x4:RX_L_3
+add wave -noupdate -expand -group {NoC RX} -color green -radix decimal :tb_network_4x4:RX_L_4
+add wave -noupdate -expand -group {NoC RX} -color green -radix decimal :tb_network_4x4:RX_L_5
+add wave -noupdate -expand -group {NoC RX} -color green -radix decimal :tb_network_4x4:RX_L_6
+add wave -noupdate -expand -group {NoC RX} -color green -radix decimal :tb_network_4x4:RX_L_7
+add wave -noupdate -expand -group {NoC RX} -color green -radix decimal :tb_network_4x4:RX_L_8
+add wave -noupdate -expand -group {NoC RX} -color green -radix decimal :tb_network_4x4:RX_L_9
+add wave -noupdate -expand -group {NoC RX} -color green -radix decimal :tb_network_4x4:RX_L_10
+add wave -noupdate -expand -group {NoC RX} -color green -radix decimal :tb_network_4x4:RX_L_11
+add wave -noupdate -expand -group {NoC RX} -color green -radix decimal :tb_network_4x4:RX_L_12
+add wave -noupdate -expand -group {NoC RX} -color green -radix decimal :tb_network_4x4:RX_L_13
+add wave -noupdate -expand -group {NoC RX} -color green -radix decimal :tb_network_4x4:RX_L_14
+add wave -noupdate -expand -group {NoC RX} -color green -radix decimal :tb_network_4x4:RX_L_15
 add wave -noupdate -group {NoC TX} -color green -radix decimal :tb_network_4x4:TX_L_0
 add wave -noupdate -group {NoC TX} -color green -radix decimal :tb_network_4x4:TX_L_1
 add wave -noupdate -group {NoC TX} -color green -radix decimal :tb_network_4x4:TX_L_2
@@ -402,309 +402,227 @@ add wave -noupdate -group {NoC Full_Sigs} :tb_network_4x4:NoC:R_15:FIFO_W:full
 add wave -noupdate -group {NoC Full_Sigs} :tb_network_4x4:NoC:R_15:FIFO_S:full
 add wave -noupdate -group {NoC Full_Sigs} :tb_network_4x4:NoC:R_15:FIFO_L:full
 add wave -noupdate -group {NoC Full_Sigs} :tb_network_4x4:clk
-
-add wave -noupdate -group {NoC_hold_sig} :tb_network_4x4:NoC:hold_out_N_0
-add wave -noupdate -group {NoC_hold_sig} :tb_network_4x4:NoC:hold_out_E_0
-add wave -noupdate -group {NoC_hold_sig} :tb_network_4x4:NoC:hold_out_S_0
-add wave -noupdate -group {NoC_hold_sig} :tb_network_4x4:NoC:hold_out_W_0
-add wave -noupdate -group {NoC_hold_sig} :tb_network_4x4:NoC:hold_out_L_0
-add wave -noupdate -group {NoC_hold_sig} :tb_network_4x4:NoC:hold_out_N_1
-add wave -noupdate -group {NoC_hold_sig} :tb_network_4x4:NoC:hold_out_E_1
-add wave -noupdate -group {NoC_hold_sig} :tb_network_4x4:NoC:hold_out_S_1
-add wave -noupdate -group {NoC_hold_sig} :tb_network_4x4:NoC:hold_out_W_1
-add wave -noupdate -group {NoC_hold_sig} :tb_network_4x4:NoC:hold_out_L_1
-add wave -noupdate -group {NoC_hold_sig} :tb_network_4x4:NoC:hold_out_N_2
-add wave -noupdate -group {NoC_hold_sig} :tb_network_4x4:NoC:hold_out_E_2
-add wave -noupdate -group {NoC_hold_sig} :tb_network_4x4:NoC:hold_out_S_2
-add wave -noupdate -group {NoC_hold_sig} :tb_network_4x4:NoC:hold_out_W_2
-add wave -noupdate -group {NoC_hold_sig} :tb_network_4x4:NoC:hold_out_L_2
-add wave -noupdate -group {NoC_hold_sig} :tb_network_4x4:NoC:hold_out_N_3
-add wave -noupdate -group {NoC_hold_sig} :tb_network_4x4:NoC:hold_out_E_3
-add wave -noupdate -group {NoC_hold_sig} :tb_network_4x4:NoC:hold_out_S_3
-add wave -noupdate -group {NoC_hold_sig} :tb_network_4x4:NoC:hold_out_W_3
-add wave -noupdate -group {NoC_hold_sig} :tb_network_4x4:NoC:hold_out_L_3
-add wave -noupdate -group {NoC_hold_sig} :tb_network_4x4:NoC:hold_out_N_4
-add wave -noupdate -group {NoC_hold_sig} :tb_network_4x4:NoC:hold_out_E_4
-add wave -noupdate -group {NoC_hold_sig} :tb_network_4x4:NoC:hold_out_S_4
-add wave -noupdate -group {NoC_hold_sig} :tb_network_4x4:NoC:hold_out_W_4
-add wave -noupdate -group {NoC_hold_sig} :tb_network_4x4:NoC:hold_out_L_4
-add wave -noupdate -group {NoC_hold_sig} :tb_network_4x4:NoC:hold_out_N_5
-add wave -noupdate -group {NoC_hold_sig} :tb_network_4x4:NoC:hold_out_E_5
-add wave -noupdate -group {NoC_hold_sig} :tb_network_4x4:NoC:hold_out_S_5
-add wave -noupdate -group {NoC_hold_sig} :tb_network_4x4:NoC:hold_out_W_5
-add wave -noupdate -group {NoC_hold_sig} :tb_network_4x4:NoC:hold_out_L_5
-add wave -noupdate -group {NoC_hold_sig} :tb_network_4x4:NoC:hold_out_N_6
-add wave -noupdate -group {NoC_hold_sig} :tb_network_4x4:NoC:hold_out_E_6
-add wave -noupdate -group {NoC_hold_sig} :tb_network_4x4:NoC:hold_out_S_6
-add wave -noupdate -group {NoC_hold_sig} :tb_network_4x4:NoC:hold_out_W_6
-add wave -noupdate -group {NoC_hold_sig} :tb_network_4x4:NoC:hold_out_L_6
-add wave -noupdate -group {NoC_hold_sig} :tb_network_4x4:NoC:hold_out_N_7
-add wave -noupdate -group {NoC_hold_sig} :tb_network_4x4:NoC:hold_out_E_7
-add wave -noupdate -group {NoC_hold_sig} :tb_network_4x4:NoC:hold_out_S_7
-add wave -noupdate -group {NoC_hold_sig} :tb_network_4x4:NoC:hold_out_W_7
-add wave -noupdate -group {NoC_hold_sig} :tb_network_4x4:NoC:hold_out_L_7
-add wave -noupdate -group {NoC_hold_sig} :tb_network_4x4:NoC:hold_out_N_8
-add wave -noupdate -group {NoC_hold_sig} :tb_network_4x4:NoC:hold_out_E_8
-add wave -noupdate -group {NoC_hold_sig} :tb_network_4x4:NoC:hold_out_S_8
-add wave -noupdate -group {NoC_hold_sig} :tb_network_4x4:NoC:hold_out_W_8
-add wave -noupdate -group {NoC_hold_sig} :tb_network_4x4:NoC:hold_out_L_8
-add wave -noupdate -group {NoC_hold_sig} :tb_network_4x4:NoC:hold_out_N_9
-add wave -noupdate -group {NoC_hold_sig} :tb_network_4x4:NoC:hold_out_E_9
-add wave -noupdate -group {NoC_hold_sig} :tb_network_4x4:NoC:hold_out_S_9
-add wave -noupdate -group {NoC_hold_sig} :tb_network_4x4:NoC:hold_out_W_9
-add wave -noupdate -group {NoC_hold_sig} :tb_network_4x4:NoC:hold_out_L_9
-add wave -noupdate -group {NoC_hold_sig} :tb_network_4x4:NoC:hold_out_N_10
-add wave -noupdate -group {NoC_hold_sig} :tb_network_4x4:NoC:hold_out_E_10
-add wave -noupdate -group {NoC_hold_sig} :tb_network_4x4:NoC:hold_out_S_10
-add wave -noupdate -group {NoC_hold_sig} :tb_network_4x4:NoC:hold_out_W_10
-add wave -noupdate -group {NoC_hold_sig} :tb_network_4x4:NoC:hold_out_L_10
-add wave -noupdate -group {NoC_hold_sig} :tb_network_4x4:NoC:hold_out_N_11
-add wave -noupdate -group {NoC_hold_sig} :tb_network_4x4:NoC:hold_out_E_11
-add wave -noupdate -group {NoC_hold_sig} :tb_network_4x4:NoC:hold_out_S_11
-add wave -noupdate -group {NoC_hold_sig} :tb_network_4x4:NoC:hold_out_W_11
-add wave -noupdate -group {NoC_hold_sig} :tb_network_4x4:NoC:hold_out_L_11
-add wave -noupdate -group {NoC_hold_sig} :tb_network_4x4:NoC:hold_out_N_12
-add wave -noupdate -group {NoC_hold_sig} :tb_network_4x4:NoC:hold_out_E_12
-add wave -noupdate -group {NoC_hold_sig} :tb_network_4x4:NoC:hold_out_S_12
-add wave -noupdate -group {NoC_hold_sig} :tb_network_4x4:NoC:hold_out_W_12
-add wave -noupdate -group {NoC_hold_sig} :tb_network_4x4:NoC:hold_out_L_12
-add wave -noupdate -group {NoC_hold_sig} :tb_network_4x4:NoC:hold_out_N_13
-add wave -noupdate -group {NoC_hold_sig} :tb_network_4x4:NoC:hold_out_E_13
-add wave -noupdate -group {NoC_hold_sig} :tb_network_4x4:NoC:hold_out_S_13
-add wave -noupdate -group {NoC_hold_sig} :tb_network_4x4:NoC:hold_out_W_13
-add wave -noupdate -group {NoC_hold_sig} :tb_network_4x4:NoC:hold_out_L_13
-add wave -noupdate -group {NoC_hold_sig} :tb_network_4x4:NoC:hold_out_N_14
-add wave -noupdate -group {NoC_hold_sig} :tb_network_4x4:NoC:hold_out_E_14
-add wave -noupdate -group {NoC_hold_sig} :tb_network_4x4:NoC:hold_out_S_14
-add wave -noupdate -group {NoC_hold_sig} :tb_network_4x4:NoC:hold_out_W_14
-add wave -noupdate -group {NoC_hold_sig} :tb_network_4x4:NoC:hold_out_L_14
-add wave -noupdate -group {NoC_hold_sig} :tb_network_4x4:NoC:hold_out_N_15
-add wave -noupdate -group {NoC_hold_sig} :tb_network_4x4:NoC:hold_out_E_15
-add wave -noupdate -group {NoC_hold_sig} :tb_network_4x4:NoC:hold_out_S_15
-add wave -noupdate -group {NoC_hold_sig} :tb_network_4x4:NoC:hold_out_W_15
-add wave -noupdate -group {NoC_hold_sig} :tb_network_4x4:NoC:hold_out_L_15
-
-#add wave -noupdate -group {NoC_hold_sig} :tb_network_4x4:NoC:hold_in_N_0_sig
-#add wave -noupdate -group {NoC_hold_sig} :tb_network_4x4:NoC:hold_in_E_0_sig
-#add wave -noupdate -group {NoC_hold_sig} :tb_network_4x4:NoC:hold_in_S_0_sig
-#add wave -noupdate -group {NoC_hold_sig} :tb_network_4x4:NoC:hold_in_W_0_sig
-#add wave -noupdate -group {NoC_hold_sig} :tb_network_4x4:NoC:hold_in_L_0_sig
-#add wave -noupdate -group {NoC_hold_sig} :tb_network_4x4:NoC:hold_in_N_1_sig
-#add wave -noupdate -group {NoC_hold_sig} :tb_network_4x4:NoC:hold_in_E_1_sig
-#add wave -noupdate -group {NoC_hold_sig} :tb_network_4x4:NoC:hold_in_S_1_sig
-#add wave -noupdate -group {NoC_hold_sig} :tb_network_4x4:NoC:hold_in_W_1_sig
-#add wave -noupdate -group {NoC_hold_sig} :tb_network_4x4:NoC:hold_in_L_1_sig
-#add wave -noupdate -group {NoC_hold_sig} :tb_network_4x4:NoC:hold_in_N_2_sig
-#add wave -noupdate -group {NoC_hold_sig} :tb_network_4x4:NoC:hold_in_E_2_sig
-#add wave -noupdate -group {NoC_hold_sig} :tb_network_4x4:NoC:hold_in_S_2_sig
-#add wave -noupdate -group {NoC_hold_sig} :tb_network_4x4:NoC:hold_in_W_2_sig
-#add wave -noupdate -group {NoC_hold_sig} :tb_network_4x4:NoC:hold_in_L_2_sig
-#add wave -noupdate -group {NoC_hold_sig} :tb_network_4x4:NoC:hold_in_N_3_sig
-#add wave -noupdate -group {NoC_hold_sig} :tb_network_4x4:NoC:hold_in_E_3_sig
-#add wave -noupdate -group {NoC_hold_sig} :tb_network_4x4:NoC:hold_in_S_3_sig
-#add wave -noupdate -group {NoC_hold_sig} :tb_network_4x4:NoC:hold_in_W_3_sig
-#add wave -noupdate -group {NoC_hold_sig} :tb_network_4x4:NoC:hold_in_L_3_sig
-#add wave -noupdate -group {NoC_hold_sig} :tb_network_4x4:NoC:hold_in_N_4_sig
-#add wave -noupdate -group {NoC_hold_sig} :tb_network_4x4:NoC:hold_in_E_4_sig
-#add wave -noupdate -group {NoC_hold_sig} :tb_network_4x4:NoC:hold_in_S_4_sig
-#add wave -noupdate -group {NoC_hold_sig} :tb_network_4x4:NoC:hold_in_W_4_sig
-#add wave -noupdate -group {NoC_hold_sig} :tb_network_4x4:NoC:hold_in_L_4_sig
-#add wave -noupdate -group {NoC_hold_sig} :tb_network_4x4:NoC:hold_in_N_5_sig
-#add wave -noupdate -group {NoC_hold_sig} :tb_network_4x4:NoC:hold_in_E_5_sig
-#add wave -noupdate -group {NoC_hold_sig} :tb_network_4x4:NoC:hold_in_S_5_sig
-#add wave -noupdate -group {NoC_hold_sig} :tb_network_4x4:NoC:hold_in_W_5_sig
-#add wave -noupdate -group {NoC_hold_sig} :tb_network_4x4:NoC:hold_in_L_5_sig
-#add wave -noupdate -group {NoC_hold_sig} :tb_network_4x4:NoC:hold_in_N_6_sig
-#add wave -noupdate -group {NoC_hold_sig} :tb_network_4x4:NoC:hold_in_E_6_sig
-#add wave -noupdate -group {NoC_hold_sig} :tb_network_4x4:NoC:hold_in_S_6_sig
-#add wave -noupdate -group {NoC_hold_sig} :tb_network_4x4:NoC:hold_in_W_6_sig
-#add wave -noupdate -group {NoC_hold_sig} :tb_network_4x4:NoC:hold_in_L_6_sig
-#add wave -noupdate -group {NoC_hold_sig} :tb_network_4x4:NoC:hold_in_N_7_sig
-#add wave -noupdate -group {NoC_hold_sig} :tb_network_4x4:NoC:hold_in_E_7_sig
-#add wave -noupdate -group {NoC_hold_sig} :tb_network_4x4:NoC:hold_in_S_7_sig
-#add wave -noupdate -group {NoC_hold_sig} :tb_network_4x4:NoC:hold_in_W_7_sig
-#add wave -noupdate -group {NoC_hold_sig} :tb_network_4x4:NoC:hold_in_L_7_sig
-#add wave -noupdate -group {NoC_hold_sig} :tb_network_4x4:NoC:hold_in_N_8_sig
-#add wave -noupdate -group {NoC_hold_sig} :tb_network_4x4:NoC:hold_in_E_8_sig
-#add wave -noupdate -group {NoC_hold_sig} :tb_network_4x4:NoC:hold_in_S_8_sig
-#add wave -noupdate -group {NoC_hold_sig} :tb_network_4x4:NoC:hold_in_W_8_sig
-#add wave -noupdate -group {NoC_hold_sig} :tb_network_4x4:NoC:hold_in_L_8_sig
-#add wave -noupdate -group {NoC_hold_sig} :tb_network_4x4:NoC:hold_in_N_9_sig
-#add wave -noupdate -group {NoC_hold_sig} :tb_network_4x4:NoC:hold_in_E_9_sig
-#add wave -noupdate -group {NoC_hold_sig} :tb_network_4x4:NoC:hold_in_S_9_sig
-#add wave -noupdate -group {NoC_hold_sig} :tb_network_4x4:NoC:hold_in_W_9_sig
-#add wave -noupdate -group {NoC_hold_sig} :tb_network_4x4:NoC:hold_in_L_9_sig
-#add wave -noupdate -group {NoC_hold_sig} :tb_network_4x4:NoC:hold_in_N_10_sig
-#add wave -noupdate -group {NoC_hold_sig} :tb_network_4x4:NoC:hold_in_E_10_sig
-#add wave -noupdate -group {NoC_hold_sig} :tb_network_4x4:NoC:hold_in_S_10_sig
-#add wave -noupdate -group {NoC_hold_sig} :tb_network_4x4:NoC:hold_in_W_10_sig
-#add wave -noupdate -group {NoC_hold_sig} :tb_network_4x4:NoC:hold_in_L_10_sig
-#add wave -noupdate -group {NoC_hold_sig} :tb_network_4x4:NoC:hold_in_N_11_sig
-#add wave -noupdate -group {NoC_hold_sig} :tb_network_4x4:NoC:hold_in_E_11_sig
-#add wave -noupdate -group {NoC_hold_sig} :tb_network_4x4:NoC:hold_in_S_11_sig
-#add wave -noupdate -group {NoC_hold_sig} :tb_network_4x4:NoC:hold_in_W_11_sig
-#add wave -noupdate -group {NoC_hold_sig} :tb_network_4x4:NoC:hold_in_L_11_sig
-#add wave -noupdate -group {NoC_hold_sig} :tb_network_4x4:NoC:hold_in_N_12_sig
-#add wave -noupdate -group {NoC_hold_sig} :tb_network_4x4:NoC:hold_in_E_12_sig
-#add wave -noupdate -group {NoC_hold_sig} :tb_network_4x4:NoC:hold_in_S_12_sig
-#add wave -noupdate -group {NoC_hold_sig} :tb_network_4x4:NoC:hold_in_W_12_sig
-#add wave -noupdate -group {NoC_hold_sig} :tb_network_4x4:NoC:hold_in_L_12_sig
-#add wave -noupdate -group {NoC_hold_sig} :tb_network_4x4:NoC:hold_in_N_13_sig
-#add wave -noupdate -group {NoC_hold_sig} :tb_network_4x4:NoC:hold_in_E_13_sig
-#add wave -noupdate -group {NoC_hold_sig} :tb_network_4x4:NoC:hold_in_S_13_sig
-#add wave -noupdate -group {NoC_hold_sig} :tb_network_4x4:NoC:hold_in_W_13_sig
-#add wave -noupdate -group {NoC_hold_sig} :tb_network_4x4:NoC:hold_in_L_13_sig
-#add wave -noupdate -group {NoC_hold_sig} :tb_network_4x4:NoC:hold_in_N_14_sig
-#add wave -noupdate -group {NoC_hold_sig} :tb_network_4x4:NoC:hold_in_E_14_sig
-#add wave -noupdate -group {NoC_hold_sig} :tb_network_4x4:NoC:hold_in_S_14_sig
-#add wave -noupdate -group {NoC_hold_sig} :tb_network_4x4:NoC:hold_in_W_14_sig
-#add wave -noupdate -group {NoC_hold_sig} :tb_network_4x4:NoC:hold_in_L_14_sig
-#add wave -noupdate -group {NoC_hold_sig} :tb_network_4x4:NoC:hold_in_N_15_sig
-#add wave -noupdate -group {NoC_hold_sig} :tb_network_4x4:NoC:hold_in_E_15_sig
-#add wave -noupdate -group {NoC_hold_sig} :tb_network_4x4:NoC:hold_in_S_15_sig
-#add wave -noupdate -group {NoC_hold_sig} :tb_network_4x4:NoC:hold_in_W_15_sig
-#add wave -noupdate -group {NoC_hold_sig} :tb_network_4x4:NoC:hold_in_L_15_sig
-#
-#add wave -noupdate -group {NoC_hold_sig_X} :tb_network_4x4:NoC:hold_S_N_X_0
-#add wave -noupdate -group {NoC_hold_sig_X} :tb_network_4x4:NoC:hold_S_N_X_1
-#add wave -noupdate -group {NoC_hold_sig_X} :tb_network_4x4:NoC:hold_S_N_X_2
-#add wave -noupdate -group {NoC_hold_sig_X} :tb_network_4x4:NoC:hold_S_N_X_3
-#add wave -noupdate -group {NoC_hold_sig_X} :tb_network_4x4:NoC:hold_S_N_0_4
-#add wave -noupdate -group {NoC_hold_sig_X} :tb_network_4x4:NoC:hold_S_N_1_5
-#add wave -noupdate -group {NoC_hold_sig_X} :tb_network_4x4:NoC:hold_S_N_2_6
-#add wave -noupdate -group {NoC_hold_sig_X} :tb_network_4x4:NoC:hold_S_N_3_7
-#add wave -noupdate -group {NoC_hold_sig_X} :tb_network_4x4:NoC:hold_S_N_4_8
-#add wave -noupdate -group {NoC_hold_sig_X} :tb_network_4x4:NoC:hold_S_N_5_9
-#add wave -noupdate -group {NoC_hold_sig_X} :tb_network_4x4:NoC:hold_S_N_6_10
-#add wave -noupdate -group {NoC_hold_sig_X} :tb_network_4x4:NoC:hold_S_N_7_11
-#add wave -noupdate -group {NoC_hold_sig_X} :tb_network_4x4:NoC:hold_S_N_8_12
-#add wave -noupdate -group {NoC_hold_sig_X} :tb_network_4x4:NoC:hold_S_N_9_13
-#add wave -noupdate -group {NoC_hold_sig_X} :tb_network_4x4:NoC:hold_S_N_10_14
-#add wave -noupdate -group {NoC_hold_sig_X} :tb_network_4x4:NoC:hold_S_N_11_15
-#add wave -noupdate -group {NoC_hold_sig_X} :tb_network_4x4:NoC:hold_S_N_12_X
-#add wave -noupdate -group {NoC_hold_sig_X} :tb_network_4x4:NoC:hold_S_N_13_X
-#add wave -noupdate -group {NoC_hold_sig_X} :tb_network_4x4:NoC:hold_S_N_14_X
-#add wave -noupdate -group {NoC_hold_sig_X} :tb_network_4x4:NoC:hold_S_N_15_X
-#add wave -noupdate -group {NoC_hold_sig_X} :tb_network_4x4:NoC:hold_S_N_0_X
-#add wave -noupdate -group {NoC_hold_sig_X} :tb_network_4x4:NoC:hold_S_N_1_X
-#add wave -noupdate -group {NoC_hold_sig_X} :tb_network_4x4:NoC:hold_S_N_2_X
-#add wave -noupdate -group {NoC_hold_sig_X} :tb_network_4x4:NoC:hold_S_N_3_X
-#add wave -noupdate -group {NoC_hold_sig_X} :tb_network_4x4:NoC:hold_S_N_4_0
-#add wave -noupdate -group {NoC_hold_sig_X} :tb_network_4x4:NoC:hold_S_N_5_1
-#add wave -noupdate -group {NoC_hold_sig_X} :tb_network_4x4:NoC:hold_S_N_6_2
-#add wave -noupdate -group {NoC_hold_sig_X} :tb_network_4x4:NoC:hold_S_N_7_3
-#add wave -noupdate -group {NoC_hold_sig_X} :tb_network_4x4:NoC:hold_S_N_8_4
-#add wave -noupdate -group {NoC_hold_sig_X} :tb_network_4x4:NoC:hold_S_N_9_5
-#add wave -noupdate -group {NoC_hold_sig_X} :tb_network_4x4:NoC:hold_S_N_10_6
-#add wave -noupdate -group {NoC_hold_sig_X} :tb_network_4x4:NoC:hold_S_N_11_7
-#add wave -noupdate -group {NoC_hold_sig_X} :tb_network_4x4:NoC:hold_S_N_12_8
-#add wave -noupdate -group {NoC_hold_sig_X} :tb_network_4x4:NoC:hold_S_N_13_9
-#add wave -noupdate -group {NoC_hold_sig_X} :tb_network_4x4:NoC:hold_S_N_14_10
-#add wave -noupdate -group {NoC_hold_sig_X} :tb_network_4x4:NoC:hold_S_N_15_11
-#add wave -noupdate -group {NoC_hold_sig_X} :tb_network_4x4:NoC:hold_S_N_X_12
-#add wave -noupdate -group {NoC_hold_sig_X} :tb_network_4x4:NoC:hold_S_N_X_13
-#add wave -noupdate -group {NoC_hold_sig_X} :tb_network_4x4:NoC:hold_S_N_X_14
-#add wave -noupdate -group {NoC_hold_sig_X} :tb_network_4x4:NoC:hold_S_N_X_15
-
-#add wave -noupdate -group {NoC_hold_sig_X} :tb_network_4x4:NoC:R_0:hold_in_N
-#add wave -noupdate -group {NoC_hold_sig_X} :tb_network_4x4:NoC:R_0:hold_in_E
-#add wave -noupdate -group {NoC_hold_sig_X} :tb_network_4x4:NoC:R_0:hold_in_S
-#add wave -noupdate -group {NoC_hold_sig_X} :tb_network_4x4:NoC:R_0:hold_in_W
-#add wave -noupdate -group {NoC_hold_sig_X} :tb_network_4x4:NoC:R_0:hold_in_L
-#add wave -noupdate -group {NoC_hold_sig_X} :tb_network_4x4:NoC:R_1:hold_in_N
-#add wave -noupdate -group {NoC_hold_sig_X} :tb_network_4x4:NoC:R_1:hold_in_E
-#add wave -noupdate -group {NoC_hold_sig_X} :tb_network_4x4:NoC:R_1:hold_in_S
-#add wave -noupdate -group {NoC_hold_sig_X} :tb_network_4x4:NoC:R_1:hold_in_W
-#add wave -noupdate -group {NoC_hold_sig_X} :tb_network_4x4:NoC:R_1:hold_in_L
-
-#add wave -noupdate -group {NoC_hold_sig_X} :tb_network_4x4:NoC:R_0:CONTROL_PART_WITH_CHECKERS:LBDR_N:hold_in
-add wave -noupdate -group {NoC_hold_sig_X} :tb_network_4x4:NoC:R_0:CONTROL_PART_WITH_CHECKERS:LBDR_N:hold_out
-add wave -noupdate -group {NoC_hold_sig_X} :tb_network_4x4:NoC:R_0:CONTROL_PART_WITH_CHECKERS:LBDR_N:fault_in_sig
-add wave -noupdate -group {NoC_hold_sig_X} :tb_network_4x4:NoC:R_0:CONTROL_PART_WITH_CHECKERS:LBDR_N:err_header_empty_Requests_FF_Requests_in_sig
-#add wave -noupdate -group {NoC_hold_sig_X} :tb_network_4x4:NoC:R_0:CONTROL_PART_WITH_CHECKERS:LBDR_E:hold_in
-add wave -noupdate -group {NoC_hold_sig_X} :tb_network_4x4:NoC:R_0:CONTROL_PART_WITH_CHECKERS:LBDR_E:hold_out
-add wave -noupdate -group {NoC_hold_sig_X} :tb_network_4x4:NoC:R_0:CONTROL_PART_WITH_CHECKERS:LBDR_E:fault_in_sig
-add wave -noupdate -group {NoC_hold_sig_X} :tb_network_4x4:NoC:R_0:CONTROL_PART_WITH_CHECKERS:LBDR_E:err_header_empty_Requests_FF_Requests_in_sig
-#add wave -noupdate -group {NoC_hold_sig_X} :tb_network_4x4:NoC:R_0:CONTROL_PART_WITH_CHECKERS:LBDR_S:hold_in
-add wave -noupdate -group {NoC_hold_sig_X} :tb_network_4x4:NoC:R_0:CONTROL_PART_WITH_CHECKERS:LBDR_S:hold_out
-add wave -noupdate -group {NoC_hold_sig_X} :tb_network_4x4:NoC:R_0:CONTROL_PART_WITH_CHECKERS:LBDR_S:fault_in_sig
-add wave -noupdate -group {NoC_hold_sig_X} :tb_network_4x4:NoC:R_0:CONTROL_PART_WITH_CHECKERS:LBDR_S:err_header_empty_Requests_FF_Requests_in_sig
-#add wave -noupdate -group {NoC_hold_sig_X} :tb_network_4x4:NoC:R_0:CONTROL_PART_WITH_CHECKERS:LBDR_W:hold_in
-add wave -noupdate -group {NoC_hold_sig_X} :tb_network_4x4:NoC:R_0:CONTROL_PART_WITH_CHECKERS:LBDR_W:hold_out
-add wave -noupdate -group {NoC_hold_sig_X} :tb_network_4x4:NoC:R_0:CONTROL_PART_WITH_CHECKERS:LBDR_W:fault_in_sig
-add wave -noupdate -group {NoC_hold_sig_X} :tb_network_4x4:NoC:R_0:CONTROL_PART_WITH_CHECKERS:LBDR_W:err_header_empty_Requests_FF_Requests_in_sig
-#add wave -noupdate -group {NoC_hold_sig_X} :tb_network_4x4:NoC:R_0:CONTROL_PART_WITH_CHECKERS:LBDR_L:hold_in
-add wave -noupdate -group {NoC_hold_sig_X} :tb_network_4x4:NoC:R_0:CONTROL_PART_WITH_CHECKERS:LBDR_L:hold_out
-add wave -noupdate -group {NoC_hold_sig_X} :tb_network_4x4:NoC:R_0:CONTROL_PART_WITH_CHECKERS:LBDR_L:fault_in_sig
-add wave -noupdate -group {NoC_hold_sig_X} :tb_network_4x4:NoC:R_0:CONTROL_PART_WITH_CHECKERS:LBDR_L:err_header_empty_Requests_FF_Requests_in_sig
-
-#add wave -noupdate -group {NoC_hold_sig_X} :tb_network_4x4:NoC:R_1:CONTROL_PART_WITH_CHECKERS:LBDR_N:hold_in
-add wave -noupdate -group {NoC_hold_sig_X} :tb_network_4x4:NoC:R_1:CONTROL_PART_WITH_CHECKERS:LBDR_N:hold_out
-add wave -noupdate -group {NoC_hold_sig_X} :tb_network_4x4:NoC:R_1:CONTROL_PART_WITH_CHECKERS:LBDR_N:fault_in_sig
-add wave -noupdate -group {NoC_hold_sig_X} :tb_network_4x4:NoC:R_1:CONTROL_PART_WITH_CHECKERS:LBDR_N:err_header_empty_Requests_FF_Requests_in_sig
-#add wave -noupdate -group {NoC_hold_sig_X} :tb_network_4x4:NoC:R_1:CONTROL_PART_WITH_CHECKERS:LBDR_E:hold_in
-add wave -noupdate -group {NoC_hold_sig_X} :tb_network_4x4:NoC:R_1:CONTROL_PART_WITH_CHECKERS:LBDR_E:hold_out
-add wave -noupdate -group {NoC_hold_sig_X} :tb_network_4x4:NoC:R_1:CONTROL_PART_WITH_CHECKERS:LBDR_E:fault_in_sig
-add wave -noupdate -group {NoC_hold_sig_X} :tb_network_4x4:NoC:R_1:CONTROL_PART_WITH_CHECKERS:LBDR_E:err_header_empty_Requests_FF_Requests_in_sig
-#add wave -noupdate -group {NoC_hold_sig_X} :tb_network_4x4:NoC:R_1:CONTROL_PART_WITH_CHECKERS:LBDR_S:hold_in
-add wave -noupdate -group {NoC_hold_sig_X} :tb_network_4x4:NoC:R_1:CONTROL_PART_WITH_CHECKERS:LBDR_S:hold_out
-add wave -noupdate -group {NoC_hold_sig_X} :tb_network_4x4:NoC:R_1:CONTROL_PART_WITH_CHECKERS:LBDR_S:fault_in_sig
-add wave -noupdate -group {NoC_hold_sig_X} :tb_network_4x4:NoC:R_1:CONTROL_PART_WITH_CHECKERS:LBDR_S:err_header_empty_Requests_FF_Requests_in_sig
-#add wave -noupdate -group {NoC_hold_sig_X} :tb_network_4x4:NoC:R_1:CONTROL_PART_WITH_CHECKERS:LBDR_W:hold_in
-add wave -noupdate -group {NoC_hold_sig_X} :tb_network_4x4:NoC:R_1:CONTROL_PART_WITH_CHECKERS:LBDR_W:hold_out
-add wave -noupdate -group {NoC_hold_sig_X} :tb_network_4x4:NoC:R_1:CONTROL_PART_WITH_CHECKERS:LBDR_W:fault_in_sig
-add wave -noupdate -group {NoC_hold_sig_X} :tb_network_4x4:NoC:R_1:CONTROL_PART_WITH_CHECKERS:LBDR_W:err_header_empty_Requests_FF_Requests_in_sig
-#add wave -noupdate -group {NoC_hold_sig_X} :tb_network_4x4:NoC:R_1:CONTROL_PART_WITH_CHECKERS:LBDR_L:hold_in
-add wave -noupdate -group {NoC_hold_sig_X} :tb_network_4x4:NoC:R_1:CONTROL_PART_WITH_CHECKERS:LBDR_L:hold_out
-add wave -noupdate -group {NoC_hold_sig_X} :tb_network_4x4:NoC:R_1:CONTROL_PART_WITH_CHECKERS:LBDR_L:fault_in_sig
-add wave -noupdate -group {NoC_hold_sig_X} :tb_network_4x4:NoC:R_1:CONTROL_PART_WITH_CHECKERS:LBDR_L:err_header_empty_Requests_FF_Requests_in_sig
-
-#add wave -noupdate -group {NoC_hold_sig_X} :tb_network_4x4:NoC:R_2:CONTROL_PART_WITH_CHECKERS:LBDR_N:hold_in
-add wave -noupdate -group {NoC_hold_sig_X} :tb_network_4x4:NoC:R_2:CONTROL_PART_WITH_CHECKERS:LBDR_N:hold_out
-add wave -noupdate -group {NoC_hold_sig_X} :tb_network_4x4:NoC:R_2:CONTROL_PART_WITH_CHECKERS:LBDR_N:fault_in_sig
-add wave -noupdate -group {NoC_hold_sig_X} :tb_network_4x4:NoC:R_2:CONTROL_PART_WITH_CHECKERS:LBDR_N:err_header_empty_Requests_FF_Requests_in_sig
-a#dd wave -noupdate -group {NoC_hold_sig_X} :tb_network_4x4:NoC:R_2:CONTROL_PART_WITH_CHECKERS:LBDR_E:hold_in
-add wave -noupdate -group {NoC_hold_sig_X} :tb_network_4x4:NoC:R_2:CONTROL_PART_WITH_CHECKERS:LBDR_E:hold_out
-add wave -noupdate -group {NoC_hold_sig_X} :tb_network_4x4:NoC:R_2:CONTROL_PART_WITH_CHECKERS:LBDR_E:fault_in_sig
-add wave -noupdate -group {NoC_hold_sig_X} :tb_network_4x4:NoC:R_2:CONTROL_PART_WITH_CHECKERS:LBDR_E:err_header_empty_Requests_FF_Requests_in_sig
-ad#d wave -noupdate -group {NoC_hold_sig_X} :tb_network_4x4:NoC:R_2:CONTROL_PART_WITH_CHECKERS:LBDR_S:hold_in
-add wave -noupdate -group {NoC_hold_sig_X} :tb_network_4x4:NoC:R_2:CONTROL_PART_WITH_CHECKERS:LBDR_S:hold_out
-add wave -noupdate -group {NoC_hold_sig_X} :tb_network_4x4:NoC:R_2:CONTROL_PART_WITH_CHECKERS:LBDR_S:fault_in_sig
-add wave -noupdate -group {NoC_hold_sig_X} :tb_network_4x4:NoC:R_2:CONTROL_PART_WITH_CHECKERS:LBDR_S:err_header_empty_Requests_FF_Requests_in_sig
-add# wave -noupdate -group {NoC_hold_sig_X} :tb_network_4x4:NoC:R_2:CONTROL_PART_WITH_CHECKERS:LBDR_W:hold_in
-add wave -noupdate -group {NoC_hold_sig_X} :tb_network_4x4:NoC:R_2:CONTROL_PART_WITH_CHECKERS:LBDR_W:hold_out
-add wave -noupdate -group {NoC_hold_sig_X} :tb_network_4x4:NoC:R_2:CONTROL_PART_WITH_CHECKERS:LBDR_W:fault_in_sig
-add wave -noupdate -group {NoC_hold_sig_X} :tb_network_4x4:NoC:R_2:CONTROL_PART_WITH_CHECKERS:LBDR_W:err_header_empty_Requests_FF_Requests_in_sig
-add #wave -noupdate -group {NoC_hold_sig_X} :tb_network_4x4:NoC:R_2:CONTROL_PART_WITH_CHECKERS:LBDR_L:hold_in
-add wave -noupdate -group {NoC_hold_sig_X} :tb_network_4x4:NoC:R_2:CONTROL_PART_WITH_CHECKERS:LBDR_L:hold_out
-add wave -noupdate -group {NoC_hold_sig_X} :tb_network_4x4:NoC:R_2:CONTROL_PART_WITH_CHECKERS:LBDR_L:fault_in_sig
-add wave -noupdate -group {NoC_hold_sig_X} :tb_network_4x4:NoC:R_2:CONTROL_PART_WITH_CHECKERS:LBDR_L:err_header_empty_Requests_FF_Requests_in_sig
-
-#add wave -noupdate -group {NoC_hold_sig_X} :tb_network_4x4:NoC:R_3:CONTROL_PART_WITH_CHECKERS:LBDR_N:hold_in
-add wave -noupdate -group {NoC_hold_sig_X} :tb_network_4x4:NoC:R_3:CONTROL_PART_WITH_CHECKERS:LBDR_N:hold_out
-add wave -noupdate -group {NoC_hold_sig_X} :tb_network_4x4:NoC:R_3:CONTROL_PART_WITH_CHECKERS:LBDR_N:fault_in_sig
-add wave -noupdate -group {NoC_hold_sig_X} :tb_network_4x4:NoC:R_3:CONTROL_PART_WITH_CHECKERS:LBDR_N:err_header_empty_Requests_FF_Requests_in_sig
-#add wave -noupdate -group {NoC_hold_sig_X} :tb_network_4x4:NoC:R_3:CONTROL_PART_WITH_CHECKERS:LBDR_E:hold_in
-add wave -noupdate -group {NoC_hold_sig_X} :tb_network_4x4:NoC:R_3:CONTROL_PART_WITH_CHECKERS:LBDR_E:hold_out
-add wave -noupdate -group {NoC_hold_sig_X} :tb_network_4x4:NoC:R_3:CONTROL_PART_WITH_CHECKERS:LBDR_E:fault_in_sig
-add wave -noupdate -group {NoC_hold_sig_X} :tb_network_4x4:NoC:R_3:CONTROL_PART_WITH_CHECKERS:LBDR_E:err_header_empty_Requests_FF_Requests_in_sig
-#add wave -noupdate -group {NoC_hold_sig_X} :tb_network_4x4:NoC:R_3:CONTROL_PART_WITH_CHECKERS:LBDR_S:hold_in
-add wave -noupdate -group {NoC_hold_sig_X} :tb_network_4x4:NoC:R_3:CONTROL_PART_WITH_CHECKERS:LBDR_S:hold_out
-add wave -noupdate -group {NoC_hold_sig_X} :tb_network_4x4:NoC:R_3:CONTROL_PART_WITH_CHECKERS:LBDR_S:fault_in_sig
-add wave -noupdate -group {NoC_hold_sig_X} :tb_network_4x4:NoC:R_3:CONTROL_PART_WITH_CHECKERS:LBDR_S:err_header_empty_Requests_FF_Requests_in_sig
-#add wave -noupdate -group {NoC_hold_sig_X} :tb_network_4x4:NoC:R_3:CONTROL_PART_WITH_CHECKERS:LBDR_W:hold_in
-add wave -noupdate -group {NoC_hold_sig_X} :tb_network_4x4:NoC:R_3:CONTROL_PART_WITH_CHECKERS:LBDR_W:hold_out
-add wave -noupdate -group {NoC_hold_sig_X} :tb_network_4x4:NoC:R_3:CONTROL_PART_WITH_CHECKERS:LBDR_W:fault_in_sig
-add wave -noupdate -group {NoC_hold_sig_X} :tb_network_4x4:NoC:R_3:CONTROL_PART_WITH_CHECKERS:LBDR_W:err_header_empty_Requests_FF_Requests_in_sig
-#add wave -noupdate -group {NoC_hold_sig_X} :tb_network_4x4:NoC:R_3:CONTROL_PART_WITH_CHECKERS:LBDR_L:hold_in
-add wave -noupdate -group {NoC_hold_sig_X} :tb_network_4x4:NoC:R_3:CONTROL_PART_WITH_CHECKERS:LBDR_L:hold_out
-add wave -noupdate -group {NoC_hold_sig_X} :tb_network_4x4:NoC:R_3:CONTROL_PART_WITH_CHECKERS:LBDR_L:fault_in_sig
-add wave -noupdate -group {NoC_hold_sig_X} :tb_network_4x4:NoC:R_3:CONTROL_PART_WITH_CHECKERS:LBDR_L:err_header_empty_Requests_FF_Requests_in_sig
-
+add wave -noupdate -group NoC_hold_sig_X :tb_network_4x4:NoC:R_0:CONTROL_PART_WITH_CHECKERS:LBDR_N:hold_out
+add wave -noupdate -group NoC_hold_sig_X :tb_network_4x4:NoC:R_0:CONTROL_PART_WITH_CHECKERS:LBDR_N:fault_in_sig
+add wave -noupdate -group NoC_hold_sig_X :tb_network_4x4:NoC:R_0:CONTROL_PART_WITH_CHECKERS:LBDR_N:err_header_empty_Requests_FF_Requests_in_sig
+add wave -noupdate -group NoC_hold_sig_X :tb_network_4x4:NoC:R_0:CONTROL_PART_WITH_CHECKERS:LBDR_E:hold_out
+add wave -noupdate -group NoC_hold_sig_X :tb_network_4x4:NoC:R_0:CONTROL_PART_WITH_CHECKERS:LBDR_E:fault_in_sig
+add wave -noupdate -group NoC_hold_sig_X :tb_network_4x4:NoC:R_0:CONTROL_PART_WITH_CHECKERS:LBDR_E:err_header_empty_Requests_FF_Requests_in_sig
+add wave -noupdate -group NoC_hold_sig_X :tb_network_4x4:NoC:R_0:CONTROL_PART_WITH_CHECKERS:LBDR_S:hold_out
+add wave -noupdate -group NoC_hold_sig_X :tb_network_4x4:NoC:R_0:CONTROL_PART_WITH_CHECKERS:LBDR_S:fault_in_sig
+add wave -noupdate -group NoC_hold_sig_X :tb_network_4x4:NoC:R_0:CONTROL_PART_WITH_CHECKERS:LBDR_S:err_header_empty_Requests_FF_Requests_in_sig
+add wave -noupdate -group NoC_hold_sig_X :tb_network_4x4:NoC:R_0:CONTROL_PART_WITH_CHECKERS:LBDR_W:hold_out
+add wave -noupdate -group NoC_hold_sig_X :tb_network_4x4:NoC:R_0:CONTROL_PART_WITH_CHECKERS:LBDR_W:fault_in_sig
+add wave -noupdate -group NoC_hold_sig_X :tb_network_4x4:NoC:R_0:CONTROL_PART_WITH_CHECKERS:LBDR_W:err_header_empty_Requests_FF_Requests_in_sig
+add wave -noupdate -group NoC_hold_sig_X :tb_network_4x4:NoC:R_0:CONTROL_PART_WITH_CHECKERS:LBDR_L:hold_out
+add wave -noupdate -group NoC_hold_sig_X :tb_network_4x4:NoC:R_0:CONTROL_PART_WITH_CHECKERS:LBDR_L:fault_in_sig
+add wave -noupdate -group NoC_hold_sig_X :tb_network_4x4:NoC:R_0:CONTROL_PART_WITH_CHECKERS:LBDR_L:err_header_empty_Requests_FF_Requests_in_sig
+add wave -noupdate -group NoC_hold_sig_X :tb_network_4x4:NoC:R_1:CONTROL_PART_WITH_CHECKERS:LBDR_N:hold_out
+add wave -noupdate -group NoC_hold_sig_X :tb_network_4x4:NoC:R_1:CONTROL_PART_WITH_CHECKERS:LBDR_N:fault_in_sig
+add wave -noupdate -group NoC_hold_sig_X :tb_network_4x4:NoC:R_1:CONTROL_PART_WITH_CHECKERS:LBDR_N:err_header_empty_Requests_FF_Requests_in_sig
+add wave -noupdate -group NoC_hold_sig_X :tb_network_4x4:NoC:R_1:CONTROL_PART_WITH_CHECKERS:LBDR_E:hold_out
+add wave -noupdate -group NoC_hold_sig_X :tb_network_4x4:NoC:R_1:CONTROL_PART_WITH_CHECKERS:LBDR_E:fault_in_sig
+add wave -noupdate -group NoC_hold_sig_X :tb_network_4x4:NoC:R_1:CONTROL_PART_WITH_CHECKERS:LBDR_E:err_header_empty_Requests_FF_Requests_in_sig
+add wave -noupdate -group NoC_hold_sig_X :tb_network_4x4:NoC:R_1:CONTROL_PART_WITH_CHECKERS:LBDR_S:hold_out
+add wave -noupdate -group NoC_hold_sig_X :tb_network_4x4:NoC:R_1:CONTROL_PART_WITH_CHECKERS:LBDR_S:fault_in_sig
+add wave -noupdate -group NoC_hold_sig_X :tb_network_4x4:NoC:R_1:CONTROL_PART_WITH_CHECKERS:LBDR_S:err_header_empty_Requests_FF_Requests_in_sig
+add wave -noupdate -group NoC_hold_sig_X :tb_network_4x4:NoC:R_1:CONTROL_PART_WITH_CHECKERS:LBDR_W:hold_out
+add wave -noupdate -group NoC_hold_sig_X :tb_network_4x4:NoC:R_1:CONTROL_PART_WITH_CHECKERS:LBDR_W:fault_in_sig
+add wave -noupdate -group NoC_hold_sig_X :tb_network_4x4:NoC:R_1:CONTROL_PART_WITH_CHECKERS:LBDR_W:err_header_empty_Requests_FF_Requests_in_sig
+add wave -noupdate -group NoC_hold_sig_X :tb_network_4x4:NoC:R_1:CONTROL_PART_WITH_CHECKERS:LBDR_L:hold_out
+add wave -noupdate -group NoC_hold_sig_X :tb_network_4x4:NoC:R_1:CONTROL_PART_WITH_CHECKERS:LBDR_L:fault_in_sig
+add wave -noupdate -group NoC_hold_sig_X :tb_network_4x4:NoC:R_1:CONTROL_PART_WITH_CHECKERS:LBDR_L:err_header_empty_Requests_FF_Requests_in_sig
+add wave -noupdate -group NoC_hold_sig_X :tb_network_4x4:NoC:R_2:CONTROL_PART_WITH_CHECKERS:LBDR_N:hold_out
+add wave -noupdate -group NoC_hold_sig_X :tb_network_4x4:NoC:R_2:CONTROL_PART_WITH_CHECKERS:LBDR_N:fault_in_sig
+add wave -noupdate -group NoC_hold_sig_X :tb_network_4x4:NoC:R_2:CONTROL_PART_WITH_CHECKERS:LBDR_N:err_header_empty_Requests_FF_Requests_in_sig
+add wave -noupdate -group NoC_hold_sig_X :tb_network_4x4:NoC:R_2:CONTROL_PART_WITH_CHECKERS:LBDR_E:hold_out
+add wave -noupdate -group NoC_hold_sig_X :tb_network_4x4:NoC:R_2:CONTROL_PART_WITH_CHECKERS:LBDR_E:fault_in_sig
+add wave -noupdate -group NoC_hold_sig_X :tb_network_4x4:NoC:R_2:CONTROL_PART_WITH_CHECKERS:LBDR_E:err_header_empty_Requests_FF_Requests_in_sig
+add wave -noupdate -group NoC_hold_sig_X :tb_network_4x4:NoC:R_2:CONTROL_PART_WITH_CHECKERS:LBDR_S:hold_out
+add wave -noupdate -group NoC_hold_sig_X :tb_network_4x4:NoC:R_2:CONTROL_PART_WITH_CHECKERS:LBDR_S:fault_in_sig
+add wave -noupdate -group NoC_hold_sig_X :tb_network_4x4:NoC:R_2:CONTROL_PART_WITH_CHECKERS:LBDR_S:err_header_empty_Requests_FF_Requests_in_sig
+add wave -noupdate -group NoC_hold_sig_X :tb_network_4x4:NoC:R_2:CONTROL_PART_WITH_CHECKERS:LBDR_W:hold_out
+add wave -noupdate -group NoC_hold_sig_X :tb_network_4x4:NoC:R_2:CONTROL_PART_WITH_CHECKERS:LBDR_W:fault_in_sig
+add wave -noupdate -group NoC_hold_sig_X :tb_network_4x4:NoC:R_2:CONTROL_PART_WITH_CHECKERS:LBDR_W:err_header_empty_Requests_FF_Requests_in_sig
+add wave -noupdate -group NoC_hold_sig_X :tb_network_4x4:NoC:R_2:CONTROL_PART_WITH_CHECKERS:LBDR_L:hold_out
+add wave -noupdate -group NoC_hold_sig_X :tb_network_4x4:NoC:R_2:CONTROL_PART_WITH_CHECKERS:LBDR_L:fault_in_sig
+add wave -noupdate -group NoC_hold_sig_X :tb_network_4x4:NoC:R_2:CONTROL_PART_WITH_CHECKERS:LBDR_L:err_header_empty_Requests_FF_Requests_in_sig
+add wave -noupdate -group NoC_hold_sig_X :tb_network_4x4:NoC:R_3:CONTROL_PART_WITH_CHECKERS:LBDR_N:hold_out
+add wave -noupdate -group NoC_hold_sig_X :tb_network_4x4:NoC:R_3:CONTROL_PART_WITH_CHECKERS:LBDR_N:fault_in_sig
+add wave -noupdate -group NoC_hold_sig_X :tb_network_4x4:NoC:R_3:CONTROL_PART_WITH_CHECKERS:LBDR_N:err_header_empty_Requests_FF_Requests_in_sig
+add wave -noupdate -group NoC_hold_sig_X :tb_network_4x4:NoC:R_3:CONTROL_PART_WITH_CHECKERS:LBDR_E:hold_out
+add wave -noupdate -group NoC_hold_sig_X :tb_network_4x4:NoC:R_3:CONTROL_PART_WITH_CHECKERS:LBDR_E:fault_in_sig
+add wave -noupdate -group NoC_hold_sig_X :tb_network_4x4:NoC:R_3:CONTROL_PART_WITH_CHECKERS:LBDR_E:err_header_empty_Requests_FF_Requests_in_sig
+add wave -noupdate -group NoC_hold_sig_X :tb_network_4x4:NoC:R_3:CONTROL_PART_WITH_CHECKERS:LBDR_S:hold_out
+add wave -noupdate -group NoC_hold_sig_X :tb_network_4x4:NoC:R_3:CONTROL_PART_WITH_CHECKERS:LBDR_S:fault_in_sig
+add wave -noupdate -group NoC_hold_sig_X :tb_network_4x4:NoC:R_3:CONTROL_PART_WITH_CHECKERS:LBDR_S:err_header_empty_Requests_FF_Requests_in_sig
+add wave -noupdate -group NoC_hold_sig_X :tb_network_4x4:NoC:R_3:CONTROL_PART_WITH_CHECKERS:LBDR_W:hold_out
+add wave -noupdate -group NoC_hold_sig_X :tb_network_4x4:NoC:R_3:CONTROL_PART_WITH_CHECKERS:LBDR_W:fault_in_sig
+add wave -noupdate -group NoC_hold_sig_X :tb_network_4x4:NoC:R_3:CONTROL_PART_WITH_CHECKERS:LBDR_W:err_header_empty_Requests_FF_Requests_in_sig
+add wave -noupdate -group NoC_hold_sig_X :tb_network_4x4:NoC:R_3:CONTROL_PART_WITH_CHECKERS:LBDR_L:hold_out
+add wave -noupdate -group NoC_hold_sig_X :tb_network_4x4:NoC:R_3:CONTROL_PART_WITH_CHECKERS:LBDR_L:fault_in_sig
+add wave -noupdate -group NoC_hold_sig_X :tb_network_4x4:NoC:R_3:CONTROL_PART_WITH_CHECKERS:LBDR_L:err_header_empty_Requests_FF_Requests_in_sig
+add wave -noupdate :tb_network_4x4:NoC:R_0:CONTROL_PART_WITH_CHECKERS:LBDR_L:reset
+add wave -noupdate :tb_network_4x4:NoC:R_0:CONTROL_PART_WITH_CHECKERS:LBDR_L:clk
+add wave -noupdate :tb_network_4x4:NoC:R_0:CONTROL_PART_WITH_CHECKERS:LBDR_L:Faulty_C_N
+add wave -noupdate :tb_network_4x4:NoC:R_0:CONTROL_PART_WITH_CHECKERS:LBDR_L:Faulty_C_E
+add wave -noupdate :tb_network_4x4:NoC:R_0:CONTROL_PART_WITH_CHECKERS:LBDR_L:Faulty_C_W
+add wave -noupdate :tb_network_4x4:NoC:R_0:CONTROL_PART_WITH_CHECKERS:LBDR_L:Faulty_C_S
+add wave -noupdate :tb_network_4x4:NoC:R_0:CONTROL_PART_WITH_CHECKERS:LBDR_L:empty
+add wave -noupdate :tb_network_4x4:NoC:R_0:CONTROL_PART_WITH_CHECKERS:LBDR_L:flit_type
+add wave -noupdate :tb_network_4x4:NoC:R_0:CONTROL_PART_WITH_CHECKERS:LBDR_L:dst_addr
+add wave -noupdate :tb_network_4x4:NoC:R_0:CONTROL_PART_WITH_CHECKERS:LBDR_L:faulty
+add wave -noupdate :tb_network_4x4:NoC:R_0:CONTROL_PART_WITH_CHECKERS:LBDR_L:packet_drop_order
+add wave -noupdate :tb_network_4x4:NoC:R_0:CONTROL_PART_WITH_CHECKERS:LBDR_L:grant_N
+add wave -noupdate :tb_network_4x4:NoC:R_0:CONTROL_PART_WITH_CHECKERS:LBDR_L:grant_E
+add wave -noupdate :tb_network_4x4:NoC:R_0:CONTROL_PART_WITH_CHECKERS:LBDR_L:grant_W
+add wave -noupdate :tb_network_4x4:NoC:R_0:CONTROL_PART_WITH_CHECKERS:LBDR_L:grant_S
+add wave -noupdate :tb_network_4x4:NoC:R_0:CONTROL_PART_WITH_CHECKERS:LBDR_L:grant_L
+add wave -noupdate :tb_network_4x4:NoC:R_0:CONTROL_PART_WITH_CHECKERS:LBDR_L:Req_N
+add wave -noupdate :tb_network_4x4:NoC:R_0:CONTROL_PART_WITH_CHECKERS:LBDR_L:Req_E
+add wave -noupdate :tb_network_4x4:NoC:R_0:CONTROL_PART_WITH_CHECKERS:LBDR_L:Req_W
+add wave -noupdate :tb_network_4x4:NoC:R_0:CONTROL_PART_WITH_CHECKERS:LBDR_L:Req_S
+add wave -noupdate :tb_network_4x4:NoC:R_0:CONTROL_PART_WITH_CHECKERS:LBDR_L:Req_L
+add wave -noupdate :tb_network_4x4:NoC:R_0:CONTROL_PART_WITH_CHECKERS:LBDR_L:Rxy_reconf_PE
+add wave -noupdate :tb_network_4x4:NoC:R_0:CONTROL_PART_WITH_CHECKERS:LBDR_L:Cx_reconf_PE
+add wave -noupdate :tb_network_4x4:NoC:R_0:CONTROL_PART_WITH_CHECKERS:LBDR_L:Reconfig_command
+add wave -noupdate :tb_network_4x4:NoC:R_0:CONTROL_PART_WITH_CHECKERS:LBDR_L:hold_out
+add wave -noupdate :tb_network_4x4:NoC:R_0:CONTROL_PART_WITH_CHECKERS:LBDR_L:err_header_empty_Requests_FF_Requests_in
+add wave -noupdate :tb_network_4x4:NoC:R_0:CONTROL_PART_WITH_CHECKERS:LBDR_L:err_tail_Requests_in_all_zero
+add wave -noupdate :tb_network_4x4:NoC:R_0:CONTROL_PART_WITH_CHECKERS:LBDR_L:err_tail_empty_Requests_FF_Requests_in
+add wave -noupdate :tb_network_4x4:NoC:R_0:CONTROL_PART_WITH_CHECKERS:LBDR_L:err_tail_not_empty_not_grants_Requests_FF_Requests_in
+add wave -noupdate :tb_network_4x4:NoC:R_0:CONTROL_PART_WITH_CHECKERS:LBDR_L:err_grants_onehot
+add wave -noupdate :tb_network_4x4:NoC:R_0:CONTROL_PART_WITH_CHECKERS:LBDR_L:err_grants_mismatch
+add wave -noupdate :tb_network_4x4:NoC:R_0:CONTROL_PART_WITH_CHECKERS:LBDR_L:err_header_tail_Requests_FF_Requests_in
+add wave -noupdate :tb_network_4x4:NoC:R_0:CONTROL_PART_WITH_CHECKERS:LBDR_L:err_dst_addr_cur_addr_N1
+add wave -noupdate :tb_network_4x4:NoC:R_0:CONTROL_PART_WITH_CHECKERS:LBDR_L:err_dst_addr_cur_addr_not_N1
+add wave -noupdate :tb_network_4x4:NoC:R_0:CONTROL_PART_WITH_CHECKERS:LBDR_L:err_dst_addr_cur_addr_E1
+add wave -noupdate :tb_network_4x4:NoC:R_0:CONTROL_PART_WITH_CHECKERS:LBDR_L:err_dst_addr_cur_addr_not_E1
+add wave -noupdate :tb_network_4x4:NoC:R_0:CONTROL_PART_WITH_CHECKERS:LBDR_L:err_dst_addr_cur_addr_W1
+add wave -noupdate :tb_network_4x4:NoC:R_0:CONTROL_PART_WITH_CHECKERS:LBDR_L:err_dst_addr_cur_addr_not_W1
+add wave -noupdate :tb_network_4x4:NoC:R_0:CONTROL_PART_WITH_CHECKERS:LBDR_L:err_dst_addr_cur_addr_S1
+add wave -noupdate :tb_network_4x4:NoC:R_0:CONTROL_PART_WITH_CHECKERS:LBDR_L:err_dst_addr_cur_addr_not_S1
+add wave -noupdate :tb_network_4x4:NoC:R_0:CONTROL_PART_WITH_CHECKERS:LBDR_L:err_dst_addr_cur_addr_Req_L_in
+add wave -noupdate :tb_network_4x4:NoC:R_0:CONTROL_PART_WITH_CHECKERS:LBDR_L:err_dst_addr_cur_addr_not_Req_L_in
+add wave -noupdate :tb_network_4x4:NoC:R_0:CONTROL_PART_WITH_CHECKERS:LBDR_L:err_header_not_empty_faulty_drop_packet_in
+add wave -noupdate :tb_network_4x4:NoC:R_0:CONTROL_PART_WITH_CHECKERS:LBDR_L:err_header_not_empty_not_faulty_drop_packet_in_packet_drop_not_change
+add wave -noupdate :tb_network_4x4:NoC:R_0:CONTROL_PART_WITH_CHECKERS:LBDR_L:err_header_not_empty_faulty_Req_in_all_zero
+add wave -noupdate :tb_network_4x4:NoC:R_0:CONTROL_PART_WITH_CHECKERS:LBDR_L:err_header_not_empty_Req_N_in
+add wave -noupdate :tb_network_4x4:NoC:R_0:CONTROL_PART_WITH_CHECKERS:LBDR_L:err_header_not_empty_Req_E_in
+add wave -noupdate :tb_network_4x4:NoC:R_0:CONTROL_PART_WITH_CHECKERS:LBDR_L:err_header_not_empty_Req_W_in
+add wave -noupdate :tb_network_4x4:NoC:R_0:CONTROL_PART_WITH_CHECKERS:LBDR_L:err_header_not_empty_Req_S_in
+add wave -noupdate :tb_network_4x4:NoC:R_0:CONTROL_PART_WITH_CHECKERS:LBDR_L:err_header_empty_packet_drop_in_packet_drop_equal
+add wave -noupdate :tb_network_4x4:NoC:R_0:CONTROL_PART_WITH_CHECKERS:LBDR_L:err_tail_not_empty_packet_drop_not_packet_drop_in
+add wave -noupdate :tb_network_4x4:NoC:R_0:CONTROL_PART_WITH_CHECKERS:LBDR_L:err_tail_not_empty_not_packet_drop_packet_drop_in_packet_drop_equal
+add wave -noupdate :tb_network_4x4:NoC:R_0:CONTROL_PART_WITH_CHECKERS:LBDR_L:err_invalid_or_body_flit_packet_drop_in_packet_drop_equal
+add wave -noupdate :tb_network_4x4:NoC:R_0:CONTROL_PART_WITH_CHECKERS:LBDR_L:err_packet_drop_order
+add wave -noupdate :tb_network_4x4:NoC:R_0:CONTROL_PART_WITH_CHECKERS:LBDR_L:err_reconfig_cx_flit_type_Tail_not_empty_grants_Cx_in_Temp_Cx_equal
+add wave -noupdate :tb_network_4x4:NoC:R_0:CONTROL_PART_WITH_CHECKERS:LBDR_L:err_reconfig_cx_flit_type_Tail_not_empty_grants_not_reconfig_cx_in
+add wave -noupdate :tb_network_4x4:NoC:R_0:CONTROL_PART_WITH_CHECKERS:LBDR_L:err_not_reconfig_cx_flit_type_not_Tail_empty_not_grants_Cx_in_Cx_equal
+add wave -noupdate :tb_network_4x4:NoC:R_0:CONTROL_PART_WITH_CHECKERS:LBDR_L:err_not_reconfig_cx_flit_type_not_Tail_empty_not_grants_Faulty_C_reconfig_cx_in
+add wave -noupdate :tb_network_4x4:NoC:R_0:CONTROL_PART_WITH_CHECKERS:LBDR_L:err_not_reconfig_cx_flit_type_not_Tail_empty_not_grants_Faulty_C_Temp_Cx_in
+add wave -noupdate :tb_network_4x4:NoC:R_0:CONTROL_PART_WITH_CHECKERS:LBDR_L:err_not_reconfig_cx_flit_type_not_Tail_empty_not_grants_not_Faulty_C_Reconfig_command_reconfig_cx_in
+add wave -noupdate :tb_network_4x4:NoC:R_0:CONTROL_PART_WITH_CHECKERS:LBDR_L:err_reconfig_cx_flit_type_Tail_not_empty_grants_Temp_Cx_in_Temp_Cx_equal
+add wave -noupdate :tb_network_4x4:NoC:R_0:CONTROL_PART_WITH_CHECKERS:LBDR_L:err_not_reconfig_cx_flit_type_not_Tail_empty_not_grants_not_Faulty_C_Temp_Cx_in_Cx_reconf_PE_equal
+add wave -noupdate :tb_network_4x4:NoC:R_0:CONTROL_PART_WITH_CHECKERS:LBDR_L:err_not_reconfig_cx_flit_type_not_Tail_empty_not_grants_not_Faulty_C_not_Reconfig_command_reconfig_cx_in_reconfig_cx_equal
+add wave -noupdate :tb_network_4x4:NoC:R_0:CONTROL_PART_WITH_CHECKERS:LBDR_L:err_not_reconfig_cx_flit_type_not_Tail_empty_not_grants_not_Faulty_C_not_Reconfig_command_Temp_Cx_in_Temp_Cx_equal
+add wave -noupdate :tb_network_4x4:NoC:R_0:CONTROL_PART_WITH_CHECKERS:LBDR_L:err_ReConf_FF_out_flit_type_Tail_not_empty_grants_Rxy_in_Rxy_tmp
+add wave -noupdate :tb_network_4x4:NoC:R_0:CONTROL_PART_WITH_CHECKERS:LBDR_L:err_ReConf_FF_out_flit_type_Tail_not_empty_grants_not_ReConf_FF_in
+add wave -noupdate :tb_network_4x4:NoC:R_0:CONTROL_PART_WITH_CHECKERS:LBDR_L:err_not_ReConf_FF_out_flit_type_not_Tail_empty_not_grants_Rxy_in_Rxy_equal
+add wave -noupdate :tb_network_4x4:NoC:R_0:CONTROL_PART_WITH_CHECKERS:LBDR_L:err_not_ReConf_FF_out_flit_type_not_Tail_empty_not_grants_Reconfig_command_ReConf_FF_in
+add wave -noupdate :tb_network_4x4:NoC:R_0:CONTROL_PART_WITH_CHECKERS:LBDR_L:err_not_ReConf_FF_out_flit_type_not_Tail_empty_not_grants_Reconfig_command_Rxy_tmp_in_Rxy_reconf_PE_equal
+add wave -noupdate :tb_network_4x4:NoC:R_0:CONTROL_PART_WITH_CHECKERS:LBDR_L:err_not_ReConf_FF_out_flit_type_not_Tail_empty_not_grants_not_Reconfig_command_Rxy_tmp_in_Rxy_tmp_equal
+add wave -noupdate :tb_network_4x4:NoC:R_0:CONTROL_PART_WITH_CHECKERS:LBDR_L:err_not_ReConf_FF_out_flit_type_not_Tail_empty_not_grants_not_Reconfig_command_ReConf_FF_in_ReConf_FF_out_equal
+add wave -noupdate :tb_network_4x4:NoC:R_0:CONTROL_PART_WITH_CHECKERS:LBDR_L:Cx_sig
+add wave -noupdate :tb_network_4x4:NoC:R_0:CONTROL_PART_WITH_CHECKERS:LBDR_L:Cx_in_sig
+add wave -noupdate :tb_network_4x4:NoC:R_0:CONTROL_PART_WITH_CHECKERS:LBDR_L:Temp_Cx_sig
+add wave -noupdate :tb_network_4x4:NoC:R_0:CONTROL_PART_WITH_CHECKERS:LBDR_L:Temp_Cx_in_sig
+add wave -noupdate :tb_network_4x4:NoC:R_0:CONTROL_PART_WITH_CHECKERS:LBDR_L:reconfig_cx_sig
+add wave -noupdate :tb_network_4x4:NoC:R_0:CONTROL_PART_WITH_CHECKERS:LBDR_L:reconfig_cx_in_sig
+add wave -noupdate :tb_network_4x4:NoC:R_0:CONTROL_PART_WITH_CHECKERS:LBDR_L:ReConf_FF_in_sig
+add wave -noupdate :tb_network_4x4:NoC:R_0:CONTROL_PART_WITH_CHECKERS:LBDR_L:ReConf_FF_out_sig
+add wave -noupdate :tb_network_4x4:NoC:R_0:CONTROL_PART_WITH_CHECKERS:LBDR_L:Rxy_sig
+add wave -noupdate :tb_network_4x4:NoC:R_0:CONTROL_PART_WITH_CHECKERS:LBDR_L:Rxy_in_sig
+add wave -noupdate :tb_network_4x4:NoC:R_0:CONTROL_PART_WITH_CHECKERS:LBDR_L:Rxy_tmp_sig
+add wave -noupdate :tb_network_4x4:NoC:R_0:CONTROL_PART_WITH_CHECKERS:LBDR_L:Rxy_tmp_in_sig
+add wave -noupdate :tb_network_4x4:NoC:R_0:CONTROL_PART_WITH_CHECKERS:LBDR_L:cur_addr
+add wave -noupdate :tb_network_4x4:NoC:R_0:CONTROL_PART_WITH_CHECKERS:LBDR_L:N1
+add wave -noupdate :tb_network_4x4:NoC:R_0:CONTROL_PART_WITH_CHECKERS:LBDR_L:E1
+add wave -noupdate :tb_network_4x4:NoC:R_0:CONTROL_PART_WITH_CHECKERS:LBDR_L:W1
+add wave -noupdate :tb_network_4x4:NoC:R_0:CONTROL_PART_WITH_CHECKERS:LBDR_L:S1
+add wave -noupdate :tb_network_4x4:NoC:R_0:CONTROL_PART_WITH_CHECKERS:LBDR_L:Req_N_in_sig
+add wave -noupdate :tb_network_4x4:NoC:R_0:CONTROL_PART_WITH_CHECKERS:LBDR_L:Req_E_in_sig
+add wave -noupdate :tb_network_4x4:NoC:R_0:CONTROL_PART_WITH_CHECKERS:LBDR_L:Req_W_in_sig
+add wave -noupdate :tb_network_4x4:NoC:R_0:CONTROL_PART_WITH_CHECKERS:LBDR_L:Req_S_in_sig
+add wave -noupdate :tb_network_4x4:NoC:R_0:CONTROL_PART_WITH_CHECKERS:LBDR_L:Req_L_in_sig
+add wave -noupdate :tb_network_4x4:NoC:R_0:CONTROL_PART_WITH_CHECKERS:LBDR_L:Req_N_FF_sig
+add wave -noupdate :tb_network_4x4:NoC:R_0:CONTROL_PART_WITH_CHECKERS:LBDR_L:Req_E_FF_sig
+add wave -noupdate :tb_network_4x4:NoC:R_0:CONTROL_PART_WITH_CHECKERS:LBDR_L:Req_W_FF_sig
+add wave -noupdate :tb_network_4x4:NoC:R_0:CONTROL_PART_WITH_CHECKERS:LBDR_L:Req_S_FF_sig
+add wave -noupdate :tb_network_4x4:NoC:R_0:CONTROL_PART_WITH_CHECKERS:LBDR_L:Req_L_FF_sig
+add wave -noupdate :tb_network_4x4:NoC:R_0:CONTROL_PART_WITH_CHECKERS:LBDR_L:grants
+add wave -noupdate :tb_network_4x4:NoC:R_0:CONTROL_PART_WITH_CHECKERS:LBDR_L:packet_drop_sig
+add wave -noupdate :tb_network_4x4:NoC:R_0:CONTROL_PART_WITH_CHECKERS:LBDR_L:packet_drop_in_sig
+add wave -noupdate :tb_network_4x4:NoC:R_0:CONTROL_PART_WITH_CHECKERS:LBDR_L:fault_in_sig
+add wave -noupdate :tb_network_4x4:NoC:R_0:CONTROL_PART_WITH_CHECKERS:LBDR_L:grant_N_sig
+add wave -noupdate :tb_network_4x4:NoC:R_0:CONTROL_PART_WITH_CHECKERS:LBDR_L:grant_E_sig
+add wave -noupdate :tb_network_4x4:NoC:R_0:CONTROL_PART_WITH_CHECKERS:LBDR_L:grant_W_sig
+add wave -noupdate :tb_network_4x4:NoC:R_0:CONTROL_PART_WITH_CHECKERS:LBDR_L:grant_S_sig
+add wave -noupdate :tb_network_4x4:NoC:R_0:CONTROL_PART_WITH_CHECKERS:LBDR_L:grant_L_sig
+add wave -noupdate :tb_network_4x4:NoC:R_0:CONTROL_PART_WITH_CHECKERS:LBDR_L:packet_drop_order_sig
+add wave -noupdate :tb_network_4x4:NoC:R_0:CONTROL_PART_WITH_CHECKERS:LBDR_L:err_header_empty_Requests_FF_Requests_in_sig
+add wave -noupdate :tb_network_4x4:NoC:R_0:CONTROL_PART_WITH_CHECKERS:LBDR_L:err_tail_Requests_in_all_zero_sig
+add wave -noupdate :tb_network_4x4:NoC:R_0:CONTROL_PART_WITH_CHECKERS:LBDR_L:err_tail_empty_Requests_FF_Requests_in_sig
+add wave -noupdate :tb_network_4x4:NoC:R_0:CONTROL_PART_WITH_CHECKERS:LBDR_L:err_tail_not_empty_not_grants_Requests_FF_Requests_in_sig
+add wave -noupdate :tb_network_4x4:NoC:R_0:CONTROL_PART_WITH_CHECKERS:LBDR_L:err_grants_onehot_sig
+add wave -noupdate :tb_network_4x4:NoC:R_0:CONTROL_PART_WITH_CHECKERS:LBDR_L:err_grants_mismatch_sig
+add wave -noupdate :tb_network_4x4:NoC:R_0:CONTROL_PART_WITH_CHECKERS:LBDR_L:err_header_tail_Requests_FF_Requests_in_sig
+add wave -noupdate :tb_network_4x4:NoC:R_0:CONTROL_PART_WITH_CHECKERS:LBDR_L:err_dst_addr_cur_addr_N1_sig
+add wave -noupdate :tb_network_4x4:NoC:R_0:CONTROL_PART_WITH_CHECKERS:LBDR_L:err_dst_addr_cur_addr_not_N1_sig
+add wave -noupdate :tb_network_4x4:NoC:R_0:CONTROL_PART_WITH_CHECKERS:LBDR_L:err_dst_addr_cur_addr_E1_sig
+add wave -noupdate :tb_network_4x4:NoC:R_0:CONTROL_PART_WITH_CHECKERS:LBDR_L:err_dst_addr_cur_addr_not_E1_sig
+add wave -noupdate :tb_network_4x4:NoC:R_0:CONTROL_PART_WITH_CHECKERS:LBDR_L:err_dst_addr_cur_addr_W1_sig
+add wave -noupdate :tb_network_4x4:NoC:R_0:CONTROL_PART_WITH_CHECKERS:LBDR_L:err_dst_addr_cur_addr_not_W1_sig
+add wave -noupdate :tb_network_4x4:NoC:R_0:CONTROL_PART_WITH_CHECKERS:LBDR_L:err_dst_addr_cur_addr_S1_sig
+add wave -noupdate :tb_network_4x4:NoC:R_0:CONTROL_PART_WITH_CHECKERS:LBDR_L:err_dst_addr_cur_addr_not_S1_sig
+add wave -noupdate :tb_network_4x4:NoC:R_0:CONTROL_PART_WITH_CHECKERS:LBDR_L:err_dst_addr_cur_addr_Req_L_in_sig
+add wave -noupdate :tb_network_4x4:NoC:R_0:CONTROL_PART_WITH_CHECKERS:LBDR_L:err_dst_addr_cur_addr_not_Req_L_in_sig
+add wave -noupdate :tb_network_4x4:NoC:R_0:CONTROL_PART_WITH_CHECKERS:LBDR_L:err_header_not_empty_faulty_drop_packet_in_sig
+add wave -noupdate :tb_network_4x4:NoC:R_0:CONTROL_PART_WITH_CHECKERS:LBDR_L:err_header_not_empty_not_faulty_drop_packet_in_packet_drop_not_change_sig
+add wave -noupdate :tb_network_4x4:NoC:R_0:CONTROL_PART_WITH_CHECKERS:LBDR_L:err_header_not_empty_faulty_Req_in_all_zero_sig
+add wave -noupdate :tb_network_4x4:NoC:R_0:CONTROL_PART_WITH_CHECKERS:LBDR_L:err_header_not_empty_Req_N_in_sig
+add wave -noupdate :tb_network_4x4:NoC:R_0:CONTROL_PART_WITH_CHECKERS:LBDR_L:err_header_not_empty_Req_E_in_sig
+add wave -noupdate :tb_network_4x4:NoC:R_0:CONTROL_PART_WITH_CHECKERS:LBDR_L:err_header_not_empty_Req_W_in_sig
+add wave -noupdate :tb_network_4x4:NoC:R_0:CONTROL_PART_WITH_CHECKERS:LBDR_L:err_header_not_empty_Req_S_in_sig
+add wave -noupdate :tb_network_4x4:NoC:R_0:CONTROL_PART_WITH_CHECKERS:LBDR_L:err_header_empty_packet_drop_in_packet_drop_equal_sig
+add wave -noupdate :tb_network_4x4:NoC:R_0:CONTROL_PART_WITH_CHECKERS:LBDR_L:err_tail_not_empty_packet_drop_not_packet_drop_in_sig
+add wave -noupdate :tb_network_4x4:NoC:R_0:CONTROL_PART_WITH_CHECKERS:LBDR_L:err_tail_not_empty_not_packet_drop_packet_drop_in_packet_drop_equal_sig
+add wave -noupdate :tb_network_4x4:NoC:R_0:CONTROL_PART_WITH_CHECKERS:LBDR_L:err_invalid_or_body_flit_packet_drop_in_packet_drop_equal_sig
+add wave -noupdate :tb_network_4x4:NoC:R_0:CONTROL_PART_WITH_CHECKERS:LBDR_L:err_packet_drop_order_sig
+add wave -noupdate :tb_network_4x4:NoC:R_0:CONTROL_PART_WITH_CHECKERS:LBDR_L:err_reconfig_cx_flit_type_Tail_not_empty_grants_Cx_in_Temp_Cx_equal_sig
+add wave -noupdate :tb_network_4x4:NoC:R_0:CONTROL_PART_WITH_CHECKERS:LBDR_L:err_reconfig_cx_flit_type_Tail_not_empty_grants_not_reconfig_cx_in_sig
+add wave -noupdate :tb_network_4x4:NoC:R_0:CONTROL_PART_WITH_CHECKERS:LBDR_L:err_not_reconfig_cx_flit_type_not_Tail_empty_not_grants_Cx_in_Cx_equal_sig
+add wave -noupdate :tb_network_4x4:NoC:R_0:CONTROL_PART_WITH_CHECKERS:LBDR_L:err_not_reconfig_cx_flit_type_not_Tail_empty_not_grants_Faulty_C_reconfig_cx_in_sig
+add wave -noupdate :tb_network_4x4:NoC:R_0:CONTROL_PART_WITH_CHECKERS:LBDR_L:err_not_reconfig_cx_flit_type_not_Tail_empty_not_grants_Faulty_C_Temp_Cx_in_sig
+add wave -noupdate :tb_network_4x4:NoC:R_0:CONTROL_PART_WITH_CHECKERS:LBDR_L:err_not_reconfig_cx_flit_type_not_Tail_empty_not_grants_not_Faulty_C_Reconfig_command_reconfig_cx_in_sig
+add wave -noupdate :tb_network_4x4:NoC:R_0:CONTROL_PART_WITH_CHECKERS:LBDR_L:err_reconfig_cx_flit_type_Tail_not_empty_grants_Temp_Cx_in_Temp_Cx_equal_sig
+add wave -noupdate :tb_network_4x4:NoC:R_0:CONTROL_PART_WITH_CHECKERS:LBDR_L:err_not_reconfig_cx_flit_type_not_Tail_empty_not_grants_not_Faulty_C_Temp_Cx_in_Cx_reconf_PE_equal_sig
+add wave -noupdate :tb_network_4x4:NoC:R_0:CONTROL_PART_WITH_CHECKERS:LBDR_L:err_not_reconfig_cx_flit_type_not_Tail_empty_not_grants_not_Faulty_C_not_Reconfig_command_reconfig_cx_in_reconfig_cx_equal_sig
+add wave -noupdate :tb_network_4x4:NoC:R_0:CONTROL_PART_WITH_CHECKERS:LBDR_L:err_not_reconfig_cx_flit_type_not_Tail_empty_not_grants_not_Faulty_C_not_Reconfig_command_Temp_Cx_in_Temp_Cx_equal_sig
+add wave -noupdate :tb_network_4x4:NoC:R_0:CONTROL_PART_WITH_CHECKERS:LBDR_L:err_ReConf_FF_out_flit_type_Tail_not_empty_grants_Rxy_in_Rxy_tmp_sig
+add wave -noupdate :tb_network_4x4:NoC:R_0:CONTROL_PART_WITH_CHECKERS:LBDR_L:err_ReConf_FF_out_flit_type_Tail_not_empty_grants_not_ReConf_FF_in_sig
+add wave -noupdate :tb_network_4x4:NoC:R_0:CONTROL_PART_WITH_CHECKERS:LBDR_L:err_not_ReConf_FF_out_flit_type_not_Tail_empty_not_grants_Rxy_in_Rxy_equal_sig
+add wave -noupdate :tb_network_4x4:NoC:R_0:CONTROL_PART_WITH_CHECKERS:LBDR_L:err_not_ReConf_FF_out_flit_type_not_Tail_empty_not_grants_Reconfig_command_ReConf_FF_in_sig
+add wave -noupdate :tb_network_4x4:NoC:R_0:CONTROL_PART_WITH_CHECKERS:LBDR_L:err_not_ReConf_FF_out_flit_type_not_Tail_empty_not_grants_Reconfig_command_Rxy_tmp_in_Rxy_reconf_PE_equal_sig
+add wave -noupdate :tb_network_4x4:NoC:R_0:CONTROL_PART_WITH_CHECKERS:LBDR_L:err_not_ReConf_FF_out_flit_type_not_Tail_empty_not_grants_not_Reconfig_command_Rxy_tmp_in_Rxy_tmp_equal_sig
+add wave -noupdate :tb_network_4x4:NoC:R_0:CONTROL_PART_WITH_CHECKERS:LBDR_L:err_not_ReConf_FF_out_flit_type_not_Tail_empty_not_grants_not_Reconfig_command_ReConf_FF_in_ReConf_FF_out_equal_sig
+add wave -noupdate :tb_network_4x4:NoC:R_0:CONTROL_PART_WITH_CHECKERS:LBDR_L:LBDR_bubble_comb_c:Req_S_FF
+add wave -noupdate :tb_network_4x4:NoC:R_0:CONTROL_PART_WITH_CHECKERS:LBDR_L:LBDR_bubble_comb_c:Req_S_in_sig
+add wave -noupdate :tb_network_4x4:NoC:R_0:CONTROL_PART_WITH_CHECKERS:LBDR_L:LBDR_bubble_comb_c:Req_S_in
 TreeUpdate [SetDefaultTree]
-WaveRestoreCursors
-quietly wave cursor active 0
-configure wave -namecolwidth 396
+WaveRestoreCursors {{Cursor 1} {2294043 ps} 0}
+quietly wave cursor active 1
+configure wave -namecolwidth 1016
 configure wave -valuecolwidth 100
 configure wave -justifyvalue left
 configure wave -signalnamewidth 0
@@ -718,4 +636,4 @@ configure wave -griddelta 40
 configure wave -timeline 0
 configure wave -timelineunits ns
 update
-WaveRestoreZoom {0 ps} {147 ns}
+WaveRestoreZoom {0 ps} {18761 ps}
