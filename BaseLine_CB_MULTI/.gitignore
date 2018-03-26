@@ -8,7 +8,6 @@ component.xml
 .directory
 .Xil
 
-tmp
 Scripts/**/*.vhd
 
 *.wlf
