@@ -1,0 +1,17 @@
+#-----------------------------------------------------------
+# Vivado v2016.1 (64-bit)
+# SW Build 1538259 on Fri Apr  8 15:45:23 MDT 2016
+# IP Build 1537824 on Fri Apr  8 04:28:57 MDT 2016
+# Start of session at: Thu Mar 15 15:25:28 2018
+# Process ID: 11302
+# Current directory: /home/rene/Documents/Projects/BaseLine_CB
+# Command line: vivado
+# Log file: /home/rene/Documents/Projects/BaseLine_CB/vivado.log
+# Journal file: /home/rene/Documents/Projects/BaseLine_CB/vivado.jou
+#-----------------------------------------------------------
+CRITICAL WARNING: [Common 17-741] No write access right to the local Tcl store at '/home/rene/.Xilinx/Vivado/2016.1/XilinxTclStore'. XilinxTclStore is reverted to the installation area. If you want to use local Tcl Store, please change the access right and relaunch Vivado.
+ERROR: [Common 17-1257] Failed to create directory '/cad/x_16/Vivado/2016.1/tclapp'.
+start_gui
+ERROR: [Vivado 12-106] *** Exception: java.lang.ClassCastException: javax.swing.text.PlainDocument cannot be cast to javax.swing.text.html.HTMLDocument (See /home/rene/Documents/Projects/BaseLine_CB/vivado_pid11302.debug)
+ERROR: [Common 17-39] 'start_gui' failed due to earlier errors.
+INFO: [Common 17-206] Exiting Vivado at Thu Mar 15 15:25:55 2018...

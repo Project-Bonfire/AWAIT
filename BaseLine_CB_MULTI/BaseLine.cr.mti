@@ -1,0 +1,111 @@
+/home/rene/Documents/Projects/BaseLine_CB/RTL/base_line/flit_tracker.vhd {2 {vcom -work work -2002 -explicit -novopt -stats=none /home/rene/Documents/Projects/BaseLine_CB/RTL/base_line/flit_tracker.vhd
+QuestaSim-64 vcom 10.5c Compiler 2016.07 Jul 20 2016
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Loading package NUMERIC_STD
+-- Loading package ATTRIBUTES
+-- Loading package std_logic_misc
+-- Compiling entity flit_tracker
+-- Compiling architecture behavior of flit_tracker
+** Warning: /home/rene/Documents/Projects/BaseLine_CB/RTL/base_line/flit_tracker.vhd(33): (vcom-1194) FILE declaration was written using VHDL 1987 syntax.
+
+} {} {}} /home/rene/Documents/Projects/BaseLine_CB/RTL/base_line/Parity_checker_for_router_links.vhd {1 {vcom -work work -2002 -explicit -novopt -stats=none /home/rene/Documents/Projects/BaseLine_CB/RTL/base_line/Parity_checker_for_router_links.vhd
+QuestaSim-64 vcom 10.5c Compiler 2016.07 Jul 20 2016
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Loading package ATTRIBUTES
+-- Loading package std_logic_misc
+-- Compiling entity parity_checker_for_router_links
+-- Compiling architecture behavior of Parity_checker_for_router_links
+
+} {} {}} /home/rene/Documents/Projects/BaseLine_CB/RTL/base_line/NI.vhd {1 {vcom -work work -2002 -explicit -novopt -stats=none /home/rene/Documents/Projects/BaseLine_CB/RTL/base_line/NI.vhd
+QuestaSim-64 vcom 10.5c Compiler 2016.07 Jul 20 2016
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Loading package ATTRIBUTES
+-- Loading package std_logic_misc
+-- Loading package std_logic_arith
+-- Loading package STD_LOGIC_UNSIGNED
+-- Loading package NUMERIC_STD
+-- Loading package std_logic_textio
+-- Compiling entity NI
+-- Compiling architecture logic of NI
+
+} {} {}} /home/rene/Documents/Projects/BaseLine_CB/RTL/base_line/arbiter_in.vhd {1 {vcom -work work -2002 -explicit -novopt -stats=none /home/rene/Documents/Projects/BaseLine_CB/RTL/base_line/arbiter_in.vhd
+QuestaSim-64 vcom 10.5c Compiler 2016.07 Jul 20 2016
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Compiling entity arbiter_in
+-- Compiling architecture behavior of arbiter_in
+
+} {} {}} /home/rene/Documents/Projects/BaseLine_CB/RTL/base_line/FIFO_one_hot_credit_based.vhd {1 {vcom -work work -2002 -explicit -novopt -stats=none /home/rene/Documents/Projects/BaseLine_CB/RTL/base_line/FIFO_one_hot_credit_based.vhd
+QuestaSim-64 vcom 10.5c Compiler 2016.07 Jul 20 2016
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Compiling entity FIFO_credit_based
+-- Compiling architecture behavior of FIFO_credit_based
+
+} {} {}} /home/rene/Documents/Projects/BaseLine_CB/RTL/base_line/Router_32_bit_credit_based.vhd {1 {vcom -work work -2002 -explicit -novopt -stats=none /home/rene/Documents/Projects/BaseLine_CB/RTL/base_line/Router_32_bit_credit_based.vhd
+QuestaSim-64 vcom 10.5c Compiler 2016.07 Jul 20 2016
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Loading package std_logic_arith
+-- Loading package STD_LOGIC_UNSIGNED
+-- Loading package NUMERIC_STD
+-- Loading package router_pack
+-- Compiling entity router_credit_based
+-- Compiling architecture behavior of router_credit_based
+
+} {} {}} /home/rene/Documents/Projects/BaseLine_CB/Packages/router_pack.vhd {1 {vcom -work work -2002 -explicit -novopt -stats=none /home/rene/Documents/Projects/BaseLine_CB/Packages/router_pack.vhd
+QuestaSim-64 vcom 10.5c Compiler 2016.07 Jul 20 2016
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Loading package NUMERIC_STD
+-- Compiling package router_pack
+
+} {} {}} /home/rene/Documents/Projects/BaseLine_CB/RTL/base_line/arbiter_out.vhd {1 {vcom -work work -2002 -explicit -novopt -stats=none /home/rene/Documents/Projects/BaseLine_CB/RTL/base_line/arbiter_out.vhd
+QuestaSim-64 vcom 10.5c Compiler 2016.07 Jul 20 2016
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Compiling entity arbiter_out
+-- Compiling architecture behavior of arbiter_out
+
+} {} {}} /home/rene/Documents/Projects/BaseLine_CB/RTL/base_line/LBDR.vhd {1 {vcom -work work -2002 -explicit -novopt -stats=none /home/rene/Documents/Projects/BaseLine_CB/RTL/base_line/LBDR.vhd
+QuestaSim-64 vcom 10.5c Compiler 2016.07 Jul 20 2016
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Loading package std_logic_arith
+-- Loading package STD_LOGIC_UNSIGNED
+-- Loading package NUMERIC_STD
+-- Loading package MATH_REAL
+-- Compiling entity LBDR
+-- Compiling architecture behavior of LBDR
+
+} {} {}} /home/rene/Documents/Projects/BaseLine_CB/RTL/base_line/xbar.vhd {1 {vcom -work work -2002 -explicit -novopt -stats=none /home/rene/Documents/Projects/BaseLine_CB/RTL/base_line/xbar.vhd
+QuestaSim-64 vcom 10.5c Compiler 2016.07 Jul 20 2016
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Compiling entity XBAR
+-- Compiling architecture behavior of XBAR
+
+} {} {}} /home/rene/Documents/Projects/BaseLine_CB/RTL/base_line/allocator.vhd {1 {vcom -work work -2002 -explicit -novopt -stats=none /home/rene/Documents/Projects/BaseLine_CB/RTL/base_line/allocator.vhd
+QuestaSim-64 vcom 10.5c Compiler 2016.07 Jul 20 2016
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Loading package std_logic_arith
+-- Loading package STD_LOGIC_UNSIGNED
+-- Compiling entity allocator
+-- Compiling architecture behavior of allocator
+
+} {} {}}

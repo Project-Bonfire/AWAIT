@@ -1,0 +1,46 @@
+#-----------------------------------------------------------
+# Vivado v2016.1 (64-bit)
+# SW Build 1538259 on Fri Apr  8 15:45:23 MDT 2016
+# IP Build 1537824 on Fri Apr  8 04:28:57 MDT 2016
+# Start of session at: Thu Mar 15 15:27:03 2018
+# Process ID: 11427
+# Current directory: /home/rene/Documents/Projects/BaseLine_CB
+# Command line: vivado
+# Log file: /home/rene/Documents/Projects/BaseLine_CB/vivado.log
+# Journal file: /home/rene/Documents/Projects/BaseLine_CB/vivado.jou
+#-----------------------------------------------------------
+start_gui
+create_project VIV_BASELINE /home/rene/Documents/VIV_BASELINE -part xc7a100tcsg324-1
+add_files -norecurse {/home/rene/Documents/Projects/BaseLine_CB/Packages/TB_Package_32_bit_credit_based.vhd /home/rene/Documents/Projects/BaseLine_CB/RTL/base_line/arbiter_in.vhd /home/rene/Documents/Projects/BaseLine_CB/RTL/base_line/flit_tracker.vhd /home/rene/Documents/Projects/BaseLine_CB/Packages/TB_Package_32_bit_credit_based_vc_NI.vhd /home/rene/Documents/Projects/BaseLine_CB/Packages/router_pack.vhd /home/rene/Documents/Projects/BaseLine_CB/RTL/base_line/allocator.vhd /home/rene/Documents/Projects/BaseLine_CB/RTL/base_line/NI.vhd /home/rene/Documents/Projects/BaseLine_CB/RTL/base_line/xbar.vhd /home/rene/Documents/Projects/BaseLine_CB/RTL/base_line/arbiter_out.vhd /home/rene/Documents/Projects/BaseLine_CB/Packages/router_pack_vc.vhd /home/rene/Documents/Projects/BaseLine_CB/Packages/TB_Package_32_bit_credit_based_vc.vhd /home/rene/Documents/Projects/BaseLine_CB/RTL/base_line/Router_32_bit_credit_based.vhd /home/rene/Documents/Projects/BaseLine_CB/Packages/TB_Package_32_bit_credit_based_NI.vhd /home/rene/Documents/Projects/BaseLine_CB/RTL/base_line/LBDR.vhd /home/rene/Documents/Projects/BaseLine_CB/RTL/base_line/Parity_checker_for_router_links.vhd /home/rene/Documents/Projects/BaseLine_CB/RTL/base_line/FIFO_one_hot_credit_based.vhd}
+update_compile_order -fileset sources_1
+update_compile_order -fileset sim_1
+update_compile_order -fileset sources_1
+file mkdir /home/rene/Documents/VIV_BASELINE/VIV_BASELINE.srcs/sim_1/new
+set_property SOURCE_SET sources_1 [get_filesets sim_1]
+close [ open /home/rene/Documents/VIV_BASELINE/VIV_BASELINE.srcs/sim_1/new/router_bubble_TB.v w ]
+add_files -fileset sim_1 /home/rene/Documents/VIV_BASELINE/VIV_BASELINE.srcs/sim_1/new/router_bubble_TB.v
+update_compile_order -fileset sim_1
+remove_files -fileset sim_1 /home/rene/Documents/VIV_BASELINE/VIV_BASELINE.srcs/sim_1/new/router_bubble_TB.v
+file delete -force /home/rene/Documents/VIV_BASELINE/VIV_BASELINE.srcs/sim_1/new/router_bubble_TB.v
+set_property target_language VHDL [current_project]
+set_property SOURCE_SET sources_1 [get_filesets sim_1]
+close [ open /home/rene/Documents/VIV_BASELINE/VIV_BASELINE.srcs/sim_1/new/bubble_tb.vhd w ]
+add_files -fileset sim_1 /home/rene/Documents/VIV_BASELINE/VIV_BASELINE.srcs/sim_1/new/bubble_tb.vhd
+update_compile_order -fileset sim_1
+# Disabling source management mode.  This is to allow the top design properties to be set without GUI intervention.
+set_property source_mgmt_mode None [current_project]
+set_property top bubble_tb [get_filesets sim_1]
+set_property top_lib xil_defaultlib [get_filesets sim_1]
+# Re-enabling previously disabled source management mode.
+set_property source_mgmt_mode All [current_project]
+update_compile_order -fileset sim_1
+launch_simulation
+source bubble_tb.tcl
+close_sim
+launch_simulation
+launch_simulation
+launch_simulation
+launch_simulation
+launch_simulation
+source bubble_tb.tcl
+close_sim
