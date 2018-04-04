@@ -23,9 +23,9 @@ V<^X@bTmPj[6=;`RY]NT_O1
 !s100 dn[jbH=QnXb91a8P0OAcO2
 Z8 OL;C;10.5c;63
 32
-Z9 !s110 1522765700
+Z9 !s110 1522839448
 !i10b 1
-Z10 !s108 1522765700.000000
+Z10 !s108 1522839448.000000
 Z11 !s90 -reportprogress|300|/home/rene/Documents/Projects/Local-fault-management/BaseLine_CB_MULTI/RTL/base_line/allocator.vhd|
 Z12 !s107 /home/rene/Documents/Projects/Local-fault-management/BaseLine_CB_MULTI/RTL/base_line/allocator.vhd|
 !i113 1
@@ -136,11 +136,11 @@ VHZmUEPH9:9Ad0hV9>=BEk3
 !s100 ]_BOIaCkl9bUkY^MU]::F3
 R8
 32
-R9
+Z27 !s110 1522839449
 !i10b 1
-R10
-Z27 !s90 -reportprogress|300|/home/rene/Documents/Projects/Local-fault-management/BaseLine_CB_MULTI/RTL/base_line/FIFO_one_hot_credit_based.vhd|
-Z28 !s107 /home/rene/Documents/Projects/Local-fault-management/BaseLine_CB_MULTI/RTL/base_line/FIFO_one_hot_credit_based.vhd|
+Z28 !s108 1522839449.000000
+Z29 !s90 -reportprogress|300|/home/rene/Documents/Projects/Local-fault-management/BaseLine_CB_MULTI/RTL/base_line/FIFO_one_hot_credit_based.vhd|
+Z30 !s107 /home/rene/Documents/Projects/Local-fault-management/BaseLine_CB_MULTI/RTL/base_line/FIFO_one_hot_credit_based.vhd|
 !i113 1
 R13
 Abehavior
@@ -153,40 +153,40 @@ V:ZR9;LOW9G8_ekYNdz?Hh1
 !s100 UCDbCF`oWJ3YMKNj[CGJU1
 R8
 32
-R9
-!i10b 1
-R10
 R27
+!i10b 1
 R28
+R29
+R30
 !i113 1
 R13
 Elbdr
-Z29 w1518681099
-Z30 DPx4 ieee 9 math_real 0 22 Sk6CSihbPL<f[^Shm]=KX0
-Z31 DPx4 ieee 11 numeric_std 0 22 :ASDNFgHXf_ih3J@9F3Ze1
+Z31 w1518681099
+Z32 DPx4 ieee 9 math_real 0 22 Sk6CSihbPL<f[^Shm]=KX0
+Z33 DPx4 ieee 11 numeric_std 0 22 :ASDNFgHXf_ih3J@9F3Ze1
 R1
 R2
 R3
 R4
 R5
-Z32 8/home/rene/Documents/Projects/Local-fault-management/BaseLine_CB_MULTI/RTL/base_line/LBDR.vhd
-Z33 F/home/rene/Documents/Projects/Local-fault-management/BaseLine_CB_MULTI/RTL/base_line/LBDR.vhd
+Z34 8/home/rene/Documents/Projects/Local-fault-management/BaseLine_CB_MULTI/RTL/base_line/LBDR.vhd
+Z35 F/home/rene/Documents/Projects/Local-fault-management/BaseLine_CB_MULTI/RTL/base_line/LBDR.vhd
 l0
 L10
 Vk[VBo?YXW:TWW_;Y8;i;o0
 !s100 <I;IMiUmg]2nJ3J9;AGgl2
 R8
 32
-R9
+R27
 !i10b 1
 R10
-Z34 !s90 -reportprogress|300|/home/rene/Documents/Projects/Local-fault-management/BaseLine_CB_MULTI/RTL/base_line/LBDR.vhd|
-Z35 !s107 /home/rene/Documents/Projects/Local-fault-management/BaseLine_CB_MULTI/RTL/base_line/LBDR.vhd|
+Z36 !s90 -reportprogress|300|/home/rene/Documents/Projects/Local-fault-management/BaseLine_CB_MULTI/RTL/base_line/LBDR.vhd|
+Z37 !s107 /home/rene/Documents/Projects/Local-fault-management/BaseLine_CB_MULTI/RTL/base_line/LBDR.vhd|
 !i113 1
 R13
 Abehavior
-R30
-R31
+R32
+R33
 R1
 R2
 R3
@@ -198,38 +198,38 @@ V=3zCEjMzHNeR4[;^`RMgM2
 !s100 GYUAnCMBmo5SKd104REJc1
 R8
 32
-R9
+R27
 !i10b 1
 R10
-R34
-R35
+R36
+R37
 !i113 1
 R13
 Enetwork_4x4
-Z36 w1521639394
-R31
+Z38 w1521639394
+R33
 R1
 R2
 R3
 R4
 R5
-Z37 8network_4x4_credit_based.vhd
-Z38 Fnetwork_4x4_credit_based.vhd
+Z39 8network_4x4_credit_based.vhd
+Z40 Fnetwork_4x4_credit_based.vhd
 l0
 L16
 V4jV0G[a0aXCe=Q^ZWQgHR3
 !s100 enG_`6UH6I1gWjKj]3kLz3
 R8
 32
-R9
+R27
 !i10b 1
-R10
-Z39 !s90 -reportprogress|300|network_4x4_credit_based.vhd|
-Z40 !s107 network_4x4_credit_based.vhd|
+R28
+Z41 !s90 -reportprogress|300|network_4x4_credit_based.vhd|
+Z42 !s107 network_4x4_credit_based.vhd|
 !i113 1
 R13
 Abehavior
-R31
+R33
 R1
 R2
 R3
@@ -241,38 +241,87 @@ VZ[>RG;]j1;SoM0Hl7UE0?0
 !s100 NQ0e:BJF=BKHoAW`A5LQK1
 R8
 32
-R9
+R27
 !i10b 1
-R10
-R39
-R40
+R28
+R41
+R42
 !i113 1
 R13
-Eparity_checker_for_router_links
-Z41 w1521817998
-Z42 DPx8 synopsys 10 attributes 0 22 liCm]LV3<lX4Zl>o6^8IV1
-Z43 DPx4 ieee 14 std_logic_misc 0 22 BLzBaQbXS>Q1z>5YO]m[52
+Eni
+Z43 w1517402304
+Z44 DPx4 ieee 16 std_logic_textio 0 22 V5TSK`;aJKC<l]CEg1>mz1
+R33
+R2
+R1
+Z45 DPx8 synopsys 10 attributes 0 22 liCm]LV3<lX4Zl>o6^8IV1
+Z46 DPx4 ieee 14 std_logic_misc 0 22 BLzBaQbXS>Q1z>5YO]m[52
 R3
 R4
 R5
-Z44 8/home/rene/Documents/Projects/Local-fault-management/BaseLine_CB_MULTI/RTL/base_line/Parity_checker_for_router_links.vhd
-Z45 F/home/rene/Documents/Projects/Local-fault-management/BaseLine_CB_MULTI/RTL/base_line/Parity_checker_for_router_links.vhd
+Z47 8/home/rene/Documents/Projects/Local-fault-management/BaseLine_CB_MULTI/RTL/base_line/NI.vhd
+Z48 F/home/rene/Documents/Projects/Local-fault-management/BaseLine_CB_MULTI/RTL/base_line/NI.vhd
+l0
+L23
+VVBzCAYjjoHVA<hfcAkhc`0
+!s100 N;>m7>kM93l`[B>HE3o<11
+R8
+32
+R27
+!i10b 1
+R28
+Z49 !s90 -reportprogress|300|/home/rene/Documents/Projects/Local-fault-management/BaseLine_CB_MULTI/RTL/base_line/NI.vhd|
+Z50 !s107 /home/rene/Documents/Projects/Local-fault-management/BaseLine_CB_MULTI/RTL/base_line/NI.vhd|
+!i113 1
+R13
+Alogic
+R44
+R33
+R2
+R1
+R45
+R46
+R3
+R4
+DEx4 work 2 ni 0 22 VBzCAYjjoHVA<hfcAkhc`0
+l96
+L55
+VAL:FKAe5RYoKz<ZXbeR]e3
+!s100 `:cEnkKBz@gT3BGnClSmb3
+R8
+32
+R27
+!i10b 1
+R28
+R49
+R50
+!i113 1
+R13
+Eparity_checker_for_router_links
+Z51 w1521817998
+R45
+R46
+R3
+R4
+R5
+Z52 8/home/rene/Documents/Projects/Local-fault-management/BaseLine_CB_MULTI/RTL/base_line/Parity_checker_for_router_links.vhd
+Z53 F/home/rene/Documents/Projects/Local-fault-management/BaseLine_CB_MULTI/RTL/base_line/Parity_checker_for_router_links.vhd
 l0
 L7
 VAJAB[6DQUDCTABeB7El[P2
 !s100 gZMiHNYH5?SLJ[bozT[ll1
 R8
 32
-R9
+R27
 !i10b 1
-R10
-Z46 !s90 -reportprogress|300|/home/rene/Documents/Projects/Local-fault-management/BaseLine_CB_MULTI/RTL/base_line/Parity_checker_for_router_links.vhd|
-Z47 !s107 /home/rene/Documents/Projects/Local-fault-management/BaseLine_CB_MULTI/RTL/base_line/Parity_checker_for_router_links.vhd|
+R28
+Z54 !s90 -reportprogress|300|/home/rene/Documents/Projects/Local-fault-management/BaseLine_CB_MULTI/RTL/base_line/Parity_checker_for_router_links.vhd|
+Z55 !s107 /home/rene/Documents/Projects/Local-fault-management/BaseLine_CB_MULTI/RTL/base_line/Parity_checker_for_router_links.vhd|
 !i113 1
 R13
 Abehavior
-R42
-R43
+R45
+R46
 R3
 R4
 DEx4 work 31 parity_checker_for_router_links 0 22 AJAB[6DQUDCTABeB7El[P2
@@ -282,40 +331,40 @@ Va80m@bH>OkgZ9HFQlK]P22
 !s100 4z0B7U9`DKZXJ99Lza<6S2
 R8
 32
-R9
+R27
 !i10b 1
-R10
-R46
-R47
+R28
+R54
+R55
 !i113 1
 R13
 Erouter_credit_based
-Z48 w1522054515
-Z49 DPx4 work 11 router_pack 0 22 bIzNOIV>8<6Rh37N<gdma2
-R31
+Z56 w1522054515
+Z57 DPx4 work 11 router_pack 0 22 bIzNOIV>8<6Rh37N<gdma2
+R33
 R1
 R2
 R3
 R4
 R5
-Z50 8/home/rene/Documents/Projects/Local-fault-management/BaseLine_CB_MULTI/RTL/base_line/Router_32_bit_credit_based.vhd
-Z51 F/home/rene/Documents/Projects/Local-fault-management/BaseLine_CB_MULTI/RTL/base_line/Router_32_bit_credit_based.vhd
+Z58 8/home/rene/Documents/Projects/Local-fault-management/BaseLine_CB_MULTI/RTL/base_line/Router_32_bit_credit_based.vhd
+Z59 F/home/rene/Documents/Projects/Local-fault-management/BaseLine_CB_MULTI/RTL/base_line/Router_32_bit_credit_based.vhd
 l0
 L13
 V:62WEPSlUZ^8mZ85?>4X_3
 !s100 K64A^JzFVH`<]TWRoKg]h3
 R8
 32
-R9
+R27
 !i10b 1
-R10
-Z52 !s90 -reportprogress|300|/home/rene/Documents/Projects/Local-fault-management/BaseLine_CB_MULTI/RTL/base_line/Router_32_bit_credit_based.vhd|
-Z53 !s107 /home/rene/Documents/Projects/Local-fault-management/BaseLine_CB_MULTI/RTL/base_line/Router_32_bit_credit_based.vhd|
+R28
+Z60 !s90 -reportprogress|300|/home/rene/Documents/Projects/Local-fault-management/BaseLine_CB_MULTI/RTL/base_line/Router_32_bit_credit_based.vhd|
+Z61 !s107 /home/rene/Documents/Projects/Local-fault-management/BaseLine_CB_MULTI/RTL/base_line/Router_32_bit_credit_based.vhd|
 !i113 1
 R13
 Abehavior
-R49
-R31
+R57
+R33
 R1
 R2
 R3
@@ -327,15 +376,15 @@ VfFc9CD2ljW78BJ[=A7a@41
 !s100 <o?Tj0N]?E:E4=KL@3X3O3
 R8
 32
-R9
+R27
 !i10b 1
-R10
-R52
-R53
+R28
+R60
+R61
 !i113 1
 R13
 Prouter_pack
-R31
+R33
 R3
 R4
 w1521820014
@@ -356,126 +405,126 @@ R10
 !i113 1
 R13
 Etb_network_4x4
-Z54 w1521122864
-R49
-R42
-R43
-R30
-R31
-Z55 DPx4 work 10 tb_package 0 22 97j`B6=7=1k:51?Q0V=^c1
+Z62 w1522835128
+R57
+R45
+R46
+R32
+R33
+Z63 DPx4 work 10 tb_package 0 22 o7i^AZ]cnZ[h5G9kdP2jO2
 R1
 R2
 R3
 R4
 R5
-Z56 8network_4x4_Rand_credit_based_tb.vhd
-Z57 Fnetwork_4x4_Rand_credit_based_tb.vhd
+Z64 8network_4x4_Rand_credit_based2_tb.vhd
+Z65 Fnetwork_4x4_Rand_credit_based2_tb.vhd
 l0
-L21
-VVg7QP7RMg8=2dYkl`]NW`1
-!s100 EV8ReB3[iWh890TMhHH321
+L23
+VOFU64=4c4l8FWhj8QjFK>2
+!s100 6:9mdO29A4>J74[][T4=D0
 R8
 32
-R9
+R27
 !i10b 1
-R10
-Z58 !s90 -reportprogress|300|network_4x4_Rand_credit_based_tb.vhd|
-Z59 !s107 network_4x4_Rand_credit_based_tb.vhd|
+R28
+Z66 !s90 -reportprogress|300|network_4x4_Rand_credit_based2_tb.vhd|
+Z67 !s107 network_4x4_Rand_credit_based2_tb.vhd|
 !i113 1
 R13
 Abehavior
-R49
-R42
-R43
-R30
-R31
-R55
+R57
+R45
+R46
+R32
+R33
+R63
 R1
 R2
 R3
 R4
-Z60 DEx4 work 14 tb_network_4x4 0 22 Vg7QP7RMg8=2dYkl`]NW`1
-l195
-L25
-Z61 VZ=5;5hfR8FNZ80N8gOIZ50
-Z62 !s100 k_VZjdfKjdhGJ6==>:m:@0
+Z68 DEx4 work 14 tb_network_4x4 0 22 OFU64=4c4l8FWhj8QjFK>2
+l209
+L27
+Z69 Vh:Wc;LbnWMDX?U1T5B?fW2
+Z70 !s100 6Xf7W^dRVU][?:6:LMfBW1
 R8
 32
-R9
+R27
 !i10b 1
-R10
-R58
-R59
-!i113 1
-R13
-Ptb_package
-R42
-R43
-R30
-R31
-R2
-R1
-R3
-R4
-Z63 w1517411507
-R5
-Z64 8/home/rene/Documents/Projects/Local-fault-management/BaseLine_CB_MULTI/Packages/TB_Package_32_bit_credit_based.vhd
-Z65 F/home/rene/Documents/Projects/Local-fault-management/BaseLine_CB_MULTI/Packages/TB_Package_32_bit_credit_based.vhd
-l0
-L11
-V97j`B6=7=1k:51?Q0V=^c1
-!s100 7MI6OUk^:<TOhCdiK5e9@0
-R8
-32
-b1
-R9
-!i10b 1
-R10
-Z66 !s90 -reportprogress|300|/home/rene/Documents/Projects/Local-fault-management/BaseLine_CB_MULTI/Packages/TB_Package_32_bit_credit_based.vhd|
-Z67 !s107 /home/rene/Documents/Projects/Local-fault-management/BaseLine_CB_MULTI/Packages/TB_Package_32_bit_credit_based.vhd|
-!i113 1
-R13
-Bbody
-R55
-R42
-R43
-R30
-R31
-R2
-R1
-R3
-R4
-l0
-L38
-V_SU=kDG:9j;eVA7>ko?iP3
-!s100 L:kj:TbdX=gT=I]oNm7T:0
-R8
-32
-R9
-!i10b 1
-R10
+R28
 R66
 R67
 !i113 1
 R13
+Ptb_package
+R45
+R46
+R32
+R33
+R2
+R1
+R3
+R4
+Z71 w1517411420
+R5
+Z72 8/home/rene/Documents/Projects/Local-fault-management/BaseLine_CB_MULTI/Packages/TB_Package_32_bit_credit_based_NI.vhd
+Z73 F/home/rene/Documents/Projects/Local-fault-management/BaseLine_CB_MULTI/Packages/TB_Package_32_bit_credit_based_NI.vhd
+l0
+L11
+Vo7i^AZ]cnZ[h5G9kdP2jO2
+!s100 :353Cmh:8CkGM0il323Vl0
+R8
+32
+b1
+R27
+!i10b 1
+R28
+Z74 !s90 -reportprogress|300|/home/rene/Documents/Projects/Local-fault-management/BaseLine_CB_MULTI/Packages/TB_Package_32_bit_credit_based_NI.vhd|
+Z75 !s107 /home/rene/Documents/Projects/Local-fault-management/BaseLine_CB_MULTI/Packages/TB_Package_32_bit_credit_based_NI.vhd|
+!i113 1
+R13
+Bbody
+R63
+R45
+R46
+R32
+R33
+R2
+R1
+R3
+R4
+l0
+L32
+VJQmA^Aj1jz8;5XN]CSbY72
+!s100 83N`TlMa_N0f>]amAPDMg0
+R8
+32
+R27
+!i10b 1
+R28
+R74
+R75
+!i113 1
+R13
 Exbar
-Z68 w1518686769
+Z76 w1518686769
 R3
 R4
 R5
-Z69 8/home/rene/Documents/Projects/Local-fault-management/BaseLine_CB_MULTI/RTL/base_line/xbar.vhd
-Z70 F/home/rene/Documents/Projects/Local-fault-management/BaseLine_CB_MULTI/RTL/base_line/xbar.vhd
+Z77 8/home/rene/Documents/Projects/Local-fault-management/BaseLine_CB_MULTI/RTL/base_line/xbar.vhd
+Z78 F/home/rene/Documents/Projects/Local-fault-management/BaseLine_CB_MULTI/RTL/base_line/xbar.vhd
 l0
 L6
 V9mRT=mM4JZaS_=>YXLlmb1
 !s100 G=S]XOXJJRF:aE18<f=?o3
 R8
 32
-R9
+R27
 !i10b 1
-R10
-Z71 !s90 -reportprogress|300|/home/rene/Documents/Projects/Local-fault-management/BaseLine_CB_MULTI/RTL/base_line/xbar.vhd|
-Z72 !s107 /home/rene/Documents/Projects/Local-fault-management/BaseLine_CB_MULTI/RTL/base_line/xbar.vhd|
+R28
+Z79 !s90 -reportprogress|300|/home/rene/Documents/Projects/Local-fault-management/BaseLine_CB_MULTI/RTL/base_line/xbar.vhd|
+Z80 !s107 /home/rene/Documents/Projects/Local-fault-management/BaseLine_CB_MULTI/RTL/base_line/xbar.vhd|
 !i113 1
 R13
 Abehavior
@@ -488,10 +537,10 @@ V[oYbcCPZCKC[MFE@m>4oC2
 !s100 J[JdM4EJE^<P2iDncTR]M0
 R8
 32
-R9
+R27
 !i10b 1
-R10
-R71
-R72
+R28
+R79
+R80
 !i113 1
 R13
