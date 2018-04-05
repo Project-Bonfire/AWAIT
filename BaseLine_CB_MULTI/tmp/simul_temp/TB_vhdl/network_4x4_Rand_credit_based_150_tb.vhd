@@ -579,97 +579,97 @@ NI_15: NI
 
 
 -- connecting the packet generators
-NI_control(4,4, 100, 0, 3, 8, 8, 800 ns, clk,
+NI_control(4,4, 150,0, 3, 8, 8, 10000 ns, clk,
            -- NI configuration
            reserved_address, flag_address, counter_address, reconfiguration_address,
            -- NI signals
            enable_0, write_byte_enable_0, address_0, data_write_0, data_read_0, test_0); 
 
-NI_control(4,4, 100, 1, 38, 8, 8, 800 ns, clk,
+NI_control(4,4, 150,1, 38, 8, 8, 10000 ns, clk,
            -- NI configuration
            reserved_address, flag_address, counter_address, reconfiguration_address,
            -- NI signals
            enable_1, write_byte_enable_1, address_1, data_write_1, data_read_1, test_1); 
 
-NI_control(4,4, 100, 2, 7, 8, 8, 800 ns, clk,
+NI_control(4,4, 150,2, 7, 8, 8, 10000 ns, clk,
            -- NI configuration
            reserved_address, flag_address, counter_address, reconfiguration_address,
            -- NI signals
            enable_2, write_byte_enable_2, address_2, data_write_2, data_read_2, test_2); 
 
-NI_control(4,4, 100, 3, 43, 8, 8, 800 ns, clk,
+NI_control(4,4, 150,3, 43, 8, 8, 10000 ns, clk,
            -- NI configuration
            reserved_address, flag_address, counter_address, reconfiguration_address,
            -- NI signals
            enable_3, write_byte_enable_3, address_3, data_write_3, data_read_3, test_3); 
 
-NI_control(4,4, 100, 4, 30, 8, 8, 800 ns, clk,
+NI_control(4,4, 150,4, 30, 8, 8, 10000 ns, clk,
            -- NI configuration
            reserved_address, flag_address, counter_address, reconfiguration_address,
            -- NI signals
            enable_4, write_byte_enable_4, address_4, data_write_4, data_read_4, test_4); 
 
-NI_control(4,4, 100, 5, 25, 8, 8, 800 ns, clk,
+NI_control(4,4, 150,5, 25, 8, 8, 10000 ns, clk,
            -- NI configuration
            reserved_address, flag_address, counter_address, reconfiguration_address,
            -- NI signals
            enable_5, write_byte_enable_5, address_5, data_write_5, data_read_5, test_5); 
 
-NI_control(4,4, 100, 6, 13, 8, 8, 800 ns, clk,
+NI_control(4,4, 150,6, 13, 8, 8, 10000 ns, clk,
            -- NI configuration
            reserved_address, flag_address, counter_address, reconfiguration_address,
            -- NI signals
            enable_6, write_byte_enable_6, address_6, data_write_6, data_read_6, test_6); 
 
-NI_control(4,4, 100, 7, 41, 8, 8, 800 ns, clk,
+NI_control(4,4, 150,7, 41, 8, 8, 10000 ns, clk,
            -- NI configuration
            reserved_address, flag_address, counter_address, reconfiguration_address,
            -- NI signals
            enable_7, write_byte_enable_7, address_7, data_write_7, data_read_7, test_7); 
 
-NI_control(4,4, 100, 8, 40, 8, 8, 800 ns, clk,
+NI_control(4,4, 150,8, 40, 8, 8, 10000 ns, clk,
            -- NI configuration
            reserved_address, flag_address, counter_address, reconfiguration_address,
            -- NI signals
            enable_8, write_byte_enable_8, address_8, data_write_8, data_read_8, test_8); 
 
-NI_control(4,4, 100, 9, 42, 8, 8, 800 ns, clk,
+NI_control(4,4, 150,9, 42, 8, 8, 10000 ns, clk,
            -- NI configuration
            reserved_address, flag_address, counter_address, reconfiguration_address,
            -- NI signals
            enable_9, write_byte_enable_9, address_9, data_write_9, data_read_9, test_9); 
 
-NI_control(4,4, 100, 10, 11, 8, 8, 800 ns, clk,
+NI_control(4,4, 150,10, 11, 8, 8, 10000 ns, clk,
            -- NI configuration
            reserved_address, flag_address, counter_address, reconfiguration_address,
            -- NI signals
            enable_10, write_byte_enable_10, address_10, data_write_10, data_read_10, test_10); 
 
-NI_control(4,4, 100, 11, 20, 8, 8, 800 ns, clk,
+NI_control(4,4, 150,11, 20, 8, 8, 10000 ns, clk,
            -- NI configuration
            reserved_address, flag_address, counter_address, reconfiguration_address,
            -- NI signals
            enable_11, write_byte_enable_11, address_11, data_write_11, data_read_11, test_11); 
 
-NI_control(4,4, 100, 12, 36, 8, 8, 800 ns, clk,
+NI_control(4,4, 150,12, 36, 8, 8, 10000 ns, clk,
            -- NI configuration
            reserved_address, flag_address, counter_address, reconfiguration_address,
            -- NI signals
            enable_12, write_byte_enable_12, address_12, data_write_12, data_read_12, test_12); 
 
-NI_control(4,4, 100, 13, 6, 8, 8, 800 ns, clk,
+NI_control(4,4, 150,13, 6, 8, 8, 10000 ns, clk,
            -- NI configuration
            reserved_address, flag_address, counter_address, reconfiguration_address,
            -- NI signals
            enable_13, write_byte_enable_13, address_13, data_write_13, data_read_13, test_13); 
 
-NI_control(4,4, 100, 14, 14, 8, 8, 800 ns, clk,
+NI_control(4,4, 150,14, 14, 8, 8, 10000 ns, clk,
            -- NI configuration
            reserved_address, flag_address, counter_address, reconfiguration_address,
            -- NI signals
            enable_14, write_byte_enable_14, address_14, data_write_14, data_read_14, test_14); 
 
-NI_control(4,4, 100, 15, 18, 8, 8, 800 ns, clk,
+NI_control(4,4, 150,15, 18, 8, 8, 10000 ns, clk,
            -- NI configuration
            reserved_address, flag_address, counter_address, reconfiguration_address,
            -- NI signals

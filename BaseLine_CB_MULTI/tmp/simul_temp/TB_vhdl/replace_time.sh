@@ -6,4 +6,4 @@
 
 num=$1
 
-sed "s/10000 ns/$num ns/" base.vhdl
+sed "s/4,4, 100, /4,4, $num,/" base.vhdl
