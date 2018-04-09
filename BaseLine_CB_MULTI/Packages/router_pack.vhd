@@ -60,7 +60,8 @@ package router_pack is
   end COMPONENT;
 
   COMPONENT allocator is
-
+    generic(credit_width_L: integer := 10;
+            credit_width : integer := 2);
     port (  reset : in  std_logic;
             clk   : in  std_logic;
             -- flow control
@@ -99,7 +100,7 @@ COMPONENT LBDR is
         Rxy_rst      : integer := 8;
         Cx_rst       : integer := 8
     );
-    port (  
+    port (
             reset     : in std_logic;
             clk       : in std_logic;
             empty     : in std_logic;

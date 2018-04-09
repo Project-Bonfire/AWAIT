@@ -99,7 +99,7 @@ package body TB_Package is
 
     variable  frame_starting_delay : integer := 0;
     variable frame_counter: integer := 0;
-    variable first_packet : boolean := True;
+    variable sent : boolean := False;
 
     begin
 
@@ -128,49 +128,26 @@ package body TB_Package is
       address <= flag_address;
       write_byte_enable <= "0000";
       wait until clk'event and clk ='0';
-
+      frame_counter := frame_counter + 1;
+      if frame_counter = frame_length then
+          frame_counter := 0;
+          sent := False;
+          uniform(seed1, seed2, rand);
+          frame_starting_delay := integer(((integer(rand*100.0)*(frame_length - max_packet_size)))/100);
+      end if;
       --flag register is organized like this:
       --       .-------------------------------------------------.
       --       | N2P_empty | P2N_full |                       ...|
       --       '-------------------------------------------------'
-      if data_read(31) = '0' then  -- N2P is not empty, can receive flit
-          -- read the received data status
-          address <= counter_address;
-          write_byte_enable <= "0000";
-          wait until clk'event and clk ='0';
 
 
-          -- read the received data status
-          address <= reserved_address;
-          write_byte_enable <= "0000";
-          wait until clk'event and clk ='0';
+      if data_read(30) = '0' then -- P2N is not full, can send flit
 
-          if (data_read(DATA_WIDTH-1 downto DATA_WIDTH-3) = "001") then -- got header flit
-              receive_destination_node := to_integer(unsigned(data_read(14 downto 8)))* network_x+to_integer(unsigned(data_read(7 downto 1)));
-              receive_source_node :=to_integer(unsigned(data_read(28 downto 22)))* network_x+to_integer(unsigned(data_read(21 downto 15)));
-              receive_counter := 1;
-          end if;
-
-          if  (data_read(DATA_WIDTH-1 downto DATA_WIDTH-3) = "010") then  -- got body flit
-              if receive_counter = 1 then
-                  receive_packet_length := to_integer(unsigned(data_read(28 downto 15)));
-                  receive_packet_id := to_integer(unsigned(data_read(14 downto 1)));
-              end if;
-              receive_counter := receive_counter+1;
-
-          end if;
-
-          if (data_read(DATA_WIDTH-1 downto DATA_WIDTH-3) = "100") then -- got tail flit
-              receive_counter := receive_counter+1;
-                write(RECEIVED_LINEVARIABLE, "Packet received at " & time'image(now) & " From: " & integer'image(receive_source_node) & " to: " & integer'image(receive_destination_node) & " length: "& integer'image(receive_packet_length) & " actual length: "& integer'image(receive_counter)  & " id: "& integer'image(receive_packet_id));
-                writeline(RECEIVED_FILE, RECEIVED_LINEVARIABLE);
-          end if;
-
-      elsif data_read(30) = '0' then -- P2N is not full, can send flit
           if frame_counter >= frame_starting_delay  then
 
-              if state = Idle and now  < finish_time then
-                  if frame_counter < frame_starting_delay+1 then
+              if state = Idle and now  < finish_time and sent = False then
+                --  if frame_counter < frame_starting_delay+1 then
+                    sent := True;
 
                     state :=  Header_flit;
                     send_counter := send_counter+1;
@@ -193,21 +170,17 @@ package body TB_Package is
                     -- this is the header flit
                     address <= reserved_address;
                     write_byte_enable <= "1111";
-                    data_write <= "0000" &  std_logic_vector(to_unsigned(current_address/network_x, 7)) & std_logic_vector(to_unsigned(current_address mod network_x, 7)) & std_logic_vector(to_unsigned(send_destination_node/network_x, 7)) & std_logic_vector(to_unsigned(send_destination_node mod network_x, 7));
+                    data_write <= "1000" &  std_logic_vector(to_unsigned(current_address/network_x, 7)) & std_logic_vector(to_unsigned(current_address mod network_x, 7)) & std_logic_vector(to_unsigned(send_destination_node/network_x, 7)) & std_logic_vector(to_unsigned(send_destination_node mod network_x, 7));
                     write(SEND_LINEVARIABLE, "Packet generated at " & time'image(now) & " From " & integer'image(current_address) & " to " & integer'image(send_destination_node) & " with length: "& integer'image(send_packet_length)  & " id: " & integer'image(send_id_counter));
                     writeline(SEND_FILE, SEND_LINEVARIABLE);
-                  else
-                    state :=  Idle;
-                  end if;
+                --  else
+                --    state :=  Idle;
+                --  end if;
               elsif state = Header_flit then
                   -- first body flit
                   address <= reserved_address;
                   write_byte_enable <= "1111";
-                  if first_packet = True then
-                    data_write <= "0000" &  std_logic_vector(to_unsigned(send_packet_length, 14)) & std_logic_vector(to_unsigned(send_id_counter, 14));
-                  else
-                    data_write <= "0000" &  std_logic_vector(to_unsigned(send_packet_length, 14)) & std_logic_vector(to_unsigned(send_id_counter, 14));
-                  end if;
+                  data_write <= "0100" &  std_logic_vector(to_unsigned(send_packet_length, 14)) & std_logic_vector(to_unsigned(send_id_counter, 14));
                   send_counter := send_counter+1;
                   state :=  Body_flit;
               elsif state = Body_flit then
@@ -215,7 +188,7 @@ package body TB_Package is
                   address <= reserved_address;
                   write_byte_enable <= "1111";
                   uniform(seed1, seed2, rand);
-                  data_write <= "0000" & std_logic_vector(to_unsigned(integer(rand*1000.0), 28));
+                  data_write <= "0100" & std_logic_vector(to_unsigned(integer(rand*1000.0), 28));
                   send_counter := send_counter+1;
                   if send_counter = send_packet_length-1 then
                       state :=  Tail_flit;
@@ -226,13 +199,8 @@ package body TB_Package is
                   -- tail flit
                   address <= reserved_address;
                   write_byte_enable <= "1111";
-                  if first_packet = True then
-                    data_write <= "0000" & "0000000000000000000000000000";
-                    first_packet := False;
-                  else
-                    uniform(seed1, seed2, rand);
-                    data_write <= "0000" & std_logic_vector(to_unsigned(integer(rand*1000.0), 28));
-                  end if;
+                  uniform(seed1, seed2, rand);
+                  data_write <= "0010" & std_logic_vector(to_unsigned(integer(rand*1000.0), 28));
                   send_counter := 0;
                   state :=  Idle;
                   send_id_counter := send_id_counter + 1;
@@ -242,14 +210,57 @@ package body TB_Package is
               end if;
             end if;
 
-            frame_counter := frame_counter + 1;
-            if frame_counter = frame_length then
-                frame_counter := 0;
-                uniform(seed1, seed2, rand);
-                frame_starting_delay := integer(((integer(rand*100.0)*(frame_length - max_packet_size)))/100);
-            end if;
+      wait until clk'event and clk ='0';
 
-            wait until clk'event and clk ='0';
+      frame_counter := frame_counter + 1;
+      if frame_counter = frame_length then
+          frame_counter := 0;
+          sent := False;
+          uniform(seed1, seed2, rand);
+          frame_starting_delay := integer(((integer(rand*100.0)*(frame_length - max_packet_size)))/100);
+      end if;
+
+    elsif data_read(31) = '0' then  -- N2P is not empty, can receive flit
+          -- read the received data status
+          -- address <= counter_address;
+          -- write_byte_enable <= "0000";
+          -- wait until clk'event and clk ='0';
+
+
+          -- read the received data status
+          address <= reserved_address;
+          write_byte_enable <= "0000";
+          wait until clk'event and clk ='0';
+
+          frame_counter := frame_counter + 1;
+          if frame_counter = frame_length then
+              frame_counter := 0;
+              sent := False;
+              uniform(seed1, seed2, rand);
+              frame_starting_delay := integer(((integer(rand*100.0)*(frame_length - max_packet_size)))/100);
+          end if;
+
+          if (data_read(DATA_WIDTH-1 downto DATA_WIDTH-3) = "001") then -- got header flit
+              receive_destination_node := to_integer(unsigned(data_read(14 downto 8)))* network_x+to_integer(unsigned(data_read(7 downto 1)));
+              receive_source_node :=to_integer(unsigned(data_read(28 downto 22)))* network_x+to_integer(unsigned(data_read(21 downto 15)));
+              receive_counter := 1;
+          end if;
+
+          if  (data_read(DATA_WIDTH-1 downto DATA_WIDTH-3) = "010") then  -- got body flit
+              if receive_counter = 1 then
+                  receive_packet_length := to_integer(unsigned(data_read(28 downto 15)));
+                  receive_packet_id := to_integer(unsigned(data_read(14 downto 1)));
+              end if;
+              receive_counter := receive_counter+1;
+
+          end if;
+
+          if (data_read(DATA_WIDTH-1 downto DATA_WIDTH-3) = "100") then -- got tail flit
+              receive_counter := receive_counter+1;
+                write(RECEIVED_LINEVARIABLE, "Packet received at " & time'image(now) & " From: " & integer'image(receive_source_node) & " to: " & integer'image(receive_destination_node) & " length: "& integer'image(receive_packet_length) & " actual length: "& integer'image(receive_counter)  & " id: "& integer'image(receive_packet_id));
+                writeline(RECEIVED_FILE, RECEIVED_LINEVARIABLE);
+          end if;
+
 
       end if;
 
