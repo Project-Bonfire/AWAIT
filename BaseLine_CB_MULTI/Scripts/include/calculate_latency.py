@@ -86,23 +86,25 @@ else:
     f = open(SIMUL_DIR+"/"+'latency.txt', 'w')
     delay_list = []
     packet_length_list = []
+
     for identifier in sent_packets_dict:
         packet_sent_time = float(sent_packets_dict[identifier])
-        if packet_sent_time/1000.0 > warmup_time:
-            if identifier in received_packets_dict.keys():
-                packet_recieved_time   = float(received_packets_dict[identifier])
-                delay = packet_recieved_time - packet_sent_time
+        # print 'pst', packet_sent_time/1000.0, 'wt', warmup_time
+        # if packet_sent_time/1000.0 > warmup_time:
+        if identifier in received_packets_dict.keys():
+            packet_recieved_time   = float(received_packets_dict[identifier])
+            delay = packet_recieved_time - packet_sent_time
 
-                if max_recived_time < packet_recieved_time:
-                    max_recived_time = packet_recieved_time
-                if min_sent_time > packet_sent_time:
-                    min_sent_time = packet_sent_time
+            if max_recived_time < packet_recieved_time:
+                max_recived_time = packet_recieved_time
+            if min_sent_time > packet_sent_time:
+                min_sent_time = packet_sent_time
 
-                delay_list.append(delay)
-                packet_length_list.append(received_packets_length_dict[identifier])
-            else:
-                print identifier
-                raise ValueError("Something is worong! An identifier is missing from the recieved file")
+            delay_list.append(delay)
+            packet_length_list.append(received_packets_length_dict[identifier])
+        else:
+            print identifier
+            raise ValueError("Something is worong! An identifier is missing from the recieved file")
 
     # print "delay_list:", delay_list
     f.write("number of processed packets:"+str(len(delay_list))+"\n")
