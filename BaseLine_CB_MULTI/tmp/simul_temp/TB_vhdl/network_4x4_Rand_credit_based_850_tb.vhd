@@ -16,34 +16,34 @@ use work.TB_Package.all;
 
 use work.router_pack.all;
 
-USE ieee.numeric_std.ALL; 
+USE ieee.numeric_std.ALL;
 -- use IEEE.math_real."ceil";
 -- use IEEE.math_real."log2";
 
 entity tb_network_4x4 is
-end tb_network_4x4; 
+end tb_network_4x4;
 
 
 architecture behavior of tb_network_4x4 is
 
 -- Declaring network component
 
-function log2( i : integer) return integer is 
-    variable temp    : integer := i; 
-    variable ret_val : integer := 1; --log2 of 0 should equal 1 because you still need 1 bit to represent 0 
-  begin                  
-    while temp > 1 loop 
-      ret_val := ret_val + 1; 
-      temp    := temp / 2;      
-    end loop; 
-     
-    return ret_val; 
-  end function; 
+function log2( i : integer) return integer is
+    variable temp    : integer := i;
+    variable ret_val : integer := 1; --log2 of 0 should equal 1 because you still need 1 bit to represent 0
+  begin
+    while temp > 1 loop
+      ret_val := ret_val + 1;
+      temp    := temp / 2;
+    end loop;
+
+    return ret_val;
+  end function;
 
 component network_4x4 is
  generic (DATA_WIDTH: integer := 32);
-port (reset: in  std_logic; 
-	clk: in  std_logic; 
+port (reset: in  std_logic;
+	clk: in  std_logic;
 	--------------
 	RX_L_0: in std_logic_vector (DATA_WIDTH-1 downto 0);
 	credit_out_L_0, valid_out_L_0: out std_logic;
@@ -125,8 +125,8 @@ port (reset: in  std_logic;
 	credit_in_L_15, valid_in_L_15: in std_logic;
 	TX_L_15: out std_logic_vector (DATA_WIDTH-1 downto 0)
 
-            ); 
-end component; 
+            );
+end component;
 component flit_tracker is
     generic (
         DATA_WIDTH: integer := 32;
@@ -134,8 +134,8 @@ component flit_tracker is
     );
     port (
         clk: in std_logic;
-        RX: in std_logic_vector (DATA_WIDTH-1 downto 0); 
-        valid_in : in std_logic 
+        RX: in std_logic_vector (DATA_WIDTH-1 downto 0);
+        valid_in : in std_logic
     );
 end component;
 
@@ -211,469 +211,469 @@ begin
    clk_process :process
    begin
         clk <= '0';
-        wait for clk_period/2;   
+        wait for clk_period/2;
         clk <= '1';
-        wait for clk_period/2; 
+        wait for clk_period/2;
    end process;
 
 reset <= '1' after 1 ns;
- 
+
 NoC: network_4x4 generic map (DATA_WIDTH  => 32)
-port map (reset, clk, 
-	RX_L_0, credit_out_L_0, valid_out_L_0, credit_in_L_0, valid_in_L_0,  TX_L_0, 
-	RX_L_1, credit_out_L_1, valid_out_L_1, credit_in_L_1, valid_in_L_1,  TX_L_1, 
-	RX_L_2, credit_out_L_2, valid_out_L_2, credit_in_L_2, valid_in_L_2,  TX_L_2, 
-	RX_L_3, credit_out_L_3, valid_out_L_3, credit_in_L_3, valid_in_L_3,  TX_L_3, 
-	RX_L_4, credit_out_L_4, valid_out_L_4, credit_in_L_4, valid_in_L_4,  TX_L_4, 
-	RX_L_5, credit_out_L_5, valid_out_L_5, credit_in_L_5, valid_in_L_5,  TX_L_5, 
-	RX_L_6, credit_out_L_6, valid_out_L_6, credit_in_L_6, valid_in_L_6,  TX_L_6, 
-	RX_L_7, credit_out_L_7, valid_out_L_7, credit_in_L_7, valid_in_L_7,  TX_L_7, 
-	RX_L_8, credit_out_L_8, valid_out_L_8, credit_in_L_8, valid_in_L_8,  TX_L_8, 
-	RX_L_9, credit_out_L_9, valid_out_L_9, credit_in_L_9, valid_in_L_9,  TX_L_9, 
-	RX_L_10, credit_out_L_10, valid_out_L_10, credit_in_L_10, valid_in_L_10,  TX_L_10, 
-	RX_L_11, credit_out_L_11, valid_out_L_11, credit_in_L_11, valid_in_L_11,  TX_L_11, 
-	RX_L_12, credit_out_L_12, valid_out_L_12, credit_in_L_12, valid_in_L_12,  TX_L_12, 
-	RX_L_13, credit_out_L_13, valid_out_L_13, credit_in_L_13, valid_in_L_13,  TX_L_13, 
-	RX_L_14, credit_out_L_14, valid_out_L_14, credit_in_L_14, valid_in_L_14,  TX_L_14, 
+port map (reset, clk,
+	RX_L_0, credit_out_L_0, valid_out_L_0, credit_in_L_0, valid_in_L_0,  TX_L_0,
+	RX_L_1, credit_out_L_1, valid_out_L_1, credit_in_L_1, valid_in_L_1,  TX_L_1,
+	RX_L_2, credit_out_L_2, valid_out_L_2, credit_in_L_2, valid_in_L_2,  TX_L_2,
+	RX_L_3, credit_out_L_3, valid_out_L_3, credit_in_L_3, valid_in_L_3,  TX_L_3,
+	RX_L_4, credit_out_L_4, valid_out_L_4, credit_in_L_4, valid_in_L_4,  TX_L_4,
+	RX_L_5, credit_out_L_5, valid_out_L_5, credit_in_L_5, valid_in_L_5,  TX_L_5,
+	RX_L_6, credit_out_L_6, valid_out_L_6, credit_in_L_6, valid_in_L_6,  TX_L_6,
+	RX_L_7, credit_out_L_7, valid_out_L_7, credit_in_L_7, valid_in_L_7,  TX_L_7,
+	RX_L_8, credit_out_L_8, valid_out_L_8, credit_in_L_8, valid_in_L_8,  TX_L_8,
+	RX_L_9, credit_out_L_9, valid_out_L_9, credit_in_L_9, valid_in_L_9,  TX_L_9,
+	RX_L_10, credit_out_L_10, valid_out_L_10, credit_in_L_10, valid_in_L_10,  TX_L_10,
+	RX_L_11, credit_out_L_11, valid_out_L_11, credit_in_L_11, valid_in_L_11,  TX_L_11,
+	RX_L_12, credit_out_L_12, valid_out_L_12, credit_in_L_12, valid_in_L_12,  TX_L_12,
+	RX_L_13, credit_out_L_13, valid_out_L_13, credit_in_L_13, valid_in_L_13,  TX_L_13,
+	RX_L_14, credit_out_L_14, valid_out_L_14, credit_in_L_14, valid_in_L_14,  TX_L_14,
 	RX_L_15, credit_out_L_15, valid_out_L_15, credit_in_L_15, valid_in_L_15,  TX_L_15
-            ); 
-not_reset <= not reset; 
+            );
+not_reset <= not reset;
 
 -- connecting the NIs
-NI_0: NI 
+NI_0: NI
    generic map(current_x => 0, current_y => 0,
                NI_depth => 1024,
                NI_couter_size => 10
-           ) 
-   port map(clk => clk , reset => not_reset , enable => enable_0, 
-        write_byte_enable => write_byte_enable_0, 
-        address => address_0, 
-        data_write => data_write_0, 
-        data_read => data_read_0, 
+           )
+   port map(clk => clk , reset => not_reset , enable => enable_0,
+        write_byte_enable => write_byte_enable_0,
+        address => address_0,
+        data_write => data_write_0,
+        data_read => data_read_0,
         -- interrupt signal: generated evertime a packet is recieved!
-        irq_out => irq_out_0, 
+        irq_out => irq_out_0,
         -- signals for sending packets to network
-        credit_in => credit_out_L_0, 
+        credit_in => credit_out_L_0,
         valid_out => valid_in_L_0,
         TX => RX_L_0, -- data sent to the NoC
         -- signals for reciving packets from the network
-        credit_out => credit_in_L_0, 
+        credit_out => credit_in_L_0,
         valid_in => valid_out_L_0,
         RX => TX_L_0
   );
-NI_1: NI 
+NI_1: NI
    generic map(current_x => 1, current_y => 0,
                NI_depth => 1024,
                NI_couter_size => 10
-           ) 
-   port map(clk => clk , reset => not_reset , enable => enable_1, 
-        write_byte_enable => write_byte_enable_1, 
-        address => address_1, 
-        data_write => data_write_1, 
-        data_read => data_read_1, 
+           )
+   port map(clk => clk , reset => not_reset , enable => enable_1,
+        write_byte_enable => write_byte_enable_1,
+        address => address_1,
+        data_write => data_write_1,
+        data_read => data_read_1,
         -- interrupt signal: generated evertime a packet is recieved!
-        irq_out => irq_out_1, 
+        irq_out => irq_out_1,
         -- signals for sending packets to network
-        credit_in => credit_out_L_1, 
+        credit_in => credit_out_L_1,
         valid_out => valid_in_L_1,
         TX => RX_L_1, -- data sent to the NoC
         -- signals for reciving packets from the network
-        credit_out => credit_in_L_1, 
+        credit_out => credit_in_L_1,
         valid_in => valid_out_L_1,
         RX => TX_L_1
   );
-NI_2: NI 
+NI_2: NI
    generic map(current_x => 2, current_y => 0,
                NI_depth => 1024,
                NI_couter_size => 10
-           ) 
-   port map(clk => clk , reset => not_reset , enable => enable_2, 
-        write_byte_enable => write_byte_enable_2, 
-        address => address_2, 
-        data_write => data_write_2, 
-        data_read => data_read_2, 
+           )
+   port map(clk => clk , reset => not_reset , enable => enable_2,
+        write_byte_enable => write_byte_enable_2,
+        address => address_2,
+        data_write => data_write_2,
+        data_read => data_read_2,
         -- interrupt signal: generated evertime a packet is recieved!
-        irq_out => irq_out_2, 
+        irq_out => irq_out_2,
         -- signals for sending packets to network
-        credit_in => credit_out_L_2, 
+        credit_in => credit_out_L_2,
         valid_out => valid_in_L_2,
         TX => RX_L_2, -- data sent to the NoC
         -- signals for reciving packets from the network
-        credit_out => credit_in_L_2, 
+        credit_out => credit_in_L_2,
         valid_in => valid_out_L_2,
         RX => TX_L_2
   );
-NI_3: NI 
+NI_3: NI
    generic map(current_x => 3, current_y => 0,
                NI_depth => 1024,
                NI_couter_size => 10
-           ) 
-   port map(clk => clk , reset => not_reset , enable => enable_3, 
-        write_byte_enable => write_byte_enable_3, 
-        address => address_3, 
-        data_write => data_write_3, 
-        data_read => data_read_3, 
+           )
+   port map(clk => clk , reset => not_reset , enable => enable_3,
+        write_byte_enable => write_byte_enable_3,
+        address => address_3,
+        data_write => data_write_3,
+        data_read => data_read_3,
         -- interrupt signal: generated evertime a packet is recieved!
-        irq_out => irq_out_3, 
+        irq_out => irq_out_3,
         -- signals for sending packets to network
-        credit_in => credit_out_L_3, 
+        credit_in => credit_out_L_3,
         valid_out => valid_in_L_3,
         TX => RX_L_3, -- data sent to the NoC
         -- signals for reciving packets from the network
-        credit_out => credit_in_L_3, 
+        credit_out => credit_in_L_3,
         valid_in => valid_out_L_3,
         RX => TX_L_3
   );
-NI_4: NI 
+NI_4: NI
    generic map(current_x => 0, current_y => 1,
                NI_depth => 1024,
                NI_couter_size => 10
-           ) 
-   port map(clk => clk , reset => not_reset , enable => enable_4, 
-        write_byte_enable => write_byte_enable_4, 
-        address => address_4, 
-        data_write => data_write_4, 
-        data_read => data_read_4, 
+           )
+   port map(clk => clk , reset => not_reset , enable => enable_4,
+        write_byte_enable => write_byte_enable_4,
+        address => address_4,
+        data_write => data_write_4,
+        data_read => data_read_4,
         -- interrupt signal: generated evertime a packet is recieved!
-        irq_out => irq_out_4, 
+        irq_out => irq_out_4,
         -- signals for sending packets to network
-        credit_in => credit_out_L_4, 
+        credit_in => credit_out_L_4,
         valid_out => valid_in_L_4,
         TX => RX_L_4, -- data sent to the NoC
         -- signals for reciving packets from the network
-        credit_out => credit_in_L_4, 
+        credit_out => credit_in_L_4,
         valid_in => valid_out_L_4,
         RX => TX_L_4
   );
-NI_5: NI 
+NI_5: NI
    generic map(current_x => 1, current_y => 1,
                NI_depth => 1024,
                NI_couter_size => 10
-           ) 
-   port map(clk => clk , reset => not_reset , enable => enable_5, 
-        write_byte_enable => write_byte_enable_5, 
-        address => address_5, 
-        data_write => data_write_5, 
-        data_read => data_read_5, 
+           )
+   port map(clk => clk , reset => not_reset , enable => enable_5,
+        write_byte_enable => write_byte_enable_5,
+        address => address_5,
+        data_write => data_write_5,
+        data_read => data_read_5,
         -- interrupt signal: generated evertime a packet is recieved!
-        irq_out => irq_out_5, 
+        irq_out => irq_out_5,
         -- signals for sending packets to network
-        credit_in => credit_out_L_5, 
+        credit_in => credit_out_L_5,
         valid_out => valid_in_L_5,
         TX => RX_L_5, -- data sent to the NoC
         -- signals for reciving packets from the network
-        credit_out => credit_in_L_5, 
+        credit_out => credit_in_L_5,
         valid_in => valid_out_L_5,
         RX => TX_L_5
   );
-NI_6: NI 
+NI_6: NI
    generic map(current_x => 2, current_y => 1,
                NI_depth => 1024,
                NI_couter_size => 10
-           ) 
-   port map(clk => clk , reset => not_reset , enable => enable_6, 
-        write_byte_enable => write_byte_enable_6, 
-        address => address_6, 
-        data_write => data_write_6, 
-        data_read => data_read_6, 
+           )
+   port map(clk => clk , reset => not_reset , enable => enable_6,
+        write_byte_enable => write_byte_enable_6,
+        address => address_6,
+        data_write => data_write_6,
+        data_read => data_read_6,
         -- interrupt signal: generated evertime a packet is recieved!
-        irq_out => irq_out_6, 
+        irq_out => irq_out_6,
         -- signals for sending packets to network
-        credit_in => credit_out_L_6, 
+        credit_in => credit_out_L_6,
         valid_out => valid_in_L_6,
         TX => RX_L_6, -- data sent to the NoC
         -- signals for reciving packets from the network
-        credit_out => credit_in_L_6, 
+        credit_out => credit_in_L_6,
         valid_in => valid_out_L_6,
         RX => TX_L_6
   );
-NI_7: NI 
+NI_7: NI
    generic map(current_x => 3, current_y => 1,
                NI_depth => 1024,
                NI_couter_size => 10
-           ) 
-   port map(clk => clk , reset => not_reset , enable => enable_7, 
-        write_byte_enable => write_byte_enable_7, 
-        address => address_7, 
-        data_write => data_write_7, 
-        data_read => data_read_7, 
+           )
+   port map(clk => clk , reset => not_reset , enable => enable_7,
+        write_byte_enable => write_byte_enable_7,
+        address => address_7,
+        data_write => data_write_7,
+        data_read => data_read_7,
         -- interrupt signal: generated evertime a packet is recieved!
-        irq_out => irq_out_7, 
+        irq_out => irq_out_7,
         -- signals for sending packets to network
-        credit_in => credit_out_L_7, 
+        credit_in => credit_out_L_7,
         valid_out => valid_in_L_7,
         TX => RX_L_7, -- data sent to the NoC
         -- signals for reciving packets from the network
-        credit_out => credit_in_L_7, 
+        credit_out => credit_in_L_7,
         valid_in => valid_out_L_7,
         RX => TX_L_7
   );
-NI_8: NI 
+NI_8: NI
    generic map(current_x => 0, current_y => 2,
                NI_depth => 1024,
                NI_couter_size => 10
-           ) 
-   port map(clk => clk , reset => not_reset , enable => enable_8, 
-        write_byte_enable => write_byte_enable_8, 
-        address => address_8, 
-        data_write => data_write_8, 
-        data_read => data_read_8, 
+           )
+   port map(clk => clk , reset => not_reset , enable => enable_8,
+        write_byte_enable => write_byte_enable_8,
+        address => address_8,
+        data_write => data_write_8,
+        data_read => data_read_8,
         -- interrupt signal: generated evertime a packet is recieved!
-        irq_out => irq_out_8, 
+        irq_out => irq_out_8,
         -- signals for sending packets to network
-        credit_in => credit_out_L_8, 
+        credit_in => credit_out_L_8,
         valid_out => valid_in_L_8,
         TX => RX_L_8, -- data sent to the NoC
         -- signals for reciving packets from the network
-        credit_out => credit_in_L_8, 
+        credit_out => credit_in_L_8,
         valid_in => valid_out_L_8,
         RX => TX_L_8
   );
-NI_9: NI 
+NI_9: NI
    generic map(current_x => 1, current_y => 2,
                NI_depth => 1024,
                NI_couter_size => 10
-           ) 
-   port map(clk => clk , reset => not_reset , enable => enable_9, 
-        write_byte_enable => write_byte_enable_9, 
-        address => address_9, 
-        data_write => data_write_9, 
-        data_read => data_read_9, 
+           )
+   port map(clk => clk , reset => not_reset , enable => enable_9,
+        write_byte_enable => write_byte_enable_9,
+        address => address_9,
+        data_write => data_write_9,
+        data_read => data_read_9,
         -- interrupt signal: generated evertime a packet is recieved!
-        irq_out => irq_out_9, 
+        irq_out => irq_out_9,
         -- signals for sending packets to network
-        credit_in => credit_out_L_9, 
+        credit_in => credit_out_L_9,
         valid_out => valid_in_L_9,
         TX => RX_L_9, -- data sent to the NoC
         -- signals for reciving packets from the network
-        credit_out => credit_in_L_9, 
+        credit_out => credit_in_L_9,
         valid_in => valid_out_L_9,
         RX => TX_L_9
   );
-NI_10: NI 
+NI_10: NI
    generic map(current_x => 2, current_y => 2,
                NI_depth => 1024,
                NI_couter_size => 10
-           ) 
-   port map(clk => clk , reset => not_reset , enable => enable_10, 
-        write_byte_enable => write_byte_enable_10, 
-        address => address_10, 
-        data_write => data_write_10, 
-        data_read => data_read_10, 
+           )
+   port map(clk => clk , reset => not_reset , enable => enable_10,
+        write_byte_enable => write_byte_enable_10,
+        address => address_10,
+        data_write => data_write_10,
+        data_read => data_read_10,
         -- interrupt signal: generated evertime a packet is recieved!
-        irq_out => irq_out_10, 
+        irq_out => irq_out_10,
         -- signals for sending packets to network
-        credit_in => credit_out_L_10, 
+        credit_in => credit_out_L_10,
         valid_out => valid_in_L_10,
         TX => RX_L_10, -- data sent to the NoC
         -- signals for reciving packets from the network
-        credit_out => credit_in_L_10, 
+        credit_out => credit_in_L_10,
         valid_in => valid_out_L_10,
         RX => TX_L_10
   );
-NI_11: NI 
+NI_11: NI
    generic map(current_x => 3, current_y => 2,
                NI_depth => 1024,
                NI_couter_size => 10
-           ) 
-   port map(clk => clk , reset => not_reset , enable => enable_11, 
-        write_byte_enable => write_byte_enable_11, 
-        address => address_11, 
-        data_write => data_write_11, 
-        data_read => data_read_11, 
+           )
+   port map(clk => clk , reset => not_reset , enable => enable_11,
+        write_byte_enable => write_byte_enable_11,
+        address => address_11,
+        data_write => data_write_11,
+        data_read => data_read_11,
         -- interrupt signal: generated evertime a packet is recieved!
-        irq_out => irq_out_11, 
+        irq_out => irq_out_11,
         -- signals for sending packets to network
-        credit_in => credit_out_L_11, 
+        credit_in => credit_out_L_11,
         valid_out => valid_in_L_11,
         TX => RX_L_11, -- data sent to the NoC
         -- signals for reciving packets from the network
-        credit_out => credit_in_L_11, 
+        credit_out => credit_in_L_11,
         valid_in => valid_out_L_11,
         RX => TX_L_11
   );
-NI_12: NI 
+NI_12: NI
    generic map(current_x => 0, current_y => 3,
                NI_depth => 1024,
                NI_couter_size => 10
-           ) 
-   port map(clk => clk , reset => not_reset , enable => enable_12, 
-        write_byte_enable => write_byte_enable_12, 
-        address => address_12, 
-        data_write => data_write_12, 
-        data_read => data_read_12, 
+           )
+   port map(clk => clk , reset => not_reset , enable => enable_12,
+        write_byte_enable => write_byte_enable_12,
+        address => address_12,
+        data_write => data_write_12,
+        data_read => data_read_12,
         -- interrupt signal: generated evertime a packet is recieved!
-        irq_out => irq_out_12, 
+        irq_out => irq_out_12,
         -- signals for sending packets to network
-        credit_in => credit_out_L_12, 
+        credit_in => credit_out_L_12,
         valid_out => valid_in_L_12,
         TX => RX_L_12, -- data sent to the NoC
         -- signals for reciving packets from the network
-        credit_out => credit_in_L_12, 
+        credit_out => credit_in_L_12,
         valid_in => valid_out_L_12,
         RX => TX_L_12
   );
-NI_13: NI 
+NI_13: NI
    generic map(current_x => 1, current_y => 3,
                NI_depth => 1024,
                NI_couter_size => 10
-           ) 
-   port map(clk => clk , reset => not_reset , enable => enable_13, 
-        write_byte_enable => write_byte_enable_13, 
-        address => address_13, 
-        data_write => data_write_13, 
-        data_read => data_read_13, 
+           )
+   port map(clk => clk , reset => not_reset , enable => enable_13,
+        write_byte_enable => write_byte_enable_13,
+        address => address_13,
+        data_write => data_write_13,
+        data_read => data_read_13,
         -- interrupt signal: generated evertime a packet is recieved!
-        irq_out => irq_out_13, 
+        irq_out => irq_out_13,
         -- signals for sending packets to network
-        credit_in => credit_out_L_13, 
+        credit_in => credit_out_L_13,
         valid_out => valid_in_L_13,
         TX => RX_L_13, -- data sent to the NoC
         -- signals for reciving packets from the network
-        credit_out => credit_in_L_13, 
+        credit_out => credit_in_L_13,
         valid_in => valid_out_L_13,
         RX => TX_L_13
   );
-NI_14: NI 
+NI_14: NI
    generic map(current_x => 2, current_y => 3,
                NI_depth => 1024,
                NI_couter_size => 10
-           ) 
-   port map(clk => clk , reset => not_reset , enable => enable_14, 
-        write_byte_enable => write_byte_enable_14, 
-        address => address_14, 
-        data_write => data_write_14, 
-        data_read => data_read_14, 
+           )
+   port map(clk => clk , reset => not_reset , enable => enable_14,
+        write_byte_enable => write_byte_enable_14,
+        address => address_14,
+        data_write => data_write_14,
+        data_read => data_read_14,
         -- interrupt signal: generated evertime a packet is recieved!
-        irq_out => irq_out_14, 
+        irq_out => irq_out_14,
         -- signals for sending packets to network
-        credit_in => credit_out_L_14, 
+        credit_in => credit_out_L_14,
         valid_out => valid_in_L_14,
         TX => RX_L_14, -- data sent to the NoC
         -- signals for reciving packets from the network
-        credit_out => credit_in_L_14, 
+        credit_out => credit_in_L_14,
         valid_in => valid_out_L_14,
         RX => TX_L_14
   );
-NI_15: NI 
+NI_15: NI
    generic map(current_x => 3, current_y => 3,
                NI_depth => 1024,
                NI_couter_size => 10
-           ) 
-   port map(clk => clk , reset => not_reset , enable => enable_15, 
-        write_byte_enable => write_byte_enable_15, 
-        address => address_15, 
-        data_write => data_write_15, 
-        data_read => data_read_15, 
+           )
+   port map(clk => clk , reset => not_reset , enable => enable_15,
+        write_byte_enable => write_byte_enable_15,
+        address => address_15,
+        data_write => data_write_15,
+        data_read => data_read_15,
         -- interrupt signal: generated evertime a packet is recieved!
-        irq_out => irq_out_15, 
+        irq_out => irq_out_15,
         -- signals for sending packets to network
-        credit_in => credit_out_L_15, 
+        credit_in => credit_out_L_15,
         valid_out => valid_in_L_15,
         TX => RX_L_15, -- data sent to the NoC
         -- signals for reciving packets from the network
-        credit_out => credit_in_L_15, 
+        credit_out => credit_in_L_15,
         valid_in => valid_out_L_15,
         RX => TX_L_15
   );
 
 
 -- connecting the packet generators
-NI_control(4,4, 850,0, 3, 8, 8, 10000 ns, clk,
+NI_control(4,4, 850,0, 3, 8, 8, 100000 ns, clk,
            -- NI configuration
            reserved_address, flag_address, counter_address, reconfiguration_address,
            -- NI signals
-           enable_0, write_byte_enable_0, address_0, data_write_0, data_read_0, test_0); 
+           enable_0, write_byte_enable_0, address_0, data_write_0, data_read_0, test_0);
 
-NI_control(4,4, 850,1, 38, 8, 8, 10000 ns, clk,
+NI_control(4,4, 850,1, 38, 8, 8, 100000 ns, clk,
            -- NI configuration
            reserved_address, flag_address, counter_address, reconfiguration_address,
            -- NI signals
-           enable_1, write_byte_enable_1, address_1, data_write_1, data_read_1, test_1); 
+           enable_1, write_byte_enable_1, address_1, data_write_1, data_read_1, test_1);
 
-NI_control(4,4, 850,2, 7, 8, 8, 10000 ns, clk,
+NI_control(4,4, 850,2, 7, 8, 8, 100000 ns, clk,
            -- NI configuration
            reserved_address, flag_address, counter_address, reconfiguration_address,
            -- NI signals
-           enable_2, write_byte_enable_2, address_2, data_write_2, data_read_2, test_2); 
+           enable_2, write_byte_enable_2, address_2, data_write_2, data_read_2, test_2);
 
-NI_control(4,4, 850,3, 43, 8, 8, 10000 ns, clk,
+NI_control(4,4, 850,3, 43, 8, 8, 100000 ns, clk,
            -- NI configuration
            reserved_address, flag_address, counter_address, reconfiguration_address,
            -- NI signals
-           enable_3, write_byte_enable_3, address_3, data_write_3, data_read_3, test_3); 
+           enable_3, write_byte_enable_3, address_3, data_write_3, data_read_3, test_3);
 
-NI_control(4,4, 850,4, 30, 8, 8, 10000 ns, clk,
+NI_control(4,4, 850,4, 30, 8, 8, 100000 ns, clk,
            -- NI configuration
            reserved_address, flag_address, counter_address, reconfiguration_address,
            -- NI signals
-           enable_4, write_byte_enable_4, address_4, data_write_4, data_read_4, test_4); 
+           enable_4, write_byte_enable_4, address_4, data_write_4, data_read_4, test_4);
 
-NI_control(4,4, 850,5, 25, 8, 8, 10000 ns, clk,
+NI_control(4,4, 850,5, 25, 8, 8, 100000 ns, clk,
            -- NI configuration
            reserved_address, flag_address, counter_address, reconfiguration_address,
            -- NI signals
-           enable_5, write_byte_enable_5, address_5, data_write_5, data_read_5, test_5); 
+           enable_5, write_byte_enable_5, address_5, data_write_5, data_read_5, test_5);
 
-NI_control(4,4, 850,6, 13, 8, 8, 10000 ns, clk,
+NI_control(4,4, 850,6, 13, 8, 8, 100000 ns, clk,
            -- NI configuration
            reserved_address, flag_address, counter_address, reconfiguration_address,
            -- NI signals
-           enable_6, write_byte_enable_6, address_6, data_write_6, data_read_6, test_6); 
+           enable_6, write_byte_enable_6, address_6, data_write_6, data_read_6, test_6);
 
-NI_control(4,4, 850,7, 41, 8, 8, 10000 ns, clk,
+NI_control(4,4, 850,7, 41, 8, 8, 100000 ns, clk,
            -- NI configuration
            reserved_address, flag_address, counter_address, reconfiguration_address,
            -- NI signals
-           enable_7, write_byte_enable_7, address_7, data_write_7, data_read_7, test_7); 
+           enable_7, write_byte_enable_7, address_7, data_write_7, data_read_7, test_7);
 
-NI_control(4,4, 850,8, 40, 8, 8, 10000 ns, clk,
+NI_control(4,4, 850,8, 40, 8, 8, 100000 ns, clk,
            -- NI configuration
            reserved_address, flag_address, counter_address, reconfiguration_address,
            -- NI signals
-           enable_8, write_byte_enable_8, address_8, data_write_8, data_read_8, test_8); 
+           enable_8, write_byte_enable_8, address_8, data_write_8, data_read_8, test_8);
 
-NI_control(4,4, 850,9, 42, 8, 8, 10000 ns, clk,
+NI_control(4,4, 850,9, 42, 8, 8, 100000 ns, clk,
            -- NI configuration
            reserved_address, flag_address, counter_address, reconfiguration_address,
            -- NI signals
-           enable_9, write_byte_enable_9, address_9, data_write_9, data_read_9, test_9); 
+           enable_9, write_byte_enable_9, address_9, data_write_9, data_read_9, test_9);
 
-NI_control(4,4, 850,10, 11, 8, 8, 10000 ns, clk,
+NI_control(4,4, 850,10, 11, 8, 8, 100000 ns, clk,
            -- NI configuration
            reserved_address, flag_address, counter_address, reconfiguration_address,
            -- NI signals
-           enable_10, write_byte_enable_10, address_10, data_write_10, data_read_10, test_10); 
+           enable_10, write_byte_enable_10, address_10, data_write_10, data_read_10, test_10);
 
-NI_control(4,4, 850,11, 20, 8, 8, 10000 ns, clk,
+NI_control(4,4, 850,11, 20, 8, 8, 100000 ns, clk,
            -- NI configuration
            reserved_address, flag_address, counter_address, reconfiguration_address,
            -- NI signals
-           enable_11, write_byte_enable_11, address_11, data_write_11, data_read_11, test_11); 
+           enable_11, write_byte_enable_11, address_11, data_write_11, data_read_11, test_11);
 
-NI_control(4,4, 850,12, 36, 8, 8, 10000 ns, clk,
+NI_control(4,4, 850,12, 36, 8, 8, 100000 ns, clk,
            -- NI configuration
            reserved_address, flag_address, counter_address, reconfiguration_address,
            -- NI signals
-           enable_12, write_byte_enable_12, address_12, data_write_12, data_read_12, test_12); 
+           enable_12, write_byte_enable_12, address_12, data_write_12, data_read_12, test_12);
 
-NI_control(4,4, 850,13, 6, 8, 8, 10000 ns, clk,
+NI_control(4,4, 850,13, 6, 8, 8, 100000 ns, clk,
            -- NI configuration
            reserved_address, flag_address, counter_address, reconfiguration_address,
            -- NI signals
-           enable_13, write_byte_enable_13, address_13, data_write_13, data_read_13, test_13); 
+           enable_13, write_byte_enable_13, address_13, data_write_13, data_read_13, test_13);
 
-NI_control(4,4, 850,14, 14, 8, 8, 10000 ns, clk,
+NI_control(4,4, 850,14, 14, 8, 8, 100000 ns, clk,
            -- NI configuration
            reserved_address, flag_address, counter_address, reconfiguration_address,
            -- NI signals
-           enable_14, write_byte_enable_14, address_14, data_write_14, data_read_14, test_14); 
+           enable_14, write_byte_enable_14, address_14, data_write_14, data_read_14, test_14);
 
-NI_control(4,4, 850,15, 18, 8, 8, 10000 ns, clk,
+NI_control(4,4, 850,15, 18, 8, 8, 100000 ns, clk,
            -- NI configuration
            reserved_address, flag_address, counter_address, reconfiguration_address,
            -- NI signals
-           enable_15, write_byte_enable_15, address_15, data_write_15, data_read_15, test_15); 
+           enable_15, write_byte_enable_15, address_15, data_write_15, data_read_15, test_15);
 
 
 

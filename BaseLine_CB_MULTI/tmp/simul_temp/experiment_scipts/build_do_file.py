@@ -29,10 +29,12 @@ def build_do_file(tb, fi_do):
         sim_do.write('vcom ' + tb[3:] + '\n\n')
 
         sim_do.write('# Start the simulation\n')
-        sim_do.write('vsim work.tb_network_4x4\n\n')
+        sim_do.write('vsim work.tb_network_4x4 -suppress 8780\n\n')
 
         sim_do.write('# Fault injection\n')
         sim_do.write('do ' + fi_do[3:] + '\n\n')
+
+        sim_do.write('run 100000 ns\n\n')
 
         sim_do.write('quit -f\n')
 
