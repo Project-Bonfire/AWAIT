@@ -10,7 +10,8 @@ from subprocess import Popen, PIPE
 from build_do_file import build_do_file
 from calculate_latency import calculate_latency
 
-FAULT_FREE = True
+FI_FOLDER = 'FI_10ns'
+FAULT_FREE = False
 DEBUG = False
 SENT_FILE_PATH = '../sent.txt'
 RECV_FILE_PATH = '../received.txt'
@@ -24,7 +25,10 @@ def log_results(results_file, frame_size, fi_rate, latency):
     param latency:      Latency for the result
     """
 
-    experiment_line = frame_size + ',' + fi_rate[:-1] + ',' + latency + '\n'
+    pir = str(1.0 / int(frame_size))
+    latency_normalized = str(float(latency) / 10.0)
+
+    experiment_line = pir + ',' + fi_rate[:-1] + ',' + latency_normalized + '\n'
 
     if os.path.isfile(results_file):
         with open(results_file, 'a') as res_file:
@@ -108,7 +112,7 @@ def main():
     if DEBUG:
         # If DEBUG, just run one experiment
         tb = '../TB_vhdl/network_4x4_Rand_credit_based_1050_tb.vhd'
-        fi_do = '../FI/fault_inject_70M.do'
+        fi_do = '../' + FI_FOLDER + '/fault_inject_70M.do'
         frame_size = tb.split('_')[-2]
         fi_rate = fi_do.split('_')[-1].split('.')[-2]
 
@@ -118,7 +122,7 @@ def main():
 
     else:
         test_benches = glob.glob('../TB_vhdl/network_4x4_Rand_credit_based_*_tb.vhd')
-        fi_files = glob.glob('../FI/fault_inject_*.do')
+        fi_files = glob.glob('../' + FI_FOLDER + '/fault_inject_*.do')
 
         if FAULT_FREE:
             print('*' * 20)
