@@ -29,7 +29,6 @@ entity router_credit_based is
         -- BUBBLES
         hold_in_N,  hold_in_E,  hold_in_W,  hold_in_S,  hold_in_L : in  std_logic; -- BUBBLE IN
         hold_out_N, hold_out_E, hold_out_W, hold_out_S, hold_out_L: out std_logic; -- BUBBLE OUT
-        --hold_out: out std_logic;
 
         valid_out_N,  valid_out_E,  valid_out_W,  valid_out_S,  valid_out_L : out std_logic;
         credit_out_N, credit_out_E, credit_out_W, credit_out_S, credit_out_L: out std_logic;
@@ -68,12 +67,9 @@ architecture behavior of router_credit_based is
     signal Xbar_sel_N, Xbar_sel_E, Xbar_sel_W, Xbar_sel_S, Xbar_sel_L: std_logic_vector(4 downto 0);
 
     --for bubbles
-    --signal hold_in_sig_N,  hold_in_sig_E,  hold_in_sig_W,  hold_in_sig_S,  hold_in_sig_L  : std_logic;
-    --signal hold_out_sig_N, hold_out_sig_E, hold_out_sig_W, hold_out_sig_S, hold_out_sig_L : std_logic;
     signal faulty_N, faulty_E, faulty_W, faulty_S, faulty_L: std_logic;
     signal faulty_N_sync, faulty_E_sync, faulty_W_sync, faulty_S_sync, faulty_L_sync: std_logic;
     signal valid_not_faulty_N, valid_not_faulty_E, valid_not_faulty_W, valid_not_faulty_S, valid_not_faulty_L: std_logic;
-    --signal valid_and_not_faulty: std_logic;
 begin
 ------------------------------------------------------------------------------------------------------------------------------
 ------------------------------------------------------------------------------------------------------------------------------
@@ -95,7 +91,7 @@ INPUT_PARITY_S:  parity_checker_for_router_links generic map (DATA_WIDTH => DATA
 INPUT_PARITY_L:  parity_checker_for_router_links generic map (DATA_WIDTH => DATA_WIDTH)
     port map (RX => RX_L, valid_in => valid_in_L, faulty => faulty_L);
 
-process(faulty_N,faulty_E,faulty_W,faulty_S,faulty_L, clk)begin
+process(faulty_N,faulty_E,faulty_W,faulty_S,faulty_L, clk) begin
     
     if faulty_N = '1' then
         faulty_N_sync <= '1';
@@ -137,8 +133,6 @@ process(faulty_N,faulty_E,faulty_W,faulty_S,faulty_L, clk)begin
            faulty_L_sync <= '0';
         end if;
     end if; 
- 
-    
 end process;
 
 
@@ -148,8 +142,6 @@ valid_not_faulty_W <= valid_in_W and not faulty_W_sync;
 valid_not_faulty_S <= valid_in_S and not faulty_S_sync;
 valid_not_faulty_L <= valid_in_L and not faulty_L_sync;
 
---hold_out <= faulty_N or faulty_E or faulty_W or faulty_S or faulty_L;
-
 -- can we block just some inputs/outputs?
 hold_out_N <= faulty_N_sync;
 hold_out_E <= faulty_E_sync;
@@ -157,42 +149,30 @@ hold_out_W <= faulty_W_sync;
 hold_out_S <= faulty_S_sync;
 hold_out_L <= faulty_L_sync;
 
--- don't do this, no fault propagation!
---hold_out_N <= hold_in_N or faulty_N;
---hold_out_E <= hold_in_E or faulty_E;
---hold_out_W <= hold_in_W or faulty_W;
---hold_out_S <= hold_in_S or faulty_S;
---hold_out_L <= hold_in_L or faulty_L;
-
 -- all the FIFOs
 FIFO_N: FIFO_credit_based generic map (DATA_WIDTH => DATA_WIDTH)
     port map (reset => reset, clk => clk, RX => RX_N, valid_in => valid_not_faulty_N,
             read_en_N => '0', read_en_E => Grant_EN, read_en_W => Grant_WN, read_en_S => Grant_SN, read_en_L => Grant_LN,
-            hold_in_N => hold_in_N, hold_in_E => hold_in_E, hold_in_W => hold_in_W, hold_in_S => hold_in_S, hold_in_L => hold_in_L,
             credit_out => credit_out_N, empty_out => empty_N, Data_out => FIFO_D_out_N);
 
 FIFO_E: FIFO_credit_based generic map (DATA_WIDTH => DATA_WIDTH)
     port map (reset => reset, clk => clk, RX => RX_E, valid_in => valid_not_faulty_E,
             read_en_N => Grant_NE, read_en_E => '0', read_en_W => Grant_WE, read_en_S => Grant_SE, read_en_L => Grant_LE,
-            hold_in_N => hold_in_N, hold_in_E => hold_in_E, hold_in_W => hold_in_W, hold_in_S => hold_in_S, hold_in_L => hold_in_L,
             credit_out => credit_out_E, empty_out => empty_E, Data_out => FIFO_D_out_E);
 
 FIFO_W: FIFO_credit_based generic map (DATA_WIDTH => DATA_WIDTH)
     port map (reset => reset, clk => clk, RX => RX_W, valid_in => valid_not_faulty_W,
             read_en_N => Grant_NW, read_en_E => Grant_EW, read_en_W => '0', read_en_S => Grant_SW, read_en_L => Grant_LW,
-            hold_in_N => hold_in_N, hold_in_E => hold_in_E, hold_in_W => hold_in_W, hold_in_S => hold_in_S, hold_in_L => hold_in_L,
             credit_out => credit_out_W, empty_out => empty_W, Data_out => FIFO_D_out_W);
 
 FIFO_S: FIFO_credit_based generic map (DATA_WIDTH => DATA_WIDTH)
     port map (reset => reset, clk => clk, RX => RX_S, valid_in => valid_not_faulty_S,
             read_en_N => Grant_NS, read_en_E => Grant_ES, read_en_W => Grant_WS, read_en_S => '0', read_en_L => Grant_LS,
-            hold_in_N => hold_in_N, hold_in_E => hold_in_E, hold_in_W => hold_in_W, hold_in_S => hold_in_S, hold_in_L => hold_in_L,
             credit_out => credit_out_S, empty_out => empty_S, Data_out => FIFO_D_out_S);
 
 FIFO_L: FIFO_credit_based generic map (DATA_WIDTH => DATA_WIDTH)
     port map (reset => reset, clk => clk, RX => RX_L, valid_in => valid_not_faulty_L,
             read_en_N => Grant_NL, read_en_E => Grant_EL, read_en_W => Grant_WL, read_en_S => Grant_SL, read_en_L => '0',
-            hold_in_N => hold_in_N, hold_in_E => hold_in_E, hold_in_W => hold_in_W, hold_in_S => hold_in_S, hold_in_L => hold_in_L,
             credit_out => credit_out_L, empty_out => empty_L, Data_out => FIFO_D_out_L);
 ------------------------------------------------------------------------------------------------------------------------------
 ------------------------------------------------------------------------------------------------------------------------------
@@ -287,10 +267,10 @@ allocator_unit: allocator port map ( reset => reset, clk => clk,
 ------------------------------------------------------------------------------------------------------------------------------
 -- all the Xbar select_signals
 
-Xbar_sel_N <= '0'       & Grant_NE_xbar  & Grant_NW_xbar  & Grant_NS_xbar  & Grant_NL_xbar;
-Xbar_sel_E <= Grant_EN_xbar  & '0'       & Grant_EW_xbar  & Grant_ES_xbar  & Grant_EL_xbar;
-Xbar_sel_W <= Grant_WN_xbar  & Grant_WE_xbar  & '0'       & Grant_WS_xbar  & Grant_WL_xbar;
-Xbar_sel_S <= Grant_SN_xbar  & Grant_SE_xbar  & Grant_SW_xbar  & '0'       & Grant_SL_xbar;
+Xbar_sel_N <= '0'            & Grant_NE_xbar  & Grant_NW_xbar  & Grant_NS_xbar  & Grant_NL_xbar;
+Xbar_sel_E <= Grant_EN_xbar  & '0'            & Grant_EW_xbar  & Grant_ES_xbar  & Grant_EL_xbar;
+Xbar_sel_W <= Grant_WN_xbar  & Grant_WE_xbar  & '0'            & Grant_WS_xbar  & Grant_WL_xbar;
+Xbar_sel_S <= Grant_SN_xbar  & Grant_SE_xbar  & Grant_SW_xbar  & '0'            & Grant_SL_xbar;
 Xbar_sel_L <= Grant_LN_xbar  & Grant_LE_xbar  & Grant_LW_xbar  & Grant_LS_xbar  & '0';
 
 

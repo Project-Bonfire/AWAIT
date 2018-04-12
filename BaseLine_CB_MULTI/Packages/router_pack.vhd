@@ -46,12 +46,6 @@ package router_pack is
             read_en_W : in  std_logic;
             read_en_S : in  std_logic;
             read_en_L : in  std_logic;
-            -- FOR BUBBLES
-            hold_in_N : in  std_logic;
-            hold_in_E : in  std_logic;
-            hold_in_W : in  std_logic;
-            hold_in_S : in  std_logic;
-            hold_in_L : in  std_logic;
 
             credit_out: out std_logic;
             empty_out : out std_logic;
