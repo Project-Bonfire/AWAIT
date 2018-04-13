@@ -11,7 +11,7 @@ from build_do_file import build_do_file
 from calculate_latency import calculate_latency
 
 FI_FOLDER = 'FI_10ns'
-FAULT_FREE = False
+FAULT_FREE = True
 DEBUG = False
 SENT_FILE_PATH = '../sent.txt'
 RECV_FILE_PATH = '../received.txt'
@@ -36,8 +36,8 @@ def log_results(results_file, frame_size, fi_rate, latency):
 
     else:
         with open(results_file, 'w') as res_file:
-            file_header = 'Frame Size,Fault Rate (in M faults),Average Latency\n'
-            res_file.write(file_header)
+            # file_header = 'Frame Size,Fault Rate (in M faults),Average Latency\n'
+            # res_file.write(file_header)
             res_file.write(experiment_line)
 
 def execute_modelsim(do_file):
@@ -65,7 +65,7 @@ def execute_modelsim(do_file):
 
     return 0
 
-def run_experiment(tb, fi_do, frame_size, fi_rate):
+def run_experiment(tb, fi_do, frame_size, fi_rate, fault_free):
     """
     Builds a do file and runs an experiment with specific testbench and fault injection file.
     param tb:           Path to the testbench file
@@ -81,7 +81,7 @@ def run_experiment(tb, fi_do, frame_size, fi_rate):
     print('=' * len(running_string))
     print()
 
-    do_file = build_do_file(tb, fi_do, FAULT_FREE)
+    do_file = build_do_file(tb, fi_do, fault_free)
 
     return_value = execute_modelsim(do_file.split('/')[-1])
 
@@ -116,7 +116,7 @@ def main():
         frame_size = tb.split('_')[-2]
         fi_rate = fi_do.split('_')[-1].split('.')[-2]
 
-        avg_latency = run_experiment(tb, fi_do, frame_size, fi_rate)
+        avg_latency = run_experiment(tb, fi_do, frame_size, fi_rate, FAULT_FREE)
         log_results(results_file_name, frame_size, fi_rate, avg_latency)
         exp_count = 1
 
@@ -124,26 +124,32 @@ def main():
         test_benches = glob.glob('../TB_vhdl/network_4x4_Rand_credit_based_*_tb.vhd')
         fi_files = glob.glob('../' + FI_FOLDER + '/fault_inject_*.do')
 
-        if FAULT_FREE:
-            print('*' * 20)
-            print('Starting a Fault Free run!')
-            print('*' * 20)
+        # if FAULT_FREE:
+        #     print('*' * 20)
+        #     print('Starting a Fault Free run!')
+        #     print('*' * 20)
+        #
+        #     for tb in test_benches:
+        #         frame_size = tb.split('_')[-2]
+        #         avg_latency = run_experiment(tb, "", frame_size, '0M')
+        #         log_results(results_file_name, frame_size, '0M', avg_latency)
+        #         exp_count += 1
+        #
+        # else:
+        for tb in test_benches:
+            frame_size = tb.split('_')[-2]
 
-            for tb in test_benches:
+            if FAULT_FREE:
                 frame_size = tb.split('_')[-2]
-                avg_latency = run_experiment(tb, "", frame_size, '0M')
+                avg_latency = run_experiment(tb, "", frame_size, '0M', True)
                 log_results(results_file_name, frame_size, '0M', avg_latency)
                 exp_count += 1
 
-        else:
-            for tb in test_benches:
-                frame_size = tb.split('_')[-2]
-
-                for fi_do in fi_files:
-                    fi_rate = fi_do.split('_')[-1].split('.')[-2]
-                    avg_latency = run_experiment(tb, fi_do, frame_size, fi_rate)
-                    log_results(results_file_name, frame_size, fi_rate, avg_latency)
-                    exp_count += 1
+            for fi_do in fi_files:
+                fi_rate = fi_do.split('_')[-1].split('.')[-2]
+                avg_latency = run_experiment(tb, fi_do, frame_size, fi_rate, False)
+                log_results(results_file_name, frame_size, fi_rate, avg_latency)
+                exp_count += 1
 
     time_spent = time.time() - starting_time
     time_spent_str = str(datetime.timedelta(seconds=time_spent))

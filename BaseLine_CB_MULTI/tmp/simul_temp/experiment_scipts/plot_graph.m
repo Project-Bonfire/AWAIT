@@ -11,7 +11,7 @@ map = [255,245,235
 map = map/256;
 
 % File should not have headers
-filename = 'sim_results.csv';
+filename = 'sim_results_10ns.csv';
 
 csv = (csvread(filename))';
 
