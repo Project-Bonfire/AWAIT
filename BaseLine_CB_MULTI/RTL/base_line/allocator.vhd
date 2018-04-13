@@ -139,41 +139,41 @@ end process;
 
 
 
-    grant_N_N_xbar <= grant_N_N_sig and not empty_N;-- and not hold_in_N;
-    grant_N_E_xbar <= grant_N_E_sig and not empty_E;-- and not hold_in_N;
-    grant_N_W_xbar <= grant_N_W_sig and not empty_W;-- and not hold_in_N;
-    grant_N_S_xbar <= grant_N_S_sig and not empty_S;-- and not hold_in_N;
-    grant_N_L_xbar <= grant_N_L_sig and not empty_L;-- and not hold_in_N;
+    grant_N_N_xbar <= grant_N_N_sig and not empty_N;
+    grant_N_E_xbar <= grant_N_E_sig and not empty_E;
+    grant_N_W_xbar <= grant_N_W_sig and not empty_W;
+    grant_N_S_xbar <= grant_N_S_sig and not empty_S;
+    grant_N_L_xbar <= grant_N_L_sig and not empty_L;
 
-    grant_E_N_xbar <= grant_E_N_sig and not empty_N;-- and not hold_in_E;
-    grant_E_E_xbar <= grant_E_E_sig and not empty_E;-- and not hold_in_E;
-    grant_E_W_xbar <= grant_E_W_sig and not empty_W;-- and not hold_in_E;
-    grant_E_S_xbar <= grant_E_S_sig and not empty_S;-- and not hold_in_E;
-    grant_E_L_xbar <= grant_E_L_sig and not empty_L;-- and not hold_in_E;
+    grant_E_N_xbar <= grant_E_N_sig and not empty_N;
+    grant_E_E_xbar <= grant_E_E_sig and not empty_E;
+    grant_E_W_xbar <= grant_E_W_sig and not empty_W;
+    grant_E_S_xbar <= grant_E_S_sig and not empty_S;
+    grant_E_L_xbar <= grant_E_L_sig and not empty_L;
 
-    grant_W_N_xbar <= grant_W_N_sig and not empty_N;-- and not hold_in_W;
-    grant_W_E_xbar <= grant_W_E_sig and not empty_E;-- and not hold_in_W;
-    grant_W_W_xbar <= grant_W_W_sig and not empty_W;-- and not hold_in_W;
-    grant_W_S_xbar <= grant_W_S_sig and not empty_S;-- and not hold_in_W;
-    grant_W_L_xbar <= grant_W_L_sig and not empty_L;-- and not hold_in_W;
+    grant_W_N_xbar <= grant_W_N_sig and not empty_N;
+    grant_W_E_xbar <= grant_W_E_sig and not empty_E;
+    grant_W_W_xbar <= grant_W_W_sig and not empty_W;
+    grant_W_S_xbar <= grant_W_S_sig and not empty_S;
+    grant_W_L_xbar <= grant_W_L_sig and not empty_L;
 
-    grant_S_N_xbar <= grant_S_N_sig and not empty_N;-- and not hold_in_S;
-    grant_S_E_xbar <= grant_S_E_sig and not empty_E;-- and not hold_in_S;
-    grant_S_W_xbar <= grant_S_W_sig and not empty_W;-- and not hold_in_S;
-    grant_S_S_xbar <= grant_S_S_sig and not empty_S;-- and not hold_in_S;
-    grant_S_L_xbar <= grant_S_L_sig and not empty_L;-- and not hold_in_S;
+    grant_S_N_xbar <= grant_S_N_sig and not empty_N;
+    grant_S_E_xbar <= grant_S_E_sig and not empty_E;
+    grant_S_W_xbar <= grant_S_W_sig and not empty_W;
+    grant_S_S_xbar <= grant_S_S_sig and not empty_S;
+    grant_S_L_xbar <= grant_S_L_sig and not empty_L;
 
-    grant_L_N_xbar <= grant_L_N_sig and not empty_N;-- and not hold_in_L;
-    grant_L_E_xbar <= grant_L_E_sig and not empty_E;-- and not hold_in_L;
-    grant_L_W_xbar <= grant_L_W_sig and not empty_W;-- and not hold_in_L;
-    grant_L_S_xbar <= grant_L_S_sig and not empty_S;-- and not hold_in_L;
-    grant_L_L_xbar <= grant_L_L_sig and not empty_L;-- and not hold_in_L;
+    grant_L_N_xbar <= grant_L_N_sig and not empty_N;
+    grant_L_E_xbar <= grant_L_E_sig and not empty_E;
+    grant_L_W_xbar <= grant_L_W_sig and not empty_W;
+    grant_L_S_xbar <= grant_L_S_sig and not empty_S;
+    grant_L_L_xbar <= grant_L_L_sig and not empty_L;
 
-grant_N <= ((grant_N_N_sig and not empty_N) or (grant_N_E_sig and not empty_E) or (grant_N_W_sig and not empty_W) or (grant_N_S_sig and not empty_S) or (grant_N_L_sig and not empty_L)); -- and not hold_in_N;
-grant_E <= ((grant_E_N_sig and not empty_N) or (grant_E_E_sig and not empty_E) or (grant_E_W_sig and not empty_W) or (grant_E_S_sig and not empty_S) or (grant_E_L_sig and not empty_L)); -- and not hold_in_E;
-grant_W <= ((grant_W_N_sig and not empty_N) or (grant_W_E_sig and not empty_E) or (grant_W_W_sig and not empty_W) or (grant_W_S_sig and not empty_S) or (grant_W_L_sig and not empty_L)); -- and not hold_in_W;
-grant_S <= ((grant_S_N_sig and not empty_N) or (grant_S_E_sig and not empty_E) or (grant_S_W_sig and not empty_W) or (grant_S_S_sig and not empty_S) or (grant_S_L_sig and not empty_L)); -- and not hold_in_S;
-grant_L <= ((grant_L_N_sig and not empty_N) or (grant_L_E_sig and not empty_E) or (grant_L_W_sig and not empty_W) or (grant_L_S_sig and not empty_S) or (grant_L_L_sig and not empty_L)); -- and not hold_in_L;
+grant_N <= ((grant_N_N_sig and not empty_N) or (grant_N_E_sig and not empty_E) or (grant_N_W_sig and not empty_W) or (grant_N_S_sig and not empty_S) or (grant_N_L_sig and not empty_L));
+grant_E <= ((grant_E_N_sig and not empty_N) or (grant_E_E_sig and not empty_E) or (grant_E_W_sig and not empty_W) or (grant_E_S_sig and not empty_S) or (grant_E_L_sig and not empty_L));
+grant_W <= ((grant_W_N_sig and not empty_N) or (grant_W_E_sig and not empty_E) or (grant_W_W_sig and not empty_W) or (grant_W_S_sig and not empty_S) or (grant_W_L_sig and not empty_L));
+grant_S <= ((grant_S_N_sig and not empty_N) or (grant_S_E_sig and not empty_E) or (grant_S_W_sig and not empty_W) or (grant_S_S_sig and not empty_S) or (grant_S_L_sig and not empty_L));
+grant_L <= ((grant_L_N_sig and not empty_N) or (grant_L_E_sig and not empty_E) or (grant_L_W_sig and not empty_W) or (grant_L_S_sig and not empty_S) or (grant_L_L_sig and not empty_L));
 
 -- this process handels the credit counters!
 process(credit_in_N, credit_in_E, credit_in_W, credit_in_S, credit_in_L, grant_N, grant_E, grant_W, grant_S, grant_L,
