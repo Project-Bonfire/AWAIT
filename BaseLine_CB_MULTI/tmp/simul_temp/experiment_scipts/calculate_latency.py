@@ -21,11 +21,12 @@ def calculate_latency(sent_file_path, received_file_path, latency_file_path):
             receiver = received_packet[received_packet.index('to:') + 1]
             packet_id = received_packet[received_packet.index('id:') + 1]
             packet_length = received_packet[received_packet.index('length:') + 1]
+            identifier = sender + "_" + receiver+ "_" + packet_id
 
             if int(packet_id) > 16384:
                 print(line)
                 raise ValueError("Something is wrong! An identifier bigger than 256 in received packets file!")
-            identifier = sender + "_" + receiver+ "_" + packet_id
+
             packet_time = received_packet[received_packet.index('at') + 1]
 
             if identifier in received_packets_dict.keys():
@@ -55,8 +56,10 @@ def calculate_latency(sent_file_path, received_file_path, latency_file_path):
                 raise ValueError("Something is wrong! An identifier bigger than 256 in sent packets file!")
 
             packet_time = sent_packet[sent_packet.index('at') + 1]
+
             if identifier in sent_packets_dict.keys():
                 identifier = sender + "_" + receiver + "_" + str(int(packet_id) + 16384)
+
             sent_packets_dict[identifier] = packet_time
             # print identifier, packet_time
             line = sent_file.readline()

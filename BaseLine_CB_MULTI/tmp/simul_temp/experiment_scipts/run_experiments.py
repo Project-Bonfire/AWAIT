@@ -10,13 +10,15 @@ from subprocess import Popen, PIPE
 from build_do_file import build_do_file
 from calculate_latency import calculate_latency
 
-FI_FOLDER = 'FI_10ns'
+FI_FOLDER = 'FI_1ns'
+# RTL_PREFIX = ''
+RTL_PREFIX = 'Baseline_'
 FAULT_FREE = True
 DEBUG = False
 SENT_FILE_PATH = '../sent.txt'
 RECV_FILE_PATH = '../received.txt'
 
-def log_results(results_file, frame_size, fi_rate, latency):
+def log_results(results_file, frame_size, fi_rate, latency, design_broken):
     """
     Logs experiment results into a file.
     param results_file: Name of the file to write into
@@ -28,7 +30,10 @@ def log_results(results_file, frame_size, fi_rate, latency):
     pir = str(1.0 / int(frame_size))
     latency_normalized = str(float(latency) / 10.0)
 
-    experiment_line = pir + ',' + fi_rate[:-1] + ',' + latency_normalized + '\n'
+    if RTL_PREFIX == 'Baseline_':
+        experiment_line = pir + ',' + fi_rate[:-1] + ',' + str(design_broken) + '\n'
+    else:
+        experiment_line = pir + ',' + fi_rate[:-1] + ',' + latency_normalized + '\n'
 
     if os.path.isfile(results_file):
         with open(results_file, 'a') as res_file:
@@ -81,9 +86,11 @@ def run_experiment(tb, fi_do, frame_size, fi_rate, fault_free):
     print('=' * len(running_string))
     print()
 
-    do_file = build_do_file(tb, fi_do, fault_free)
+    do_file = build_do_file(tb, fi_do, fault_free, RTL_PREFIX)
 
     return_value = execute_modelsim(do_file.split('/')[-1])
+
+    avg_latency = -1
 
     if return_value != 0:
         print('--- Modelsim detected errors while compiling / running the design')
@@ -95,8 +102,14 @@ def run_experiment(tb, fi_do, frame_size, fi_rate, fault_free):
         sys.exit(1)
 
     latency_file = 'latency_files/latency_' + frame_size + '_' + fi_rate + '.txt'
-    avg_latency = calculate_latency(SENT_FILE_PATH, RECV_FILE_PATH, latency_file)
+    try:
+        avg_latency = calculate_latency(SENT_FILE_PATH, RECV_FILE_PATH, latency_file)
 
+    except ValueError as err:
+        if RTL_PREFIX == 'Baseline_':
+            print(str(err))
+        else:
+            raise err
     return avg_latency
 
 def main():
@@ -117,7 +130,14 @@ def main():
         fi_rate = fi_do.split('_')[-1].split('.')[-2]
 
         avg_latency = run_experiment(tb, fi_do, frame_size, fi_rate, FAULT_FREE)
-        log_results(results_file_name, frame_size, fi_rate, avg_latency)
+
+        if avg_latency == -1: # Error while calculating latency, design did not recover from a fault
+            design_broken = True
+        else:
+            design_broken = False
+
+
+        log_results(results_file_name, frame_size, fi_rate, avg_latency, design_broken)
         exp_count = 1
 
     else:
@@ -142,13 +162,21 @@ def main():
             if FAULT_FREE:
                 frame_size = tb.split('_')[-2]
                 avg_latency = run_experiment(tb, "", frame_size, '0M', True)
-                log_results(results_file_name, frame_size, '0M', avg_latency)
+                if avg_latency == -1: # Error while calculating latency, design did not recover from a fault
+                    design_broken = True
+                else:
+                    design_broken = False
+                log_results(results_file_name, frame_size, '0M', avg_latency, design_broken)
                 exp_count += 1
 
             for fi_do in fi_files:
                 fi_rate = fi_do.split('_')[-1].split('.')[-2]
                 avg_latency = run_experiment(tb, fi_do, frame_size, fi_rate, False)
-                log_results(results_file_name, frame_size, fi_rate, avg_latency)
+                if avg_latency == -1: # Error while calculating latency, design did not recover from a fault
+                    design_broken = True
+                else:
+                    design_broken = False
+                log_results(results_file_name, frame_size, fi_rate, avg_latency, design_broken)
                 exp_count += 1
 
     time_spent = time.time() - starting_time

@@ -1,19 +1,31 @@
 DO_FILE = '../tmp_sim.do'
 
-def build_do_file(tb, fi_do, fault_free):
+def build_do_file(tb, fi_do, fault_free, rtl_prefix):
 
-    rtl_files = ['vcom ../../Packages/router_pack.vhd\n',
-                 'vcom ../../RTL/base_line/arbiter_in.vhd\n',
-                 'vcom ../../RTL/base_line/arbiter_out.vhd\n',
-                 'vcom ../../RTL/base_line/allocator.vhd\n',
-                 'vcom ../../RTL/base_line/LBDR.vhd\n',
-                 'vcom ../../RTL/base_line/xbar.vhd\n',
-                 'vcom ../../RTL/base_line/NI.vhd\n',
-                 'vcom ../../RTL/base_line/Parity_checker_for_router_links.vhd\n',
-                 'vcom ../../RTL/base_line/FIFO_one_hot_credit_based.vhd\n',
-                 'vcom ../../RTL/base_line/Router_32_bit_credit_based.vhd\n',
-                 'vcom ../../Packages/TB_Package_32_bit_credit_based_NI.vhd\n',
-                 'vcom network_4x4_credit_based.vhd\n']
+    baseline_rtl_files = ['vcom ../../Baseline_Packages/router_pack.vhd\n',
+                          'vcom ../../Baseline_RTL/base_line/arbiter_in.vhd\n',
+                          'vcom ../../Baseline_RTL/base_line/arbiter_out.vhd\n',
+                          'vcom ../../Baseline_RTL/base_line/allocator.vhd\n',
+                          'vcom ../../Baseline_RTL/base_line/LBDR.vhd\n',
+                          'vcom ../../Baseline_RTL/base_line/xbar.vhd\n',
+                          'vcom ../../Baseline_RTL/base_line/NI.vhd\n',
+                          'vcom ../../Baseline_RTL/base_line/FIFO_one_hot_credit_based.vhd\n',
+                          'vcom ../../Baseline_RTL/base_line/Router_32_bit_credit_based.vhd\n',
+                          'vcom ../../Packages/TB_Package_32_bit_credit_based_NI.vhd\n',
+                          'vcom Baseline_network_4x4_credit_based.vhd\n']
+
+    rtl_files = ['vcom ../../' + rtl_prefix + 'Packages/router_pack.vhd\n',
+                 'vcom ../../' + rtl_prefix + 'RTL/base_line/arbiter_in.vhd\n',
+                 'vcom ../../' + rtl_prefix + 'RTL/base_line/arbiter_out.vhd\n',
+                 'vcom ../../' + rtl_prefix + 'RTL/base_line/allocator.vhd\n',
+                 'vcom ../../' + rtl_prefix + 'RTL/base_line/LBDR.vhd\n',
+                 'vcom ../../' + rtl_prefix + 'RTL/base_line/xbar.vhd\n',
+                 'vcom ../../' + rtl_prefix + 'RTL/base_line/NI.vhd\n',
+                 'vcom ../../' + rtl_prefix + 'RTL/base_line/Parity_checker_for_router_links.vhd\n',
+                 'vcom ../../' + rtl_prefix + 'RTL/base_line/FIFO_one_hot_credit_based.vhd\n',
+                 'vcom ../../' + rtl_prefix + 'RTL/base_line/Router_32_bit_credit_based.vhd\n',
+                 'vcom ../../' + rtl_prefix + 'Packages/TB_Package_32_bit_credit_based_NI.vhd\n',
+                 'vcom ' + rtl_prefix + 'network_4x4_credit_based.vhd\n']
 
     with open(DO_FILE, 'w') as sim_do:
         sim_do.write('# Temporary simulation file for running the experiments\n')
@@ -23,7 +35,13 @@ def build_do_file(tb, fi_do, fault_free):
         sim_do.write('vlib work\n\n')
 
         sim_do.write('# Include RTL files and compile them\n')
-        sim_do.writelines(rtl_files)
+
+        if rtl_prefix == 'Baseline_':
+            files = baseline_rtl_files
+        else:
+            files = rtl_files
+
+        sim_do.writelines(files)
 
         sim_do.write('\n# Testbench\n')
         sim_do.write('vcom ' + tb[3:] + '\n\n')
