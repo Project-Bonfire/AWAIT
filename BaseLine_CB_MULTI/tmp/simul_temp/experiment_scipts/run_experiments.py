@@ -13,7 +13,7 @@ from calculate_latency import calculate_latency
 FI_FOLDER = 'FI_1ns'
 # RTL_PREFIX = ''
 RTL_PREFIX = 'Baseline_'
-FAULT_FREE = True
+FAULT_FREE = False
 DEBUG = False
 SENT_FILE_PATH = '../sent.txt'
 RECV_FILE_PATH = '../received.txt'
