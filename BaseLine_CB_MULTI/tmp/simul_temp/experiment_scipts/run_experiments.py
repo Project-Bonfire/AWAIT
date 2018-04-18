@@ -10,10 +10,10 @@ from subprocess import Popen, PIPE
 from build_do_file import build_do_file
 from calculate_latency import calculate_latency
 
-FI_FOLDER = 'FI_1ns'
-# RTL_PREFIX = ''
-RTL_PREFIX = 'Baseline_'
-FAULT_FREE = False
+FI_FOLDER = 'FI_1ns_all'
+RTL_PREFIX = ''
+# RTL_PREFIX = 'Baseline_'
+FAULT_FREE = True
 DEBUG = False
 SENT_FILE_PATH = '../sent.txt'
 RECV_FILE_PATH = '../received.txt'
