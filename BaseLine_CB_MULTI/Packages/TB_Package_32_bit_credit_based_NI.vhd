@@ -78,8 +78,8 @@ package body TB_Package is
                       signal test:                     out std_logic_vector(31 downto 0)) is
     -- variables for random functions
     constant DATA_WIDTH : integer := 32;
-    variable seed1 :positive := current_address+4;
-    variable seed2 :positive := current_address+4;
+    variable seed1 :positive := current_address+5;
+    variable seed2 :positive := current_address+5;
     variable rand : real ;
     --file handling variables
     variable SEND_LINEVARIABLE : line;
