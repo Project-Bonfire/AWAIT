@@ -1,6 +1,0 @@
-LBDR_bubble_combinatory_with_sequencial.vhd
-- LBDR_bubble_comb.vhd
-- LBDR_bubble_seq.vhd
-
-LBDR_packet_drop_with_checkers.vhd <-- replaced with LBDR_bubble_combinatory_with_sequencial.vhd
-entity/component: LBDR_packet_drop <-- replaced with LBDR_bubble_combinatory_with_sequencial

@@ -1,0 +1,5 @@
+Number of processed packets: 229
+Maximum packet latency: 3130.0 ns
+Minimmum packet latency: 270.0 ns
+Average packet latency: 347.90 ns
+Average throughput: 0.56 Mb/s
