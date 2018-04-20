@@ -14,29 +14,15 @@ People involved in this project:
 ----------
 
 # Folder structure:
--- Baseline_Packages - RTL package files for the baseline router
-
--- Baseline_RTL - RTL files for the baseline router
-
--- RTL - RTL files for the router with local fault management mechanism
-
--- Packages - RTL package files for the router with local fault management mechanism
-
--- tmp - Used to store temporary simulation data
-
--- experiments - Contains experimental data for profiling the local fault management mechanism and also scripts used for running the experiments
-
-|
-
-+- FI - contains fault injection files
-
-|
-
-+- TB_vhdl - contains testbenches for different packages injection rates
-
-|
-
-+- experiment scripts - contains experiment scripts
+- Baseline_Packages - RTL package files for the baseline router
+- Baseline_RTL - RTL files for the baseline router
+- RTL - RTL files for the router with local fault management mechanism
+- Packages - RTL package files for the router with local fault management mechanism
+- tmp - Used to store temporary simulation data
+- experiments - Contains experimental data for profiling the local fault management mechanism and also scripts used for running the experiments
+    - FI - contains fault injection files
+    - TB_vhdl - contains testbenches for different packages injection rates
+    - experiment scripts - contains experiment scripts
 
 # Running the experiments:
 **Note:** The experiments are tested on Linux Ubuntu LTS 16.04.
