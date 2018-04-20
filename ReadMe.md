@@ -44,8 +44,15 @@ The results of each experiment run are stored inside the experiment_scipts folde
 # Interpreting the results
 Interpreting the results depends on whether the experiments were run on baseline or on the local fault management version of the NoC
 
+Each line contains one experiment run
+
  - **Baseline:** In case of baseline, the format of the csv file is the following:
-     - <packet_injection_rate (packets per clk)>,<fault_injection_rate (million faults per second)>,<run_failed?>
-     - <run_failed?>=true - fault injection caused some packets not to be received by the destination node; <run_failed?>=False - the destination node received all the faults
+     - *<packet_injection_rate>,<fault_injection_rate>,<run_failed?>*
+        - *<packet_injection_rate>* - Packet injection rate in packets per clock cycle
+        - *<fault_injection_rate>* - Fault injection rate in millions of faults per second
+        - *<run_failed>* - Boolean value - *true* if fault injection caused some packets not to be received by the destination node; *false* if the destination node received all the faults
  - **Local fault management:** In case of the local fault management, the format of the result file is the following:
-     - <packet_injection_rate (packets per clk)>,<fault_injection_rate (million faults per second)>,<average latency (clk cycles)>
+     - *<packet_injection_rate>,<fault_injection_rate>,<average latency>*
+         - *<packet_injection_rate>* - Packet injection rate in packets per clock cycle
+         - *<fault_injection_rate>* - Fault injection rate in millions of faults per second
+         - *<latency>* - Average packet transmission latency in clock cycles
