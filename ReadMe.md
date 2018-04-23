@@ -53,7 +53,7 @@ Each line contains one experiment run
         - *<fault_injection_rate>* - Fault injection rate in millions of faults per second
         - *<run_failed>* - Boolean value - *true* if fault injection caused some packets not to be received by the destination node; *false* if the destination node received all the faults
  - **Local fault management:** In case of the local fault management, the format of the result file is the following:
-     - *<packet_injection_rate>,<fault_injection_rate>,<average latency>*
+     - *<packet_injection_rate>*,*<fault_injection_rate>*,*<average latency>*
          - *<packet_injection_rate>* - Packet injection rate in packets per clock cycle
          - *<fault_injection_rate>* - Fault injection rate in millions of faults per second
          - *<latency>* - Average packet transmission latency in clock cycles
