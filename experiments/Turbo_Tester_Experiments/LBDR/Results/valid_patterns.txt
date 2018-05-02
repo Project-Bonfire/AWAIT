@@ -1,0 +1,16 @@
+The scripts for generating the exhaustive set of valid input stimuli for LBDR logic of Bonfire Bubble router with credit-based flow control are as follows: 
+
+1) empty = 1, flit_type can be 000 or one-hot, the rest we don't care
+      python tpg.py -IF 1 ao 5 we 5 we 3 B000 B001 B010 B100 5 z 2 we 5 z 2 we 5 z 2 we 5 z 2 we -o test_patterns_1.inp
+
+2) empty = 0, flit_type is header, we don't care about the rest
+      python tpg.py -IF 1 z 5 we 5 we 3 B001 5 z 2 we 5 z 2 we 5 z 2 we 5 z 2 we -o test_patterns_2.inp
+
+3) empty = 0, flit_type is tail, grants = 1 (grant inputs would be one-hot), the rest we don't care
+      python tpg.py -IF 1 z 5 oh 5 we 3 B100 5 z 2 we 5 z 2 we 5 z 2 we 5 z 2 we -o test_patterns_3.inp
+
+4) empty = 0. flit_type is tail and grants = 0 (all grants are zero), the rest we don't care
+      python tpg.py -IF 1 z 5 z 5 we 3 B100 5 z 2 we 5 z 2 we 5 z 2 we 5 z 2 we -o test_patterns_4.inp
+
+5) empty = 0, flit_type is not header and not tail, the rest we don't care
+      python tpg.py -IF 1 z 5 z 5 we 3 B000 B010 B011 B101 B110 B111 5 z 2 we 5 z 2 we 5 z 2 we 5 z 2 we -o test_patterns_5.inp
