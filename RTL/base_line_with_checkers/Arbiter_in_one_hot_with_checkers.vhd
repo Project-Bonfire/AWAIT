@@ -8,6 +8,7 @@ entity arbiter_in_one_hot_with_checkers is
     generic(credit_width: integer := 2 );
     port (  reset: in std_logic;
             clk: in std_logic;
+            Req_X_N_valid, Req_X_E_valid, Req_X_W_valid, Req_X_S_valid, Req_X_L_valid: in std_logic; -- From LBDR modules
             Req_X_N, Req_X_E, Req_X_W, Req_X_S, Req_X_L: in std_logic; -- From LBDR modules
 
             X_N, X_E, X_W, X_S, X_L: out std_logic; -- Grants given to LBDR requests (encoded as one-hot)
