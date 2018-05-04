@@ -7,7 +7,7 @@ use IEEE.STD_LOGIC_UNSIGNED.ALL;
 
 
 entity allocator is
-    generic(credit_width_L: integer := 10;
+    generic(credit_width_L: integer := 2;
             credit_width : integer := 2);
     port (  reset: in  std_logic;
             clk  : in  std_logic;
@@ -759,6 +759,7 @@ architecture behavior of allocator is
             generic(credit_width: integer := 2 );
             port (  reset: in std_logic;
                 clk: in std_logic;
+                Req_X_N_valid, Req_X_E_valid, Req_X_W_valid, Req_X_S_valid, Req_X_L_valid: in std_logic; -- From LBDR modules
                 Req_X_N, Req_X_E, Req_X_W, Req_X_S, Req_X_L: in std_logic; -- From LBDR modules
 
                 X_N, X_E, X_W, X_S, X_L: out std_logic; -- Grants given to LBDR requests (encoded as one-hot)
@@ -939,6 +940,11 @@ begin
 
     -- The combionational part
 
+    -- grant_OUT_IN(_sig)
+    -- req_E_N(_valid)
+    -- hold_in_OUT
+    -- empty_IN
+
         grant_N_N <= grant_N_N_sig and not empty_N and not hold_in_N;
         grant_N_E <= grant_N_E_sig and not empty_E and not hold_in_N;
         grant_N_W <= grant_N_W_sig and not empty_W and not hold_in_N;
@@ -1084,9 +1090,10 @@ begin
 
      end process;
 
-
+    -- for arbiter_in: arb_IN_OUT
     arb_N_X: arbiter_in_one_hot_with_checkers  PORT MAP (reset => reset, clk => clk,
-    				                       Req_X_N=>req_N_N, Req_X_E=> req_N_E, Req_X_W=>req_N_W, Req_X_S=>req_N_S, Req_X_L=>req_N_L,
+                                               Req_X_N_valid=>req_N_N_valid, Req_X_E_valid=> req_N_E_valid, Req_X_W_valid=>req_N_W_valid, Req_X_S_valid=>req_N_S_valid, Req_X_L_valid=>req_N_L_valid,
+                                               Req_X_N=>req_N_N, Req_X_E=> req_N_E, Req_X_W=>req_N_W, Req_X_S=>req_N_S, Req_X_L=>req_N_L,
                                    X_N=>X_N_N, X_E=>X_N_E, X_W=>X_N_W, X_S=>X_N_S, X_L=>X_N_L, 
             -- Checker outputs
       err_arbiter_in_Requests_state_in_state_not_equal  => N_err_arbiter_in_Requests_state_in_state_not_equal , 
@@ -1168,8 +1175,9 @@ begin
                                    );
 
     arb_E_X: arbiter_in_one_hot_with_checkers  PORT MAP (reset => reset, clk => clk,
-    				                       Req_X_N=>req_E_N, Req_X_E=> req_E_E, Req_X_W=>req_E_W, Req_X_S=>req_E_S, Req_X_L=>req_E_L,
-                                   X_N=>X_E_N, X_E=>X_E_E, X_W=>X_E_W, X_S=>X_E_S, X_L=>X_E_L, 
+                                               Req_X_N_valid=>req_E_N_valid, Req_X_E_valid=> req_E_E_valid, Req_X_W_valid=>req_E_W_valid, Req_X_S_valid=>req_E_S_valid, Req_X_L_valid=>req_E_L_valid,
+                                               Req_X_N=>req_E_N, Req_X_E=> req_E_E, Req_X_W=>req_E_W, Req_X_S=>req_E_S, Req_X_L=>req_E_L,
+                                    X_N=>X_E_N, X_E=>X_E_E, X_W=>X_E_W, X_S=>X_E_S, X_L=>X_E_L, 
 
 err_arbiter_in_Requests_state_in_state_not_equal => E_err_arbiter_in_Requests_state_in_state_not_equal , 
 err_IDLE_Req_N => E_err_IDLE_Req_N , 
@@ -1243,6 +1251,7 @@ err_no_Req_L_grant_L => E_err_no_Req_L_grant_L
                                    );
 
     arb_W_X: arbiter_in_one_hot_with_checkers  PORT MAP (reset => reset, clk => clk,
+                                   Req_X_N_valid=>req_W_N_valid, Req_X_E_valid=> req_W_E_valid, Req_X_W_valid=>req_W_W_valid, Req_X_S_valid=>req_W_S_valid, Req_X_L_valid=>req_W_L_valid,
                                    Req_X_N=>req_W_N, Req_X_E=> req_W_E, Req_X_W=>req_W_W, Req_X_S=>req_W_S, Req_X_L=>req_W_L,
                                    X_N=>X_W_N, X_E=>X_W_E, X_W=>X_W_W, X_S=>X_W_S, X_L=>X_W_L, 
 
@@ -1318,6 +1327,7 @@ err_no_Req_L_grant_L => W_err_no_Req_L_grant_L
                                    );
 
     arb_S_X: arbiter_in_one_hot_with_checkers  PORT MAP (reset => reset, clk => clk,
+                                   Req_X_N_valid=>req_S_N_valid, Req_X_E_valid=> req_S_E_valid, Req_X_W_valid=>req_S_W_valid, Req_X_S_valid=>req_S_S_valid, Req_X_L_valid=>req_S_L_valid,
                                    Req_X_N=>req_S_N, Req_X_E=> req_S_E, Req_X_W=>req_S_W, Req_X_S=>req_S_S, Req_X_L=>req_S_L,
                                    X_N=>X_S_N, X_E=>X_S_E, X_W=>X_S_W, X_S=>X_S_S, X_L=>X_S_L, 
 
@@ -1393,6 +1403,7 @@ err_no_Req_L_grant_L => S_err_no_Req_L_grant_L
                                    );
 
     arb_L_X: arbiter_in_one_hot_with_checkers  PORT MAP (reset => reset, clk => clk,
+                                   Req_X_N_valid=>req_L_N_valid, Req_X_E_valid=> req_L_E_valid, Req_X_W_valid=>req_L_W_valid, Req_X_S_valid=>req_L_S_valid, Req_X_L_valid=>req_L_L_valid,
                                    Req_X_N=>req_L_N, Req_X_E=> req_L_E, Req_X_W=>req_L_W, Req_X_S=>req_L_S, Req_X_L=>req_L_L,
                                    X_N=>X_L_N, X_E=>X_L_E, X_W=>X_L_W, X_S=>X_L_S, X_L=>X_L_L, 
 
@@ -1468,6 +1479,7 @@ err_no_Req_L_grant_L => L_err_no_Req_L_grant_L
                                    );
 
     -- Y is N now
+    -- for Arbiter_out: arb_IN_OUT
     arb_X_N: arbiter_out_one_hot_with_checkers
               generic map(credit_width => credit_width)
               port map (reset => reset, clk => clk,

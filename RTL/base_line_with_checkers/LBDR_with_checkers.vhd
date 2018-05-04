@@ -149,88 +149,140 @@ architecture behavior of LBDR_with_checkers is
                   err_body_or_invalid_Req_S_in_Req_S_FF, 
                   err_body_or_invalid_Req_L_in_Req_L_FF : std_logic;
 
+      signal      N_Req_LBDR_checkers_ORed, E_Req_LBDR_checkers_ORed, W_Req_LBDR_checkers_ORed, S_Req_LBDR_checkers_ORed, L_Req_LBDR_checkers_ORed: std_logic;
+      signal      N_Req_LBDR_checkers_ORed_sync, E_Req_LBDR_checkers_ORed_sync, W_Req_LBDR_checkers_ORed_sync, S_Req_LBDR_checkers_ORed_sync, L_Req_LBDR_checkers_ORed_sync: std_logic;
+
+      signal      Req_N_valid_sig, Req_E_valid_sig, Req_W_valid_sig, Req_S_valid_sig, Req_L_valid_sig: std_logic;
 
 begin 
 
-      -- Bubble-related logic for controlling the Req_X_valid output ports (OR of checkers contributing to X output port should be considered)
-      Req_N_valid <=    not  (err_header_not_empty_Requests_in_onehot or
-                              err_header_empty_Requests_FF_Requests_in_equal or
-                              err_tail_not_empty_grants_Requests_in_all_zero or
-                              err_body_or_invalid_Requests_FF_Requests_in_equal or
 
-                              err_grants or 
-                              err_not_grants or
-                              err_dst_addr_cur_addr_N1 or
-                              err_dst_addr_cur_addr_not_N1 or
-                              err_header_not_empty_Req_N_in or
-                              err_header_empty_Req_N_in_Req_N_FF or 
-                              err_tail_not_empty_grants_not_Req_N_in or 
-                              err_tail_not_empty_not_grants_Req_N_in_Req_N_FF_equal or
-                              err_tail_empty_Req_N_in_Req_N_FF_equal or 
-                              err_body_or_invalid_Req_N_in_Req_N_FF);
+      N_Req_LBDR_checkers_ORed <=       ( err_header_not_empty_Requests_in_onehot or
+                                          err_header_empty_Requests_FF_Requests_in_equal or
+                                          err_tail_not_empty_grants_Requests_in_all_zero or
+                                          err_body_or_invalid_Requests_FF_Requests_in_equal or
+                                          err_grants or 
+                                          err_not_grants or
+                                          err_dst_addr_cur_addr_N1 or
+                                          err_dst_addr_cur_addr_not_N1 or
+                                          err_header_not_empty_Req_N_in or
+                                          err_header_empty_Req_N_in_Req_N_FF or 
+                                          err_tail_not_empty_grants_not_Req_N_in or 
+                                          err_tail_not_empty_not_grants_Req_N_in_Req_N_FF_equal or
+                                          err_tail_empty_Req_N_in_Req_N_FF_equal or 
+                                          err_body_or_invalid_Req_N_in_Req_N_FF);
 
-      Req_E_valid <=    not  (err_header_not_empty_Requests_in_onehot or
-                              err_header_empty_Requests_FF_Requests_in_equal or
-                              err_tail_not_empty_grants_Requests_in_all_zero or
-                              err_body_or_invalid_Requests_FF_Requests_in_equal or
+     E_Req_LBDR_checkers_ORed <=         (err_header_not_empty_Requests_in_onehot or
+                                          err_header_empty_Requests_FF_Requests_in_equal or
+                                          err_tail_not_empty_grants_Requests_in_all_zero or
+                                          err_body_or_invalid_Requests_FF_Requests_in_equal or
 
-                              err_grants or 
-                              err_not_grants or
-                              err_dst_addr_cur_addr_E1 or
-                              err_dst_addr_cur_addr_not_E1 or
-                              err_header_not_empty_Req_E_in or
-                              err_header_empty_Req_E_in_Req_E_FF or 
-                              err_tail_not_empty_grants_not_Req_E_in or 
-                              err_tail_not_empty_not_grants_Req_E_in_Req_E_FF_equal or
-                              err_tail_empty_Req_E_in_Req_E_FF_equal or 
-                              err_body_or_invalid_Req_E_in_Req_E_FF);
+                                          err_grants or 
+                                          err_not_grants or
+                                          err_dst_addr_cur_addr_E1 or
+                                          err_dst_addr_cur_addr_not_E1 or
+                                          err_header_not_empty_Req_E_in or
+                                          err_header_empty_Req_E_in_Req_E_FF or 
+                                          err_tail_not_empty_grants_not_Req_E_in or 
+                                          err_tail_not_empty_not_grants_Req_E_in_Req_E_FF_equal or
+                                          err_tail_empty_Req_E_in_Req_E_FF_equal or 
+                                          err_body_or_invalid_Req_E_in_Req_E_FF);
 
-      Req_W_valid <=    not  (err_header_not_empty_Requests_in_onehot or
-                              err_header_empty_Requests_FF_Requests_in_equal or
-                              err_tail_not_empty_grants_Requests_in_all_zero or
-                              err_body_or_invalid_Requests_FF_Requests_in_equal or
+      W_Req_LBDR_checkers_ORed <=        (err_header_not_empty_Requests_in_onehot or
+                                          err_header_empty_Requests_FF_Requests_in_equal or
+                                          err_tail_not_empty_grants_Requests_in_all_zero or
+                                          err_body_or_invalid_Requests_FF_Requests_in_equal or
 
-                              err_grants or 
-                              err_not_grants or
-                              err_dst_addr_cur_addr_W1 or
-                              err_dst_addr_cur_addr_not_W1 or
-                              err_header_not_empty_Req_N_in or
-                              err_header_empty_Req_W_in_Req_W_FF or 
-                              err_tail_not_empty_grants_not_Req_W_in or 
-                              err_tail_not_empty_not_grants_Req_W_in_Req_W_FF_equal or
-                              err_tail_empty_Req_W_in_Req_W_FF_equal or 
-                              err_body_or_invalid_Req_W_in_Req_W_FF);
+                                          err_grants or 
+                                          err_not_grants or
+                                          err_dst_addr_cur_addr_W1 or
+                                          err_dst_addr_cur_addr_not_W1 or
+                                          err_header_not_empty_Req_N_in or
+                                          err_header_empty_Req_W_in_Req_W_FF or 
+                                          err_tail_not_empty_grants_not_Req_W_in or 
+                                          err_tail_not_empty_not_grants_Req_W_in_Req_W_FF_equal or
+                                          err_tail_empty_Req_W_in_Req_W_FF_equal or 
+                                          err_body_or_invalid_Req_W_in_Req_W_FF);
 
-      Req_S_valid <=    not  (err_header_not_empty_Requests_in_onehot or
-                              err_header_empty_Requests_FF_Requests_in_equal or
-                              err_tail_not_empty_grants_Requests_in_all_zero or
-                              err_body_or_invalid_Requests_FF_Requests_in_equal or
+      S_Req_LBDR_checkers_ORed <=        (err_header_not_empty_Requests_in_onehot or
+                                          err_header_empty_Requests_FF_Requests_in_equal or
+                                          err_tail_not_empty_grants_Requests_in_all_zero or
+                                          err_body_or_invalid_Requests_FF_Requests_in_equal or
 
-                              err_grants or 
-                              err_not_grants or
-                              err_dst_addr_cur_addr_S1 or
-                              err_dst_addr_cur_addr_not_S1 or
-                              err_header_not_empty_Req_S_in or
-                              err_header_empty_Req_S_in_Req_S_FF or 
-                              err_tail_not_empty_grants_not_Req_S_in or 
-                              err_tail_not_empty_not_grants_Req_S_in_Req_S_FF_equal or
-                              err_tail_empty_Req_S_in_Req_S_FF_equal or 
-                              err_body_or_invalid_Req_S_in_Req_S_FF);
+                                          err_grants or 
+                                          err_not_grants or
+                                          err_dst_addr_cur_addr_S1 or
+                                          err_dst_addr_cur_addr_not_S1 or
+                                          err_header_not_empty_Req_S_in or
+                                          err_header_empty_Req_S_in_Req_S_FF or 
+                                          err_tail_not_empty_grants_not_Req_S_in or 
+                                          err_tail_not_empty_not_grants_Req_S_in_Req_S_FF_equal or
+                                          err_tail_empty_Req_S_in_Req_S_FF_equal or 
+                                          err_body_or_invalid_Req_S_in_Req_S_FF);
 
-      Req_L_valid <=    not  (err_header_not_empty_Requests_in_onehot or
-                              err_header_empty_Requests_FF_Requests_in_equal or
-                              err_tail_not_empty_grants_Requests_in_all_zero or
-                              err_body_or_invalid_Requests_FF_Requests_in_equal or
+      L_Req_LBDR_checkers_ORed <=        (err_header_not_empty_Requests_in_onehot or
+                                          err_header_empty_Requests_FF_Requests_in_equal or
+                                          err_tail_not_empty_grants_Requests_in_all_zero or
+                                          err_body_or_invalid_Requests_FF_Requests_in_equal or
 
-                              err_grants or 
-                              err_not_grants or
-                              err_header_not_empty_Req_L_in or
-                              err_header_empty_Req_L_in_Req_L_FF or 
-                              err_tail_not_empty_grants_not_Req_L_in or 
-                              err_tail_not_empty_not_grants_Req_L_in_Req_L_FF_equal or
-                              err_tail_empty_Req_L_in_Req_L_FF_equal or 
-                              err_body_or_invalid_Req_L_in_Req_L_FF);
+                                          err_grants or 
+                                          err_not_grants or
+                                          err_header_not_empty_Req_L_in or
+                                          err_header_empty_Req_L_in_Req_L_FF or 
+                                          err_tail_not_empty_grants_not_Req_L_in or 
+                                          err_tail_not_empty_not_grants_Req_L_in_Req_L_FF_equal or
+                                          err_tail_empty_Req_L_in_Req_L_FF_equal or 
+                                          err_body_or_invalid_Req_L_in_Req_L_FF);
 
+      -- Bubble-related logic
+      process(N_Req_LBDR_checkers_ORed, E_Req_LBDR_checkers_ORed, W_Req_LBDR_checkers_ORed, S_Req_LBDR_checkers_ORed, L_Req_LBDR_checkers_ORed, clk)
+      begin
+            if N_Req_LBDR_checkers_ORed = '1' then -- If there is a transient fault detected in LBDR
+                  N_Req_LBDR_checkers_ORed_sync <= '1';
+            else -- Hopefully the transient fault would disappear 
+                  if clk'event and clk = '0' then 
+                        N_Req_LBDR_checkers_ORed_sync <= '0';
+                  end if;
+            end if; 
+
+            if E_Req_LBDR_checkers_ORed = '1' then -- If there is a transient fault detected in LBDR
+                  E_Req_LBDR_checkers_ORed_sync <= '1';
+            else -- Hopefully the transient fault would disappear 
+                  if clk'event and clk = '0' then 
+                        E_Req_LBDR_checkers_ORed_sync <= '0';
+                  end if;
+            end if; 
+
+            if W_Req_LBDR_checkers_ORed = '1' then -- If there is a transient fault detected in LBDR
+                  W_Req_LBDR_checkers_ORed_sync <= '1';
+            else -- Hopefully the transient fault would disappear 
+                  if clk'event and clk = '0' then 
+                        W_Req_LBDR_checkers_ORed_sync <= '0';
+                  end if;
+            end if; 
+
+            if S_Req_LBDR_checkers_ORed = '1' then -- If there is a transient fault detected in LBDR
+                  S_Req_LBDR_checkers_ORed_sync <= '1';
+            else -- Hopefully the transient fault would disappear 
+                  if clk'event and clk = '0' then 
+                        S_Req_LBDR_checkers_ORed_sync <= '0';
+                  end if;
+            end if; 
+
+            if L_Req_LBDR_checkers_ORed = '1' then -- If there is a transient fault detected in LBDR
+                  L_Req_LBDR_checkers_ORed_sync <= '1';
+            else -- Hopefully the transient fault would disappear 
+                  if clk'event and clk = '0' then 
+                        L_Req_LBDR_checkers_ORed_sync <= '0';
+                  end if;
+            end if;             
+      end process;
+
+      Req_N_valid <= not N_Req_LBDR_checkers_ORed_sync;
+      Req_E_valid <= not N_Req_LBDR_checkers_ORed_sync;
+      Req_W_valid <= not N_Req_LBDR_checkers_ORed_sync;
+      Req_S_valid <= not N_Req_LBDR_checkers_ORed_sync;
+      Req_L_valid <= not N_Req_LBDR_checkers_ORed_sync;
 
       -- LBDR packet drop routing part checkers instantiation
       LBDR_CHECKERS_LOGIC: LBDR_checkers  generic map (cur_addr_rst => cur_addr_rst, Rxy_rst => Rxy_rst, Cx_rst => Cx_rst)
