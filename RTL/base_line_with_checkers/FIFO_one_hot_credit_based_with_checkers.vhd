@@ -80,7 +80,30 @@ architecture behavior of FIFO_credit_based_with_checkers is
    signal FIFO_MEM_3, FIFO_MEM_3_in : std_logic_vector(DATA_WIDTH-1 downto 0);
    signal FIFO_MEM_4, FIFO_MEM_4_in : std_logic_vector(DATA_WIDTH-1 downto 0);
 
-   signal FIFO_checkers_ORed; 
+   -- Signals related to FIFO control part checkers
+
+   signal     err_full_empty, 
+              err_empty_read_en, 
+              err_full_write_en, 
+              err_read_pointer_in_onehot, 
+              err_write_pointer_in_onehot, 
+              err_read_en_ORed_not_empty_read_en, 
+              err_empty_not_read_en, 
+              err_all_read_en_zero_not_read_en, 
+              err_write_en_write_pointer_update, 
+              err_write_en_write_pointer_not_update, 
+              err_read_en_not_empty_read_pointer_update, 
+              err_read_en_empty_read_pointer_not_update, 
+              err_not_read_en_read_pointer_not_update, 
+              err_valid_in_not_full_write_en, 
+              err_valid_in_full_not_write_en, 
+              err_not_valid_in_not_write_en, 
+              err_read_pointer_write_pointer_equal_empty, 
+              err_read_pointer_write_pointer_not_equal_not_empty, 
+              err_write_pointer_after_read_pointer_full, 
+              err_write_pointer_not_after_read_pointer_not_full: std_logic;
+
+   signal FIFO_checkers_ORed: std_logic; 
 
 begin
 
@@ -97,7 +120,7 @@ begin
 --                                   <--- readP   
  --------------------------------------------------------------------------------------------
 
-  FIFO_CONTROL_PART_CHECKERS FIFO_credit_based_checkers port map 
+  FIFO_CONTROL_PART_CHECKERS: FIFO_credit_based_checkers port map 
                                           (
                                             valid_in  => valid_in, 
                                             read_en_N => read_en_N, 

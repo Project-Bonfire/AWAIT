@@ -846,27 +846,27 @@ hold_out_L <= faulty_L_sync;
 ------------------------------------------------------------------------------------------------------------------------------
 
 -- all the FIFOs
-FIFO_N: FIFO_credit_based generic map (DATA_WIDTH => DATA_WIDTH)
+FIFO_N: FIFO_credit_based_with_checkers generic map (DATA_WIDTH => DATA_WIDTH)
     port map (reset => reset, clk => clk, RX => RX_N, valid_in => valid_not_faulty_N,
             read_en_N => '0', read_en_E => Grant_EN, read_en_W => Grant_WN, read_en_S => Grant_SN, read_en_L => Grant_LN,
             credit_out => credit_out_N, empty_out => empty_N, Data_out => FIFO_D_out_N);
 
-FIFO_E: FIFO_credit_based generic map (DATA_WIDTH => DATA_WIDTH)
+FIFO_E: FIFO_credit_based_with_checkers generic map (DATA_WIDTH => DATA_WIDTH)
     port map (reset => reset, clk => clk, RX => RX_E, valid_in => valid_not_faulty_E,
             read_en_N => Grant_NE, read_en_E => '0', read_en_W => Grant_WE, read_en_S => Grant_SE, read_en_L => Grant_LE,
             credit_out => credit_out_E, empty_out => empty_E, Data_out => FIFO_D_out_E);
 
-FIFO_W: FIFO_credit_based generic map (DATA_WIDTH => DATA_WIDTH)
+FIFO_W: FIFO_credit_based_with_checkers generic map (DATA_WIDTH => DATA_WIDTH)
     port map (reset => reset, clk => clk, RX => RX_W, valid_in => valid_not_faulty_W,
             read_en_N => Grant_NW, read_en_E => Grant_EW, read_en_W => '0', read_en_S => Grant_SW, read_en_L => Grant_LW,
             credit_out => credit_out_W, empty_out => empty_W, Data_out => FIFO_D_out_W);
 
-FIFO_S: FIFO_credit_based generic map (DATA_WIDTH => DATA_WIDTH)
+FIFO_S: FIFO_credit_based_with_checkers generic map (DATA_WIDTH => DATA_WIDTH)
     port map (reset => reset, clk => clk, RX => RX_S, valid_in => valid_not_faulty_S,
             read_en_N => Grant_NS, read_en_E => Grant_ES, read_en_W => Grant_WS, read_en_S => '0', read_en_L => Grant_LS,
             credit_out => credit_out_S, empty_out => empty_S, Data_out => FIFO_D_out_S);
 
-FIFO_L: FIFO_credit_based generic map (DATA_WIDTH => DATA_WIDTH)
+FIFO_L: FIFO_credit_based_with_checkers generic map (DATA_WIDTH => DATA_WIDTH)
     port map (reset => reset, clk => clk, RX => RX_L, valid_in => valid_not_faulty_L,
             read_en_N => Grant_NL, read_en_E => Grant_EL, read_en_W => Grant_WL, read_en_S => Grant_SL, read_en_L => '0',
             credit_out => credit_out_L, empty_out => empty_L, Data_out => FIFO_D_out_L);
