@@ -33,7 +33,7 @@ package router_pack is
             );
     end COMPONENT;
 
-    COMPONENT FIFO_credit_based is
+    COMPONENT FIFO_credit_based_with_checkers is
   generic (
         DATA_WIDTH: integer := 32
     );
