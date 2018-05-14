@@ -941,39 +941,39 @@ begin
     -- The combionational part
 
     -- grant_OUT_IN(_sig)
-    -- req_E_N(_valid)
+    -- req_IN_OUT(_valid)
     -- hold_in_OUT
     -- empty_IN
 
-        grant_N_N <= grant_N_N_sig and not empty_N and not hold_in_N;
-        grant_N_E <= grant_N_E_sig and not empty_E and not hold_in_N;
-        grant_N_W <= grant_N_W_sig and not empty_W and not hold_in_N;
-        grant_N_S <= grant_N_S_sig and not empty_S and not hold_in_N;
-        grant_N_L <= grant_N_L_sig and not empty_L and not hold_in_N;
+        grant_N_N <= grant_N_N_sig and not empty_N and not hold_in_N and Req_N_N_valid;
+        grant_N_E <= grant_N_E_sig and not empty_E and not hold_in_N and Req_E_N_valid;
+        grant_N_W <= grant_N_W_sig and not empty_W and not hold_in_N and Req_W_N_valid;
+        grant_N_S <= grant_N_S_sig and not empty_S and not hold_in_N and Req_S_N_valid;
+        grant_N_L <= grant_N_L_sig and not empty_L and not hold_in_N and Req_L_N_valid;
 
-        grant_E_N <= grant_E_N_sig and not empty_N and not hold_in_E;
-        grant_E_E <= grant_E_E_sig and not empty_E and not hold_in_E;
-        grant_E_W <= grant_E_W_sig and not empty_W and not hold_in_E;
-        grant_E_S <= grant_E_S_sig and not empty_S and not hold_in_E;
-        grant_E_L <= grant_E_L_sig and not empty_L and not hold_in_E;
+        grant_E_N <= grant_E_N_sig and not empty_N and not hold_in_E and Req_N_E_valid;
+        grant_E_E <= grant_E_E_sig and not empty_E and not hold_in_E and Req_E_E_valid;
+        grant_E_W <= grant_E_W_sig and not empty_W and not hold_in_E and Req_W_E_valid;
+        grant_E_S <= grant_E_S_sig and not empty_S and not hold_in_E and Req_S_E_valid;
+        grant_E_L <= grant_E_L_sig and not empty_L and not hold_in_E and Req_L_E_valid;
 
-        grant_W_N <= grant_W_N_sig and not empty_N and not hold_in_W;
-        grant_W_E <= grant_W_E_sig and not empty_E and not hold_in_W;
-        grant_W_W <= grant_W_W_sig and not empty_W and not hold_in_W;
-        grant_W_S <= grant_W_S_sig and not empty_S and not hold_in_W;
-        grant_W_L <= grant_W_L_sig and not empty_L and not hold_in_W;
+        grant_W_N <= grant_W_N_sig and not empty_N and not hold_in_W and Req_N_W_valid;
+        grant_W_E <= grant_W_E_sig and not empty_E and not hold_in_W and Req_E_W_valid;
+        grant_W_W <= grant_W_W_sig and not empty_W and not hold_in_W and Req_W_W_valid;
+        grant_W_S <= grant_W_S_sig and not empty_S and not hold_in_W and Req_S_W_valid;
+        grant_W_L <= grant_W_L_sig and not empty_L and not hold_in_W and Req_L_W_valid;
 
-        grant_S_N <= grant_S_N_sig and not empty_N and not hold_in_S;
-        grant_S_E <= grant_S_E_sig and not empty_E and not hold_in_S;
-        grant_S_W <= grant_S_W_sig and not empty_W and not hold_in_S;
-        grant_S_S <= grant_S_S_sig and not empty_S and not hold_in_S;
-        grant_S_L <= grant_S_L_sig and not empty_L and not hold_in_S;
+        grant_S_N <= grant_S_N_sig and not empty_N and not hold_in_S and Req_N_S_valid;
+        grant_S_E <= grant_S_E_sig and not empty_E and not hold_in_S and Req_E_S_valid;
+        grant_S_W <= grant_S_W_sig and not empty_W and not hold_in_S and Req_W_S_valid;
+        grant_S_S <= grant_S_S_sig and not empty_S and not hold_in_S and Req_S_S_valid;
+        grant_S_L <= grant_S_L_sig and not empty_L and not hold_in_S and Req_L_S_valid;
 
-        grant_L_N <= grant_L_N_sig and not empty_N and not hold_in_L;
-        grant_L_E <= grant_L_E_sig and not empty_E and not hold_in_L;
-        grant_L_W <= grant_L_W_sig and not empty_W and not hold_in_L;
-        grant_L_S <= grant_L_S_sig and not empty_S and not hold_in_L;
-        grant_L_L <= grant_L_L_sig and not empty_L and not hold_in_L;
+        grant_L_N <= grant_L_N_sig and not empty_N and not hold_in_L and Req_N_L_valid;
+        grant_L_E <= grant_L_E_sig and not empty_E and not hold_in_L and Req_E_L_valid;
+        grant_L_W <= grant_L_W_sig and not empty_W and not hold_in_L and Req_W_L_valid;
+        grant_L_S <= grant_L_S_sig and not empty_S and not hold_in_L and Req_S_L_valid;
+        grant_L_L <= grant_L_L_sig and not empty_L and not hold_in_L and Req_L_L_valid;
 
 
 
@@ -1007,11 +1007,17 @@ begin
         grant_L_S_xbar <= grant_L_S_sig and not empty_S;
         grant_L_L_xbar <= grant_L_L_sig and not empty_L;
 
-    grant_N <= ((grant_N_N_sig and not empty_N) or (grant_N_E_sig and not empty_E) or (grant_N_W_sig and not empty_W) or (grant_N_S_sig and not empty_S) or (grant_N_L_sig and not empty_L));
-    grant_E <= ((grant_E_N_sig and not empty_N) or (grant_E_E_sig and not empty_E) or (grant_E_W_sig and not empty_W) or (grant_E_S_sig and not empty_S) or (grant_E_L_sig and not empty_L));
-    grant_W <= ((grant_W_N_sig and not empty_N) or (grant_W_E_sig and not empty_E) or (grant_W_W_sig and not empty_W) or (grant_W_S_sig and not empty_S) or (grant_W_L_sig and not empty_L));
-    grant_S <= ((grant_S_N_sig and not empty_N) or (grant_S_E_sig and not empty_E) or (grant_S_W_sig and not empty_W) or (grant_S_S_sig and not empty_S) or (grant_S_L_sig and not empty_L));
-    grant_L <= ((grant_L_N_sig and not empty_N) or (grant_L_E_sig and not empty_E) or (grant_L_W_sig and not empty_W) or (grant_L_S_sig and not empty_S) or (grant_L_L_sig and not empty_L));
+        grant_N <= ((grant_N_N_sig and not empty_N and Req_N_N_valid) or (grant_N_E_sig and not empty_E and Req_E_N_valid) or (grant_N_W_sig and not empty_W and Req_W_N_valid) or (grant_N_S_sig and not empty_S and Req_S_N_valid) or (grant_N_L_sig and not empty_L and Req_L_N_valid));
+        grant_E <= ((grant_E_N_sig and not empty_N and Req_N_E_valid) or (grant_E_E_sig and not empty_E and Req_E_E_valid) or (grant_E_W_sig and not empty_W and Req_W_E_valid) or (grant_E_S_sig and not empty_S and Req_S_E_valid) or (grant_E_L_sig and not empty_L and Req_L_E_valid));
+        grant_W <= ((grant_W_N_sig and not empty_N and Req_N_W_valid) or (grant_W_E_sig and not empty_E and Req_E_W_valid) or (grant_W_W_sig and not empty_W and Req_W_W_valid) or (grant_W_S_sig and not empty_S and Req_S_W_valid) or (grant_W_L_sig and not empty_L and Req_L_W_valid));
+        grant_S <= ((grant_S_N_sig and not empty_N and Req_N_S_valid) or (grant_S_E_sig and not empty_E and Req_E_S_valid) or (grant_S_W_sig and not empty_W and Req_W_S_valid) or (grant_S_S_sig and not empty_S and Req_S_S_valid) or (grant_S_L_sig and not empty_L and Req_L_S_valid));
+        grant_L <= ((grant_L_N_sig and not empty_N and Req_N_L_valid) or (grant_L_E_sig and not empty_E and Req_E_L_valid) or (grant_L_W_sig and not empty_W and Req_W_L_valid) or (grant_L_S_sig and not empty_S and Req_S_L_valid) or (grant_L_L_sig and not empty_L and Req_L_L_valid));
+
+        --grant_N <=  (grant_N_N_sig and not empty_N )or (grant_N_E_sig and not empty_E) or (grant_N_W_sig and not empty_W) or (grant_N_S_sig and not empty_S) or (grant_N_L_sig and not empty_L);
+        --grant_E <=  (grant_E_N_sig and not empty_N )or (grant_E_E_sig and not empty_E) or (grant_E_W_sig and not empty_W) or (grant_E_S_sig and not empty_S) or (grant_E_L_sig and not empty_L);
+        --grant_W <=  (grant_W_N_sig and not empty_N )or (grant_W_E_sig and not empty_E) or (grant_W_W_sig and not empty_W) or (grant_W_S_sig and not empty_S) or (grant_W_L_sig and not empty_L);
+        --grant_S <=  (grant_S_N_sig and not empty_N )or (grant_S_E_sig and not empty_E) or (grant_S_W_sig and not empty_W) or (grant_S_S_sig and not empty_S) or (grant_S_L_sig and not empty_L);
+        --grant_L <=  (grant_L_N_sig and not empty_N )or (grant_L_E_sig and not empty_E) or (grant_L_W_sig and not empty_W) or (grant_L_S_sig and not empty_S) or (grant_L_L_sig and not empty_L);
 
     -- this process handels the credit counters!
     process(credit_in_N, credit_in_E, credit_in_W, credit_in_S, credit_in_L, grant_N, grant_E, grant_W, grant_S, grant_L,

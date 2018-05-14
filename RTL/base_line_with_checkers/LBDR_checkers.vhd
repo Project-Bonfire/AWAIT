@@ -23,12 +23,25 @@ entity LBDR_checkers is
             grants_out: in std_logic;
 
             -- Functional Checker outputs
-            err_header_not_empty_Requests_in_onehot, 
-            err_header_empty_Requests_FF_Requests_in_equal, 
-            err_tail_not_empty_grants_Requests_in_all_zero, 
-            err_body_or_invalid_Requests_FF_Requests_in_equal: out std_logic;
+            err_Req_N_Req_S_active, 
+            err_Req_E_Req_W_active,   
+            err_header_not_empty_Requests_in_onehot_XY_routing, 
+            err_header_not_empty_Req_E_in_not_Req_N_in_XY_routing, 
+            err_header_not_empty_Req_E_in_not_Req_S_in_XY_routing, 
+            err_header_not_empty_Req_W_in_not_Req_N_in_XY_routing, 
+            err_header_not_empty_Req_W_in_not_Req_S_in_XY_routing, 
+            err_header_not_empty_curr_addr_dst_addr_equal_Req_L_in, 
+            err_header_not_empty_curr_addr_dst_addr_not_equal_not_Req_L_in: out std_logic; 
+            --err_header_empty_Requests_FF_Requests_in_equal, 
+            --err_tail_not_empty_grants_Requests_in_all_zero, 
+            --err_body_or_invalid_Requests_FF_Requests_in_equal: out std_logic;
 
             -- Structural checker outputs
+            err_empty_Req_N_in_Req_N_FF, 
+            err_empty_Req_E_in_Req_E_FF, 
+            err_empty_Req_W_in_Req_W_FF, 
+            err_empty_Req_S_in_Req_S_FF, 
+            err_empty_Req_L_in_Req_L_FF, 
             err_grants, 
             err_not_grants, 
             err_dst_addr_cur_addr_N1, 
@@ -93,45 +106,164 @@ begin
 
     -- Functional Checkers
 
+    -- North and South cannot go active at the same time
+    process (Req_N_FF, Req_S_FF, Req_N_in, Req_S_in, N1_out, S1_out)
+    begin
+        if (Req_N_FF = '1' and Req_S_FF = '1') or (Req_N_in = '1' and Req_S_in = '1') or (N1_out = '1' and S1_out = '1') then
+            err_Req_N_Req_S_active <= '1';
+        else
+            err_Req_N_Req_S_active <= '0';
+        end if;
+    end process;
+
+    -- East and West cannot go active at the same time
+    process (Req_E_FF, Req_W_FF, Req_E_in, Req_W_in, E1_out, W1_out)
+    begin
+        if (Req_E_FF = '1' and Req_W_FF = '1') or (Req_E_in = '1' and Req_W_in = '1') or (E1_out = '1' and W1_out = '1') then
+            err_Req_E_Req_W_active <= '1';
+        else
+            err_Req_E_Req_W_active <= '0';
+        end if;
+    end process;
+
     -- This checker is only valid when using deterministic routing, such as XY or YX!
-    process (flit_type, empty, Requests_in)
+    process (flit_type, empty, Rxy, Requests_in)
     begin
-        if (flit_type = "001" and empty = '0' and Requests_in /= "00001" and Requests_in /= "00010" and Requests_in /= "00100" and
+        if (flit_type = "001" and empty = '0' and Rxy = "00111100" and Requests_in /= "00001" and Requests_in /= "00010" and Requests_in /= "00100" and
             Requests_in /= "01000" and Requests_in /= "10000") then
-            err_header_not_empty_Requests_in_onehot <= '1';
+            err_header_not_empty_Requests_in_onehot_XY_routing <= '1';
         else 
-            err_header_not_empty_Requests_in_onehot <= '0';
+            err_header_not_empty_Requests_in_onehot_XY_routing <= '0';
         end if;
     end process;
 
-    process (flit_type, empty, Requests_FF, Requests_in)
+    process (flit_type, empty, Rxy, Req_E_in, Req_N_in)
     begin
-        if (flit_type = "001" and empty = '1' and Requests_FF /= Requests_in) then
-            err_header_empty_Requests_FF_Requests_in_equal <= '1';
+        if (flit_type = "001" and empty = '0' and Rxy = "00111100" and Req_E_in = '1' and Req_N_in = '1') then
+            err_header_not_empty_Req_E_in_not_Req_N_in_XY_routing <= '1';
         else 
-            err_header_empty_Requests_FF_Requests_in_equal <= '0';
+            err_header_not_empty_Req_E_in_not_Req_N_in_XY_routing <= '0';
         end if;
     end process;
 
-    process (flit_type, empty, grants_out, Requests_in)
+    process (flit_type, empty, Rxy, Req_W_in, Req_N_in)
     begin
-        if (flit_type = "100" and empty = '0' and grants_out = '1' and Requests_in /= "00000") then
-            err_tail_not_empty_grants_Requests_in_all_zero <= '1';
+        if (flit_type = "001" and empty = '0' and Rxy = "00111100" and Req_W_in = '1' and Req_N_in = '1') then
+            err_header_not_empty_Req_W_in_not_Req_N_in_XY_routing <= '1';
         else 
-            err_tail_not_empty_grants_Requests_in_all_zero <= '0';
+            err_header_not_empty_Req_W_in_not_Req_N_in_XY_routing <= '0';
         end if;
     end process;
 
-    process (flit_type, Requests_FF, Requests_in)
+    process (flit_type, empty, Rxy, Req_E_in, Req_S_in)
     begin
-        if (flit_type /= "001" and flit_type /= "100" and Requests_FF /= Requests_in) then
-            err_body_or_invalid_Requests_FF_Requests_in_equal <= '1';
+        if (flit_type = "001" and empty = '0' and Rxy = "00111100" and Req_E_in = '1' and Req_S_in = '1') then
+            err_header_not_empty_Req_E_in_not_Req_S_in_XY_routing <= '1';
         else 
-            err_body_or_invalid_Requests_FF_Requests_in_equal <= '0';
+            err_header_not_empty_Req_E_in_not_Req_S_in_XY_routing <= '0';
         end if;
     end process;
+
+    process (flit_type, empty, Rxy, Req_E_in, Req_S_in)
+    begin
+        if (flit_type = "001" and empty = '0' and Rxy = "00111100" and Req_W_in = '1' and Req_N_in = '1') then
+            err_header_not_empty_Req_W_in_not_Req_S_in_XY_routing <= '1';
+        else 
+            err_header_not_empty_Req_W_in_not_Req_S_in_XY_routing <= '0';
+        end if;
+    end process;
+
+    process (flit_type, empty, Rxy, cur_addr_x, cur_addr_y, dst_addr_x, dst_addr_y, Req_L_in)
+    begin
+        if (flit_type = "001" and empty = '0' and cur_addr_x = dst_addr_x and cur_addr_y = dst_addr_y and Req_L_in = '0') then
+            err_header_not_empty_curr_addr_dst_addr_equal_Req_L_in <= '1';
+        else 
+            err_header_not_empty_curr_addr_dst_addr_equal_Req_L_in <= '0';
+        end if;
+    end process;
+
+    process (flit_type, empty, Rxy, cur_addr_x, cur_addr_y, dst_addr_x, dst_addr_y, Req_L_in)
+    begin
+        if (flit_type = "001" and empty = '0' and cur_addr_x /= dst_addr_x and cur_addr_y /= dst_addr_y and Req_L_in = '1') then
+            err_header_not_empty_curr_addr_dst_addr_not_equal_not_Req_L_in <= '1';
+        else 
+            err_header_not_empty_curr_addr_dst_addr_not_equal_not_Req_L_in <= '0';
+        end if;
+    end process;
+
+    --process (flit_type, empty, Requests_FF, Requests_in)
+    --begin
+    --    if (flit_type = "001" and empty = '1' and Requests_FF /= Requests_in) then
+    --        err_header_empty_Requests_FF_Requests_in_equal <= '1';
+    --    else 
+    --        err_header_empty_Requests_FF_Requests_in_equal <= '0';
+    --    end if;
+    --end process;
+
+    --process (flit_type, empty, grants_out, Requests_in)
+    --begin
+    --    if (flit_type = "100" and empty = '0' and grants_out = '1' and Requests_in /= "00000") then
+    --        err_tail_not_empty_grants_Requests_in_all_zero <= '1';
+    --    else 
+    --        err_tail_not_empty_grants_Requests_in_all_zero <= '0';
+    --    end if;
+    --end process;
+
+    --process (flit_type, Requests_FF, Requests_in)
+    --begin
+    --    if (flit_type /= "001" and flit_type /= "100" and Requests_FF /= Requests_in) then
+    --        err_body_or_invalid_Requests_FF_Requests_in_equal <= '1';
+    --    else 
+    --        err_body_or_invalid_Requests_FF_Requests_in_equal <= '0';
+    --    end if;
+    --end process;
 
     -- Structural Checkers
+
+    process (empty, Req_N_in, Req_N_FF)
+    begin
+        if (empty = '1' and Req_N_in /= Req_N_FF) then
+            err_empty_Req_N_in_Req_N_FF <= '1';
+        else
+            err_empty_Req_N_in_Req_N_FF <= '0'; 
+        end if;
+    end process;
+
+    process (empty, Req_E_in, Req_E_FF)
+    begin
+        if (empty = '1' and Req_E_in /= Req_E_FF) then
+            err_empty_Req_E_in_Req_E_FF <= '1';
+        else
+            err_empty_Req_E_in_Req_E_FF <= '0'; 
+        end if;
+    end process;
+
+    process (empty, Req_W_in, Req_W_FF)
+    begin
+        if (empty = '1' and Req_W_in /= Req_W_FF) then
+            err_empty_Req_W_in_Req_W_FF <= '1';
+        else
+            err_empty_Req_W_in_Req_W_FF <= '0'; 
+        end if;
+    end process;
+
+    process (empty, Req_S_in, Req_S_FF)
+    begin
+        if (empty = '1' and Req_S_in /= Req_S_FF) then
+            err_empty_Req_S_in_Req_S_FF <= '1';
+        else
+            err_empty_Req_S_in_Req_S_FF <= '0'; 
+        end if;
+    end process;
+
+    process (empty, Req_L_in, Req_L_FF)
+    begin
+        if (empty = '1' and Req_L_in /= Req_L_FF) then
+            err_empty_Req_L_in_Req_L_FF <= '1';
+        else
+            err_empty_Req_L_in_Req_L_FF <= '0'; 
+        end if;
+    end process;
 
     process (grant_N, grant_E, grant_W, grant_S, grant_L, grants_out)
     begin

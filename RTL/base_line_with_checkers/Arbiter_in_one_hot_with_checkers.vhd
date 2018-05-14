@@ -108,8 +108,10 @@ CONSTANT West:  STATE_TYPE := "010000";
 CONSTANT South: STATE_TYPE := "100000";
 
 SIGNAL state, state_in   : STATE_TYPE := IDLE;
+
 SIGNAL X_N_sig, X_E_sig, X_W_sig, X_S_sig, X_L_sig: std_logic; -- needed for connecting output ports 
 															   -- of Arbiter_in to checker inputs
+SIGNAL X_N_sig_prev ,X_E_sig_prev ,X_W_sig_prev ,X_S_sig_prev ,X_L_sig_prev: std_logic;
 
 component arbiter_in_one_hot_checkers is
     port (  
@@ -222,8 +224,18 @@ X_L <= X_L_sig;
 process (clk, reset)begin
   if reset = '0' then
       state <= IDLE;
+      	X_N_sig_prev<= '0';
+		X_E_sig_prev<= '0';
+		X_W_sig_prev<= '0';
+		X_S_sig_prev<= '0';
+		X_L_sig_prev<= '0';
   elsif clk'event and clk ='1'then
       state <= state_in;
+      X_N_sig_prev <= X_N_sig;
+      X_E_sig_prev <= X_E_sig;
+      X_W_sig_prev <= X_W_sig;
+      X_S_sig_prev <= X_S_sig;
+      X_L_sig_prev <= X_L_sig;
   end if;
 end process;
 
@@ -325,23 +337,25 @@ ARBITER_IN_CHECKERS: Arbiter_in_one_hot_checkers port map (
                                      );
 
 -- Main Logic of Arbiter_in
-process(state, req_X_N, req_X_E, req_X_W, req_X_S, req_X_L)
+process(state, req_X_N, req_X_E, req_X_W, req_X_S, req_X_L, Req_X_N_valid, Req_X_E_valid, Req_X_W_valid, Req_X_S_valid, Req_X_L_valid,
+		X_N_sig_prev ,X_E_sig_prev ,X_W_sig_prev ,X_S_sig_prev ,X_L_sig_prev)
 begin
 
-    X_N_sig <= '0';
-    X_E_sig <= '0';
-    X_W_sig <= '0';
-    X_S_sig <= '0';
-    X_L_sig <= '0';
-    
+    X_N_sig <= X_N_sig_prev;
+    X_E_sig <= X_E_sig_prev;
+    X_W_sig <= X_W_sig_prev;
+    X_S_sig <= X_S_sig_prev;
+    X_L_sig <= X_L_sig_prev;
+
     case state is 
 
       when IDLE => -- In the arbiter for hand-shaking FC router, L had the  highest priority (L, N, E, W, S)
       			   -- Here it seems N has the higest priority, is it fine ? 
-      	if req_X_N ='1' and Req_X_N_valid = '1'  then
+      	
+	    if req_X_N ='1' and Req_X_N_valid = '1' then
       		state_in <= North;
         	X_N_sig <= '1';
-	    elsif req_X_E = '1' and Req_X_E_valid = '1' then
+        elsif req_X_E = '1' and Req_X_E_valid = '1' then
 	    	state_in <= East;
 	        X_E_sig <= '1';
 	    elsif req_X_W = '1' and req_X_W_valid = '1' then
@@ -356,12 +370,29 @@ begin
 	    else
 	    	state_in <= state;
 	    end if;
+
+
+       	if req_X_N ='0' and Req_X_N_valid = '1'then 
+        	X_N_sig <= '0';
+		end if;
+        if req_X_E ='0' and Req_X_E_valid = '1'then 
+        	X_E_sig <= '0';	
+		end if;
+        if req_X_W ='0' and Req_X_W_valid = '1'then 
+        	X_W_sig <= '0';
+		end if;
+        if req_X_S ='0' and Req_X_S_valid = '1'then 
+        	X_S_sig <= '0';
+		end if;
+        if req_X_L ='0' and Req_X_L_valid = '1'then 
+        	X_L_sig <= '0';
+		end if;
 
       when North =>
       	if req_X_N ='1' and Req_X_N_valid = '1' then
       		state_in <= North;
         	X_N_sig <= '1';
-	    elsif req_X_E = '1' and Req_X_E_valid = '1' then
+        elsif req_X_E = '1' and Req_X_E_valid = '1' then
 	    	state_in <= East;
 	        X_E_sig <= '1';
 	    elsif req_X_W = '1' and req_X_W_valid = '1' then
@@ -376,6 +407,22 @@ begin
 	    else
 	    	state_in <= state;
 	    end if;
+
+	    if req_X_N ='0' and Req_X_N_valid = '1'then 
+        	X_N_sig <= '0';
+		end if;
+        if req_X_E ='0' and Req_X_E_valid = '1'then 
+        	X_E_sig <= '0';	
+		end if;
+        if req_X_W ='0' and Req_X_W_valid = '1'then 
+        	X_W_sig <= '0';
+		end if;
+        if req_X_S ='0' and Req_X_S_valid = '1'then 
+        	X_S_sig <= '0';
+		end if;
+        if req_X_L ='0' and Req_X_L_valid = '1'then 
+        	X_L_sig <= '0';
+		end if;
 
       when East =>
 	    if req_X_E = '1' and Req_X_E_valid = '1' then
@@ -397,6 +444,22 @@ begin
 	    	state_in <= state;
 	    end if;
 
+	    if req_X_N ='0' and Req_X_N_valid = '1'then 
+        	X_N_sig <= '0';
+		end if;
+        if req_X_E ='0' and Req_X_E_valid = '1'then 
+        	X_E_sig <= '0';	
+		end if;
+        if req_X_W ='0' and Req_X_W_valid = '1'then 
+        	X_W_sig <= '0';
+		end if;
+        if req_X_S ='0' and Req_X_S_valid = '1'then 
+        	X_S_sig <= '0';
+		end if;
+        if req_X_L ='0' and Req_X_L_valid = '1'then 
+        	X_L_sig <= '0';
+		end if;
+
       when West =>
 	    if req_X_W = '1' and req_X_W_valid = '1' then
 	    	state_in <= West;
@@ -416,6 +479,23 @@ begin
 	    else
 	    	state_in <= state;
 	    end if;
+
+	   	if req_X_N ='0' and Req_X_N_valid = '1'then 
+        	X_N_sig <= '0';
+		end if;
+        if req_X_E ='0' and Req_X_E_valid = '1'then 
+        	X_E_sig <= '0';	
+		end if;
+        if req_X_W ='0' and Req_X_W_valid = '1'then 
+        	X_W_sig <= '0';
+		end if;
+        if req_X_S ='0' and Req_X_S_valid = '1'then 
+        	X_S_sig <= '0';
+		end if;
+        if req_X_L ='0' and Req_X_L_valid = '1'then 
+        	X_L_sig <= '0';
+		end if;
+
       when South =>
 
 	    if req_X_S = '1' and req_X_S_valid = '1' then
@@ -436,6 +516,22 @@ begin
 	    else
 	    	state_in <= state;
 	    end if;
+
+	    if req_X_N ='0' and Req_X_N_valid = '1'then 
+        	X_N_sig <= '0';
+		end if;
+        if req_X_E ='0' and Req_X_E_valid = '1'then 
+        	X_E_sig <= '0';	
+		end if;
+        if req_X_W ='0' and Req_X_W_valid = '1'then 
+        	X_W_sig <= '0';
+		end if;
+        if req_X_S ='0' and Req_X_S_valid = '1'then 
+        	X_S_sig <= '0';
+		end if;
+        if req_X_L ='0' and Req_X_L_valid = '1'then 
+        	X_L_sig <= '0';
+		end if;
 
       when others => -- Including Local and invalid states
 
@@ -458,6 +554,22 @@ begin
 	    	state_in <= state;
 	    end if;
 	    
+	    if req_X_N ='0' and Req_X_N_valid = '1'then 
+        	X_N_sig <= '0';
+		end if;
+        if req_X_E ='0' and Req_X_E_valid = '1'then 
+        	X_E_sig <= '0';	
+		end if;
+        if req_X_W ='0' and Req_X_W_valid = '1'then 
+        	X_W_sig <= '0';
+		end if;
+        if req_X_S ='0' and Req_X_S_valid = '1'then 
+        	X_S_sig <= '0';
+		end if;
+        if req_X_L ='0' and Req_X_L_valid = '1'then 
+        	X_L_sig <= '0';
+		end if;
+
     end case;
     
 end process;

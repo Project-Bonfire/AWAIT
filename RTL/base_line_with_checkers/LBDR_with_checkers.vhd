@@ -44,12 +44,25 @@ architecture behavior of LBDR_with_checkers is
                   grants_out: in std_logic;
 
                   -- Functional Checker outputs
-                  err_header_not_empty_Requests_in_onehot, 
-                  err_header_empty_Requests_FF_Requests_in_equal, 
-                  err_tail_not_empty_grants_Requests_in_all_zero, 
-                  err_body_or_invalid_Requests_FF_Requests_in_equal: out std_logic;
+                  err_Req_N_Req_S_active, 
+                  err_Req_E_Req_W_active,   
+                  err_header_not_empty_Requests_in_onehot_XY_routing, 
+                  err_header_not_empty_Req_E_in_not_Req_N_in_XY_routing, 
+                  err_header_not_empty_Req_E_in_not_Req_S_in_XY_routing, 
+                  err_header_not_empty_Req_W_in_not_Req_N_in_XY_routing, 
+                  err_header_not_empty_Req_W_in_not_Req_S_in_XY_routing, 
+                  err_header_not_empty_curr_addr_dst_addr_equal_Req_L_in, 
+                  err_header_not_empty_curr_addr_dst_addr_not_equal_not_Req_L_in: out std_logic; 
+                  --err_header_empty_Requests_FF_Requests_in_equal, 
+                  --err_tail_not_empty_grants_Requests_in_all_zero, 
+                  --err_body_or_invalid_Requests_FF_Requests_in_equal: out std_logic;
 
                   -- Structural checker outputs
+                  err_empty_Req_N_in_Req_N_FF, 
+                  err_empty_Req_E_in_Req_E_FF, 
+                  err_empty_Req_W_in_Req_W_FF, 
+                  err_empty_Req_S_in_Req_S_FF, 
+                  err_empty_Req_L_in_Req_L_FF, 
                   err_grants, 
                   err_not_grants, 
                   err_dst_addr_cur_addr_N1, 
@@ -100,14 +113,27 @@ architecture behavior of LBDR_with_checkers is
       signal Req_N_FF, Req_E_FF, Req_W_FF, Req_S_FF, Req_L_FF: std_logic;
       signal grants: std_logic;
 
-            -- Checker outputs
-            -- Functional Checker outputs
-      signal      err_header_not_empty_Requests_in_onehot, 
-                  err_header_empty_Requests_FF_Requests_in_equal, 
-                  err_tail_not_empty_grants_Requests_in_all_zero, 
-                  err_body_or_invalid_Requests_FF_Requests_in_equal,  
+      -- Checker outputs
+      -- Functional Checker outputs
+      signal      err_Req_N_Req_S_active, 
+                  err_Req_E_Req_W_active,   
+                  err_header_not_empty_Requests_in_onehot_XY_routing, 
+                  err_header_not_empty_Req_E_in_not_Req_N_in_XY_routing, 
+                  err_header_not_empty_Req_E_in_not_Req_S_in_XY_routing, 
+                  err_header_not_empty_Req_W_in_not_Req_N_in_XY_routing, 
+                  err_header_not_empty_Req_W_in_not_Req_S_in_XY_routing, 
+                  err_header_not_empty_curr_addr_dst_addr_equal_Req_L_in, 
+                  err_header_not_empty_curr_addr_dst_addr_not_equal_not_Req_L_in, 
+                  --err_header_empty_Requests_FF_Requests_in_equal, 
+                  --err_tail_not_empty_grants_Requests_in_all_zero, 
+                  --err_body_or_invalid_Requests_FF_Requests_in_equal,  
 
                   -- Structural checker outputs
+                  err_empty_Req_N_in_Req_N_FF, 
+                  err_empty_Req_E_in_Req_E_FF, 
+                  err_empty_Req_W_in_Req_W_FF, 
+                  err_empty_Req_S_in_Req_S_FF, 
+                  err_empty_Req_L_in_Req_L_FF,                   
                   err_grants, 
                   err_not_grants, 
                   err_dst_addr_cur_addr_N1, 
@@ -152,15 +178,18 @@ architecture behavior of LBDR_with_checkers is
       signal      N_Req_LBDR_checkers_ORed, E_Req_LBDR_checkers_ORed, W_Req_LBDR_checkers_ORed, S_Req_LBDR_checkers_ORed, L_Req_LBDR_checkers_ORed: std_logic;
       signal      N_Req_LBDR_checkers_ORed_sync, E_Req_LBDR_checkers_ORed_sync, W_Req_LBDR_checkers_ORed_sync, S_Req_LBDR_checkers_ORed_sync, L_Req_LBDR_checkers_ORed_sync: std_logic;
 
-      signal      Req_N_valid_sig, Req_E_valid_sig, Req_W_valid_sig, Req_S_valid_sig, Req_L_valid_sig: std_logic;
-
 begin 
 
 
-      N_Req_LBDR_checkers_ORed <=       ( err_header_not_empty_Requests_in_onehot or
-                                          err_header_empty_Requests_FF_Requests_in_equal or
-                                          err_tail_not_empty_grants_Requests_in_all_zero or
-                                          err_body_or_invalid_Requests_FF_Requests_in_equal or
+      N_Req_LBDR_checkers_ORed <=        (err_Req_N_Req_S_active or 
+                                          err_header_not_empty_Requests_in_onehot_XY_routing or
+                                          err_header_not_empty_Req_E_in_not_Req_N_in_XY_routing or 
+                                          err_header_not_empty_Req_W_in_not_Req_N_in_XY_routing or 
+                                          --err_header_empty_Requests_FF_Requests_in_equal or
+                                          --err_tail_not_empty_grants_Requests_in_all_zero or
+                                          --err_body_or_invalid_Requests_FF_Requests_in_equal or
+
+                                          err_empty_Req_N_in_Req_N_FF or 
                                           err_grants or 
                                           err_not_grants or
                                           err_dst_addr_cur_addr_N1 or
@@ -170,13 +199,17 @@ begin
                                           err_tail_not_empty_grants_not_Req_N_in or 
                                           err_tail_not_empty_not_grants_Req_N_in_Req_N_FF_equal or
                                           err_tail_empty_Req_N_in_Req_N_FF_equal or 
-                                          err_body_or_invalid_Req_N_in_Req_N_FF);
+                                          err_body_or_invalid_Req_N_in_Req_N_FF) after 1 ps;
 
-     E_Req_LBDR_checkers_ORed <=         (err_header_not_empty_Requests_in_onehot or
-                                          err_header_empty_Requests_FF_Requests_in_equal or
-                                          err_tail_not_empty_grants_Requests_in_all_zero or
-                                          err_body_or_invalid_Requests_FF_Requests_in_equal or
+     E_Req_LBDR_checkers_ORed <=         (err_Req_E_Req_W_active or 
+                                          err_header_not_empty_Requests_in_onehot_XY_routing or
+                                          err_header_not_empty_Req_E_in_not_Req_N_in_XY_routing or
+                                          err_header_not_empty_Req_E_in_not_Req_S_in_XY_routing or
+                                          --err_header_empty_Requests_FF_Requests_in_equal or
+                                          --err_tail_not_empty_grants_Requests_in_all_zero or
+                                          --err_body_or_invalid_Requests_FF_Requests_in_equal or
 
+                                          err_empty_Req_E_in_Req_E_FF or 
                                           err_grants or 
                                           err_not_grants or
                                           err_dst_addr_cur_addr_E1 or
@@ -186,13 +219,17 @@ begin
                                           err_tail_not_empty_grants_not_Req_E_in or 
                                           err_tail_not_empty_not_grants_Req_E_in_Req_E_FF_equal or
                                           err_tail_empty_Req_E_in_Req_E_FF_equal or 
-                                          err_body_or_invalid_Req_E_in_Req_E_FF);
+                                          err_body_or_invalid_Req_E_in_Req_E_FF) after 1 ps;
 
-      W_Req_LBDR_checkers_ORed <=        (err_header_not_empty_Requests_in_onehot or
-                                          err_header_empty_Requests_FF_Requests_in_equal or
-                                          err_tail_not_empty_grants_Requests_in_all_zero or
-                                          err_body_or_invalid_Requests_FF_Requests_in_equal or
+      W_Req_LBDR_checkers_ORed <=        (err_Req_E_Req_W_active or 
+                                          err_header_not_empty_Requests_in_onehot_XY_routing or
+                                          err_header_not_empty_Req_W_in_not_Req_N_in_XY_routing or
+                                          err_header_not_empty_Req_W_in_not_Req_S_in_XY_routing or                                          
+                                          --err_header_empty_Requests_FF_Requests_in_equal or
+                                          --err_tail_not_empty_grants_Requests_in_all_zero or
+                                          --err_body_or_invalid_Requests_FF_Requests_in_equal or
 
+                                          err_empty_Req_W_in_Req_W_FF or 
                                           err_grants or 
                                           err_not_grants or
                                           err_dst_addr_cur_addr_W1 or
@@ -202,13 +239,17 @@ begin
                                           err_tail_not_empty_grants_not_Req_W_in or 
                                           err_tail_not_empty_not_grants_Req_W_in_Req_W_FF_equal or
                                           err_tail_empty_Req_W_in_Req_W_FF_equal or 
-                                          err_body_or_invalid_Req_W_in_Req_W_FF);
+                                          err_body_or_invalid_Req_W_in_Req_W_FF) after 1 ps;
 
-      S_Req_LBDR_checkers_ORed <=        (err_header_not_empty_Requests_in_onehot or
-                                          err_header_empty_Requests_FF_Requests_in_equal or
-                                          err_tail_not_empty_grants_Requests_in_all_zero or
-                                          err_body_or_invalid_Requests_FF_Requests_in_equal or
+      S_Req_LBDR_checkers_ORed <=        (err_Req_N_Req_S_active or 
+                                          err_header_not_empty_Requests_in_onehot_XY_routing or
+                                          err_header_not_empty_Req_E_in_not_Req_S_in_XY_routing or
+                                          err_header_not_empty_Req_W_in_not_Req_S_in_XY_routing or                                          
+                                          --err_header_empty_Requests_FF_Requests_in_equal or
+                                          --err_tail_not_empty_grants_Requests_in_all_zero or
+                                          --err_body_or_invalid_Requests_FF_Requests_in_equal or
 
+                                          err_empty_Req_S_in_Req_S_FF or
                                           err_grants or 
                                           err_not_grants or
                                           err_dst_addr_cur_addr_S1 or
@@ -218,13 +259,16 @@ begin
                                           err_tail_not_empty_grants_not_Req_S_in or 
                                           err_tail_not_empty_not_grants_Req_S_in_Req_S_FF_equal or
                                           err_tail_empty_Req_S_in_Req_S_FF_equal or 
-                                          err_body_or_invalid_Req_S_in_Req_S_FF);
+                                          err_body_or_invalid_Req_S_in_Req_S_FF) after 1 ps;
 
-      L_Req_LBDR_checkers_ORed <=        (err_header_not_empty_Requests_in_onehot or
-                                          err_header_empty_Requests_FF_Requests_in_equal or
-                                          err_tail_not_empty_grants_Requests_in_all_zero or
-                                          err_body_or_invalid_Requests_FF_Requests_in_equal or
+      L_Req_LBDR_checkers_ORed <=        (err_header_not_empty_Requests_in_onehot_XY_routing or
+                                          err_header_not_empty_curr_addr_dst_addr_equal_Req_L_in or
+                                          err_header_not_empty_curr_addr_dst_addr_not_equal_not_Req_L_in or 
+                                          --err_header_empty_Requests_FF_Requests_in_equal or
+                                          --err_tail_not_empty_grants_Requests_in_all_zero or
+                                          --err_body_or_invalid_Requests_FF_Requests_in_equal or
 
+                                          err_empty_Req_L_in_Req_L_FF or
                                           err_grants or 
                                           err_not_grants or
                                           err_header_not_empty_Req_L_in or
@@ -232,7 +276,7 @@ begin
                                           err_tail_not_empty_grants_not_Req_L_in or 
                                           err_tail_not_empty_not_grants_Req_L_in_Req_L_FF_equal or
                                           err_tail_empty_Req_L_in_Req_L_FF_equal or 
-                                          err_body_or_invalid_Req_L_in_Req_L_FF);
+                                          err_body_or_invalid_Req_L_in_Req_L_FF) after 1 ps;
 
       -- Bubble-related logic
       process(N_Req_LBDR_checkers_ORed, E_Req_LBDR_checkers_ORed, W_Req_LBDR_checkers_ORed, S_Req_LBDR_checkers_ORed, L_Req_LBDR_checkers_ORed, clk)
@@ -278,13 +322,8 @@ begin
             end if;             
       end process;
 
-      Req_N_valid <= not N_Req_LBDR_checkers_ORed_sync;
-      Req_E_valid <= not N_Req_LBDR_checkers_ORed_sync;
-      Req_W_valid <= not N_Req_LBDR_checkers_ORed_sync;
-      Req_S_valid <= not N_Req_LBDR_checkers_ORed_sync;
-      Req_L_valid <= not N_Req_LBDR_checkers_ORed_sync;
 
-      -- LBDR packet drop routing part checkers instantiation
+      -- LBDR LOGIC checkers instantiation
       LBDR_CHECKERS_LOGIC: LBDR_checkers  generic map (cur_addr_rst => cur_addr_rst, Rxy_rst => Rxy_rst, Cx_rst => Cx_rst)
                                 port map (
                                           empty       => empty,        
@@ -315,12 +354,19 @@ begin
                                           grants_out  => grants, 
 
                                           -- Functional Checker outputs
-                                          err_header_not_empty_Requests_in_onehot => err_header_not_empty_Requests_in_onehot,
-                                          err_header_empty_Requests_FF_Requests_in_equal => err_header_empty_Requests_FF_Requests_in_equal,
-                                          err_tail_not_empty_grants_Requests_in_all_zero => err_tail_not_empty_grants_Requests_in_all_zero,
-                                          err_body_or_invalid_Requests_FF_Requests_in_equal => err_body_or_invalid_Requests_FF_Requests_in_equal,
+                                          err_Req_N_Req_S_active => err_Req_N_Req_S_active, 
+                                          err_Req_E_Req_W_active => err_Req_E_Req_W_active, 
+                                          err_header_not_empty_Requests_in_onehot_XY_routing => err_header_not_empty_Requests_in_onehot_XY_routing,
+                                          --err_header_empty_Requests_FF_Requests_in_equal => err_header_empty_Requests_FF_Requests_in_equal,
+                                          --err_tail_not_empty_grants_Requests_in_all_zero => err_tail_not_empty_grants_Requests_in_all_zero,
+                                          --err_body_or_invalid_Requests_FF_Requests_in_equal => err_body_or_invalid_Requests_FF_Requests_in_equal,
 
                                           -- Structural checker outputs
+                                          err_empty_Req_N_in_Req_N_FF => err_empty_Req_N_in_Req_N_FF, 
+                                          err_empty_Req_E_in_Req_E_FF => err_empty_Req_E_in_Req_E_FF, 
+                                          err_empty_Req_W_in_Req_W_FF => err_empty_Req_W_in_Req_W_FF, 
+                                          err_empty_Req_S_in_Req_S_FF => err_empty_Req_S_in_Req_S_FF, 
+                                          err_empty_Req_L_in_Req_L_FF => err_empty_Req_L_in_Req_L_FF, 
                                           err_grants => err_grants, 
                                           err_not_grants => err_not_grants, 
                                           err_dst_addr_cur_addr_N1 => err_dst_addr_cur_addr_N1, 
@@ -374,25 +420,44 @@ begin
       W1 <= '1' when  dst_addr_x < cur_addr_x else '0';
       S1 <= '1' when  cur_addr_y < dst_addr_y else '0';
 
-      process(clk, reset)
+
+      process(clk, reset, N_Req_LBDR_checkers_ORed_sync, E_Req_LBDR_checkers_ORed_sync, W_Req_LBDR_checkers_ORed_sync, S_Req_LBDR_checkers_ORed_sync, L_Req_LBDR_checkers_ORed_sync)
       begin
             if reset = '0' then 
-              Req_N_FF <= '0';
-              Req_E_FF <= '0';
-              Req_W_FF <= '0';
-              Req_S_FF <= '0';
-              Req_L_FF <= '0';
+                  Req_N_FF <= '0';
+                  Req_E_FF <= '0';
+                  Req_W_FF <= '0';
+                  Req_S_FF <= '0';
+                  Req_L_FF <= '0';
+              
             elsif clk'event and clk = '1' then
-              Req_N_FF <= Req_N_in;
-              Req_E_FF <= Req_E_in;
-              Req_W_FF <= Req_W_in;
-              Req_S_FF <= Req_S_in;
-              Req_L_FF <= Req_L_in;
+                  if (N_Req_LBDR_checkers_ORed_sync = '0') then
+                        Req_N_FF <= Req_N_in;
+                  end if;
+                  if (E_Req_LBDR_checkers_ORed_sync = '0') then
+                        Req_E_FF <= Req_E_in;
+                  end if;
+                  if (W_Req_LBDR_checkers_ORed_sync = '0') then
+                        Req_W_FF <= Req_W_in;
+                  end if;
+                  if (S_Req_LBDR_checkers_ORed_sync = '0') then
+                        Req_S_FF <= Req_S_in;
+                  end if;
+                  if (L_Req_LBDR_checkers_ORed_sync = '0') then
+                        Req_L_FF <= Req_L_in;
+                  end if;
             end if;
       end process;
        
 
       -- The combionational part
+
+      -- Bubble-related logic
+      Req_N_valid <= not N_Req_LBDR_checkers_ORed_sync;
+      Req_E_valid <= not E_Req_LBDR_checkers_ORed_sync;
+      Req_W_valid <= not W_Req_LBDR_checkers_ORed_sync;
+      Req_S_valid <= not S_Req_LBDR_checkers_ORed_sync;
+      Req_L_valid <= not L_Req_LBDR_checkers_ORed_sync;
 
       Req_N <= Req_N_FF;
       Req_E <= Req_E_FF;
@@ -407,7 +472,7 @@ begin
               Req_E_in <= ((E1 and not N1 and not S1) or (E1 and N1 and Rxy(2)) or (E1 and S1 and Rxy(3))) and Cx(1);
               Req_W_in <= ((W1 and not N1 and not S1) or (W1 and N1 and Rxy(4)) or (W1 and S1 and Rxy(5))) and Cx(2);
               Req_S_in <= ((S1 and not E1 and not W1) or (S1 and E1 and Rxy(6)) or (S1 and W1 and Rxy(7))) and Cx(3);
-              Req_L_in <= not N1 and  not E1 and not W1 and not S1;
+              Req_L_in <= not N1 and not E1 and not W1 and not S1;
 
         elsif flit_type = "100" and empty = '0' and grants = '1' then
               Req_N_in <= '0';
