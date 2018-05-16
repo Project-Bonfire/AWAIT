@@ -53,9 +53,6 @@ architecture behavior of LBDR_with_checkers is
                   err_header_not_empty_Req_W_in_not_Req_S_in_XY_routing, 
                   err_header_not_empty_curr_addr_dst_addr_equal_Req_L_in, 
                   err_header_not_empty_curr_addr_dst_addr_not_equal_not_Req_L_in: out std_logic; 
-                  --err_header_empty_Requests_FF_Requests_in_equal, 
-                  --err_tail_not_empty_grants_Requests_in_all_zero, 
-                  --err_body_or_invalid_Requests_FF_Requests_in_equal: out std_logic;
 
                   -- Structural checker outputs
                   err_empty_Req_N_in_Req_N_FF, 
@@ -124,9 +121,6 @@ architecture behavior of LBDR_with_checkers is
                   err_header_not_empty_Req_W_in_not_Req_S_in_XY_routing, 
                   err_header_not_empty_curr_addr_dst_addr_equal_Req_L_in, 
                   err_header_not_empty_curr_addr_dst_addr_not_equal_not_Req_L_in, 
-                  --err_header_empty_Requests_FF_Requests_in_equal, 
-                  --err_tail_not_empty_grants_Requests_in_all_zero, 
-                  --err_body_or_invalid_Requests_FF_Requests_in_equal,  
 
                   -- Structural checker outputs
                   err_empty_Req_N_in_Req_N_FF, 
@@ -185,9 +179,6 @@ begin
                                           err_header_not_empty_Requests_in_onehot_XY_routing or
                                           err_header_not_empty_Req_E_in_not_Req_N_in_XY_routing or 
                                           err_header_not_empty_Req_W_in_not_Req_N_in_XY_routing or 
-                                          --err_header_empty_Requests_FF_Requests_in_equal or
-                                          --err_tail_not_empty_grants_Requests_in_all_zero or
-                                          --err_body_or_invalid_Requests_FF_Requests_in_equal or
 
                                           err_empty_Req_N_in_Req_N_FF or 
                                           err_grants or 
@@ -205,9 +196,6 @@ begin
                                           err_header_not_empty_Requests_in_onehot_XY_routing or
                                           err_header_not_empty_Req_E_in_not_Req_N_in_XY_routing or
                                           err_header_not_empty_Req_E_in_not_Req_S_in_XY_routing or
-                                          --err_header_empty_Requests_FF_Requests_in_equal or
-                                          --err_tail_not_empty_grants_Requests_in_all_zero or
-                                          --err_body_or_invalid_Requests_FF_Requests_in_equal or
 
                                           err_empty_Req_E_in_Req_E_FF or 
                                           err_grants or 
@@ -225,9 +213,6 @@ begin
                                           err_header_not_empty_Requests_in_onehot_XY_routing or
                                           err_header_not_empty_Req_W_in_not_Req_N_in_XY_routing or
                                           err_header_not_empty_Req_W_in_not_Req_S_in_XY_routing or                                          
-                                          --err_header_empty_Requests_FF_Requests_in_equal or
-                                          --err_tail_not_empty_grants_Requests_in_all_zero or
-                                          --err_body_or_invalid_Requests_FF_Requests_in_equal or
 
                                           err_empty_Req_W_in_Req_W_FF or 
                                           err_grants or 
@@ -245,9 +230,6 @@ begin
                                           err_header_not_empty_Requests_in_onehot_XY_routing or
                                           err_header_not_empty_Req_E_in_not_Req_S_in_XY_routing or
                                           err_header_not_empty_Req_W_in_not_Req_S_in_XY_routing or                                          
-                                          --err_header_empty_Requests_FF_Requests_in_equal or
-                                          --err_tail_not_empty_grants_Requests_in_all_zero or
-                                          --err_body_or_invalid_Requests_FF_Requests_in_equal or
 
                                           err_empty_Req_S_in_Req_S_FF or
                                           err_grants or 
@@ -264,9 +246,6 @@ begin
       L_Req_LBDR_checkers_ORed <=        (err_header_not_empty_Requests_in_onehot_XY_routing or
                                           err_header_not_empty_curr_addr_dst_addr_equal_Req_L_in or
                                           err_header_not_empty_curr_addr_dst_addr_not_equal_not_Req_L_in or 
-                                          --err_header_empty_Requests_FF_Requests_in_equal or
-                                          --err_tail_not_empty_grants_Requests_in_all_zero or
-                                          --err_body_or_invalid_Requests_FF_Requests_in_equal or
 
                                           err_empty_Req_L_in_Req_L_FF or
                                           err_grants or 
@@ -357,9 +336,12 @@ begin
                                           err_Req_N_Req_S_active => err_Req_N_Req_S_active, 
                                           err_Req_E_Req_W_active => err_Req_E_Req_W_active, 
                                           err_header_not_empty_Requests_in_onehot_XY_routing => err_header_not_empty_Requests_in_onehot_XY_routing,
-                                          --err_header_empty_Requests_FF_Requests_in_equal => err_header_empty_Requests_FF_Requests_in_equal,
-                                          --err_tail_not_empty_grants_Requests_in_all_zero => err_tail_not_empty_grants_Requests_in_all_zero,
-                                          --err_body_or_invalid_Requests_FF_Requests_in_equal => err_body_or_invalid_Requests_FF_Requests_in_equal,
+                                          err_header_not_empty_Req_E_in_not_Req_N_in_XY_routing => err_header_not_empty_Req_E_in_not_Req_N_in_XY_routing, 
+                                          err_header_not_empty_Req_E_in_not_Req_S_in_XY_routing => err_header_not_empty_Req_E_in_not_Req_S_in_XY_routing, 
+                                          err_header_not_empty_Req_W_in_not_Req_N_in_XY_routing => err_header_not_empty_Req_W_in_not_Req_N_in_XY_routing, 
+                                          err_header_not_empty_Req_W_in_not_Req_S_in_XY_routing => err_header_not_empty_Req_W_in_not_Req_S_in_XY_routing, 
+                                          err_header_not_empty_curr_addr_dst_addr_equal_Req_L_in => err_header_not_empty_curr_addr_dst_addr_equal_Req_L_in, 
+                                          err_header_not_empty_curr_addr_dst_addr_not_equal_not_Req_L_in => err_header_not_empty_curr_addr_dst_addr_not_equal_not_Req_L_in, 
 
                                           -- Structural checker outputs
                                           err_empty_Req_N_in_Req_N_FF => err_empty_Req_N_in_Req_N_FF, 

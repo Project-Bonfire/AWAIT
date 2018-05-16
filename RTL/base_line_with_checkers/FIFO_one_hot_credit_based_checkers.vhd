@@ -29,7 +29,6 @@ entity FIFO_credit_based_checkers is
 
             -- Structural Checkers
             err_read_en_ORed_not_empty_read_en, 
-            err_empty_not_read_en, 
             err_all_read_en_zero_not_read_en, 
             err_write_en_write_pointer_update, 
             err_write_en_write_pointer_not_update, 
@@ -103,7 +102,7 @@ begin
 
   -- Structural Checkers
   process(read_en_N, read_en_E, read_en_W, read_en_S, read_en_L, empty, read_en) begin
-    if (read_en_N = '1' or read_en_E = '1' or read_en_W = '1' or read_en_S = '1' or read_en_L = '1') and empty = '0' and read_en = '0' then
+    if (read_en_N = '1' or read_en_E = '1' or read_en_W = '1' or read_en_S = '1' or read_en_L = '1') and empty = '0' and read_en /= '1' then
       err_read_en_ORed_not_empty_read_en <= '1';
     else 
       err_read_en_ORed_not_empty_read_en <= '0';
@@ -111,15 +110,7 @@ begin
   end process;  
 
   process(read_en_N, read_en_E, read_en_W, read_en_S, read_en_L, empty, read_en) begin
-    if (empty = '1' and read_en = '1') then
-      err_empty_not_read_en <= '1';
-    else 
-      err_empty_not_read_en <= '0';
-    end if;
-  end process;  
-
-  process(read_en_N, read_en_E, read_en_W, read_en_S, read_en_L, empty, read_en) begin
-    if (read_en_N = '0' and read_en_E = '0' and read_en_W = '0' and read_en_S = '0' and read_en_L = '0') and read_en = '1' then
+    if (read_en_N = '0' and read_en_E = '0' and read_en_W = '0' and read_en_S = '0' and read_en_L = '0') and read_en /= '0' then
       err_all_read_en_zero_not_read_en <= '1';
     else 
       err_all_read_en_zero_not_read_en <= '0';
@@ -129,7 +120,7 @@ begin
 
   -- Checkers
   process(write_en, write_pointer_in, write_pointer) begin
-    if (write_en = '1' and write_pointer_in /= write_pointer(2 downto 0)&write_pointer(3)) then
+    if (write_en = '1' and write_pointer_in /= write_pointer(2 downto 0) & write_pointer(3)) then
       err_write_en_write_pointer_update <= '1';
     else 
       err_write_en_write_pointer_update <= '0';
@@ -148,7 +139,7 @@ begin
 
   -- Checkers
   process(read_en, empty, read_pointer_in, read_pointer) begin
-       if (read_en = '1' and empty = '0' and read_pointer_in /= read_pointer(2 downto 0)&read_pointer(3)) then
+       if (read_en = '1' and empty = '0' and read_pointer_in /= read_pointer(2 downto 0) & read_pointer(3)) then
            err_read_en_not_empty_read_pointer_update <= '1';
        else 
            err_read_en_not_empty_read_pointer_update <= '0';
@@ -176,7 +167,7 @@ begin
 
   -- Checkers
   process(valid_in, full, write_en) begin
-     if valid_in = '1' and full ='0' and write_en = '0' then
+     if valid_in = '1' and full ='0' and write_en /= '1' then
          err_valid_in_not_full_write_en <= '1';
      else
          err_valid_in_not_full_write_en <= '0';
@@ -184,7 +175,7 @@ begin
   end process;
 
   process(valid_in, full, write_en) begin
-     if valid_in = '1' and full ='1' and write_en = '1' then
+     if valid_in = '1' and full ='1' and write_en /= '0' then
          err_valid_in_full_not_write_en <= '1';
      else
          err_valid_in_full_not_write_en <= '0';
@@ -192,7 +183,7 @@ begin
   end process;
 
   process(valid_in, full, write_en) begin
-     if valid_in = '0' and write_en = '1' then
+     if valid_in = '0' and write_en /= '0' then
          err_not_valid_in_not_write_en <= '1';
      else
          err_not_valid_in_not_write_en <= '0';
@@ -204,7 +195,7 @@ begin
 
   -- Checkers
   process(write_pointer, read_pointer, empty) begin
-      if read_pointer = write_pointer and empty = '0' then
+      if read_pointer = write_pointer and empty /= '1' then
         err_read_pointer_write_pointer_equal_empty <= '1';
       else
         err_read_pointer_write_pointer_equal_empty <= '0';
@@ -212,23 +203,23 @@ begin
   end process;
 
   process(write_pointer, read_pointer, empty) begin
-      if read_pointer /= write_pointer and empty = '1' then
+      if read_pointer /= write_pointer and empty /= '0' then
         err_read_pointer_write_pointer_not_equal_not_empty <= '1';
       else
         err_read_pointer_write_pointer_not_equal_not_empty <= '0';
       end if;
   end process;
 
-  process(write_pointer, read_pointer, empty) begin
-      if write_pointer = read_pointer(0)&read_pointer(3 downto 1) and full = '0' then
+  process(write_pointer, read_pointer, full) begin
+      if write_pointer = read_pointer(0) & read_pointer(3 downto 1) and full /= '1' then
         err_write_pointer_after_read_pointer_full <= '1';
       else
         err_write_pointer_after_read_pointer_full <= '0';
       end if;
   end process;
 
-  process(write_pointer, read_pointer, empty) begin
-      if write_pointer /= read_pointer(0)&read_pointer(3 downto 1) and full = '1' then
+  process(write_pointer, read_pointer, full) begin
+      if write_pointer /= read_pointer(0) & read_pointer(3 downto 1) and full /= '0' then
         err_write_pointer_not_after_read_pointer_not_full <= '1';
       else
         err_write_pointer_not_after_read_pointer_not_full <= '0';

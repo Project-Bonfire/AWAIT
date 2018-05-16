@@ -27,7 +27,7 @@ package router_pack is
                 DATA_WIDTH : integer := 32
             );
         port(
-                RX       : in std_logic_vector(DATA_WIDTH-1 downto 0);
+                RX       : in std_logic_vector (DATA_WIDTH-1 downto 0);
                 valid_in : in std_logic;
                 faulty   : out std_logic
             );
@@ -39,7 +39,7 @@ package router_pack is
     );
     port (  reset     : in  std_logic;
             clk       : in  std_logic;
-            RX        : in  std_logic_vector(DATA_WIDTH-1 downto 0);
+            RX        : in  std_logic_vector (DATA_WIDTH-1 downto 0);
             valid_in  : in  std_logic;
             read_en_N : in  std_logic;
             read_en_E : in  std_logic;
@@ -49,7 +49,8 @@ package router_pack is
 
             credit_out: out std_logic;
             empty_out : out std_logic;
-            Data_out  : out std_logic_vector(DATA_WIDTH-1 downto 0)
+            Data_out  : out std_logic_vector (DATA_WIDTH-1 downto 0);
+            hold_out: out std_logic
     );
   end COMPONENT;
 

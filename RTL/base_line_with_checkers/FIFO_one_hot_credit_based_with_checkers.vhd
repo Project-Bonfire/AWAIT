@@ -11,7 +11,7 @@ entity FIFO_credit_based_with_checkers is
     );
     port (  reset: in std_logic;
             clk  : in std_logic;
-            RX   : in std_logic_vector(DATA_WIDTH-1 downto 0); 
+            RX   : in std_logic_vector (DATA_WIDTH-1 downto 0); 
             valid_in  : in  std_logic;
             read_en_N : in  std_logic;
             read_en_E : in  std_logic;
@@ -19,9 +19,10 @@ entity FIFO_credit_based_with_checkers is
             read_en_S : in  std_logic;
             read_en_L : in  std_logic;
 
-            credit_out: out std_logic; 
+            credit_out: out std_logic; -- acts as hold_out too ?!
             empty_out : out std_logic; 
-            Data_out  : out std_logic_vector(DATA_WIDTH-1 downto 0)
+            Data_out  : out std_logic_vector (DATA_WIDTH-1 downto 0); 
+            hold_out: out std_logic
     );
 end FIFO_credit_based_with_checkers;
 
@@ -53,7 +54,6 @@ architecture behavior of FIFO_credit_based_with_checkers is
 
               -- Structural Checkers
               err_read_en_ORed_not_empty_read_en, 
-              err_empty_not_read_en, 
               err_all_read_en_zero_not_read_en, 
               err_write_en_write_pointer_update, 
               err_write_en_write_pointer_not_update, 
@@ -87,8 +87,8 @@ architecture behavior of FIFO_credit_based_with_checkers is
               err_full_write_en, 
               err_read_pointer_in_onehot, 
               err_write_pointer_in_onehot, 
+
               err_read_en_ORed_not_empty_read_en, 
-              err_empty_not_read_en, 
               err_all_read_en_zero_not_read_en, 
               err_write_en_write_pointer_update, 
               err_write_en_write_pointer_not_update, 
@@ -103,7 +103,7 @@ architecture behavior of FIFO_credit_based_with_checkers is
               err_write_pointer_after_read_pointer_full, 
               err_write_pointer_not_after_read_pointer_not_full: std_logic;
 
-   signal FIFO_checkers_ORed: std_logic; 
+   signal FIFO_checkers_ORed, FIFO_checkers_ORed_sync: std_logic; 
 
 begin
 
@@ -144,7 +144,6 @@ begin
                                             err_write_pointer_in_onehot => err_write_pointer_in_onehot, 
 
                                             err_read_en_ORed_not_empty_read_en => err_read_en_ORed_not_empty_read_en, 
-                                            err_empty_not_read_en => err_empty_not_read_en, 
                                             err_all_read_en_zero_not_read_en => err_all_read_en_zero_not_read_en, 
                                             err_write_en_write_pointer_update => err_write_en_write_pointer_update, 
                                             err_write_en_write_pointer_not_update => err_write_en_write_pointer_not_update, 
@@ -160,29 +159,28 @@ begin
                                             err_write_pointer_not_after_read_pointer_not_full => err_write_pointer_not_after_read_pointer_not_full 
                                           );
 
-  FIFO_checkers_ORed  <=  err_full_empty or
-                          err_empty_read_en or
-                          err_full_write_en or
-                          err_read_pointer_in_onehot or
-                          err_write_pointer_in_onehot or
+  FIFO_checkers_ORed  <=  (err_full_empty or
+                           err_empty_read_en or
+                           err_full_write_en or
+                           err_read_pointer_in_onehot or
+                           err_write_pointer_in_onehot or
 
-                          err_read_en_ORed_not_empty_read_en or
-                          err_empty_not_read_en or
-                          err_all_read_en_zero_not_read_en or
-                          err_write_en_write_pointer_update or
-                          err_write_en_write_pointer_not_update or
-                          err_read_en_not_empty_read_pointer_update or
-                          err_read_en_empty_read_pointer_not_update or
-                          err_not_read_en_read_pointer_not_update or
-                          err_valid_in_not_full_write_en or
-                          err_valid_in_full_not_write_en or
-                          err_not_valid_in_not_write_en or
-                          err_read_pointer_write_pointer_equal_empty or
-                          err_read_pointer_write_pointer_not_equal_not_empty or
-                          err_write_pointer_after_read_pointer_full or
-                          err_write_pointer_not_after_read_pointer_not_full;
+                           err_read_en_ORed_not_empty_read_en or
+                           err_all_read_en_zero_not_read_en or
+                           err_write_en_write_pointer_update or
+                           err_write_en_write_pointer_not_update or
+                           err_read_en_not_empty_read_pointer_update or
+                           err_read_en_empty_read_pointer_not_update or
+                           err_not_read_en_read_pointer_not_update or
+                           err_valid_in_not_full_write_en or
+                           err_valid_in_full_not_write_en or
+                           err_not_valid_in_not_write_en or
+                           err_read_pointer_write_pointer_equal_empty or
+                           err_read_pointer_write_pointer_not_equal_not_empty or
+                           err_write_pointer_after_read_pointer_full or
+                           err_write_pointer_not_after_read_pointer_not_full) after 1 ps;
 
-   process (clk, reset) begin
+   process (clk, reset, FIFO_checkers_ORed_sync) begin
         if reset = '0' then
             read_pointer  <= "0001";
             write_pointer <= "0001";
@@ -195,9 +193,13 @@ begin
             credit_out <= '0';
 
         elsif clk'event and clk = '1' then
+
+          if FIFO_checkers_ORed_sync = '0' then
             write_pointer <= write_pointer_in;
             read_pointer  <=  read_pointer_in;
-            credit_out <= '0';
+          end if;
+            credit_out <= '0';   
+          if FIFO_checkers_ORed_sync = '0' then         
             if write_en = '1' then 
                 --write into the memory
                   FIFO_MEM_1 <= FIFO_MEM_1_in;
@@ -205,11 +207,28 @@ begin
                   FIFO_MEM_3 <= FIFO_MEM_3_in;
                   FIFO_MEM_4 <= FIFO_MEM_4_in;                   
             end if;
+          end if;
+          if FIFO_checkers_ORed_sync = '0' then
             if read_en = '1' then 
               credit_out <= '1';
             end if;
+          end if;
+
         end if;
     end process;
+
+      -- Bubble-related logic
+      process(FIFO_checkers_ORed, clk)
+      begin
+            if FIFO_checkers_ORed = '1' then -- If there is a transient fault detected in FIFO control part
+                  FIFO_checkers_ORed_sync <= '1';
+            else -- Hopefully the transient fault would disappear 
+                  if clk'event and clk = '0' then 
+                        FIFO_checkers_ORed_sync <= '0';
+                  end if;
+            end if; 
+      end process;
+
 
  -- anything below here is pure combinational
  
@@ -234,13 +253,13 @@ begin
     end case ;
   end process;
 
-  read_en   <= (read_en_N or read_en_E or read_en_W or read_en_S or read_en_L) and not   empty; 
-  empty_out <= empty;
-  
+  read_en   <= (read_en_N or read_en_E or read_en_W or read_en_S or read_en_L) and not empty; 
+  empty_out <= empty or FIFO_checkers_ORed_sync; -- ?!
+  hold_out  <= FIFO_checkers_ORed_sync; 
 
   process(write_en, write_pointer) begin
     if write_en = '1'then
-       write_pointer_in <= write_pointer(2 downto 0)&write_pointer(3); 
+       write_pointer_in <= write_pointer(2 downto 0) & write_pointer(3); 
     else
        write_pointer_in <= write_pointer; 
     end if;
@@ -248,7 +267,7 @@ begin
 
   process(read_en, empty, read_pointer) begin
        if (read_en = '1' and empty = '0') then
-           read_pointer_in <= read_pointer(2 downto 0)&read_pointer(3); 
+           read_pointer_in <= read_pointer(2 downto 0) & read_pointer(3); 
        else 
            read_pointer_in <= read_pointer; 
        end if;
@@ -263,13 +282,13 @@ begin
   end process;
                         
   process(write_pointer, read_pointer) begin
-      if read_pointer = write_pointer  then
+      if read_pointer = write_pointer then
               empty <= '1';
       else
               empty <= '0';
       end if;
       --      if write_pointer = read_pointer>>1 then
-      if write_pointer = read_pointer(0)&read_pointer(3 downto 1) then
+      if write_pointer = read_pointer(0) & read_pointer(3 downto 1) then
               full <= '1';
       else
               full <= '0'; 

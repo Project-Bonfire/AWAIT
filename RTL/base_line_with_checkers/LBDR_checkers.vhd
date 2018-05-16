@@ -32,9 +32,6 @@ entity LBDR_checkers is
             err_header_not_empty_Req_W_in_not_Req_S_in_XY_routing,
             err_header_not_empty_curr_addr_dst_addr_equal_Req_L_in,
             err_header_not_empty_curr_addr_dst_addr_not_equal_not_Req_L_in: out std_logic;
-            --err_header_empty_Requests_FF_Requests_in_equal,
-            --err_tail_not_empty_grants_Requests_in_all_zero,
-            --err_body_or_invalid_Requests_FF_Requests_in_equal: out std_logic;
 
             -- Structural checker outputs
             err_empty_Req_N_in_Req_N_FF,
@@ -175,7 +172,7 @@ begin
 
     process (flit_type, empty, Rxy, cur_addr_x, cur_addr_y, dst_addr_x, dst_addr_y, Req_L_in)
     begin
-        if (flit_type = "001" and empty = '0' and cur_addr_x = dst_addr_x and cur_addr_y = dst_addr_y and Req_L_in = '0') then
+        if (flit_type = "001" and empty = '0' and cur_addr_x = dst_addr_x and cur_addr_y = dst_addr_y and Req_L_in /= '1') then
             err_header_not_empty_curr_addr_dst_addr_equal_Req_L_in <= '1';
         else
             err_header_not_empty_curr_addr_dst_addr_equal_Req_L_in <= '0';
@@ -184,39 +181,12 @@ begin
 
     process (flit_type, empty, Rxy, cur_addr_x, cur_addr_y, dst_addr_x, dst_addr_y, Req_L_in)
     begin
-        if (flit_type = "001" and empty = '0' and cur_addr_x /= dst_addr_x and cur_addr_y /= dst_addr_y and Req_L_in = '1') then
+        if (flit_type = "001" and empty = '0' and cur_addr_x /= dst_addr_x and cur_addr_y /= dst_addr_y and Req_L_in /= '0') then
             err_header_not_empty_curr_addr_dst_addr_not_equal_not_Req_L_in <= '1';
         else
             err_header_not_empty_curr_addr_dst_addr_not_equal_not_Req_L_in <= '0';
         end if;
     end process;
-
-    --process (flit_type, empty, Requests_FF, Requests_in)
-    --begin
-    --    if (flit_type = "001" and empty = '1' and Requests_FF /= Requests_in) then
-    --        err_header_empty_Requests_FF_Requests_in_equal <= '1';
-    --    else
-    --        err_header_empty_Requests_FF_Requests_in_equal <= '0';
-    --    end if;
-    --end process;
-
-    --process (flit_type, empty, grants_out, Requests_in)
-    --begin
-    --    if (flit_type = "100" and empty = '0' and grants_out = '1' and Requests_in /= "00000") then
-    --        err_tail_not_empty_grants_Requests_in_all_zero <= '1';
-    --    else
-    --        err_tail_not_empty_grants_Requests_in_all_zero <= '0';
-    --    end if;
-    --end process;
-
-    --process (flit_type, Requests_FF, Requests_in)
-    --begin
-    --    if (flit_type /= "001" and flit_type /= "100" and Requests_FF /= Requests_in) then
-    --        err_body_or_invalid_Requests_FF_Requests_in_equal <= '1';
-    --    else
-    --        err_body_or_invalid_Requests_FF_Requests_in_equal <= '0';
-    --    end if;
-    --end process;
 
     -- Structural Checkers
 
@@ -267,7 +237,7 @@ begin
 
     process (grant_N, grant_E, grant_W, grant_S, grant_L, grants_out)
     begin
-        if ( (grant_N = '1' or grant_E = '1' or grant_W = '1' or grant_S = '1' or grant_L = '1') and grants_out = '0' ) then
+        if ( (grant_N = '1' or grant_E = '1' or grant_W = '1' or grant_S = '1' or grant_L = '1') and grants_out /= '1' ) then
             err_grants <= '1';
         else
             err_grants <= '0';
@@ -276,7 +246,7 @@ begin
 
     process (grant_N, grant_E, grant_W, grant_S, grant_L, grants_out)
     begin
-        if ( (grant_N = '0' and grant_E = '0' and grant_W = '0' and grant_S = '0' and grant_L = '0') and grants_out = '1' ) then
+        if ( (grant_N = '0' and grant_E = '0' and grant_W = '0' and grant_S = '0' and grant_L = '0') and grants_out /= '0' ) then
             err_not_grants <= '1';
         else
             err_not_grants <= '0';
@@ -285,7 +255,7 @@ begin
 
     process (dst_addr_y, cur_addr_y, N1_out)
     begin
-        if ( dst_addr_y < cur_addr_y and N1_out = '0') then
+        if ( dst_addr_y < cur_addr_y and N1_out /= '1') then
             err_dst_addr_cur_addr_N1 <= '1';
         else
             err_dst_addr_cur_addr_N1 <= '0';
@@ -294,7 +264,7 @@ begin
 
     process (dst_addr_y, cur_addr_y, N1_out)
     begin
-        if ( dst_addr_y >= cur_addr_y and N1_out = '1') then
+        if ( dst_addr_y >= cur_addr_y and N1_out /= '0') then
             err_dst_addr_cur_addr_not_N1 <= '1';
         else
             err_dst_addr_cur_addr_not_N1 <= '0';
@@ -303,7 +273,7 @@ begin
 
     process (cur_addr_x, dst_addr_x, E1_out)
     begin
-        if ( cur_addr_x < dst_addr_x and E1_out = '0') then
+        if ( cur_addr_x < dst_addr_x and E1_out /= '1') then
             err_dst_addr_cur_addr_E1 <= '1';
         else
             err_dst_addr_cur_addr_E1 <= '0';
@@ -312,7 +282,7 @@ begin
 
     process (cur_addr_x, dst_addr_x, E1_out)
     begin
-        if ( cur_addr_x >= dst_addr_x and E1_out = '1') then
+        if ( cur_addr_x >= dst_addr_x and E1_out /= '0') then
             err_dst_addr_cur_addr_not_E1 <= '1';
         else
             err_dst_addr_cur_addr_not_E1 <= '0';
@@ -321,7 +291,7 @@ begin
 
     process (dst_addr_x, cur_addr_x, W1_out)
     begin
-        if ( dst_addr_x < cur_addr_x and W1_out = '0') then
+        if ( dst_addr_x < cur_addr_x and W1_out /= '1') then
             err_dst_addr_cur_addr_W1 <= '1';
         else
             err_dst_addr_cur_addr_W1 <= '0';
@@ -330,7 +300,7 @@ begin
 
     process (dst_addr_x, cur_addr_x, W1_out)
     begin
-        if ( dst_addr_x >= cur_addr_x and W1_out = '1') then
+        if ( dst_addr_x >= cur_addr_x and W1_out /= '0') then
             err_dst_addr_cur_addr_not_W1 <= '1';
         else
             err_dst_addr_cur_addr_not_W1 <= '0';
@@ -339,7 +309,7 @@ begin
 
     process (cur_addr_y, dst_addr_y, S1_out)
     begin
-        if ( cur_addr_y < dst_addr_y and S1_out = '0') then
+        if ( cur_addr_y < dst_addr_y and S1_out /= '1') then
             err_dst_addr_cur_addr_S1 <= '1';
         else
             err_dst_addr_cur_addr_S1 <= '0';
@@ -348,7 +318,7 @@ begin
 
     process (cur_addr_y, dst_addr_y, S1_out)
     begin
-        if ( cur_addr_y >= dst_addr_y and S1_out = '1') then
+        if ( cur_addr_y >= dst_addr_y and S1_out /= '0') then
             err_dst_addr_cur_addr_not_S1 <= '1';
         else
             err_dst_addr_cur_addr_not_S1 <= '0';
