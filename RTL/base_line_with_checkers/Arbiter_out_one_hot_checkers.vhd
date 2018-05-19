@@ -18,62 +18,62 @@ entity Arbiter_out_one_hot_checkers is
             -- Checker outputs
             err_arbiter_out_Requests_state_in_state_not_equal, 
        
-            err_IDLE_req_X_N, 
-            err_North_req_X_N, 
-            err_North_credit_not_zero_req_X_N_grant_N, 
-            err_North_credit_zero_or_not_req_X_N_not_grant_N, 
-            err_East_req_X_E, 
-            err_East_credit_not_zero_req_X_E_grant_E, 
-            err_East_credit_zero_or_not_req_X_E_not_grant_E, 
-            err_West_req_X_W, 
-            err_West_credit_not_zero_req_X_E_grant_E, 
-            err_West_credit_zero_or_not_req_X_W_not_grant_W, 
-            err_South_req_X_S, 
-            err_South_credit_not_zero_req_X_S_grant_S, 
-            err_South_credit_zero_or_not_req_X_S_not_grant_S, 
-            err_Local_req_X_L, 
-            err_Local_credit_not_zero_req_X_L_grant_L, 
-            err_Local_credit_zero_or_not_req_X_L_not_grant_L, 
+            err_arbiter_out_IDLE_req_X_N, 
+            err_arbiter_out_North_req_X_N, 
+            err_arbiter_out_North_credit_not_zero_req_X_N_grant_N, 
+            err_arbiter_out_North_credit_zero_or_not_req_X_N_not_grant_N, 
+            err_arbiter_out_East_req_X_E, 
+            err_arbiter_out_East_credit_not_zero_req_X_E_grant_E, 
+            err_arbiter_out_East_credit_zero_or_not_req_X_E_not_grant_E, 
+            err_arbiter_out_West_req_X_W, 
+            err_arbiter_out_West_credit_not_zero_req_X_E_grant_E, 
+            err_arbiter_out_West_credit_zero_or_not_req_X_W_not_grant_W, 
+            err_arbiter_out_South_req_X_S, 
+            err_arbiter_out_South_credit_not_zero_req_X_S_grant_S, 
+            err_arbiter_out_South_credit_zero_or_not_req_X_S_not_grant_S, 
+            err_arbiter_out_Local_req_X_L, 
+            err_arbiter_out_Local_credit_not_zero_req_X_L_grant_L, 
+            err_arbiter_out_Local_credit_zero_or_not_req_X_L_not_grant_L, 
 
-            err_IDLE_req_X_E, 
-            err_North_req_X_E, 
-            err_East_req_X_W, 
-            err_West_req_X_S, 
-            err_South_req_X_L, 
-            err_Local_req_X_N, 
+            err_arbiter_out_IDLE_req_X_E, 
+            err_arbiter_out_North_req_X_E, 
+            err_arbiter_out_East_req_X_W, 
+            err_arbiter_out_West_req_X_S, 
+            err_arbiter_out_South_req_X_L, 
+            err_arbiter_out_Local_req_X_N, 
        
-            err_IDLE_req_X_W, 
-            err_North_req_X_W, 
-            err_East_req_X_S, 
-            err_West_req_X_L, 
-            err_South_req_X_N, 
-            err_Local_req_X_E, 
+            err_arbiter_out_IDLE_req_X_W, 
+            err_arbiter_out_North_req_X_W, 
+            err_arbiter_out_East_req_X_S, 
+            err_arbiter_out_West_req_X_L, 
+            err_arbiter_out_South_req_X_N, 
+            err_arbiter_out_Local_req_X_E, 
        
-            err_IDLE_req_X_S, 
-            err_North_req_X_S, 
-            err_East_req_X_L, 
-            err_West_req_X_N, 
-            err_South_req_X_E, 
-            err_Local_req_X_W, 
+            err_arbiter_out_IDLE_req_X_S, 
+            err_arbiter_out_North_req_X_S, 
+            err_arbiter_out_East_req_X_L, 
+            err_arbiter_out_West_req_X_N, 
+            err_arbiter_out_South_req_X_E, 
+            err_arbiter_out_Local_req_X_W, 
        
-            err_IDLE_req_X_L, 
-            err_North_req_X_L, 
-            err_East_req_X_N, 
-            err_West_req_X_E, 
-            err_South_req_X_W, 
-            err_Local_req_X_S, 
+            err_arbiter_out_IDLE_req_X_L, 
+            err_arbiter_out_North_req_X_L, 
+            err_arbiter_out_East_req_X_N, 
+            err_arbiter_out_West_req_X_E, 
+            err_arbiter_out_South_req_X_W, 
+            err_arbiter_out_Local_req_X_S, 
        
             err_arbiter_out_state_in_onehot, 
             err_arbiter_out_no_request_grants, 
             err_arbiter_out_request_IDLE_state, 
 
-            err_request_IDLE_not_Grants, 
-            err_state_North_Invalid_Grant, 
-            err_state_East_Invalid_Grant, 
-            err_state_West_Invalid_Grant, 
-            err_state_South_Invalid_Grant, 
-            err_state_Local_Invalid_Grant, 
-            err_Grants_onehot_or_all_zero : out std_logic             
+            err_arbiter_out_request_IDLE_not_Grants, 
+            err_arbiter_out_state_North_Invalid_Grant, 
+            err_arbiter_out_state_East_Invalid_Grant, 
+            err_arbiter_out_state_West_Invalid_Grant, 
+            err_arbiter_out_state_South_Invalid_Grant, 
+            err_arbiter_out_state_Local_Invalid_Grant, 
+            err_arbiter_out_Grants_onehot_or_all_zero : out std_logic             
             );
 end Arbiter_out_one_hot_checkers;
 
@@ -118,9 +118,9 @@ end process;
 process (state, req_X_N, state_in)
 begin 
 	if ( state = IDLE and req_X_N = '1' and state_in /= North ) then
-		err_IDLE_req_X_N <= '1';
+		err_arbiter_out_IDLE_req_X_N <= '1';
 	else 
-		err_IDLE_req_X_N <= '0';	
+		err_arbiter_out_IDLE_req_X_N <= '0';	
 	end if;
 end process;
 
@@ -129,9 +129,9 @@ end process;
 process (state, req_X_N, state_in)
 begin 
 	if (state = North and req_X_N = '1' and state_in /= North) then
-		err_North_req_X_N <= '1';
+		err_arbiter_out_North_req_X_N <= '1';
 	else 
-		err_North_req_X_N <= '0';	
+		err_arbiter_out_North_req_X_N <= '0';	
 	end if;
 end process;
 
@@ -140,9 +140,9 @@ end process;
 process (state, credit, req_X_N, grant_Y_N)
 begin 
 	if ( state = North and credit /= "00" and req_X_N = '1' and grant_Y_N /= '1' ) then
-		err_North_credit_not_zero_req_X_N_grant_N <= '1';
+		err_arbiter_out_North_credit_not_zero_req_X_N_grant_N <= '1';
 	else 
-		err_North_credit_not_zero_req_X_N_grant_N <= '0';	
+		err_arbiter_out_North_credit_not_zero_req_X_N_grant_N <= '0';	
 	end if;
 end process;
 
@@ -151,9 +151,9 @@ end process;
 process (state, credit, req_X_N, grant_Y_N)
 begin 
 	if ( state = North and (credit = "00" or req_X_N = '0') and grant_Y_N /= '0' ) then
-		err_North_credit_zero_or_not_req_X_N_not_grant_N <= '1';
+		err_arbiter_out_North_credit_zero_or_not_req_X_N_not_grant_N <= '1';
 	else 
-		err_North_credit_zero_or_not_req_X_N_not_grant_N <= '0';	
+		err_arbiter_out_North_credit_zero_or_not_req_X_N_not_grant_N <= '0';	
 	end if;
 end process;
 
@@ -162,9 +162,9 @@ end process;
 process (state, req_X_E, state_in)
 begin 
 	if (state = East and req_X_E = '1' and state_in /= East) then
-		err_East_req_X_E <= '1';
+		err_arbiter_out_East_req_X_E <= '1';
 	else 
-		err_East_req_X_E <= '0';	
+		err_arbiter_out_East_req_X_E <= '0';	
 	end if;
 end process;
 
@@ -173,9 +173,9 @@ end process;
 process (state, credit, req_X_E, grant_Y_E)
 begin 
 	if ( state = East and credit /= "00" and req_X_E = '1' and grant_Y_E = '0' ) then
-		err_East_credit_not_zero_req_X_E_grant_E <= '1';
+		err_arbiter_out_East_credit_not_zero_req_X_E_grant_E <= '1';
 	else 
-		err_East_credit_not_zero_req_X_E_grant_E <= '0';	
+		err_arbiter_out_East_credit_not_zero_req_X_E_grant_E <= '0';	
 	end if;
 end process;
 
@@ -184,9 +184,9 @@ end process;
 process (state, credit, req_X_E, grant_Y_E)
 begin 
 	if ( state = East and (credit = "00" or req_X_E = '0') and grant_Y_E /= '0' ) then
-		err_East_credit_zero_or_not_req_X_E_not_grant_E <= '1';
+		err_arbiter_out_East_credit_zero_or_not_req_X_E_not_grant_E <= '1';
 	else 
-		err_East_credit_zero_or_not_req_X_E_not_grant_E <= '0';	
+		err_arbiter_out_East_credit_zero_or_not_req_X_E_not_grant_E <= '0';	
 	end if;
 end process;
 
@@ -195,9 +195,9 @@ end process;
 process (state, req_X_W, state_in)
 begin 
 	if (state = West and req_X_W = '1' and state_in /= West) then
-		err_West_req_X_W <= '1';
+		err_arbiter_out_West_req_X_W <= '1';
 	else 
-		err_West_req_X_W <= '0';	
+		err_arbiter_out_West_req_X_W <= '0';	
 	end if;
 end process;
 
@@ -206,9 +206,9 @@ end process;
 process (state, credit, req_X_W, grant_Y_W)
 begin 
 	if ( state = West and credit /= "00" and req_X_W = '1' and grant_Y_W = '0') then
-		err_West_credit_not_zero_req_X_E_grant_E <= '1';
+		err_arbiter_out_West_credit_not_zero_req_X_E_grant_E <= '1';
 	else 
-		err_West_credit_not_zero_req_X_E_grant_E <= '0';	
+		err_arbiter_out_West_credit_not_zero_req_X_E_grant_E <= '0';	
 	end if;
 end process;
 
@@ -217,9 +217,9 @@ end process;
 process (state, credit, req_X_W, grant_Y_W)
 begin 
 	if ( state = West and (credit = "00" or req_X_W = '0') and grant_Y_W /= '0' ) then
-		err_West_credit_zero_or_not_req_X_W_not_grant_W <= '1';
+		err_arbiter_out_West_credit_zero_or_not_req_X_W_not_grant_W <= '1';
 	else 
-		err_West_credit_zero_or_not_req_X_W_not_grant_W <= '0';	
+		err_arbiter_out_West_credit_zero_or_not_req_X_W_not_grant_W <= '0';	
 	end if;
 end process;
 
@@ -228,9 +228,9 @@ end process;
 process (state, req_X_S, state_in)
 begin 
 	if (state = South and req_X_S = '1' and state_in /= South) then
-		err_South_req_X_S <= '1';
+		err_arbiter_out_South_req_X_S <= '1';
 	else 
-		err_South_req_X_S <= '0';	
+		err_arbiter_out_South_req_X_S <= '0';	
 	end if;
 end process;
 
@@ -239,9 +239,9 @@ end process;
 process (state, credit, req_X_S, grant_Y_S)
 begin 
 	if ( state = South and credit /= "00" and req_X_S = '1' and grant_Y_S = '0' ) then
-		err_South_credit_not_zero_req_X_S_grant_S <= '1';
+		err_arbiter_out_South_credit_not_zero_req_X_S_grant_S <= '1';
 	else 
-		err_South_credit_not_zero_req_X_S_grant_S <= '0';	
+		err_arbiter_out_South_credit_not_zero_req_X_S_grant_S <= '0';	
 	end if;
 end process;
 
@@ -250,9 +250,9 @@ end process;
 process (state, credit, req_X_S, grant_Y_S)
 begin 
 	if ( state = South and (credit = "00" or req_X_S = '0') and grant_Y_S /= '0' ) then
-		err_South_credit_zero_or_not_req_X_S_not_grant_S <= '1';
+		err_arbiter_out_South_credit_zero_or_not_req_X_S_not_grant_S <= '1';
 	else 
-		err_South_credit_zero_or_not_req_X_S_not_grant_S <= '0';	
+		err_arbiter_out_South_credit_zero_or_not_req_X_S_not_grant_S <= '0';	
 	end if;
 end process;
 
@@ -263,9 +263,9 @@ process (state, req_X_L, state_in)
 begin 
 	if ( state /= IDLE and state /= North and state /=East and state /= West and state /= South and 
 		 req_X_L = '1' and state_in /= Local) then
-		err_Local_req_X_L <= '1';
+		err_arbiter_out_Local_req_X_L <= '1';
 	else 
-		err_Local_req_X_L <= '0';	
+		err_arbiter_out_Local_req_X_L <= '0';	
 	end if;
 end process;
 
@@ -275,9 +275,9 @@ process (state, credit, req_X_L, grant_Y_L)
 begin 
 	if ( state /= IDLE and state /= North and state /=East and state /= West and state /= South and 
 		 credit /= "00" and req_X_L = '1' and grant_Y_L = '0' ) then
-		err_Local_credit_not_zero_req_X_L_grant_L <= '1';
+		err_arbiter_out_Local_credit_not_zero_req_X_L_grant_L <= '1';
 	else 
-		err_Local_credit_not_zero_req_X_L_grant_L <= '0';	
+		err_arbiter_out_Local_credit_not_zero_req_X_L_grant_L <= '0';	
 	end if;
 end process;
 
@@ -287,9 +287,9 @@ process (state, credit, req_X_L, grant_Y_L)
 begin 
 	if ( state /= IDLE and state /= North and state /=East and state /= West and state /= South and 
 	   ( credit = "00" or req_X_L = '0') and grant_Y_L /= '0' ) then
-		err_Local_credit_zero_or_not_req_X_L_not_grant_L <= '1';
+		err_arbiter_out_Local_credit_zero_or_not_req_X_L_not_grant_L <= '1';
 	else 
-		err_Local_credit_zero_or_not_req_X_L_not_grant_L <= '0';	
+		err_arbiter_out_Local_credit_zero_or_not_req_X_L_not_grant_L <= '0';	
 	end if;
 end process;
 
@@ -309,9 +309,9 @@ end process;
 process (state, req_X_N, req_X_E, state_in)
 begin 
 	if ( state = IDLE and req_X_N = '0' and req_X_E = '1' and state_in /= East) then
-		err_IDLE_req_X_E <= '1';
+		err_arbiter_out_IDLE_req_X_E <= '1';
 	else 
-		err_IDLE_req_X_E <= '0';	
+		err_arbiter_out_IDLE_req_X_E <= '0';	
 	end if;
 end process;
 
@@ -320,9 +320,9 @@ end process;
 process (state, req_X_N, req_X_E, state_in)
 begin 
 	if ( state = North and req_X_N = '0' and req_X_E = '1' and state_in /= East) then
-		err_North_req_X_E <= '1';
+		err_arbiter_out_North_req_X_E <= '1';
 	else 
-		err_North_req_X_E <= '0';	
+		err_arbiter_out_North_req_X_E <= '0';	
 	end if;
 end process;
 
@@ -331,9 +331,9 @@ end process;
 process (state, req_X_E, req_X_W, state_in)
 begin 
 	if ( state = East and req_X_E = '0' and req_X_W = '1' and state_in /= West) then
-		err_East_req_X_W <= '1';
+		err_arbiter_out_East_req_X_W <= '1';
 	else 
-		err_East_req_X_W <= '0';	
+		err_arbiter_out_East_req_X_W <= '0';	
 	end if;
 end process;
 
@@ -342,9 +342,9 @@ end process;
 process (state, req_X_W, req_X_S, state_in)
 begin 
 	if ( state = West and req_X_W = '0' and req_X_S = '1' and state_in /= South) then
-		err_West_req_X_S <= '1';
+		err_arbiter_out_West_req_X_S <= '1';
 	else 
-		err_West_req_X_S <= '0';	
+		err_arbiter_out_West_req_X_S <= '0';	
 	end if;
 end process;
 
@@ -355,9 +355,9 @@ end process;
 process (state, req_X_S, req_X_L, state_in)
 begin 
 	if ( state = South and req_X_S = '0' and req_X_L = '1' and state_in /= Local) then
-		err_South_req_X_L <= '1';
+		err_arbiter_out_South_req_X_L <= '1';
 	else 
-		err_South_req_X_L <= '0';	
+		err_arbiter_out_South_req_X_L <= '0';	
 	end if;
 end process;
 
@@ -367,9 +367,9 @@ process (state, req_X_L, req_X_N, state_in)
 begin 
 	if ( state /= IDLE and state /= North and state /=East and state /=West and state /= South and 
 		 req_X_L = '0' and req_X_N = '1' and state_in /= North) then
-		err_Local_req_X_N <= '1';
+		err_arbiter_out_Local_req_X_N <= '1';
 	else 
-		err_Local_req_X_N <= '0';	
+		err_arbiter_out_Local_req_X_N <= '0';	
 	end if;
 end process;
 
@@ -383,45 +383,45 @@ end process;
 process (state, req_X_N, req_X_E, req_X_W, state_in)
 begin 
 	if (state = IDLE and req_X_N = '0' and req_X_E = '0' and req_X_W = '1' and state_in /= West) then
-		err_IDLE_req_X_W <= '1';
+		err_arbiter_out_IDLE_req_X_W <= '1';
 	else 
-		err_IDLE_req_X_W <= '0';	
+		err_arbiter_out_IDLE_req_X_W <= '0';	
 	end if;
 end process;
 
 process (state, req_X_N, req_X_E, req_X_W, state_in)
 begin 
 	if (state = North and req_X_N = '0' and req_X_E = '0' and req_X_W = '1' and state_in /= West) then
-		err_North_req_X_W <= '1';
+		err_arbiter_out_North_req_X_W <= '1';
 	else 
-		err_North_req_X_W <= '0';	
+		err_arbiter_out_North_req_X_W <= '0';	
 	end if;
 end process;
 
 process (state, req_X_E, req_X_W, req_X_S, state_in)
 begin 
 	if (state = East and req_X_E = '0' and req_X_W = '0' and req_X_S = '1' and state_in /= South) then
-		err_East_req_X_S <= '1';
+		err_arbiter_out_East_req_X_S <= '1';
 	else 
-		err_East_req_X_S <= '0';	
+		err_arbiter_out_East_req_X_S <= '0';	
 	end if;
 end process;
 
 process (state, req_X_W, req_X_S, req_X_L, state_in)
 begin 
 	if (state = West and req_X_W = '0' and req_X_S = '0' and req_X_L = '1' and state_in /= Local) then
-		err_West_req_X_L <= '1';
+		err_arbiter_out_West_req_X_L <= '1';
 	else 
-		err_West_req_X_L <= '0';	
+		err_arbiter_out_West_req_X_L <= '0';	
 	end if;
 end process;
 
 process (state, req_X_S, req_X_L, req_X_N, state_in)
 begin 
 	if (state = South and req_X_S = '0' and req_X_L = '0' and req_X_N = '1' and state_in /= North) then
-		err_South_req_X_N <= '1';
+		err_arbiter_out_South_req_X_N <= '1';
 	else 
-		err_South_req_X_N <= '0';	
+		err_arbiter_out_South_req_X_N <= '0';	
 	end if;
 end process;
 
@@ -430,9 +430,9 @@ process (state, req_X_L, req_X_N, req_X_E, state_in)
 begin 
 	if (state /= IDLE and state /= North and state /=East and state /=West and state /= South and 
 		req_X_L = '0' and req_X_N = '0' and req_X_E = '1' and state_in /= East) then
-		err_Local_req_X_E <= '1';
+		err_arbiter_out_Local_req_X_E <= '1';
 	else 
-		err_Local_req_X_E <= '0';	
+		err_arbiter_out_Local_req_X_E <= '0';	
 	end if;
 end process;
 
@@ -447,9 +447,9 @@ process (state, req_X_N, req_X_E, req_X_W, req_X_S, state_in)
 begin 
 	if ( state = IDLE and req_X_N = '0' and req_X_E = '0' and req_X_W = '0' and req_X_S = '1' and 
 		 state_in /= South) then
-		err_IDLE_req_X_S <= '1';
+		err_arbiter_out_IDLE_req_X_S <= '1';
 	else 
-		err_IDLE_req_X_S <= '0';	
+		err_arbiter_out_IDLE_req_X_S <= '0';	
 	end if;
 end process;
 
@@ -457,9 +457,9 @@ process (state, req_X_N, req_X_E, req_X_W, req_X_S, state_in)
 begin 
 	if ( state = North and req_X_N = '0' and req_X_E = '0' and req_X_W = '0' and req_X_S = '1' and 
 		 state_in /= South) then
-		err_North_req_X_S <= '1';
+		err_arbiter_out_North_req_X_S <= '1';
 	else 
-		err_North_req_X_S <= '0';	
+		err_arbiter_out_North_req_X_S <= '0';	
 	end if;
 end process;
 
@@ -467,9 +467,9 @@ process (state, req_X_E, req_X_W, req_X_S, req_X_L, state_in)
 begin 
 	if ( state = East and req_X_E = '0' and req_X_W = '0' and req_X_S = '0' and req_X_L = '1' and 
 		 state_in /= Local) then
-		err_East_req_X_L <= '1';
+		err_arbiter_out_East_req_X_L <= '1';
 	else 
-		err_East_req_X_L <= '0';	
+		err_arbiter_out_East_req_X_L <= '0';	
 	end if;
 end process;
 
@@ -477,9 +477,9 @@ process (state, req_X_W, req_X_S, req_X_L, req_X_N, state_in)
 begin 
 	if ( state = West and req_X_W = '0' and req_X_S = '0' and req_X_L = '0' and req_X_N = '1' and 
 		 state_in /= North) then
-		err_West_req_X_N <= '1';
+		err_arbiter_out_West_req_X_N <= '1';
 	else 
-		err_West_req_X_N <= '0';	
+		err_arbiter_out_West_req_X_N <= '0';	
 	end if;
 end process;
 
@@ -487,9 +487,9 @@ process (state, req_X_S, req_X_L, req_X_N, req_X_E, state_in)
 begin 
 	if ( state = South and req_X_S = '0' and req_X_L = '0' and req_X_N = '0' and req_X_E = '1' and 
 		 state_in /= East) then
-		err_South_req_X_E <= '1';
+		err_arbiter_out_South_req_X_E <= '1';
 	else 
-		err_South_req_X_E <= '0';	
+		err_arbiter_out_South_req_X_E <= '0';	
 	end if;
 end process;
 
@@ -499,9 +499,9 @@ begin
 	if ( state /= IDLE and state /= North and state /=East and state /=West and state /= South and 
 		 req_X_L = '0' and req_X_N = '0' and req_X_E = '0' and req_X_W = '1' and 
 		 state_in /= West) then
-		err_Local_req_X_W <= '1';
+		err_arbiter_out_Local_req_X_W <= '1';
 	else 
-		err_Local_req_X_W <= '0';	
+		err_arbiter_out_Local_req_X_W <= '0';	
 	end if;
 end process;
 
@@ -518,9 +518,9 @@ process (state, req_X_N, req_X_E, req_X_W, req_X_S, req_X_L, state_in)
 begin 
 	if ( state = IDLE and req_X_N = '0' and req_X_E = '0' and req_X_W = '0' and req_X_S = '0' and req_X_L = '1' 
 		and state_in /= Local) then
-		err_IDLE_req_X_L <= '1';
+		err_arbiter_out_IDLE_req_X_L <= '1';
 	else 
-		err_IDLE_req_X_L <= '0';	
+		err_arbiter_out_IDLE_req_X_L <= '0';	
 	end if;
 end process;
 
@@ -528,9 +528,9 @@ process (state, req_X_N, req_X_E, req_X_W, req_X_S, req_X_L, state_in)
 begin 
 	if ( state = North and req_X_N = '0' and req_X_E = '0' and req_X_W = '0' and req_X_S = '0' and req_X_L = '1' 
 		and state_in /= Local) then
-		err_North_req_X_L <= '1';
+		err_arbiter_out_North_req_X_L <= '1';
 	else 
-		err_North_req_X_L <= '0';	
+		err_arbiter_out_North_req_X_L <= '0';	
 	end if;
 end process;
 
@@ -538,9 +538,9 @@ process (state, req_X_E, req_X_W, req_X_S, req_X_L, req_X_N, state_in)
 begin 
 	if ( state = East and req_X_E = '0' and req_X_W = '0' and req_X_S = '0' and req_X_L = '0' and req_X_N = '1' and 
 		 state_in /= North) then
-		err_East_req_X_N <= '1';
+		err_arbiter_out_East_req_X_N <= '1';
 	else 
-		err_East_req_X_N <= '0';	
+		err_arbiter_out_East_req_X_N <= '0';	
 	end if;
 end process;
 
@@ -548,9 +548,9 @@ process (state, req_X_W, req_X_S, req_X_L, req_X_N, req_X_E, state_in)
 begin 
 	if ( state = West and req_X_W = '0' and req_X_S = '0' and req_X_L = '0' and req_X_N = '0' and req_X_E = '1' and 
 		 state_in /= East) then
-		err_West_req_X_E <= '1';
+		err_arbiter_out_West_req_X_E <= '1';
 	else 
-		err_West_req_X_E <= '0';	
+		err_arbiter_out_West_req_X_E <= '0';	
 	end if;
 end process;
 
@@ -558,9 +558,9 @@ process (state, req_X_S, req_X_L, req_X_N, req_X_E, req_X_W, state_in)
 begin 
 	if ( state = South and req_X_S = '0' and req_X_L = '0' and req_X_N = '0' and req_X_E = '0' and req_X_W = '1' and 
 		 state_in /= West) then
-		err_South_req_X_W <= '1';
+		err_arbiter_out_South_req_X_W <= '1';
 	else 
-		err_South_req_X_W <= '0';	
+		err_arbiter_out_South_req_X_W <= '0';	
 	end if;
 end process;
 
@@ -571,9 +571,9 @@ begin
 	if ( state /= IDLE and state /= North and state /=East and state /=West and state /= South and 
 		 req_X_L = '0' and req_X_N = '0' and req_X_E = '0' and req_X_W = '0' and req_X_S = '1' and 
 		 state_in /= South) then
-		err_Local_req_X_S <= '1';
+		err_arbiter_out_Local_req_X_S <= '1';
 	else 
-		err_Local_req_X_S <= '0';	
+		err_arbiter_out_Local_req_X_S <= '0';	
 	end if;
 end process;
 
@@ -622,45 +622,45 @@ end process;
 process (state, Grants)
 begin
 	if (state = IDLE and Grants /= "00000") then
-		err_request_IDLE_not_Grants <= '1';
+		err_arbiter_out_request_IDLE_not_Grants <= '1';
 	else 
-		err_request_IDLE_not_Grants <= '0';
+		err_arbiter_out_request_IDLE_not_Grants <= '0';
 	end if;
 end process;
 
 process (state, grant_Y_E, grant_Y_W, grant_Y_S, grant_Y_L)
 begin
 	if (state = North and (grant_Y_E = '1' or grant_Y_W = '1' or grant_Y_S = '1' or grant_Y_L = '1') ) then
-		err_state_North_Invalid_Grant <= '1';
+		err_arbiter_out_state_North_Invalid_Grant <= '1';
 	else 
-		err_state_North_Invalid_Grant <= '0';
+		err_arbiter_out_state_North_Invalid_Grant <= '0';
 	end if;
 end process;
 
 process (state, grant_Y_N, grant_Y_W, grant_Y_S, grant_Y_L)
 begin
 	if (state = East and (grant_Y_N = '1' or grant_Y_W = '1' or grant_Y_S = '1' or grant_Y_L = '1') ) then
-		err_state_East_Invalid_Grant <= '1';
+		err_arbiter_out_state_East_Invalid_Grant <= '1';
 	else 
-		err_state_East_Invalid_Grant <= '0';
+		err_arbiter_out_state_East_Invalid_Grant <= '0';
 	end if;
 end process;
 
 process (state, grant_Y_N, grant_Y_E, grant_Y_S, grant_Y_L)
 begin
 	if (state = West and (grant_Y_N = '1' or grant_Y_E = '1' or grant_Y_S = '1' or grant_Y_L = '1') ) then
-		err_state_West_Invalid_Grant <= '1';
+		err_arbiter_out_state_West_Invalid_Grant <= '1';
 	else 
-		err_state_West_Invalid_Grant <= '0';
+		err_arbiter_out_state_West_Invalid_Grant <= '0';
 	end if;
 end process;
 
 process (state, grant_Y_N, grant_Y_E, grant_Y_W, grant_Y_L)
 begin
 	if (state = South and (grant_Y_N = '1' or grant_Y_E = '1' or grant_Y_W = '1' or grant_Y_L = '1') ) then
-		err_state_South_Invalid_Grant <= '1';
+		err_arbiter_out_state_South_Invalid_Grant <= '1';
 	else 
-		err_state_South_Invalid_Grant <= '0';
+		err_arbiter_out_state_South_Invalid_Grant <= '0';
 	end if;
 end process;
 
@@ -669,9 +669,9 @@ process (state, grant_Y_N, grant_Y_E, grant_Y_W, grant_Y_S)
 begin
 	if (state /= IDLE and state /= North and state /= East and state /= West and state /= South and 
 	   (grant_Y_N = '1' or grant_Y_E = '1' or grant_Y_W = '1' or grant_Y_S = '1') ) then
-		err_state_Local_Invalid_Grant <= '1';
+		err_arbiter_out_state_Local_Invalid_Grant <= '1';
 	else 
-		err_state_Local_Invalid_Grant <= '0';
+		err_arbiter_out_state_Local_Invalid_Grant <= '0';
 	end if;
 end process;
 
@@ -680,9 +680,9 @@ end process;
 process (Grants)
 begin
 	if (Grants /= "00000" and Grants /= "00001" and Grants /= "00010" and Grants /= "00100" and Grants /= "01000" and Grants /= "10000") then
-		err_Grants_onehot_or_all_zero <= '1';
+		err_arbiter_out_Grants_onehot_or_all_zero <= '1';
 	else 
-		err_Grants_onehot_or_all_zero <= '0';
+		err_arbiter_out_Grants_onehot_or_all_zero <= '0';
 	end if;
 end process;
 

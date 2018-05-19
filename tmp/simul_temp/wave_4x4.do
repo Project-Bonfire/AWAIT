@@ -454,6 +454,46 @@ for {set i 0} {$i < 16} {incr i} {
 add wave -noupdate :tb_network_4x4:clk
 
 for {set i 0} {$i < 16} {incr i} { 
+	add wave -noupdate -group {R_$i_FIFO_N_checkers_ORed_sync} :tb_network_4x4:NoC:R_$i:FIFO_N:FIFO_checkers_ORed_sync
+	add wave -noupdate -group {R_$i_FIFO_E_checkers_ORed_sync} :tb_network_4x4:NoC:R_$i:FIFO_E:FIFO_checkers_ORed_sync
+	add wave -noupdate -group {R_$i_FIFO_W_checkers_ORed_sync} :tb_network_4x4:NoC:R_$i:FIFO_W:FIFO_checkers_ORed_sync
+	add wave -noupdate -group {R_$i_FIFO_S_checkers_ORed_sync} :tb_network_4x4:NoC:R_$i:FIFO_S:FIFO_checkers_ORed_sync
+	add wave -noupdate -group {R_$i_FIFO_L_checkers_ORed_sync} :tb_network_4x4:NoC:R_$i:FIFO_L:FIFO_checkers_ORed_sync
+}
+
+add wave -noupdate :tb_network_4x4:clk
+
+for {set i 0} {$i < 16} {incr i} { 
+	add wave -noupdate -group {R_$i_Arbiter_in_checkers_ORed_sync} :tb_network_4x4:NoC:R_$i:allocator_unit:N_Arbiter_in_checkers_ORed_sync
+	add wave -noupdate -group {R_$i_Arbiter_in_checkers_ORed_sync} :tb_network_4x4:NoC:R_$i:allocator_unit:E_Arbiter_in_checkers_ORed_sync
+	add wave -noupdate -group {R_$i_Arbiter_in_checkers_ORed_sync} :tb_network_4x4:NoC:R_$i:allocator_unit:W_Arbiter_in_checkers_ORed_sync
+	add wave -noupdate -group {R_$i_Arbiter_in_checkers_ORed_sync} :tb_network_4x4:NoC:R_$i:allocator_unit:S_Arbiter_in_checkers_ORed_sync
+	add wave -noupdate -group {R_$i_Arbiter_in_checkers_ORed_sync} :tb_network_4x4:NoC:R_$i:allocator_unit:L_Arbiter_in_checkers_ORed_sync
+}
+
+add wave -noupdate :tb_network_4x4:clk
+
+for {set i 0} {$i < 16} {incr i} { 
+	add wave -noupdate -group {R_$i_Arbiter_out_checkers_ORed_sync} :tb_network_4x4:NoC:R_$i:allocator_unit:N_Arbiter_out_checkers_ORed_sync
+	add wave -noupdate -group {R_$i_Arbiter_out_checkers_ORed_sync} :tb_network_4x4:NoC:R_$i:allocator_unit:E_Arbiter_out_checkers_ORed_sync
+	add wave -noupdate -group {R_$i_Arbiter_out_checkers_ORed_sync} :tb_network_4x4:NoC:R_$i:allocator_unit:W_Arbiter_out_checkers_ORed_sync
+	add wave -noupdate -group {R_$i_Arbiter_out_checkers_ORed_sync} :tb_network_4x4:NoC:R_$i:allocator_unit:S_Arbiter_out_checkers_ORed_sync
+	add wave -noupdate -group {R_$i_Arbiter_out_checkers_ORed_sync} :tb_network_4x4:NoC:R_$i:allocator_unit:L_Arbiter_out_checkers_ORed_sync
+}
+
+add wave -noupdate :tb_network_4x4:clk
+
+for {set i 0} {$i < 16} {incr i} { 
+	add wave -noupdate -group {R_$i_N_Arbiter_in_checkers_ORed} :tb_network_4x4:NoC:R_$i:allocator_unit:arb_N_X:Arbiter_in_checkers_ORed
+	add wave -noupdate -group {R_$i_E_Arbiter_in_checkers_ORed} :tb_network_4x4:NoC:R_$i:allocator_unit:arb_E_X:Arbiter_in_checkers_ORed
+	add wave -noupdate -group {R_$i_W_Arbiter_in_checkers_ORed} :tb_network_4x4:NoC:R_$i:allocator_unit:arb_W_X:Arbiter_in_checkers_ORed
+	add wave -noupdate -group {R_$i_S_Arbiter_in_checkers_ORed} :tb_network_4x4:NoC:R_$i:allocator_unit:arb_S_X:Arbiter_in_checkers_ORed
+	add wave -noupdate -group {R_$i_L_Arbiter_in_checkers_ORed} :tb_network_4x4:NoC:R_$i:allocator_unit:arb_L_X:Arbiter_in_checkers_ORed
+}
+
+add wave -noupdate :tb_network_4x4:clk
+
+for {set i 0} {$i < 16} {incr i} { 
 	add wave -noupdate -group {R_$i_LBDR_L_Signals} :tb_network_4x4:NoC:R_$i:LBDR_L:*
 	add wave -noupdate -group {R_$i_LBDR_L_Signals} :tb_network_4x4:NoC:R_$i:LBDR_L:*
 	add wave -noupdate -group {R_$i_LBDR_L_Signals} :tb_network_4x4:NoC:R_$i:LBDR_L:*
