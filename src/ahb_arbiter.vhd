@@ -30,6 +30,12 @@
 --** OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE         ****
 --** POSSIBILITY OF SUCH DAMAGE.                                 ****
 --**                                                             ****
+--** Modified in 2018 Karl Janson and Siavoosh Payandeh Azad     ****
+--** Modifications in this file:                                 ****
+--**   - combined all the sequential processes                   ****
+--**   - added valid and hold signals to the interface           ****
+--**                                                             ****
+--**                                                             ****
 --*******************************************************************
 library ieee;
 use ieee.std_logic_1164.all;
@@ -53,11 +59,17 @@ entity ahb_arbiter is
     hclk: in std_logic;
     remap: in std_logic;
     mst_in_v: in mst_out_v_t(num_arb_msts-1 downto 0);
-    mst_out_v: out mst_in_v_t(num_arb_msts-1 downto 0);   
+    mst_out_v: out mst_in_v_t(num_arb_msts-1 downto 0);
     slv_out_v: out slv_in_v_t(num_slvs-1 downto 0);
-    slv_in_v: in slv_out_v_t(num_slvs-1 downto 0));
+    slv_in_v: in slv_out_v_t(num_slvs-1 downto 0);
+    -- hold towards units
+    mst_hold_out: out std_logic_vector(num_arb_msts-1 downto 0);
+    slv_hold_out: out std_logic_vector(num_slvs-1 downto 0);
+    -- valid towards units
+    mst_valid_out: out std_logic_vector(num_arb_msts-1 downto 0);
+    slv_valid_out: out std_logic_vector(num_slvs-1 downto 0)
+    );
 end;
-
 
 architecture rtl of ahb_arbiter is
 
@@ -66,7 +78,7 @@ architecture rtl of ahb_arbiter is
 --*******************************************************************
 
 signal s_grant_master, grant_master: integer range 0 to 15;
-signal s_master_sel, master_sel: std_logic_vector(3 downto 0);	
+signal s_master_sel, master_sel: std_logic_vector(3 downto 0);
 signal s_r_master_sel, r_master_sel: std_logic_vector(3 downto 0);
 signal r_master_busy: std_logic_vector(1 downto 0);
 
@@ -94,18 +106,99 @@ signal r_slv_in_v: slv_in_v_t(num_slvs-1 downto 0);
 signal mst_in_sel: slv_in_t;
 signal slv_in_sel: mst_in_t;
 
---DEAFULT SLAVE BEHAVIOUR						  
 
 signal r_def_slave_hsel, def_slave_hsel: std_logic;
 signal def_slave_hready: std_logic;
-
 signal addr_arb_matrix: addr_matrix_t(0 downto 0);
 
 --*******************************************************************
 --***************** END OF SIGNAL DECLARATION ************************
 --*******************************************************************
 
-begin 
+begin
+
+
+--********************************************************
+-- synchronization processes (flip flops)
+--********************************************************
+master_pr:process(hresetn, hclk)
+variable v_split_reg: std_logic_vector(num_arb_msts-1 downto 0);
+variable v_random: integer range 0 to 2**(nb_bits(num_arb_msts));
+begin
+  if hresetn='0' then
+    grant_master <= def_arb_mst;
+    master_sel <= conv_std_logic_vector(def_arb_mst, 4);
+    r_master_sel <= conv_std_logic_vector(def_arb_mst, 4);
+    turn <= 0;
+    htrans_reg <= idle;
+    -----------------------------------------------------
+    seed <= (others => '0');--"1101010001";
+    random <= 0;
+    --synopsys translate_off
+    for i in 0 to 2**(nb_bits(num_arb_msts)) loop
+      vect_ran(i) <= 0;
+      vect_ran_round(i) <= 0;
+    end loop;
+    --synopsys translate_on
+    -----------------------------------------------------
+    -- SPLIT handling
+      split_reg <= (others => '0');
+    -----------------------------------------------------
+    --DEFAULT SLAVE BEHAVIOUR
+    def_slave_hready <= '1';
+    -----------------------------------------------------
+  elsif hclk'event and hclk='1' then
+    grant_master <= s_grant_master after 1 ns;
+    master_sel <= s_master_sel after 1 ns;
+    r_master_sel <= s_r_master_sel after 1 ns;
+    turn <= s_turn after 1 ns;
+    if conv_integer(master_sel) /= num_arb_msts then
+      htrans_reg <= mst_in_sel.htrans after 1 ns;
+    else
+      htrans_reg <= idle;
+    end if;
+    -----------------------------------------------------
+    seed <= s_seed after 1 ns;
+    v_random := conv_integer(seed(nb_bits(num_arb_msts)+3 downto 4));
+    if v_random < num_arb_msts then
+      random <= v_random after 1 ns;
+    else
+      random <= turn after 1 ns;--(v_random - num_arb_msts);
+    end if;
+    --synopsys translate_off
+    vect_ran(v_random) <= vect_ran(v_random) + 1;
+    vect_ran_round(random) <= vect_ran_round(random) + 1;
+    --synopsys translate_on
+    -----------------------------------------------------
+    -- SPLIT handling
+    v_split_reg := split_reg;
+    for j in num_slvs-1 downto 0 loop
+      for i in num_arb_msts-1 downto 0 loop
+        v_split_reg(i) := v_split_reg(i) and not slv_in_v(j).hsplit(i);
+      end loop;
+      if (r_slv_in_v(j).hsel='1') then
+        if (slv_in_v(j).hready='1' and slv_in_v(j).hresp=split_resp and master_sel/=num_arb_msts) then
+          v_split_reg(conv_integer(master_sel)) := '1';
+        end if;
+      end if;
+    end loop;
+    split_reg <= v_split_reg after 1 ns;
+    -----------------------------------------------------
+    --DEFAULT SLAVE BEHAVIOUR
+    if (def_slave_hsel='1' and s_dec_hready='1' and mst_in_sel.htrans/=idle) then
+      def_slave_hready <= '0' after 1 ns;
+    else
+      def_slave_hready <= '1' after 1 ns;
+    end if;
+    -----------------------------------------------------
+  end if;
+end process;
+
+--********************************************************
+-- Combinatorial processes (logic gates!)
+--********************************************************
+s_master_sel <= conv_std_logic_vector(s_grant_master, 4) when (s_dec_hready='1') else master_sel;
+s_r_master_sel <= master_sel when (s_dec_hready='1' and htrans_reg/=busy) else r_master_sel;
 
 addr_arb_matrix(0)(num_slvs-1 downto 0) <= arb_matrix(num_arb)(num_slvs-1 downto 0) when (remap='0') else rarb_matrix(num_arb)(num_slvs-1 downto 0);
 
@@ -121,46 +214,18 @@ end process;
 
 bus_req_mask_pr:process(split_reg, grant_master, mst_in_v)
 begin
-  for i in 0 to num_arb_msts-1 loop   		
-    if (mst_in_v(i).htrans=busy or split_reg(i)='1' or (grant_master/=num_arb_msts and grant_master/=i and mst_in_v(grant_master).hlock='1')) then  
+  for i in 0 to num_arb_msts-1 loop
+    if (mst_in_v(i).htrans=busy or split_reg(i)='1' or (grant_master/=num_arb_msts and grant_master/=i and mst_in_v(grant_master).hlock='1')) then
       hbusreq_msk(i) <= '0';
-    else 
+    else
       hbusreq_msk(i) <= mst_in_v(i).hbusreq;
     end if;
   end loop;
 end process;
 
-
---********************************************************
--- synchronization processes (flip flops)
---********************************************************
-s_master_sel <= conv_std_logic_vector(s_grant_master, 4) when (s_dec_hready='1') else master_sel;
-s_r_master_sel <= master_sel when (s_dec_hready='1' and htrans_reg/=busy) else r_master_sel;
-
-master_pr:process(hresetn, hclk)
-begin
-  if hresetn='0' then
-    grant_master <= def_arb_mst; 
-    master_sel <= conv_std_logic_vector(def_arb_mst, 4);
-    r_master_sel <= conv_std_logic_vector(def_arb_mst, 4);
-    turn <= 0;
-    htrans_reg <= idle;
-  elsif hclk'event and hclk='1' then
-    grant_master <= s_grant_master after 1 ns;
-    master_sel <= s_master_sel after 1 ns;
-    r_master_sel <= s_r_master_sel after 1 ns;
-    turn <= s_turn after 1 ns;
-    if conv_integer(master_sel) /= num_arb_msts then
-      htrans_reg <= mst_in_sel.htrans after 1 ns;
-    else
-      htrans_reg <= idle;
-    end if;
-  end if;
-end process;
-
 update_pr:process(
 req_ored,
-hbusreq_msk, 
+hbusreq_msk,
 grant_master,
 mst_in_v,
 htrans_reg,
@@ -176,33 +241,40 @@ begin
   --nohready=> grant no change
   --hready&busy(real master)=> grant no change
   --hready&nobusy&req => arbitration
-  --hready&nobusy&noreq&default master not splitted => default master							 
+  --hready&nobusy&noreq&default master not splitted => default master
   --hready&nobusy&noreq&default master splitted => dummy master
   if (slv_in_sel.hready='1') then
-    if ((grant_master/=num_arb_msts and mst_in_v(grant_master).htrans/=busy and htrans_reg/=busy) or (grant_master=num_arb_msts)) then 
+    if ((grant_master/=num_arb_msts and mst_in_v(grant_master).htrans/=busy and htrans_reg/=busy) or (grant_master=num_arb_msts)) then
       if (req_ored='1') then
-        case alg_number is
-          when 0 => --fixed 
-            fixed_priority(t_turn, t_grant_master, hbusreq_msk, turn);
-          when 1 => --round robin
-            round_robin(def_arb_mst, t_turn, t_grant_master, hbusreq_msk, turn);
-          when 2 => --random
-            random_priority(def_arb_mst, t_turn, t_grant_master, random, hbusreq_msk, turn);
-          when 3 => --fair1
-            if (grant_master/=num_arb_msts and hbusreq_msk(grant_master)='0') or (grant_master=num_arb_msts) then
-              fixed_priority(t_turn, t_grant_master, hbusreq_msk, turn);
-            end if;  
-          when 4 => --fair2
-            if (grant_master/=num_arb_msts and hbusreq_msk(grant_master)='0') or (grant_master=num_arb_msts) then
-              round_robin(def_arb_mst, t_turn, t_grant_master, hbusreq_msk, turn);
-            end if;  
-          when 5 => --fair3
-            if (grant_master/=num_arb_msts and hbusreq_msk(grant_master)='0') or (grant_master=num_arb_msts) then
-              random_priority(def_arb_mst, t_turn, t_grant_master, random, hbusreq_msk, turn);
-            end if;  
-          when others => --NOT IMPLEMENTED
-            assert FALSE report "### NOT IMPLEMENTED!" severity FAILURE;
-		end case;
+        t_grant_master := 0;
+        t_turn := 0;
+        req_for:for i in hbusreq_msk'length-1 downto 0 loop
+          if hbusreq_msk(i) = '1' then
+            t_grant_master := i;
+          end if;
+        end loop;
+        -- case alg_number is
+        --   when 0 => --fixed
+        --     fixed_priority(t_turn, t_grant_master, hbusreq_msk, turn);
+        --   when 1 => --round robin
+        --     round_robin(def_arb_mst, t_turn, t_grant_master, hbusreq_msk, turn);
+        --   when 2 => --random
+        --     random_priority(def_arb_mst, t_turn, t_grant_master, random, hbusreq_msk, turn);
+        --   when 3 => --fair1
+        --     if (grant_master/=num_arb_msts and hbusreq_msk(grant_master)='0') or (grant_master=num_arb_msts) then
+        --       fixed_priority(t_turn, t_grant_master, hbusreq_msk, turn);
+        --     end if;
+        --   when 4 => --fair2
+        --     if (grant_master/=num_arb_msts and hbusreq_msk(grant_master)='0') or (grant_master=num_arb_msts) then
+        --       round_robin(def_arb_mst, t_turn, t_grant_master, hbusreq_msk, turn);
+        --     end if;
+        --   when 5 => --fair3
+        --     if (grant_master/=num_arb_msts and hbusreq_msk(grant_master)='0') or (grant_master=num_arb_msts) then
+        --       random_priority(def_arb_mst, t_turn, t_grant_master, random, hbusreq_msk, turn);
+        --     end if;
+        --   when others => --NOT IMPLEMENTED
+        --     assert FALSE report "### NOT IMPLEMENTED!" severity FAILURE;
+		-- end case;
       elsif (split_reg(def_arb_mst)='0') then--ready+no_busy+no_req=> default if not splitted!!
         t_grant_master := def_arb_mst;
 	    t_turn := def_arb_mst;
@@ -223,42 +295,7 @@ begin
     s_seed(i) <= seed(i-1);
   end loop;
   s_seed(0) <= not(seed(9) xor seed(6));
-end process;	   	  
-
-seed_pr:process(hresetn, hclk)
-variable v_random: integer range 0 to 2**(nb_bits(num_arb_msts));
-begin
-  if hresetn='0' then
-    seed <= (others => '0');--"1101010001";
-    random <= 0;
-    --synopsys translate_off
-    for i in 0 to 2**(nb_bits(num_arb_msts)) loop
-      vect_ran(i) <= 0;
-      vect_ran_round(i) <= 0;
-    end loop;
-    --synopsys translate_on
-  elsif hclk'event and hclk='1' then
-    seed <= s_seed after 1 ns;
-    v_random := conv_integer(seed(nb_bits(num_arb_msts)+3 downto 4));
-    if v_random < num_arb_msts then
-      random <= v_random after 1 ns; 
-    else
-      random <= turn after 1 ns;--(v_random - num_arb_msts);
-    end if;
-    --synopsys translate_off
-    vect_ran(v_random) <= vect_ran(v_random) + 1;
-    vect_ran_round(random) <= vect_ran_round(random) + 1;
-    --synopsys translate_on
-  end if;
 end process;
-
-
-
---synopsys translate_off
-  assert not (hclk'event and hclk='1' and master_sel=num_arb_msts) report "DUMMY MASTER selection!!!" severity WARNING;
-  assert not (hclk'event and hclk='1' and master_sel=def_arb_mst) report "DEFAULT MASTER selection!!!" severity WARNING;
-  assert not (hclk'event and hclk='1' and (master_sel>num_arb_msts or r_master_sel>num_arb_msts)) report "####ERROR in MASTER selection!!!" severity FAILURE;
---synopsys translate_on
 
 
 --*********************************************************
@@ -278,7 +315,7 @@ begin
   mst_in_sel.hburst <= mst_in_v(def_arb_mst).hburst;
   mst_in_sel.hprot <= mst_in_v(def_arb_mst).hprot;
   mst_in_sel.htrans <= mst_in_v(def_arb_mst).htrans;
-  for i in 0 to num_arb_msts-1 loop 
+  for i in 0 to num_arb_msts-1 loop
     if i=conv_integer(r_master_sel) then
       mst_in_sel.hwdata <= mst_in_v(i).hwdata;
     end if;
@@ -290,16 +327,16 @@ begin
       mst_in_sel.hburst <= mst_in_v(i).hburst;
       mst_in_sel.hprot <= mst_in_v(i).hprot;
       mst_in_sel.htrans <= mst_in_v(i).htrans;
-    end if;	
+    end if;
   end loop;
   if master_sel=num_arb_msts then
     mst_in_sel.htrans <= idle;
-  end if;	  
-end process;  
+  end if;
+end process;
 
 process(slv_in_sel, s_grant_master)--N.B.: Request=>Grant comb. path!
-begin										   
-  for i in 0 to num_arb_msts-1 loop 
+begin
+  for i in 0 to num_arb_msts-1 loop
     mst_out_v(i).hready <= slv_in_sel.hready;
     mst_out_v(i).hresp <= slv_in_sel.hresp;
     mst_out_v(i).hrdata <= slv_in_sel.hrdata;
@@ -317,11 +354,11 @@ end process;
 
 process(hresetn, hclk)
 variable v_hready: std_logic;
-begin				 
+begin
   if hresetn='0' then
     for i in num_slvs-1 downto 0 loop
       r_slv_in_v(i).hsel <= '0';
-    end loop;  
+    end loop;
   elsif hclk='1' and hclk'event then
     if s_dec_hready='1' then
 	  r_def_slave_hsel <= def_slave_hsel;
@@ -329,7 +366,7 @@ begin
         r_slv_in_v(i).hsel <= hsel(i) after 1 ns;
       end loop;
     end if;
-  end if;  
+  end if;
 end process;
 
 process(r_slv_in_v, slv_in_v, def_slave_hready)
@@ -338,46 +375,20 @@ begin
   for i in num_slvs-1 downto 0 loop
     if(r_slv_in_v(i).hsel='1') then
       s_dec_hready <= slv_in_v(i).hready;
-	end if;	  
-  end loop;  
+	end if;
+  end loop;
 --  hready_t <= slv_in_v(num_slvs).hready;--ready ....
-  slv_in_sel.hready <= def_slave_hready;	 
+  slv_in_sel.hready <= def_slave_hready;
   slv_in_sel.hrdata <= (others => '-');--for LOW POWER!!!
-  slv_in_sel.hresp <= error_resp;--.... and ERROR ....		
+  slv_in_sel.hresp <= error_resp;--.... and ERROR ....
   for i in num_slvs-1 downto 0 loop
     if r_slv_in_v(i).hsel='1' then
 --      hready_t <= slv_in_v(i).hready;
-      slv_in_sel.hready <= slv_in_v(i).hready;	 
+      slv_in_sel.hready <= slv_in_v(i).hready;
       slv_in_sel.hresp <= slv_in_v(i).hresp;
       slv_in_sel.hrdata <= slv_in_v(i).hrdata;
     end if;
   end loop;
-end process;
-
-
---*********************************************************
--- SPLIT handling
---*********************************************************
-
-process(hresetn, hclk)
-variable v_split_reg: std_logic_vector(num_arb_msts-1 downto 0);
-begin
-  if hresetn='0' then
-    split_reg <= (others => '0');  
-  elsif hclk'event and hclk='1' then
-    v_split_reg := split_reg;
-    for j in num_slvs-1 downto 0 loop
-      for i in num_arb_msts-1 downto 0 loop
-        v_split_reg(i) := v_split_reg(i) and not slv_in_v(j).hsplit(i); 
-      end loop;
-      if (r_slv_in_v(j).hsel='1') then
-        if (slv_in_v(j).hready='1' and slv_in_v(j).hresp=split_resp and master_sel/=num_arb_msts) then
-          v_split_reg(conv_integer(master_sel)) := '1';
-        end if;
-      end if;
-    end loop;
-    split_reg <= v_split_reg after 1 ns;	
-  end if;
 end process;
 
 --*********************************************************
@@ -411,37 +422,21 @@ begin
     addr_high_std := conv_std_logic_vector(addr_arb_matrix(0)(i).high, 32);
     if (haddr_page(31 downto 10) >= addr_low_std(31 downto 10) and (haddr_page(31 downto 10) <= addr_high_std(31 downto 10))) then
       hsel(i) <= '1';
-      def_slave_hsel <= '0';	
+      def_slave_hsel <= '0';
       slv_out_v(i).hsel <= '1';
     else
       hsel(i) <= '0';
       slv_out_v(i).hsel <= '0';
-    end if;	 
-  end loop;  
-end process;  
-
-
---DEFAULT SLAVE BEHAVIOUR
-
-process(hresetn, hclk)
-begin		   
-  if hresetn='0' then
-    def_slave_hready <= '1';
-  elsif hclk'event and hclk='1' then
-    if (def_slave_hsel='1' and s_dec_hready='1' and mst_in_sel.htrans/=idle) then
-      def_slave_hready <= '0' after 1 ns;
-    else
-      def_slave_hready <= '1' after 1 ns;
     end if;
-  end if;
-end process;	
-
+  end loop;
+end process;
 
 
 --synopsys translate_off
- assert not(hclk'event and hclk='1' and r_def_slave_hsel='1') report "####ERROR: NO SLAVE SELECTED!!!" severity error;
+  assert not (hclk'event and hclk='1' and master_sel=num_arb_msts) report "DUMMY MASTER selection!!!" severity WARNING;
+  assert not (hclk'event and hclk='1' and master_sel=def_arb_mst) report "DEFAULT MASTER selection!!!" severity WARNING;
+  assert not (hclk'event and hclk='1' and (master_sel>num_arb_msts or r_master_sel>num_arb_msts)) report "####ERROR in MASTER selection!!!" severity FAILURE;
+  assert not(hclk'event and hclk='1' and r_def_slave_hsel='1') report "####ERROR: NO SLAVE SELECTED!!!" severity error;
 --synopsys translate_on
 
 end rtl;
-	
-	

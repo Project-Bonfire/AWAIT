@@ -30,6 +30,10 @@
 --** OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE         ****
 --** POSSIBILITY OF SUCH DAMAGE.                                 ****
 --**                                                             ****
+--** Modified in 2018 Karl Janson and Siavoosh Payandeh Azad     ****
+--** Modifications in this file:                                 ****
+--**  - updated the interface signals according to the entities  ****
+--**  - introduced required signals                              ****
 --*******************************************************************
 library ieee;
 use ieee.std_logic_arith.all;
@@ -89,6 +93,13 @@ constant stim_0: uut_params_t:= (bits32,retry,master,'0',single,2,4,hprot_posted
 constant stim_1: uut_params_t:= (bits32,retry,master,'0',single,2,4,hprot_posted,128,1,0,'0');
 constant stim_2: uut_params_t:= (bits32,retry,master,'0',single,2,4,hprot_posted,256,1,0,'0');
 
+-- hold towards units
+signal mst_hold_out: std_logic_vector(2 downto 0);
+signal slv_hold_out: std_logic_vector(0 downto 0);
+-- valid towards units
+signal mst_valid_out: std_logic_vector(2 downto 0);
+signal slv_valid_out: std_logic_vector(0 downto 0);
+
 begin
 
 zero <= '0';
@@ -103,7 +114,7 @@ mst_in_arb_0_v(0) <= ahb_mst_1_out;
 ahb_slv_0_in <= slv_out_arb_0_v(0);
 slv_in_arb_0_v(0) <= ahb_slv_0_out;
 
-ahb_arb0: ahb_arbiter 
+ahb_arb0: ahb_arbiter
 generic map(
 num_arb => 0,
 num_arb_msts => 3,
@@ -117,7 +128,11 @@ port map(
   mst_in_v => mst_in_arb_0_v(2 downto 0),
   mst_out_v => mst_out_arb_0_v(2 downto 0),
   slv_in_v => slv_in_arb_0_v(0 downto 0),
-  slv_out_v => slv_out_arb_0_v(0 downto 0));
+  slv_out_v => slv_out_arb_0_v(0 downto 0),
+  mst_hold_out => mst_hold_out,
+  slv_hold_out => slv_hold_out,
+  mst_valid_out => mst_valid_out,
+  slv_valid_out => slv_valid_out);
 
 
 ahb_mst0: ahb_master
@@ -127,15 +142,15 @@ generic map(
 	fifo_length => 4)
 port map (
 	hresetn => hresetn,
-	hclk => hclk,	
+	hclk => hclk,
 	mst_in => ahb_mst_0_in,
-	mst_out => ahb_mst_0_out,       
-	dma_start => dma_start(0),	
+	mst_out => ahb_mst_0_out,
+	dma_start => dma_start(0),
 	m_wrap_out => m_wrap_out(0),
 	m_wrap_in => m_wrap_in(0),
 	eot_int => eot_int(0),
 	slv_running => zero,
-	mst_running => open);		
+	mst_running => open);
 
 ahb_mst0_wrap: mst_wrap
 generic map(
@@ -150,9 +165,9 @@ m_write_burst => 1,
 m_read_burst => 1)
 port map(
 	hresetn => hresetn,
-	clk => hclk,	
+	clk => hclk,
 	conf => conf(0),
-	dma_start => dma_start(0),	
+	dma_start => dma_start(0),
 	m_wrap_in => m_wrap_out(0),
 	m_wrap_out => m_wrap_in(0));
 
@@ -163,15 +178,15 @@ generic map(
 	fifo_length => 8)
 port map (
 	hresetn => hresetn,
-	hclk => hclk,	
+	hclk => hclk,
 	mst_in => ahb_mst_1_in,
-	mst_out => ahb_mst_1_out,       
-	dma_start => dma_start(1),	
+	mst_out => ahb_mst_1_out,
+	dma_start => dma_start(1),
 	m_wrap_out => m_wrap_out(1),
 	m_wrap_in => m_wrap_in(1),
 	eot_int => eot_int(1),
 	slv_running => zero,
-	mst_running => open);		
+	mst_running => open);
 
 ahb_mst1_wrap: mst_wrap
 generic map(
@@ -186,9 +201,9 @@ m_write_burst => 1,
 m_read_burst => 1)
 port map(
 	hresetn => hresetn,
-	clk => hclk,	
+	clk => hclk,
 	conf => conf(1),
-	dma_start => dma_start(1),	
+	dma_start => dma_start(1),
 	m_wrap_in => m_wrap_out(1),
 	m_wrap_out => m_wrap_in(1));
 
@@ -199,15 +214,15 @@ generic map(
 	fifo_length => 4)
 port map (
 	hresetn => hresetn,
-	hclk => hclk,	
+	hclk => hclk,
 	mst_in => ahb_mst_2_in,
-	mst_out => ahb_mst_2_out,       
-	dma_start => dma_start(2),	
+	mst_out => ahb_mst_2_out,
+	dma_start => dma_start(2),
 	m_wrap_out => m_wrap_out(2),
 	m_wrap_in => m_wrap_in(2),
 	eot_int => eot_int(2),
 	slv_running => zero,
-	mst_running => open);		
+	mst_running => open);
 
 ahb_mst2_wrap: mst_wrap
 generic map(
@@ -222,9 +237,9 @@ m_write_burst => 1,
 m_read_burst => 1)
 port map(
 	hresetn => hresetn,
-	clk => hclk,	
+	clk => hclk,
 	conf => conf(2),
-	dma_start => dma_start(2),	
+	dma_start => dma_start(2),
 	m_wrap_in => m_wrap_out(2),
 	m_wrap_out => m_wrap_in(2));
 
@@ -239,13 +254,13 @@ port map (
 	hclk => hclk,
 	remap => remap,
 	slv_in => ahb_slv_0_in,
-	slv_out => ahb_slv_0_out,       
+	slv_out => ahb_slv_0_out,
 	s_wrap_out => s_wrap_out(0),
 	s_wrap_in => s_wrap_in(0),
 	mst_running => zero,
 	prior_in => zero,
 	slv_running => open,
-	slv_err => open);		
+	slv_err => open);
 
 
 ahb_slv0_wrap: slv_mem
@@ -261,14 +276,14 @@ s_write_burst => 1,
 s_read_burst => 1)
 port map(
 	hresetn => hresetn,
-	clk => hclk,		
+	clk => hclk,
 	conf => no_conf_s,
-	dma_start => open,		
+	dma_start => open,
 	s_wrap_in => s_wrap_out(0),
 	s_wrap_out => s_wrap_in(0));
 
 
-uut_stimulator_0: uut_stimulator 
+uut_stimulator_0: uut_stimulator
 generic map(
 enable => 1,
 stim_type => stim_0,
@@ -282,7 +297,7 @@ port map(
 	 sim_end => sim_end(0));
 
 
-uut_stimulator_1: uut_stimulator 
+uut_stimulator_1: uut_stimulator
 generic map(
 enable => 1,
 stim_type => stim_1,
@@ -296,7 +311,7 @@ port map(
 	 sim_end => sim_end(1));
 
 
-uut_stimulator_2: uut_stimulator 
+uut_stimulator_2: uut_stimulator
 generic map(
 enable => 1,
 stim_type => stim_2,
@@ -340,4 +355,3 @@ end process;
 assert (not(sim_end(2)='1' and sim_end(1)='1' and sim_end(0)='1')) report "*** SIMULATION ENDED ***" severity failure;
 
 end rtl;
-

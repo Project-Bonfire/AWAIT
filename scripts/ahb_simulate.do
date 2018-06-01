@@ -9,8 +9,6 @@ vcom -cover bcesfx ../src/ahb_master.vhd
 vcom -cover bcesfx ../src/ahb_arbiter.vhd
 vcom -cover bcesfx ../src/uut_stimulator.vhd
 vcom -cover bcesfx ../src/ahb_components.vhd
-vcom -cover bcesfx ../src/ahb_matrix.vhd
-vcom -cover bcesfx ../src/ahb_system.vhd
 vcom -cover bcesfx ../src/ahb_tb.vhd
 
 vsim -coverage -voptargs="+cover=bcestfx" work.ahb_tb(rtl)# -t 100ps
