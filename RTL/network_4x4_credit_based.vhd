@@ -121,9 +121,10 @@ component router_credit_based is
     valid_in_N, valid_in_E, valid_in_W, valid_in_S, valid_in_L : in std_logic;
 
     hold_in_N, hold_in_E, hold_in_W, hold_in_S, hold_in_L : in std_logic;
+    N_FIFO_hold_in_from_previous_allocator, E_FIFO_hold_in_from_previous_allocator, W_FIFO_hold_in_from_previous_allocator,
+    S_FIFO_hold_in_from_previous_allocator, L_FIFO_hold_in_from_previous_allocator: in std_logic;
     hold_out_N, hold_out_E, hold_out_W, hold_out_S, hold_out_L : out std_logic;
-
-    --hold_out : out std_logic;
+    hold_out_to_next_FIFO_N, hold_out_to_next_FIFO_E, hold_out_to_next_FIFO_W, hold_out_to_next_FIFO_S, hold_out_to_next_FIFO_L: out std_logic; -- BUBBLE OUT
 
     valid_out_N, valid_out_E, valid_out_W, valid_out_S, valid_out_L : out std_logic;
     credit_out_N, credit_out_E, credit_out_W, credit_out_S, credit_out_L: out std_logic;
@@ -232,22 +233,22 @@ end component;
 	signal hold_in_N_14, hold_in_E_14, hold_in_W_14, hold_in_S_14, hold_in_L_14: std_logic;
 	signal hold_in_N_15, hold_in_E_15, hold_in_W_15, hold_in_S_15, hold_in_L_15: std_logic;
 
-	--signal hold_out_0: std_logic;
-	--signal hold_out_1: std_logic;
-	--signal hold_out_2: std_logic;
-	--signal hold_out_3: std_logic;
-	--signal hold_out_4: std_logic;
-	--signal hold_out_5: std_logic;
-	--signal hold_out_6: std_logic;
-	--signal hold_out_7: std_logic;
-	--signal hold_out_8: std_logic;
-	--signal hold_out_9: std_logic;
-	--signal hold_out_10: std_logic;
-	--signal hold_out_11: std_logic;
-	--signal hold_out_12: std_logic;
-	--signal hold_out_13: std_logic;
-	--signal hold_out_14: std_logic;
-	--signal hold_out_15: std_logic;
+	signal N_FIFO_hold_in_from_previous_allocator_0,  E_FIFO_hold_in_from_previous_allocator_0,  W_FIFO_hold_in_from_previous_allocator_0,  S_FIFO_hold_in_from_previous_allocator_0,  L_FIFO_hold_in_from_previous_allocator_0: std_logic;
+	signal N_FIFO_hold_in_from_previous_allocator_1,  E_FIFO_hold_in_from_previous_allocator_1,  W_FIFO_hold_in_from_previous_allocator_1,  S_FIFO_hold_in_from_previous_allocator_1,  L_FIFO_hold_in_from_previous_allocator_1: std_logic;
+	signal N_FIFO_hold_in_from_previous_allocator_2,  E_FIFO_hold_in_from_previous_allocator_2,  W_FIFO_hold_in_from_previous_allocator_2,  S_FIFO_hold_in_from_previous_allocator_2,  L_FIFO_hold_in_from_previous_allocator_2: std_logic;
+	signal N_FIFO_hold_in_from_previous_allocator_3,  E_FIFO_hold_in_from_previous_allocator_3,  W_FIFO_hold_in_from_previous_allocator_3,  S_FIFO_hold_in_from_previous_allocator_3,  L_FIFO_hold_in_from_previous_allocator_3: std_logic;
+	signal N_FIFO_hold_in_from_previous_allocator_4,  E_FIFO_hold_in_from_previous_allocator_4,  W_FIFO_hold_in_from_previous_allocator_4,  S_FIFO_hold_in_from_previous_allocator_4,  L_FIFO_hold_in_from_previous_allocator_4: std_logic;
+	signal N_FIFO_hold_in_from_previous_allocator_5,  E_FIFO_hold_in_from_previous_allocator_5,  W_FIFO_hold_in_from_previous_allocator_5,  S_FIFO_hold_in_from_previous_allocator_5,  L_FIFO_hold_in_from_previous_allocator_5: std_logic;
+	signal N_FIFO_hold_in_from_previous_allocator_6,  E_FIFO_hold_in_from_previous_allocator_6,  W_FIFO_hold_in_from_previous_allocator_6,  S_FIFO_hold_in_from_previous_allocator_6,  L_FIFO_hold_in_from_previous_allocator_6: std_logic;
+	signal N_FIFO_hold_in_from_previous_allocator_7,  E_FIFO_hold_in_from_previous_allocator_7,  W_FIFO_hold_in_from_previous_allocator_7,  S_FIFO_hold_in_from_previous_allocator_7,  L_FIFO_hold_in_from_previous_allocator_7: std_logic;
+	signal N_FIFO_hold_in_from_previous_allocator_8,  E_FIFO_hold_in_from_previous_allocator_8,  W_FIFO_hold_in_from_previous_allocator_8,  S_FIFO_hold_in_from_previous_allocator_8,  L_FIFO_hold_in_from_previous_allocator_8: std_logic;
+	signal N_FIFO_hold_in_from_previous_allocator_9,  E_FIFO_hold_in_from_previous_allocator_9,  W_FIFO_hold_in_from_previous_allocator_9,  S_FIFO_hold_in_from_previous_allocator_9,  L_FIFO_hold_in_from_previous_allocator_9: std_logic;
+	signal N_FIFO_hold_in_from_previous_allocator_10, E_FIFO_hold_in_from_previous_allocator_10, W_FIFO_hold_in_from_previous_allocator_10, S_FIFO_hold_in_from_previous_allocator_10, L_FIFO_hold_in_from_previous_allocator_10: std_logic;
+	signal N_FIFO_hold_in_from_previous_allocator_11, E_FIFO_hold_in_from_previous_allocator_11, W_FIFO_hold_in_from_previous_allocator_11, S_FIFO_hold_in_from_previous_allocator_11, L_FIFO_hold_in_from_previous_allocator_11: std_logic;
+	signal N_FIFO_hold_in_from_previous_allocator_12, E_FIFO_hold_in_from_previous_allocator_12, W_FIFO_hold_in_from_previous_allocator_12, S_FIFO_hold_in_from_previous_allocator_12, L_FIFO_hold_in_from_previous_allocator_12: std_logic;
+	signal N_FIFO_hold_in_from_previous_allocator_13, E_FIFO_hold_in_from_previous_allocator_13, W_FIFO_hold_in_from_previous_allocator_13, S_FIFO_hold_in_from_previous_allocator_13, L_FIFO_hold_in_from_previous_allocator_13: std_logic;
+	signal N_FIFO_hold_in_from_previous_allocator_14, E_FIFO_hold_in_from_previous_allocator_14, W_FIFO_hold_in_from_previous_allocator_14, S_FIFO_hold_in_from_previous_allocator_14, L_FIFO_hold_in_from_previous_allocator_14: std_logic;
+	signal N_FIFO_hold_in_from_previous_allocator_15, E_FIFO_hold_in_from_previous_allocator_15, W_FIFO_hold_in_from_previous_allocator_15, S_FIFO_hold_in_from_previous_allocator_15, L_FIFO_hold_in_from_previous_allocator_15: std_logic;
 
 	signal hold_out_N_0,  hold_out_E_0,  hold_out_W_0,  hold_out_S_0,  hold_out_L_0:  std_logic;
 	signal hold_out_N_1,  hold_out_E_1,  hold_out_W_1,  hold_out_S_1,  hold_out_L_1:  std_logic;
@@ -265,6 +266,23 @@ end component;
 	signal hold_out_N_13, hold_out_E_13, hold_out_W_13, hold_out_S_13, hold_out_L_13: std_logic;
 	signal hold_out_N_14, hold_out_E_14, hold_out_W_14, hold_out_S_14, hold_out_L_14: std_logic;
 	signal hold_out_N_15, hold_out_E_15, hold_out_W_15, hold_out_S_15, hold_out_L_15: std_logic;
+
+	signal hold_out_to_next_FIFO_N_0,  hold_out_to_next_FIFO_E_0,  hold_out_to_next_FIFO_W_0,  hold_out_to_next_FIFO_S_0,  hold_out_to_next_FIFO_L_0: std_logic;
+	signal hold_out_to_next_FIFO_N_1,  hold_out_to_next_FIFO_E_1,  hold_out_to_next_FIFO_W_1,  hold_out_to_next_FIFO_S_1,  hold_out_to_next_FIFO_L_1: std_logic;
+	signal hold_out_to_next_FIFO_N_2,  hold_out_to_next_FIFO_E_2,  hold_out_to_next_FIFO_W_2,  hold_out_to_next_FIFO_S_2,  hold_out_to_next_FIFO_L_2: std_logic;
+	signal hold_out_to_next_FIFO_N_3,  hold_out_to_next_FIFO_E_3,  hold_out_to_next_FIFO_W_3,  hold_out_to_next_FIFO_S_3,  hold_out_to_next_FIFO_L_3: std_logic;
+	signal hold_out_to_next_FIFO_N_4,  hold_out_to_next_FIFO_E_4,  hold_out_to_next_FIFO_W_4,  hold_out_to_next_FIFO_S_4,  hold_out_to_next_FIFO_L_4: std_logic;
+	signal hold_out_to_next_FIFO_N_5,  hold_out_to_next_FIFO_E_5,  hold_out_to_next_FIFO_W_5,  hold_out_to_next_FIFO_S_5,  hold_out_to_next_FIFO_L_5: std_logic;
+	signal hold_out_to_next_FIFO_N_6,  hold_out_to_next_FIFO_E_6,  hold_out_to_next_FIFO_W_6,  hold_out_to_next_FIFO_S_6,  hold_out_to_next_FIFO_L_6: std_logic;
+	signal hold_out_to_next_FIFO_N_7,  hold_out_to_next_FIFO_E_7,  hold_out_to_next_FIFO_W_7,  hold_out_to_next_FIFO_S_7,  hold_out_to_next_FIFO_L_7: std_logic;
+	signal hold_out_to_next_FIFO_N_8,  hold_out_to_next_FIFO_E_8,  hold_out_to_next_FIFO_W_8,  hold_out_to_next_FIFO_S_8,  hold_out_to_next_FIFO_L_8: std_logic;
+	signal hold_out_to_next_FIFO_N_9,  hold_out_to_next_FIFO_E_9,  hold_out_to_next_FIFO_W_9,  hold_out_to_next_FIFO_S_9,  hold_out_to_next_FIFO_L_9: std_logic;
+	signal hold_out_to_next_FIFO_N_10, hold_out_to_next_FIFO_E_10, hold_out_to_next_FIFO_W_10, hold_out_to_next_FIFO_S_10, hold_out_to_next_FIFO_L_10: std_logic;
+	signal hold_out_to_next_FIFO_N_11, hold_out_to_next_FIFO_E_11, hold_out_to_next_FIFO_W_11, hold_out_to_next_FIFO_S_11, hold_out_to_next_FIFO_L_11: std_logic;
+	signal hold_out_to_next_FIFO_N_12, hold_out_to_next_FIFO_E_12, hold_out_to_next_FIFO_W_12, hold_out_to_next_FIFO_S_12, hold_out_to_next_FIFO_L_12: std_logic;
+	signal hold_out_to_next_FIFO_N_13, hold_out_to_next_FIFO_E_13, hold_out_to_next_FIFO_W_13, hold_out_to_next_FIFO_S_13, hold_out_to_next_FIFO_L_13: std_logic;
+	signal hold_out_to_next_FIFO_N_14, hold_out_to_next_FIFO_E_14, hold_out_to_next_FIFO_W_14, hold_out_to_next_FIFO_S_14, hold_out_to_next_FIFO_L_14: std_logic;
+	signal hold_out_to_next_FIFO_N_15, hold_out_to_next_FIFO_E_15, hold_out_to_next_FIFO_W_15, hold_out_to_next_FIFO_S_15, hold_out_to_next_FIFO_L_15: std_logic;
 
 	signal valid_in_N_0, valid_in_E_0, valid_in_W_0, valid_in_S_0: std_logic;
 	signal valid_in_N_1, valid_in_E_1, valid_in_W_1, valid_in_S_1: std_logic;
@@ -330,8 +348,10 @@ PORT MAP (reset, clk,
 	credit_in_N_0, credit_in_E_0, credit_in_W_0, credit_in_S_0, credit_in_L_0,
 	valid_in_N_0, valid_in_E_0, valid_in_W_0, valid_in_S_0, valid_in_L_0,
 	hold_in_N_0, hold_in_E_0, hold_in_W_0, hold_in_S_0, hold_in_L_0,
+    N_FIFO_hold_in_from_previous_allocator_0, E_FIFO_hold_in_from_previous_allocator_0, W_FIFO_hold_in_from_previous_allocator_0,
+    S_FIFO_hold_in_from_previous_allocator_0, L_FIFO_hold_in_from_previous_allocator_0,
 	hold_out_N_0, hold_out_E_0, hold_out_W_0, hold_out_S_0, hold_out_L_0,
-	--hold_out_0,
+    hold_out_to_next_FIFO_N_0, hold_out_to_next_FIFO_E_0, hold_out_to_next_FIFO_W_0, hold_out_to_next_FIFO_S_0, hold_out_to_next_FIFO_L_0, 
 	valid_out_N_0, valid_out_E_0, valid_out_W_0, valid_out_S_0, valid_out_L_0,
 	credit_out_N_0, credit_out_E_0, credit_out_W_0, credit_out_S_0, credit_out_L_0,
 	TX_N_0, TX_E_0, TX_W_0, TX_S_0, TX_L_0);
@@ -342,8 +362,10 @@ PORT MAP (reset, clk,
 	credit_in_N_1, credit_in_E_1, credit_in_W_1, credit_in_S_1, credit_in_L_1,
 	valid_in_N_1, valid_in_E_1, valid_in_W_1, valid_in_S_1, valid_in_L_1,
 	hold_in_N_1, hold_in_E_1, hold_in_W_1, hold_in_S_1, hold_in_L_1,
+    N_FIFO_hold_in_from_previous_allocator_1, E_FIFO_hold_in_from_previous_allocator_1, W_FIFO_hold_in_from_previous_allocator_1,
+    S_FIFO_hold_in_from_previous_allocator_1, L_FIFO_hold_in_from_previous_allocator_1,
 	hold_out_N_1, hold_out_E_1, hold_out_W_1, hold_out_S_1, hold_out_L_1,
-	--hold_out_1,
+    hold_out_to_next_FIFO_N_1, hold_out_to_next_FIFO_E_1, hold_out_to_next_FIFO_W_1, hold_out_to_next_FIFO_S_1, hold_out_to_next_FIFO_L_1, 
 	valid_out_N_1, valid_out_E_1, valid_out_W_1, valid_out_S_1, valid_out_L_1,
 	credit_out_N_1, credit_out_E_1, credit_out_W_1, credit_out_S_1, credit_out_L_1,
 	TX_N_1, TX_E_1, TX_W_1, TX_S_1, TX_L_1);
@@ -354,8 +376,10 @@ PORT MAP (reset, clk,
 	credit_in_N_2, credit_in_E_2, credit_in_W_2, credit_in_S_2, credit_in_L_2,
 	valid_in_N_2, valid_in_E_2, valid_in_W_2, valid_in_S_2, valid_in_L_2,
 	hold_in_N_2, hold_in_E_2, hold_in_W_2, hold_in_S_2, hold_in_L_2,
+    N_FIFO_hold_in_from_previous_allocator_2, E_FIFO_hold_in_from_previous_allocator_2, W_FIFO_hold_in_from_previous_allocator_2,
+    S_FIFO_hold_in_from_previous_allocator_2, L_FIFO_hold_in_from_previous_allocator_2,
 	hold_out_N_2, hold_out_E_2, hold_out_W_2, hold_out_S_2, hold_out_L_2,
-	--hold_out_2,
+    hold_out_to_next_FIFO_N_2, hold_out_to_next_FIFO_E_2, hold_out_to_next_FIFO_W_2, hold_out_to_next_FIFO_S_2, hold_out_to_next_FIFO_L_2, 
 	valid_out_N_2, valid_out_E_2, valid_out_W_2, valid_out_S_2, valid_out_L_2,
 	credit_out_N_2, credit_out_E_2, credit_out_W_2, credit_out_S_2, credit_out_L_2,
 	TX_N_2, TX_E_2, TX_W_2, TX_S_2, TX_L_2);
@@ -366,8 +390,10 @@ PORT MAP (reset, clk,
 	credit_in_N_3, credit_in_E_3, credit_in_W_3, credit_in_S_3, credit_in_L_3,
 	valid_in_N_3, valid_in_E_3, valid_in_W_3, valid_in_S_3, valid_in_L_3,
 	hold_in_N_3, hold_in_E_3, hold_in_W_3, hold_in_S_3, hold_in_L_3,
+    N_FIFO_hold_in_from_previous_allocator_3, E_FIFO_hold_in_from_previous_allocator_3, W_FIFO_hold_in_from_previous_allocator_3,
+    S_FIFO_hold_in_from_previous_allocator_3, L_FIFO_hold_in_from_previous_allocator_3,
 	hold_out_N_3, hold_out_E_3, hold_out_W_3, hold_out_S_3, hold_out_L_3,
-	--hold_out_3,
+    hold_out_to_next_FIFO_N_3, hold_out_to_next_FIFO_E_3, hold_out_to_next_FIFO_W_3, hold_out_to_next_FIFO_S_3, hold_out_to_next_FIFO_L_3, 
 	valid_out_N_3, valid_out_E_3, valid_out_W_3, valid_out_S_3, valid_out_L_3,
 	credit_out_N_3, credit_out_E_3, credit_out_W_3, credit_out_S_3, credit_out_L_3,
 	TX_N_3, TX_E_3, TX_W_3, TX_S_3, TX_L_3);
@@ -378,8 +404,10 @@ PORT MAP (reset, clk,
 	credit_in_N_4, credit_in_E_4, credit_in_W_4, credit_in_S_4, credit_in_L_4,
 	valid_in_N_4, valid_in_E_4, valid_in_W_4, valid_in_S_4, valid_in_L_4,
 	hold_in_N_4, hold_in_E_4, hold_in_W_4, hold_in_S_4, hold_in_L_4,
+    N_FIFO_hold_in_from_previous_allocator_4, E_FIFO_hold_in_from_previous_allocator_4, W_FIFO_hold_in_from_previous_allocator_4,
+    S_FIFO_hold_in_from_previous_allocator_4, L_FIFO_hold_in_from_previous_allocator_4,
 	hold_out_N_4, hold_out_E_4, hold_out_W_4, hold_out_S_4, hold_out_L_4,
-	--hold_out_4,
+    hold_out_to_next_FIFO_N_4, hold_out_to_next_FIFO_E_4, hold_out_to_next_FIFO_W_4, hold_out_to_next_FIFO_S_4, hold_out_to_next_FIFO_L_4, 
 	valid_out_N_4, valid_out_E_4, valid_out_W_4, valid_out_S_4, valid_out_L_4,
 	credit_out_N_4, credit_out_E_4, credit_out_W_4, credit_out_S_4, credit_out_L_4,
 	TX_N_4, TX_E_4, TX_W_4, TX_S_4, TX_L_4);
@@ -390,8 +418,10 @@ PORT MAP (reset, clk,
 	credit_in_N_5, credit_in_E_5, credit_in_W_5, credit_in_S_5, credit_in_L_5,
 	valid_in_N_5, valid_in_E_5, valid_in_W_5, valid_in_S_5, valid_in_L_5,
 	hold_in_N_5, hold_in_E_5, hold_in_W_5, hold_in_S_5, hold_in_L_5,
+    N_FIFO_hold_in_from_previous_allocator_5, E_FIFO_hold_in_from_previous_allocator_5, W_FIFO_hold_in_from_previous_allocator_5,
+    S_FIFO_hold_in_from_previous_allocator_5, L_FIFO_hold_in_from_previous_allocator_5,
 	hold_out_N_5, hold_out_E_5, hold_out_W_5, hold_out_S_5, hold_out_L_5,
-	--hold_out_5,
+    hold_out_to_next_FIFO_N_5, hold_out_to_next_FIFO_E_5, hold_out_to_next_FIFO_W_5, hold_out_to_next_FIFO_S_5, hold_out_to_next_FIFO_L_5, 
 	valid_out_N_5, valid_out_E_5, valid_out_W_5, valid_out_S_5, valid_out_L_5,
 	credit_out_N_5, credit_out_E_5, credit_out_W_5, credit_out_S_5, credit_out_L_5,
 	TX_N_5, TX_E_5, TX_W_5, TX_S_5, TX_L_5);
@@ -402,8 +432,10 @@ PORT MAP (reset, clk,
 	credit_in_N_6, credit_in_E_6, credit_in_W_6, credit_in_S_6, credit_in_L_6,
 	valid_in_N_6, valid_in_E_6, valid_in_W_6, valid_in_S_6, valid_in_L_6,
 	hold_in_N_6, hold_in_E_6, hold_in_W_6, hold_in_S_6, hold_in_L_6,
+    N_FIFO_hold_in_from_previous_allocator_6, E_FIFO_hold_in_from_previous_allocator_6, W_FIFO_hold_in_from_previous_allocator_6,
+    S_FIFO_hold_in_from_previous_allocator_6, L_FIFO_hold_in_from_previous_allocator_6,
 	hold_out_N_6, hold_out_E_6, hold_out_W_6, hold_out_S_6, hold_out_L_6,
-	--hold_out_6,
+    hold_out_to_next_FIFO_N_6, hold_out_to_next_FIFO_E_6, hold_out_to_next_FIFO_W_6, hold_out_to_next_FIFO_S_6, hold_out_to_next_FIFO_L_6, 
 	valid_out_N_6, valid_out_E_6, valid_out_W_6, valid_out_S_6, valid_out_L_6,
 	credit_out_N_6, credit_out_E_6, credit_out_W_6, credit_out_S_6, credit_out_L_6,
 	TX_N_6, TX_E_6, TX_W_6, TX_S_6, TX_L_6);
@@ -414,8 +446,10 @@ PORT MAP (reset, clk,
 	credit_in_N_7, credit_in_E_7, credit_in_W_7, credit_in_S_7, credit_in_L_7,
 	valid_in_N_7, valid_in_E_7, valid_in_W_7, valid_in_S_7, valid_in_L_7,
 	hold_in_N_7, hold_in_E_7, hold_in_W_7, hold_in_S_7, hold_in_L_7,
+    N_FIFO_hold_in_from_previous_allocator_7, E_FIFO_hold_in_from_previous_allocator_7, W_FIFO_hold_in_from_previous_allocator_7,
+    S_FIFO_hold_in_from_previous_allocator_7, L_FIFO_hold_in_from_previous_allocator_7,
 	hold_out_N_7, hold_out_E_7, hold_out_W_7, hold_out_S_7, hold_out_L_7,
-	--hold_out_7,
+    hold_out_to_next_FIFO_N_7, hold_out_to_next_FIFO_E_7, hold_out_to_next_FIFO_W_7, hold_out_to_next_FIFO_S_7, hold_out_to_next_FIFO_L_7, 
 	valid_out_N_7, valid_out_E_7, valid_out_W_7, valid_out_S_7, valid_out_L_7,
 	credit_out_N_7, credit_out_E_7, credit_out_W_7, credit_out_S_7, credit_out_L_7,
 	TX_N_7, TX_E_7, TX_W_7, TX_S_7, TX_L_7);
@@ -426,8 +460,10 @@ PORT MAP (reset, clk,
 	credit_in_N_8, credit_in_E_8, credit_in_W_8, credit_in_S_8, credit_in_L_8,
 	valid_in_N_8, valid_in_E_8, valid_in_W_8, valid_in_S_8, valid_in_L_8,
 	hold_in_N_8, hold_in_E_8, hold_in_W_8, hold_in_S_8, hold_in_L_8,
+    N_FIFO_hold_in_from_previous_allocator_8, E_FIFO_hold_in_from_previous_allocator_8, W_FIFO_hold_in_from_previous_allocator_8,
+    S_FIFO_hold_in_from_previous_allocator_8, L_FIFO_hold_in_from_previous_allocator_8,
 	hold_out_N_8, hold_out_E_8, hold_out_W_8, hold_out_S_8, hold_out_L_8,
-	--hold_out_8,
+    hold_out_to_next_FIFO_N_8, hold_out_to_next_FIFO_E_8, hold_out_to_next_FIFO_W_8, hold_out_to_next_FIFO_S_8, hold_out_to_next_FIFO_L_8, 
 	valid_out_N_8, valid_out_E_8, valid_out_W_8, valid_out_S_8, valid_out_L_8,
 	credit_out_N_8, credit_out_E_8, credit_out_W_8, credit_out_S_8, credit_out_L_8,
 	TX_N_8, TX_E_8, TX_W_8, TX_S_8, TX_L_8);
@@ -438,8 +474,10 @@ PORT MAP (reset, clk,
 	credit_in_N_9, credit_in_E_9, credit_in_W_9, credit_in_S_9, credit_in_L_9,
 	valid_in_N_9, valid_in_E_9, valid_in_W_9, valid_in_S_9, valid_in_L_9,
 	hold_in_N_9, hold_in_E_9, hold_in_W_9, hold_in_S_9, hold_in_L_9,
+    N_FIFO_hold_in_from_previous_allocator_9, E_FIFO_hold_in_from_previous_allocator_9, W_FIFO_hold_in_from_previous_allocator_9,
+    S_FIFO_hold_in_from_previous_allocator_9, L_FIFO_hold_in_from_previous_allocator_9,
 	hold_out_N_9, hold_out_E_9, hold_out_W_9, hold_out_S_9, hold_out_L_9,
-	--hold_out_9,
+    hold_out_to_next_FIFO_N_9, hold_out_to_next_FIFO_E_9, hold_out_to_next_FIFO_W_9, hold_out_to_next_FIFO_S_9, hold_out_to_next_FIFO_L_9, 
 	valid_out_N_9, valid_out_E_9, valid_out_W_9, valid_out_S_9, valid_out_L_9,
 	credit_out_N_9, credit_out_E_9, credit_out_W_9, credit_out_S_9, credit_out_L_9,
 	TX_N_9, TX_E_9, TX_W_9, TX_S_9, TX_L_9);
@@ -450,8 +488,10 @@ PORT MAP (reset, clk,
 	credit_in_N_10, credit_in_E_10, credit_in_W_10, credit_in_S_10, credit_in_L_10,
 	valid_in_N_10, valid_in_E_10, valid_in_W_10, valid_in_S_10, valid_in_L_10,
 	hold_in_N_10, hold_in_E_10, hold_in_W_10, hold_in_S_10, hold_in_L_10,
+    N_FIFO_hold_in_from_previous_allocator_10, E_FIFO_hold_in_from_previous_allocator_10, W_FIFO_hold_in_from_previous_allocator_10,
+    S_FIFO_hold_in_from_previous_allocator_10, L_FIFO_hold_in_from_previous_allocator_10,
 	hold_out_N_10, hold_out_E_10, hold_out_W_10, hold_out_S_10, hold_out_L_10,
-	--hold_out_10,
+    hold_out_to_next_FIFO_N_10, hold_out_to_next_FIFO_E_10, hold_out_to_next_FIFO_W_10, hold_out_to_next_FIFO_S_10, hold_out_to_next_FIFO_L_10, 
 	valid_out_N_10, valid_out_E_10, valid_out_W_10, valid_out_S_10, valid_out_L_10,
 	credit_out_N_10, credit_out_E_10, credit_out_W_10, credit_out_S_10, credit_out_L_10,
 	TX_N_10, TX_E_10, TX_W_10, TX_S_10, TX_L_10);
@@ -462,8 +502,10 @@ PORT MAP (reset, clk,
 	credit_in_N_11, credit_in_E_11, credit_in_W_11, credit_in_S_11, credit_in_L_11,
 	valid_in_N_11, valid_in_E_11, valid_in_W_11, valid_in_S_11, valid_in_L_11,
 	hold_in_N_11, hold_in_E_11, hold_in_W_11, hold_in_S_11, hold_in_L_11,
+    N_FIFO_hold_in_from_previous_allocator_11, E_FIFO_hold_in_from_previous_allocator_11, W_FIFO_hold_in_from_previous_allocator_11,
+    S_FIFO_hold_in_from_previous_allocator_11, L_FIFO_hold_in_from_previous_allocator_11,
 	hold_out_N_11, hold_out_E_11, hold_out_W_11, hold_out_S_11, hold_out_L_11,
-	--hold_out_11,
+    hold_out_to_next_FIFO_N_11, hold_out_to_next_FIFO_E_11, hold_out_to_next_FIFO_W_11, hold_out_to_next_FIFO_S_11, hold_out_to_next_FIFO_L_11, 
 	valid_out_N_11, valid_out_E_11, valid_out_W_11, valid_out_S_11, valid_out_L_11,
 	credit_out_N_11, credit_out_E_11, credit_out_W_11, credit_out_S_11, credit_out_L_11,
 	TX_N_11, TX_E_11, TX_W_11, TX_S_11, TX_L_11);
@@ -474,8 +516,10 @@ PORT MAP (reset, clk,
 	credit_in_N_12, credit_in_E_12, credit_in_W_12, credit_in_S_12, credit_in_L_12,
 	valid_in_N_12, valid_in_E_12, valid_in_W_12, valid_in_S_12, valid_in_L_12,
 	hold_in_N_12, hold_in_E_12, hold_in_W_12, hold_in_S_12, hold_in_L_12,
+    N_FIFO_hold_in_from_previous_allocator_12, E_FIFO_hold_in_from_previous_allocator_12, W_FIFO_hold_in_from_previous_allocator_12,
+    S_FIFO_hold_in_from_previous_allocator_12, L_FIFO_hold_in_from_previous_allocator_12,
 	hold_out_N_12, hold_out_E_12, hold_out_W_12, hold_out_S_12, hold_out_L_12,
-	--hold_out_12,
+    hold_out_to_next_FIFO_N_12, hold_out_to_next_FIFO_E_12, hold_out_to_next_FIFO_W_12, hold_out_to_next_FIFO_S_12, hold_out_to_next_FIFO_L_12, 
 	valid_out_N_12, valid_out_E_12, valid_out_W_12, valid_out_S_12, valid_out_L_12,
 	credit_out_N_12, credit_out_E_12, credit_out_W_12, credit_out_S_12, credit_out_L_12,
 	TX_N_12, TX_E_12, TX_W_12, TX_S_12, TX_L_12);
@@ -486,8 +530,10 @@ PORT MAP (reset, clk,
 	credit_in_N_13, credit_in_E_13, credit_in_W_13, credit_in_S_13, credit_in_L_13,
 	valid_in_N_13, valid_in_E_13, valid_in_W_13, valid_in_S_13, valid_in_L_13,
 	hold_in_N_13, hold_in_E_13, hold_in_W_13, hold_in_S_13, hold_in_L_13,
+    N_FIFO_hold_in_from_previous_allocator_13, E_FIFO_hold_in_from_previous_allocator_13, W_FIFO_hold_in_from_previous_allocator_13,
+    S_FIFO_hold_in_from_previous_allocator_13, L_FIFO_hold_in_from_previous_allocator_13,
 	hold_out_N_13, hold_out_E_13, hold_out_W_13, hold_out_S_13, hold_out_L_13,
-	--hold_out_13,
+    hold_out_to_next_FIFO_N_13, hold_out_to_next_FIFO_E_13, hold_out_to_next_FIFO_W_13, hold_out_to_next_FIFO_S_13, hold_out_to_next_FIFO_L_13, 
 	valid_out_N_13, valid_out_E_13, valid_out_W_13, valid_out_S_13, valid_out_L_13,
 	credit_out_N_13, credit_out_E_13, credit_out_W_13, credit_out_S_13, credit_out_L_13,
 	TX_N_13, TX_E_13, TX_W_13, TX_S_13, TX_L_13);
@@ -498,8 +544,10 @@ PORT MAP (reset, clk,
 	credit_in_N_14, credit_in_E_14, credit_in_W_14, credit_in_S_14, credit_in_L_14,
 	valid_in_N_14, valid_in_E_14, valid_in_W_14, valid_in_S_14, valid_in_L_14,
 	hold_in_N_14, hold_in_E_14, hold_in_W_14, hold_in_S_14, hold_in_L_14,
+    N_FIFO_hold_in_from_previous_allocator_14, E_FIFO_hold_in_from_previous_allocator_14, W_FIFO_hold_in_from_previous_allocator_14,
+    S_FIFO_hold_in_from_previous_allocator_14, L_FIFO_hold_in_from_previous_allocator_14,
 	hold_out_N_14, hold_out_E_14, hold_out_W_14, hold_out_S_14, hold_out_L_14,
-	--hold_out_14,
+    hold_out_to_next_FIFO_N_14, hold_out_to_next_FIFO_E_14, hold_out_to_next_FIFO_W_14, hold_out_to_next_FIFO_S_14, hold_out_to_next_FIFO_L_14, 
 	valid_out_N_14, valid_out_E_14, valid_out_W_14, valid_out_S_14, valid_out_L_14,
 	credit_out_N_14, credit_out_E_14, credit_out_W_14, credit_out_S_14, credit_out_L_14,
 	TX_N_14, TX_E_14, TX_W_14, TX_S_14, TX_L_14);
@@ -510,14 +558,129 @@ PORT MAP (reset, clk,
 	credit_in_N_15, credit_in_E_15, credit_in_W_15, credit_in_S_15, credit_in_L_15,
 	valid_in_N_15, valid_in_E_15, valid_in_W_15, valid_in_S_15, valid_in_L_15,
 	hold_in_N_15, hold_in_E_15, hold_in_W_15, hold_in_S_15, hold_in_L_15,
+    N_FIFO_hold_in_from_previous_allocator_15, E_FIFO_hold_in_from_previous_allocator_15, W_FIFO_hold_in_from_previous_allocator_15,
+    S_FIFO_hold_in_from_previous_allocator_15, L_FIFO_hold_in_from_previous_allocator_15,
 	hold_out_N_15, hold_out_E_15, hold_out_W_15, hold_out_S_15, hold_out_L_15,
-	--hold_out_15,
+    hold_out_to_next_FIFO_N_15, hold_out_to_next_FIFO_E_15, hold_out_to_next_FIFO_W_15, hold_out_to_next_FIFO_S_15, hold_out_to_next_FIFO_L_15, 
 	valid_out_N_15, valid_out_E_15, valid_out_W_15, valid_out_S_15, valid_out_L_15,
 	credit_out_N_15, credit_out_E_15, credit_out_W_15, credit_out_S_15, credit_out_L_15,
 	TX_N_15, TX_E_15, TX_W_15, TX_S_15, TX_L_15);
 
 
 ---------------------------------------------------------------
+-- binding the hold signals together
+-- R0
+N_FIFO_hold_in_from_previous_allocator_0 <= '0';
+E_FIFO_hold_in_from_previous_allocator_0 <= hold_out_to_next_FIFO_W_1;
+W_FIFO_hold_in_from_previous_allocator_0 <= '0';
+S_FIFO_hold_in_from_previous_allocator_0 <= hold_out_to_next_FIFO_N_4;
+L_FIFO_hold_in_from_previous_allocator_0 <= '0';
+
+-- R1
+N_FIFO_hold_in_from_previous_allocator_1 <= '0';
+E_FIFO_hold_in_from_previous_allocator_1 <= hold_out_to_next_FIFO_W_2;
+W_FIFO_hold_in_from_previous_allocator_1 <= hold_out_to_next_FIFO_E_0;
+S_FIFO_hold_in_from_previous_allocator_1 <= hold_out_to_next_FIFO_N_5;
+L_FIFO_hold_in_from_previous_allocator_1 <= '0';
+
+-- R2
+N_FIFO_hold_in_from_previous_allocator_2 <= '0';
+E_FIFO_hold_in_from_previous_allocator_2 <= hold_out_to_next_FIFO_W_3;
+W_FIFO_hold_in_from_previous_allocator_2 <= hold_out_to_next_FIFO_E_1;
+S_FIFO_hold_in_from_previous_allocator_2 <= hold_out_to_next_FIFO_N_6;
+L_FIFO_hold_in_from_previous_allocator_2 <= '0';
+
+-- R3
+N_FIFO_hold_in_from_previous_allocator_3 <= '0';
+E_FIFO_hold_in_from_previous_allocator_3 <= '0';
+W_FIFO_hold_in_from_previous_allocator_3 <= hold_out_to_next_FIFO_E_2;
+S_FIFO_hold_in_from_previous_allocator_3 <= hold_out_to_next_FIFO_N_7;
+L_FIFO_hold_in_from_previous_allocator_3 <= '0';
+
+-- R4
+N_FIFO_hold_in_from_previous_allocator_4 <= hold_out_to_next_FIFO_S_0;
+E_FIFO_hold_in_from_previous_allocator_4 <= hold_out_to_next_FIFO_W_5;
+W_FIFO_hold_in_from_previous_allocator_4 <= '0';
+S_FIFO_hold_in_from_previous_allocator_4 <= hold_out_to_next_FIFO_N_8;
+L_FIFO_hold_in_from_previous_allocator_4 <= '0';
+
+-- R5
+N_FIFO_hold_in_from_previous_allocator_5 <= hold_out_to_next_FIFO_S_1;
+E_FIFO_hold_in_from_previous_allocator_5 <= hold_out_to_next_FIFO_W_6;
+W_FIFO_hold_in_from_previous_allocator_5 <= hold_out_to_next_FIFO_E_4;
+S_FIFO_hold_in_from_previous_allocator_5 <= hold_out_to_next_FIFO_N_9;
+L_FIFO_hold_in_from_previous_allocator_5 <= '0';
+
+-- R6
+N_FIFO_hold_in_from_previous_allocator_6 <= hold_out_to_next_FIFO_S_2;
+E_FIFO_hold_in_from_previous_allocator_6 <= hold_out_to_next_FIFO_W_7;
+W_FIFO_hold_in_from_previous_allocator_6 <= hold_out_to_next_FIFO_E_5;
+S_FIFO_hold_in_from_previous_allocator_6 <= hold_out_to_next_FIFO_N_10;
+L_FIFO_hold_in_from_previous_allocator_6 <= '0';
+
+-- R7
+N_FIFO_hold_in_from_previous_allocator_7 <= hold_out_to_next_FIFO_S_3;
+E_FIFO_hold_in_from_previous_allocator_7 <= '0';
+W_FIFO_hold_in_from_previous_allocator_7 <= hold_out_to_next_FIFO_E_6;
+S_FIFO_hold_in_from_previous_allocator_7 <= hold_out_to_next_FIFO_N_11;
+L_FIFO_hold_in_from_previous_allocator_7 <= '0';
+
+-- R8
+N_FIFO_hold_in_from_previous_allocator_8 <= hold_out_to_next_FIFO_S_4;
+E_FIFO_hold_in_from_previous_allocator_8 <= hold_out_to_next_FIFO_W_9;
+W_FIFO_hold_in_from_previous_allocator_8 <= '0';
+S_FIFO_hold_in_from_previous_allocator_8 <= hold_out_to_next_FIFO_N_12;
+L_FIFO_hold_in_from_previous_allocator_8 <= '0';
+
+-- R9
+N_FIFO_hold_in_from_previous_allocator_9 <= hold_out_to_next_FIFO_S_5;
+E_FIFO_hold_in_from_previous_allocator_9 <= hold_out_to_next_FIFO_W_10;
+W_FIFO_hold_in_from_previous_allocator_9 <= hold_out_to_next_FIFO_E_8;
+S_FIFO_hold_in_from_previous_allocator_9 <= hold_out_to_next_FIFO_N_13;
+L_FIFO_hold_in_from_previous_allocator_9 <= '0';
+
+-- R10
+N_FIFO_hold_in_from_previous_allocator_10 <= hold_out_to_next_FIFO_S_6;
+E_FIFO_hold_in_from_previous_allocator_10 <= hold_out_to_next_FIFO_W_11;
+W_FIFO_hold_in_from_previous_allocator_10 <= hold_out_to_next_FIFO_E_9;
+S_FIFO_hold_in_from_previous_allocator_10 <= hold_out_to_next_FIFO_N_14;
+L_FIFO_hold_in_from_previous_allocator_10 <= '0';
+
+-- R11
+N_FIFO_hold_in_from_previous_allocator_11 <= hold_out_to_next_FIFO_S_7;
+E_FIFO_hold_in_from_previous_allocator_11 <= '0';
+W_FIFO_hold_in_from_previous_allocator_11 <= hold_out_to_next_FIFO_E_10;
+S_FIFO_hold_in_from_previous_allocator_11 <= hold_out_to_next_FIFO_N_15;
+L_FIFO_hold_in_from_previous_allocator_11 <= '0';
+
+-- R12
+N_FIFO_hold_in_from_previous_allocator_12 <= hold_out_to_next_FIFO_S_8;
+E_FIFO_hold_in_from_previous_allocator_12 <= hold_out_to_next_FIFO_W_13;
+W_FIFO_hold_in_from_previous_allocator_12 <= '0';
+S_FIFO_hold_in_from_previous_allocator_12 <= '0';
+L_FIFO_hold_in_from_previous_allocator_12 <= '0';
+
+-- R13
+N_FIFO_hold_in_from_previous_allocator_13 <= hold_out_to_next_FIFO_S_9;
+E_FIFO_hold_in_from_previous_allocator_13 <= hold_out_to_next_FIFO_W_14;
+W_FIFO_hold_in_from_previous_allocator_13 <= hold_out_to_next_FIFO_E_12;
+S_FIFO_hold_in_from_previous_allocator_13 <= '0';
+L_FIFO_hold_in_from_previous_allocator_13 <= '0';
+
+-- R14
+N_FIFO_hold_in_from_previous_allocator_14 <= hold_out_to_next_FIFO_S_10;
+E_FIFO_hold_in_from_previous_allocator_14 <= hold_out_to_next_FIFO_W_15;
+W_FIFO_hold_in_from_previous_allocator_14 <= hold_out_to_next_FIFO_E_13;
+S_FIFO_hold_in_from_previous_allocator_14 <= '0';
+L_FIFO_hold_in_from_previous_allocator_14 <= '0';
+
+-- R15
+N_FIFO_hold_in_from_previous_allocator_15 <= hold_out_to_next_FIFO_S_11;
+E_FIFO_hold_in_from_previous_allocator_15 <= '0';
+W_FIFO_hold_in_from_previous_allocator_15 <= hold_out_to_next_FIFO_E_14;
+S_FIFO_hold_in_from_previous_allocator_15 <= '0';
+L_FIFO_hold_in_from_previous_allocator_15 <= '0';
+
 -- binding the routers together
 -- vertical ins/outs
 -- connecting router: 0 to router: 4 and vice versa

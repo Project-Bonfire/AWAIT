@@ -28,7 +28,11 @@ entity router_credit_based is
 
         -- BUBBLES
         hold_in_N,  hold_in_E,  hold_in_W,  hold_in_S,  hold_in_L : in  std_logic; -- BUBBLE IN
+        N_FIFO_hold_in_from_previous_allocator, E_FIFO_hold_in_from_previous_allocator, W_FIFO_hold_in_from_previous_allocator,
+        S_FIFO_hold_in_from_previous_allocator, L_FIFO_hold_in_from_previous_allocator: in std_logic;
+        
         hold_out_N, hold_out_E, hold_out_W, hold_out_S, hold_out_L: out std_logic; -- BUBBLE OUT
+        hold_out_to_next_FIFO_N, hold_out_to_next_FIFO_E, hold_out_to_next_FIFO_W, hold_out_to_next_FIFO_S, hold_out_to_next_FIFO_L: out std_logic; -- BUBBLE OUT
 
         valid_out_N,  valid_out_E,  valid_out_W,  valid_out_S,  valid_out_L : out std_logic;
         credit_out_N, credit_out_E, credit_out_W, credit_out_S, credit_out_L: out std_logic;
@@ -168,31 +172,31 @@ hold_out_L <= faulty_L_sync or hold_out_FIFO_L;
 FIFO_N: FIFO_credit_based_with_checkers generic map (DATA_WIDTH => DATA_WIDTH)
     port map (reset => reset, clk => clk, RX => RX_N, valid_in => valid_not_faulty_N,
             read_en_N => '0', read_en_E => Grant_EN, read_en_W => Grant_WN, read_en_S => Grant_SN, read_en_L => Grant_LN,
-            hold_in_from_allocator => FIFO_hold_in_from_allocator, 
+            hold_in_from_allocator => N_FIFO_hold_in_from_previous_allocator, 
             credit_out => credit_out_N, empty_out => empty_N, Data_out => FIFO_D_out_N, hold_out => hold_out_FIFO_N);
 
 FIFO_E: FIFO_credit_based_with_checkers generic map (DATA_WIDTH => DATA_WIDTH)
     port map (reset => reset, clk => clk, RX => RX_E, valid_in => valid_not_faulty_E,
             read_en_N => Grant_NE, read_en_E => '0', read_en_W => Grant_WE, read_en_S => Grant_SE, read_en_L => Grant_LE,
-            hold_in_from_allocator => FIFO_hold_in_from_allocator, 
+            hold_in_from_allocator => E_FIFO_hold_in_from_previous_allocator, 
             credit_out => credit_out_E, empty_out => empty_E, Data_out => FIFO_D_out_E, hold_out => hold_out_FIFO_E);
 
 FIFO_W: FIFO_credit_based_with_checkers generic map (DATA_WIDTH => DATA_WIDTH)
     port map (reset => reset, clk => clk, RX => RX_W, valid_in => valid_not_faulty_W,
             read_en_N => Grant_NW, read_en_E => Grant_EW, read_en_W => '0', read_en_S => Grant_SW, read_en_L => Grant_LW,
-            hold_in_from_allocator => FIFO_hold_in_from_allocator, 
+            hold_in_from_allocator => W_FIFO_hold_in_from_previous_allocator, 
             credit_out => credit_out_W, empty_out => empty_W, Data_out => FIFO_D_out_W, hold_out => hold_out_FIFO_W);
 
 FIFO_S: FIFO_credit_based_with_checkers generic map (DATA_WIDTH => DATA_WIDTH)
     port map (reset => reset, clk => clk, RX => RX_S, valid_in => valid_not_faulty_S,
             read_en_N => Grant_NS, read_en_E => Grant_ES, read_en_W => Grant_WS, read_en_S => '0', read_en_L => Grant_LS,
-            hold_in_from_allocator => FIFO_hold_in_from_allocator, 
+            hold_in_from_allocator => S_FIFO_hold_in_from_previous_allocator, 
             credit_out => credit_out_S, empty_out => empty_S, Data_out => FIFO_D_out_S, hold_out => hold_out_FIFO_S);
 
 FIFO_L: FIFO_credit_based_with_checkers generic map (DATA_WIDTH => DATA_WIDTH)
     port map (reset => reset, clk => clk, RX => RX_L, valid_in => valid_not_faulty_L,
             read_en_N => Grant_NL, read_en_E => Grant_EL, read_en_W => Grant_WL, read_en_S => Grant_SL, read_en_L => '0',
-            hold_in_from_allocator => FIFO_hold_in_from_allocator, 
+            hold_in_from_allocator => L_FIFO_hold_in_from_previous_allocator, 
             credit_out => credit_out_L, empty_out => empty_L, Data_out => FIFO_D_out_L, hold_out => hold_out_FIFO_L);
 
 ------------------------------------------------------------------------------------------------------------------------------
@@ -297,7 +301,9 @@ allocator_unit: allocator
             grant_S_N_xbar => Grant_SN_xbar, grant_S_E_xbar => Grant_SE_xbar, grant_S_W_xbar => Grant_SW_xbar, grant_S_S_xbar => Grant_SS_xbar, grant_S_L_xbar => Grant_SL_xbar,
             grant_L_N_xbar => Grant_LN_xbar, grant_L_E_xbar => Grant_LE_xbar, grant_L_W_xbar => Grant_LW_xbar, grant_L_S_xbar => Grant_LS_xbar, grant_L_L_xbar => Grant_LL_xbar, 
 
-            hold_out_to_FIFO => FIFO_hold_in_from_allocator
+            hold_out_to_next_FIFO_N => hold_out_to_next_FIFO_N, hold_out_to_next_FIFO_E => hold_out_to_next_FIFO_E, 
+            hold_out_to_next_FIFO_W => hold_out_to_next_FIFO_W, hold_out_to_next_FIFO_S => hold_out_to_next_FIFO_S, 
+            hold_out_to_next_FIFO_L => hold_out_to_next_FIFO_L
            );
 
 ------------------------------------------------------------------------------------------------------------------------------

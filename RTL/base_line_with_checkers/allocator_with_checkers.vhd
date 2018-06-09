@@ -46,7 +46,7 @@ entity allocator is
             grant_S_N_xbar, grant_S_E_xbar, grant_S_W_xbar, grant_S_S_xbar, grant_S_L_xbar: out std_logic;
             grant_L_N_xbar, grant_L_E_xbar, grant_L_W_xbar, grant_L_S_xbar, grant_L_L_xbar: out std_logic;
 
-            hold_out_to_FIFO: out std_logic                     
+            hold_out_to_next_FIFO_N, hold_out_to_next_FIFO_E, hold_out_to_next_FIFO_W, hold_out_to_next_FIFO_S, hold_out_to_next_FIFO_L: out std_logic                     
             );
 end allocator;
 
@@ -298,6 +298,12 @@ begin
     Arbiter_out_valid_in <= not credit_counter_checkers_outputs_sync_ORed;
     credit_counter_checkers_outputs_sync_ORed <= N_credit_counter_checkers_output_sync or E_credit_counter_checkers_output_sync or
                                                  W_credit_counter_checkers_output_sync or S_credit_counter_checkers_output_sync or L_credit_counter_checkers_output_sync;
+
+    hold_out_to_next_FIFO_N <= N_credit_counter_checkers_output_sync;
+    hold_out_to_next_FIFO_E <= E_credit_counter_checkers_output_sync;
+    hold_out_to_next_FIFO_W <= W_credit_counter_checkers_output_sync;
+    hold_out_to_next_FIFO_S <= S_credit_counter_checkers_output_sync;
+    hold_out_to_next_FIFO_L <= L_credit_counter_checkers_output_sync;
 
     -- Allocator-related logic
 
@@ -559,7 +565,5 @@ begin
     valid_W <= grant_W and not W_credit_counter_checkers_output_sync; --and All_Input_Requests_Valid and not Allocator_credit_counter_checkers_ORed_sync; -- and arb_N_X_valid_out and arb_E_X_valid_out and arb_W_X_valid_out and arb_S_X_valid_out and arb_L_X_valid_out;
     valid_S <= grant_S and not S_credit_counter_checkers_output_sync; --and All_Input_Requests_Valid and not Allocator_credit_counter_checkers_ORed_sync; -- and arb_N_X_valid_out and arb_E_X_valid_out and arb_W_X_valid_out and arb_S_X_valid_out and arb_L_X_valid_out;
     valid_L <= grant_L and not L_credit_counter_checkers_output_sync; --and All_Input_Requests_Valid and not Allocator_credit_counter_checkers_ORed_sync; -- and arb_N_X_valid_out and arb_E_X_valid_out and arb_W_X_valid_out and arb_S_X_valid_out and arb_L_X_valid_out;
-
-    hold_out_to_FIFO <= credit_counter_checkers_outputs_sync_ORed;
 
 END;
