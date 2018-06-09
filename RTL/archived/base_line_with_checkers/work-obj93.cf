@@ -1,0 +1,4 @@
+v 4
+file / "/var/folders/tm/fh684lf54z38tw2pwqmw7txw0000gn/T/tmp6xlz4j.vhd" "3550d9e489a660dd2d56b46aaa9d7da57e359919" "20180606135258.148":
+  entity fifo_credit_based_with_checkers at 3( 45) + 0 on 11;
+  architecture behavior of fifo_credit_based_with_checkers at 29( 877) + 0 on 12;

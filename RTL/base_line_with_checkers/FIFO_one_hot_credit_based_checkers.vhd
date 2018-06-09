@@ -19,37 +19,74 @@ entity FIFO_credit_based_checkers is
             read_en: in std_logic;
             write_en: in std_logic;
 
-            -- FIFO Control Part Checker Outputs
-            -- Functional Checkers
-            err_full_empty, 
-            err_empty_read_en, 
-            err_full_write_en, 
-            err_read_pointer_in_onehot, 
-            err_write_pointer_in_onehot, 
+            -- FIFO Control Part Checkers Output
+            FIFO_checkers_output: out std_logic
 
-            -- Structural Checkers
-            err_read_en_ORed_not_empty_read_en, 
-            err_all_read_en_zero_not_read_en, 
-            err_write_en_write_pointer_update, 
-            err_write_en_write_pointer_not_update, 
-            err_read_en_not_empty_read_pointer_update, 
-            err_read_en_empty_read_pointer_not_update, 
-            err_not_read_en_read_pointer_not_update, 
-            err_valid_in_not_full_write_en, 
-            err_valid_in_full_not_write_en, 
-            err_not_valid_in_not_write_en, 
-            err_read_pointer_write_pointer_equal_empty, 
-            err_read_pointer_write_pointer_not_equal_not_empty, 
-            err_write_pointer_after_read_pointer_full, 
-            err_write_pointer_not_after_read_pointer_not_full: out std_logic
     );
 end FIFO_credit_based_checkers;
 
 architecture behavior of FIFO_credit_based_checkers is
 
+  -- Checker outputs signals
+
+         -- Functional Checkers
+  signal err_full_empty, 
+         err_empty_read_en, 
+         err_full_write_en, 
+         err_read_pointer_in_onehot, 
+         err_write_pointer_in_onehot, 
+
+         -- Structural Checkers
+         err_read_en_ORed_not_empty_read_en, 
+         err_all_read_en_zero_not_read_en, 
+         err_write_en_write_pointer_update, 
+         err_write_en_write_pointer_not_update, 
+         err_read_en_not_empty_read_pointer_update, 
+         err_read_en_empty_read_pointer_not_update, 
+         err_not_read_en_read_pointer_not_update, 
+         err_valid_in_not_full_write_en, 
+         err_valid_in_full_not_write_en, 
+         err_not_valid_in_not_write_en, 
+         err_read_pointer_write_pointer_equal_empty, 
+         err_read_pointer_write_pointer_not_equal_not_empty, 
+         err_write_pointer_after_read_pointer_full, 
+         err_write_pointer_not_after_read_pointer_not_full: std_logic;
+
 begin
+
+-----------------------------------------------------------------------
+-----------------------------------------------------------------------
+
+  -- Checker outputs generation (used for AWAIT)
+
+  FIFO_checkers_output  <=  (err_full_empty or
+                             err_empty_read_en or
+                             err_full_write_en or
+                             err_read_pointer_in_onehot or
+                             err_write_pointer_in_onehot or
+
+                             err_read_en_ORed_not_empty_read_en or
+                             err_all_read_en_zero_not_read_en or
+                             err_write_en_write_pointer_update or
+                             err_write_en_write_pointer_not_update or
+                             err_read_en_not_empty_read_pointer_update or
+                             err_read_en_empty_read_pointer_not_update or
+                             err_not_read_en_read_pointer_not_update or
+                             err_valid_in_not_full_write_en or
+                             err_valid_in_full_not_write_en or
+                             err_not_valid_in_not_write_en or
+                             err_read_pointer_write_pointer_equal_empty or
+                             err_read_pointer_write_pointer_not_equal_not_empty or
+                             err_write_pointer_after_read_pointer_full or
+                             err_write_pointer_not_after_read_pointer_not_full) after 1 ps;
+
+-----------------------------------------------------------------------
+-----------------------------------------------------------------------
+  -- Implementing checkers in form of concurrent assignments (combinational assertions)
   
+
   -- Functional Checkers
+
   -- Empty and full cannot be high at the same time!
   process(full, empty) begin
     if (full = '1' and empty = '1') then
@@ -100,7 +137,11 @@ begin
   end process;
 
 
+-----------------------------------------------------------------------
+-----------------------------------------------------------------------
+
   -- Structural Checkers
+
   process(read_en_N, read_en_E, read_en_W, read_en_S, read_en_L, empty, read_en) begin
     if (read_en_N = '1' or read_en_E = '1' or read_en_W = '1' or read_en_S = '1' or read_en_L = '1') and empty = '0' and read_en /= '1' then
       err_read_en_ORed_not_empty_read_en <= '1';

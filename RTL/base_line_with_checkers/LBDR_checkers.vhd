@@ -22,64 +22,13 @@ entity LBDR_checkers is
             dst_addr_y, dst_addr_x: in std_logic_vector(6 downto 0);
             grants_out: in std_logic;
 
-            -- Functional Checker outputs
-            err_Req_N_Req_S_active,
-            err_Req_E_Req_W_active,
-            err_header_not_empty_Requests_in_onehot_XY_routing,
-            err_header_not_empty_Req_E_in_not_Req_N_in_XY_routing,
-            err_header_not_empty_Req_E_in_not_Req_S_in_XY_routing,
-            err_header_not_empty_Req_W_in_not_Req_N_in_XY_routing,
-            err_header_not_empty_Req_W_in_not_Req_S_in_XY_routing,
-            err_header_not_empty_curr_addr_dst_addr_equal_Req_L_in,
-            err_header_not_empty_curr_addr_dst_addr_not_equal_not_Req_L_in: out std_logic;
-
-            -- Structural checker outputs
-            err_empty_Req_N_in_Req_N_FF,
-            err_empty_Req_E_in_Req_E_FF,
-            err_empty_Req_W_in_Req_W_FF,
-            err_empty_Req_S_in_Req_S_FF,
-            err_empty_Req_L_in_Req_L_FF,
-            err_grants,
-            err_not_grants,
-            err_dst_addr_cur_addr_N1,
-            err_dst_addr_cur_addr_not_N1,
-            err_dst_addr_cur_addr_E1,
-            err_dst_addr_cur_addr_not_E1,
-            err_dst_addr_cur_addr_W1,
-            err_dst_addr_cur_addr_not_W1,
-            err_dst_addr_cur_addr_S1,
-            err_dst_addr_cur_addr_not_S1,
-            err_header_not_empty_Req_N_in,
-            err_header_not_empty_Req_E_in,
-            err_header_not_empty_Req_W_in,
-            err_header_not_empty_Req_S_in,
-            err_header_not_empty_Req_L_in,
-            err_header_empty_Req_N_in_Req_N_FF,
-            err_header_empty_Req_E_in_Req_E_FF,
-            err_header_empty_Req_W_in_Req_W_FF,
-            err_header_empty_Req_S_in_Req_S_FF,
-            err_header_empty_Req_L_in_Req_L_FF,
-            err_tail_not_empty_grants_not_Req_N_in,
-            err_tail_not_empty_grants_not_Req_E_in,
-            err_tail_not_empty_grants_not_Req_W_in,
-            err_tail_not_empty_grants_not_Req_S_in,
-            err_tail_not_empty_grants_not_Req_L_in,
-            err_tail_not_empty_not_grants_Req_N_in_Req_N_FF_equal,
-            err_tail_not_empty_not_grants_Req_E_in_Req_E_FF_equal,
-            err_tail_not_empty_not_grants_Req_W_in_Req_W_FF_equal,
-            err_tail_not_empty_not_grants_Req_S_in_Req_S_FF_equal,
-            err_tail_not_empty_not_grants_Req_L_in_Req_L_FF_equal,
-            err_tail_empty_Req_N_in_Req_N_FF_equal,
-            err_tail_empty_Req_E_in_Req_E_FF_equal,
-            err_tail_empty_Req_W_in_Req_W_FF_equal,
-            err_tail_empty_Req_S_in_Req_S_FF_equal,
-            err_tail_empty_Req_L_in_Req_L_FF_equal,
-            err_body_or_invalid_Req_N_in_Req_N_FF,
-            err_body_or_invalid_Req_E_in_Req_E_FF,
-            err_body_or_invalid_Req_W_in_Req_W_FF,
-            err_body_or_invalid_Req_S_in_Req_S_FF,
-            err_body_or_invalid_Req_L_in_Req_L_FF: out std_logic
-            );
+            -- Checkers outputs
+            N_Req_LBDR_checkers_output: out std_logic; 
+            E_Req_LBDR_checkers_output: out std_logic; 
+            W_Req_LBDR_checkers_output: out std_logic; 
+            S_Req_LBDR_checkers_output: out std_logic; 
+            L_Req_LBDR_checkers_output: out std_logic
+        );
 end LBDR_checkers;
 
 architecture behavior of LBDR_checkers is
@@ -90,7 +39,160 @@ architecture behavior of LBDR_checkers is
     signal Cx :  std_logic_vector(3 downto 0);
     signal Rxy:  std_logic_vector(7 downto 0);
 
+    -- Checker outputs signals
+    
+    -- Functional Checker outputs
+    signal err_Req_N_Req_S_active, 
+           err_Req_E_Req_W_active,   
+           err_header_not_empty_Requests_in_onehot_XY_routing, 
+           err_header_not_empty_Req_E_in_not_Req_N_in_XY_routing, 
+           err_header_not_empty_Req_E_in_not_Req_S_in_XY_routing, 
+           err_header_not_empty_Req_W_in_not_Req_N_in_XY_routing, 
+           err_header_not_empty_Req_W_in_not_Req_S_in_XY_routing, 
+           err_header_not_empty_curr_addr_dst_addr_equal_Req_L_in, 
+           err_header_not_empty_curr_addr_dst_addr_not_equal_not_Req_L_in, 
+
+           -- Structural checker outputs
+           err_empty_Req_N_in_Req_N_FF, 
+           err_empty_Req_E_in_Req_E_FF, 
+           err_empty_Req_W_in_Req_W_FF, 
+           err_empty_Req_S_in_Req_S_FF, 
+           err_empty_Req_L_in_Req_L_FF,                   
+           err_grants, 
+           err_not_grants, 
+           err_dst_addr_cur_addr_N1, 
+           err_dst_addr_cur_addr_not_N1, 
+           err_dst_addr_cur_addr_E1, 
+           err_dst_addr_cur_addr_not_E1, 
+           err_dst_addr_cur_addr_W1, 
+           err_dst_addr_cur_addr_not_W1, 
+           err_dst_addr_cur_addr_S1, 
+           err_dst_addr_cur_addr_not_S1, 
+           err_header_not_empty_Req_N_in, 
+           err_header_not_empty_Req_E_in, 
+           err_header_not_empty_Req_W_in, 
+           err_header_not_empty_Req_S_in, 
+           err_header_not_empty_Req_L_in, 
+           err_header_empty_Req_N_in_Req_N_FF, 
+           err_header_empty_Req_E_in_Req_E_FF, 
+           err_header_empty_Req_W_in_Req_W_FF, 
+           err_header_empty_Req_S_in_Req_S_FF, 
+           err_header_empty_Req_L_in_Req_L_FF, 
+           err_tail_not_empty_grants_not_Req_N_in, 
+           err_tail_not_empty_grants_not_Req_E_in, 
+           err_tail_not_empty_grants_not_Req_W_in, 
+           err_tail_not_empty_grants_not_Req_S_in, 
+           err_tail_not_empty_grants_not_Req_L_in, 
+           err_tail_not_empty_not_grants_Req_N_in_Req_N_FF_equal, 
+           err_tail_not_empty_not_grants_Req_E_in_Req_E_FF_equal, 
+           err_tail_not_empty_not_grants_Req_W_in_Req_W_FF_equal, 
+           err_tail_not_empty_not_grants_Req_S_in_Req_S_FF_equal, 
+           err_tail_not_empty_not_grants_Req_L_in_Req_L_FF_equal, 
+           err_tail_empty_Req_N_in_Req_N_FF_equal, 
+           err_tail_empty_Req_E_in_Req_E_FF_equal, 
+           err_tail_empty_Req_W_in_Req_W_FF_equal, 
+           err_tail_empty_Req_S_in_Req_S_FF_equal, 
+           err_tail_empty_Req_L_in_Req_L_FF_equal, 
+           err_body_or_invalid_Req_N_in_Req_N_FF, 
+           err_body_or_invalid_Req_E_in_Req_E_FF, 
+           err_body_or_invalid_Req_W_in_Req_W_FF, 
+           err_body_or_invalid_Req_S_in_Req_S_FF, 
+           err_body_or_invalid_Req_L_in_Req_L_FF : std_logic;
+
 begin
+
+-----------------------------------------------------------------------
+-----------------------------------------------------------------------
+
+      -- Checker outputs generation (used for AWAIT)
+
+      N_Req_LBDR_checkers_output <=      (err_Req_N_Req_S_active or 
+                                          err_header_not_empty_Requests_in_onehot_XY_routing or
+                                          err_header_not_empty_Req_E_in_not_Req_N_in_XY_routing or 
+                                          err_header_not_empty_Req_W_in_not_Req_N_in_XY_routing or 
+
+                                          err_empty_Req_N_in_Req_N_FF or 
+                                          err_grants or 
+                                          err_not_grants or
+                                          err_dst_addr_cur_addr_N1 or
+                                          err_dst_addr_cur_addr_not_N1 or
+                                          err_header_not_empty_Req_N_in or
+                                          err_header_empty_Req_N_in_Req_N_FF or 
+                                          err_tail_not_empty_grants_not_Req_N_in or 
+                                          err_tail_not_empty_not_grants_Req_N_in_Req_N_FF_equal or
+                                          err_tail_empty_Req_N_in_Req_N_FF_equal or 
+                                          err_body_or_invalid_Req_N_in_Req_N_FF) after 1 ps;
+
+     E_Req_LBDR_checkers_output <=       (err_Req_E_Req_W_active or 
+                                          err_header_not_empty_Requests_in_onehot_XY_routing or
+                                          err_header_not_empty_Req_E_in_not_Req_N_in_XY_routing or
+                                          err_header_not_empty_Req_E_in_not_Req_S_in_XY_routing or
+
+                                          err_empty_Req_E_in_Req_E_FF or 
+                                          err_grants or 
+                                          err_not_grants or
+                                          err_dst_addr_cur_addr_E1 or
+                                          err_dst_addr_cur_addr_not_E1 or
+                                          err_header_not_empty_Req_E_in or
+                                          err_header_empty_Req_E_in_Req_E_FF or 
+                                          err_tail_not_empty_grants_not_Req_E_in or 
+                                          err_tail_not_empty_not_grants_Req_E_in_Req_E_FF_equal or
+                                          err_tail_empty_Req_E_in_Req_E_FF_equal or 
+                                          err_body_or_invalid_Req_E_in_Req_E_FF) after 1 ps;
+
+      W_Req_LBDR_checkers_output <=      (err_Req_E_Req_W_active or 
+                                          err_header_not_empty_Requests_in_onehot_XY_routing or
+                                          err_header_not_empty_Req_W_in_not_Req_N_in_XY_routing or
+                                          err_header_not_empty_Req_W_in_not_Req_S_in_XY_routing or                                          
+
+                                          err_empty_Req_W_in_Req_W_FF or 
+                                          err_grants or 
+                                          err_not_grants or
+                                          err_dst_addr_cur_addr_W1 or
+                                          err_dst_addr_cur_addr_not_W1 or
+                                          err_header_not_empty_Req_N_in or
+                                          err_header_empty_Req_W_in_Req_W_FF or 
+                                          err_tail_not_empty_grants_not_Req_W_in or 
+                                          err_tail_not_empty_not_grants_Req_W_in_Req_W_FF_equal or
+                                          err_tail_empty_Req_W_in_Req_W_FF_equal or 
+                                          err_body_or_invalid_Req_W_in_Req_W_FF) after 1 ps;
+
+      S_Req_LBDR_checkers_output <=      (err_Req_N_Req_S_active or 
+                                          err_header_not_empty_Requests_in_onehot_XY_routing or
+                                          err_header_not_empty_Req_E_in_not_Req_S_in_XY_routing or
+                                          err_header_not_empty_Req_W_in_not_Req_S_in_XY_routing or                                          
+
+                                          err_empty_Req_S_in_Req_S_FF or
+                                          err_grants or 
+                                          err_not_grants or
+                                          err_dst_addr_cur_addr_S1 or
+                                          err_dst_addr_cur_addr_not_S1 or
+                                          err_header_not_empty_Req_S_in or
+                                          err_header_empty_Req_S_in_Req_S_FF or 
+                                          err_tail_not_empty_grants_not_Req_S_in or 
+                                          err_tail_not_empty_not_grants_Req_S_in_Req_S_FF_equal or
+                                          err_tail_empty_Req_S_in_Req_S_FF_equal or 
+                                          err_body_or_invalid_Req_S_in_Req_S_FF) after 1 ps;
+
+      L_Req_LBDR_checkers_output <=      (err_header_not_empty_Requests_in_onehot_XY_routing or
+                                          err_header_not_empty_curr_addr_dst_addr_equal_Req_L_in or
+                                          err_header_not_empty_curr_addr_dst_addr_not_equal_not_Req_L_in or 
+
+                                          err_empty_Req_L_in_Req_L_FF or
+                                          err_grants or 
+                                          err_not_grants or
+                                          err_header_not_empty_Req_L_in or
+                                          err_header_empty_Req_L_in_Req_L_FF or 
+                                          err_tail_not_empty_grants_not_Req_L_in or 
+                                          err_tail_not_empty_not_grants_Req_L_in_Req_L_FF_equal or
+                                          err_tail_empty_Req_L_in_Req_L_FF_equal or 
+                                          err_body_or_invalid_Req_L_in_Req_L_FF) after 1 ps;
+
+
+-----------------------------------------------------------------------
+-----------------------------------------------------------------------
+
+    -- Signals used in checkers logic
 
     Requests_FF   <= Req_N_FF & Req_E_FF & Req_W_FF & Req_S_FF & Req_L_FF;
     Requests_in   <= Req_N_in & Req_E_in & Req_W_in & Req_S_in & Req_L_in;
@@ -98,8 +200,10 @@ begin
     Cx  <= std_logic_vector(to_unsigned(Cx_rst,   Cx'length));
     Rxy <= std_logic_vector(to_unsigned(Rxy_rst, Rxy'length));
 
-
+-----------------------------------------------------------------------
+-----------------------------------------------------------------------
     -- Implementing checkers in form of concurrent assignments (combinational assertions)
+
 
     -- Functional Checkers
 
@@ -187,6 +291,9 @@ begin
             err_header_not_empty_curr_addr_dst_addr_not_equal_not_Req_L_in <= '0';
         end if;
     end process;
+
+-----------------------------------------------------------------------
+-----------------------------------------------------------------------
 
     -- Structural Checkers
 

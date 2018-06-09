@@ -14,9 +14,30 @@ entity arbiter_in_one_hot_checkers is
 			X_N, X_E, X_W, X_S, X_L :in std_logic;
 			X_N_prev, X_E_prev, X_W_prev, X_S_prev, X_L_prev :in std_logic;
 
-            -- Checker outputs
+            -- Checkers output
+            arbiter_in_checkers_output: out std_logic
+           );
+end arbiter_in_one_hot_checkers;
+
+architecture behavior of arbiter_in_one_hot_checkers is
+
+	-- Arbiter_in one-hot encoded states
+	CONSTANT IDLE: std_logic_vector (5 downto 0) := "000001";
+	CONSTANT Local: std_logic_vector (5 downto 0) := "000010";
+	CONSTANT North: std_logic_vector (5 downto 0) := "000100";
+	CONSTANT East: std_logic_vector (5 downto 0) := "001000";
+	CONSTANT West: std_logic_vector (5 downto 0) := "010000";
+	CONSTANT South: std_logic_vector (5 downto 0) := "100000";
+
+	-- Signals
+	SIGNAL   Requests: std_logic_vector (4 downto 0);
+	SIGNAL   Requests_valid: std_logic_vector (4 downto 0);
+	SIGNAL   Grants: std_logic_vector (4 downto 0);
+	SIGNAL   Grants_prev: std_logic_vector (4 downto 0);
+
+    -- Checker outputs signals
 			-- Functional Checkers
-			err_arbiter_in_state_in_onehot, 
+	SIGNAL	err_arbiter_in_state_in_onehot, 
 			err_arbiter_in_all_Requests_invalid_Grants_previous_equal, 
 			err_arbiter_in_all_Requests_zero_state_in_state_equal, 
 
@@ -212,32 +233,230 @@ entity arbiter_in_one_hot_checkers is
 			err_arbiter_in_East_not_Req_E_not_valid_not_Req_W_not_valid_not_Req_S_not_valid_not_Req_L_not_valid_not_Req_N_not_valid_state_in_state_equal, 
 			err_arbiter_in_West_not_Req_W_not_valid_not_Req_S_not_valid_not_Req_L_not_valid_state_not_Req_N_not_valid_not_Req_E_not_valid_in_state_equal, 
 			err_arbiter_in_South_not_Req_S_not_valid_not_Req_L_not_valid_state_not_Req_N_not_valid_not_Req_E_not_valid_not_Req_W_not_valid_in_state_equal, 
-			err_arbiter_in_South_not_Req_L_not_valid_state_not_Req_N_not_valid_not_Req_E_not_valid_not_Req_W_not_valid_not_Req_S_not_valid_in_state_equal: out std_logic
-           );
-end arbiter_in_one_hot_checkers;
-
-architecture behavior of arbiter_in_one_hot_checkers is
-
-	-- Arbiter_in one-hot encoded states
-	CONSTANT IDLE: std_logic_vector (5 downto 0) := "000001";
-	CONSTANT Local: std_logic_vector (5 downto 0) := "000010";
-	CONSTANT North: std_logic_vector (5 downto 0) := "000100";
-	CONSTANT East: std_logic_vector (5 downto 0) := "001000";
-	CONSTANT West: std_logic_vector (5 downto 0) := "010000";
-	CONSTANT South: std_logic_vector (5 downto 0) := "100000";
-
-	-- Signals
-	SIGNAL   Requests: std_logic_vector (4 downto 0);
-	SIGNAL   Requests_valid: std_logic_vector (4 downto 0);
-	SIGNAL   Grants: std_logic_vector (4 downto 0);
-	SIGNAL   Grants_prev: std_logic_vector (4 downto 0);
+			err_arbiter_in_South_not_Req_L_not_valid_state_not_Req_N_not_valid_not_Req_E_not_valid_not_Req_W_not_valid_not_Req_S_not_valid_in_state_equal: std_logic;
 
 begin 
+
+-----------------------------------------------------------------------
+-----------------------------------------------------------------------
+
+    -- Checker outputs generation (used for AWAIT)
+
+										-- Functional Checkers
+	arbiter_in_checkers_output <= 	   (err_arbiter_in_state_in_onehot or 
+										err_arbiter_in_all_Requests_invalid_Grants_previous_equal or 
+										err_arbiter_in_all_Requests_zero_state_in_state_equal or 
+
+										-- Structural Checkers
+										-- Round 1
+										err_arbiter_in_IDLE_Req_N_valid_state_in_North or 
+										err_arbiter_in_IDLE_Req_N_valid_grant_N or 
+										err_arbiter_in_IDLE_not_Req_N_valid_not_grant_N or 
+										err_arbiter_in_IDLE_not_Req_N_not_valid_grant_N_previous_value or 
+										err_arbiter_in_IDLE_Req_N_not_valid_grant_N_previous_value or 
+
+										err_arbiter_in_North_Req_N_valid_state_in_North or 
+										err_arbiter_in_North_Req_N_valid_grant_N or 
+										err_arbiter_in_North_not_Req_N_valid_not_grant_N or 
+										err_arbiter_in_North_not_Req_N_not_valid_grant_N_previous_value or 
+										err_arbiter_in_North_Req_N_not_valid_grant_N_previous_value or 
+
+										err_arbiter_in_East_Req_E_valid_state_in_East or 
+										err_arbiter_in_East_Req_E_valid_grant_E or 
+										err_arbiter_in_East_not_Req_N_valid_not_grant_N or 
+										err_arbiter_in_East_not_Req_E_not_valid_grant_E_previous_value or 
+										err_arbiter_in_East_Req_E_not_valid_grant_E_previous_value or 
+
+										err_arbiter_in_West_Req_W_valid_state_in_West or 
+										err_arbiter_in_West_Req_W_valid_grant_W or 
+										err_arbiter_in_West_not_Req_N_valid_not_grant_N or 
+										err_arbiter_in_West_not_Req_W_not_valid_grant_W_previous_value or 
+										err_arbiter_in_West_Req_W_not_valid_grant_W_previous_value or 
+
+										err_arbiter_in_South_Req_S_valid_state_in_South or 
+										err_arbiter_in_South_Req_S_valid_grant_S or 
+										err_arbiter_in_South_not_Req_N_valid_not_grant_N or 
+										err_arbiter_in_South_not_Req_S_not_valid_grant_S_previous_value or 
+										err_arbiter_in_South_Req_S_not_valid_grant_S_previous_value or 
+
+										err_arbiter_in_Local_Req_L_valid_state_in_Local or 
+										err_arbiter_in_Local_Req_L_valid_grant_L or 
+										err_arbiter_in_Local_not_Req_N_valid_not_grant_N or 
+										err_arbiter_in_Local_not_Req_L_not_valid_grant_L_previous_value or 
+										err_arbiter_in_Local_Req_L_not_valid_grant_L_previous_value or 
+
+										-- Round 2
+										err_arbiter_in_IDLE_not_Req_N_not_valid_Req_E_valid_state_in_East or 
+										err_arbiter_in_IDLE_not_Req_N_not_valid_Req_E_valid_grant_E or 
+										err_arbiter_in_IDLE_not_Req_E_valid_not_grant_E or 
+										err_arbiter_in_IDLE_not_Req_N_not_valid_not_Req_E_not_valid_grant_E_previous_value or 
+										err_arbiter_in_IDLE_not_Req_N_not_valid_Req_E_not_valid_grant_E_previous_value or 
+
+										err_arbiter_in_North_not_Req_N_not_valid_Req_E_valid_state_in_East or 
+										err_arbiter_in_North_not_Req_N_not_valid_Req_E_valid_grant_E or 
+										err_arbiter_in_North_not_Req_E_valid_not_grant_E or 
+										err_arbiter_in_North_not_Req_N_not_valid_not_Req_E_not_valid_grant_E_previous_value or 
+										err_arbiter_in_North_not_Req_N_not_valid_Req_E_not_valid_grant_E_previous_value or 
+
+										err_arbiter_in_East_not_Req_E_not_valid_Req_W_valid_state_in_West or 
+										err_arbiter_in_East_not_Req_E_not_valid_Req_W_valid_grant_W or 
+										err_arbiter_in_East_not_Req_E_valid_not_grant_E or 
+										err_arbiter_in_East_not_Req_E_not_valid_not_Req_W_not_valid_grant_W_previous_value or 
+										err_arbiter_in_East_not_Req_E_not_valid_Req_W_not_valid_grant_W_previous_value or 
+
+										err_arbiter_in_West_not_Req_W_not_valid_Req_S_valid_state_in_South or 
+										err_arbiter_in_West_not_Req_W_not_valid_Req_S_valid_grant_S or 
+										err_arbiter_in_West_not_Req_E_valid_not_grant_E or 
+										err_arbiter_in_West_not_Req_W_not_valid_not_Req_S_not_valid_grant_S_previous_value or 
+										err_arbiter_in_West_not_Req_W_not_valid_Req_S_not_valid_grant_S_previous_value or 
+
+										err_arbiter_in_South_not_Req_S_not_valid_Req_L_valid_state_in_Local or 
+										err_arbiter_in_South_not_Req_S_not_valid_Req_L_valid_grant_L or 
+										err_arbiter_in_South_not_Req_E_valid_not_grant_E or 
+										err_arbiter_in_South_not_Req_S_not_valid_not_Req_L_not_valid_grant_L_previous_value or 
+										err_arbiter_in_South_not_Req_S_not_valid_Req_L_not_valid_grant_L_previous_value or 
+
+										err_arbiter_in_Local_not_Req_L_not_valid_Req_N_valid_state_in_North or 
+										err_arbiter_in_Local_not_Req_L_not_valid_Req_N_valid_grant_N or 
+										err_arbiter_in_Local_not_Req_E_valid_not_grant_E or 
+										err_arbiter_in_Local_not_Req_L_not_valid_not_Req_N_not_valid_grant_N_previous_value or 
+										err_arbiter_in_Local_not_Req_L_not_valid_Req_N_not_valid_grant_N_previous_value or 
+
+										-- Round 3
+										err_arbiter_in_IDLE_not_Req_N_not_valid_not_Req_E_not_valid_Req_W_valid_state_in_West or 
+										err_arbiter_in_IDLE_not_Req_N_not_valid_not_Req_E_not_valid_Req_W_valid_grant_W or 
+										err_arbiter_in_IDLE_not_Req_W_valid_not_grant_W or 
+										err_arbiter_in_IDLE_not_Req_N_not_valid_not_Req_E_not_valid_not_Req_W_not_valid_grant_W_previous_value or 
+										err_arbiter_in_IDLE_not_Req_N_not_valid_not_Req_E_not_valid_Req_W_not_valid_grant_W_previous_value or 
+
+										err_arbiter_in_North_not_Req_N_not_valid_not_Req_E_not_valid_Req_W_valid_state_in_West or 
+										err_arbiter_in_North_not_Req_N_not_valid_not_Req_E_not_valid_Req_W_valid_grant_W or 
+										err_arbiter_in_North_not_Req_W_valid_not_grant_W or 
+										err_arbiter_in_North_not_Req_N_not_valid_not_Req_E_not_valid_not_Req_W_not_valid_grant_W_previous_value or 
+										err_arbiter_in_North_not_Req_N_not_valid_not_Req_E_not_valid_Req_W_not_valid_grant_W_previous_value or 
+
+										err_arbiter_in_East_not_Req_E_not_valid_not_Req_W_not_valid_Req_S_valid_state_in_South or 
+										err_arbiter_in_East_not_Req_E_not_valid_not_Req_W_not_valid_Req_S_valid_grant_S or 
+										err_arbiter_in_East_not_Req_W_valid_not_grant_W or 
+										err_arbiter_in_East_not_Req_E_not_valid_not_Req_W_not_valid_not_Req_S_not_valid_grant_S_previous_value or 
+										err_arbiter_in_East_not_Req_E_not_valid_not_Req_W_not_valid_Req_S_not_valid_grant_S_previous_value or 
+
+										err_arbiter_in_West_not_Req_W_not_valid_not_Req_S_not_valid_Req_L_valid_state_in_Local or 
+										err_arbiter_in_West_not_Req_W_not_valid_not_Req_S_not_valid_Req_L_valid_grant_L or 
+										err_arbiter_in_West_not_Req_W_valid_not_grant_W or 
+										err_arbiter_in_West_not_Req_W_not_valid_not_Req_S_not_valid_not_Req_L_not_valid_grant_L_previous_value or 
+										err_arbiter_in_West_not_Req_W_not_valid_not_Req_S_not_valid_Req_L_not_valid_grant_L_previous_value or 
+
+										err_arbiter_in_South_not_Req_S_not_valid_not_Req_L_not_valid_Req_N_valid_state_in_North or 
+										err_arbiter_in_South_not_Req_S_not_valid_not_Req_L_not_valid_Req_N_valid_grant_N or 
+										err_arbiter_in_South_not_Req_W_valid_not_grant_W or 
+										err_arbiter_in_South_not_Req_S_not_valid_not_Req_L_not_valid_not_Req_N_not_valid_grant_N_previous_value or 
+										err_arbiter_in_South_not_Req_S_not_valid_not_Req_L_not_valid_Req_N_not_valid_grant_N_previous_value or 
+
+										err_arbiter_in_Local_not_Req_L_not_valid_not_Req_N_not_valid_Req_E_valid_state_in_North or 
+										err_arbiter_in_Local_not_Req_L_not_valid_not_Req_N_not_valid_Req_E_valid_grant_E or 
+										err_arbiter_in_Local_not_Req_W_valid_not_grant_W or 
+										err_arbiter_in_Local_not_Req_L_not_valid_not_Req_N_not_valid_not_Req_E_not_valid_grant_E_previous_value or 
+										err_arbiter_in_Local_not_Req_L_not_valid_not_Req_N_not_valid_Req_E_not_valid_grant_E_previous_value or 
+
+										-- Round 4
+										err_arbiter_in_IDLE_not_Req_N_not_valid_not_Req_E_not_valid_not_Req_W_not_valid_Req_S_valid_state_in_South or 
+										err_arbiter_in_IDLE_not_Req_N_not_valid_not_Req_E_not_valid_not_Req_W_not_valid_Req_S_valid_grant_S or 
+										err_arbiter_in_IDLE_not_Req_S_valid_not_grant_S or 
+										err_arbiter_in_IDLE_not_Req_N_not_valid_not_Req_E_not_valid_not_Req_W_not_valid_not_Req_S_not_valid_grant_S_previous_value or 
+										err_arbiter_in_IDLE_not_Req_N_not_valid_not_Req_E_not_valid_not_Req_W_not_valid_Req_S_not_valid_grant_S_previous_value or 
+
+										err_arbiter_in_North_not_Req_N_not_valid_not_Req_E_not_valid_not_Req_W_not_valid_Req_S_valid_state_in_South or 
+										err_arbiter_in_North_not_Req_N_not_valid_not_Req_E_not_valid_not_Req_W_not_valid_Req_S_valid_grant_S or 
+										err_arbiter_in_North_not_Req_S_valid_not_grant_S or 
+										err_arbiter_in_North_not_Req_N_not_valid_not_Req_E_not_valid_not_Req_W_not_valid_not_Req_S_not_valid_grant_S_previous_value or 
+										err_arbiter_in_North_not_Req_N_not_valid_not_Req_E_not_valid_not_Req_W_not_valid_Req_S_not_valid_grant_S_previous_value or 
+
+										err_arbiter_in_East_not_Req_E_not_valid_not_Req_W_not_valid_not_Req_S_not_valid_Req_L_valid_state_in_Local or 
+										err_arbiter_in_East_not_Req_E_not_valid_not_Req_W_not_valid_not_Req_S_not_valid_Req_L_valid_grant_L or 
+										err_arbiter_in_East_not_Req_S_valid_not_grant_S or 
+										err_arbiter_in_East_not_Req_E_not_valid_not_Req_W_not_valid_not_Req_S_not_valid_not_Req_L_not_valid_grant_L_previous_value or 
+										err_arbiter_in_East_not_Req_E_not_valid_not_Req_W_not_valid_not_Req_S_not_valid_Req_L_not_valid_grant_L_previous_value or 
+
+										err_arbiter_in_West_not_Req_W_not_valid_not_Req_S_not_valid_not_Req_L_not_valid_Req_N_valid_state_in_North or 
+										err_arbiter_in_West_not_Req_W_not_valid_not_Req_S_not_valid_not_Req_L_not_valid_Req_N_valid_grant_N or 
+										err_arbiter_in_West_not_Req_S_valid_not_grant_S or 
+										err_arbiter_in_West_not_Req_W_not_valid_not_Req_S_not_valid_not_Req_L_not_valid_not_Req_N_not_valid_grant_N_previous_value or 
+										err_arbiter_in_West_not_Req_W_not_valid_not_Req_S_not_valid_not_Req_L_not_valid_Req_N_not_valid_grant_N_previous_value or 
+
+										err_arbiter_in_South_not_Req_S_not_valid_not_Req_L_not_valid_not_Req_N_not_valid_Req_E_valid_state_in_East or 
+										err_arbiter_in_South_not_Req_S_not_valid_not_Req_L_not_valid_not_Req_N_not_valid_Req_E_valid_grant_E or 
+										err_arbiter_in_South_not_Req_S_valid_not_grant_S or 
+										err_arbiter_in_South_not_Req_S_not_valid_not_Req_L_not_valid_not_Req_N_not_valid_not_Req_E_not_valid_grant_E_previous_value or 
+										err_arbiter_in_South_not_Req_S_not_valid_not_Req_L_not_valid_not_Req_N_not_valid_Req_E_not_valid_grant_E_previous_value or 
+
+										err_arbiter_in_Local_not_Req_L_not_valid_not_Req_N_not_valid_not_Req_E_not_valid_Req_W_valid_state_in_West or 
+										err_arbiter_in_Local_not_Req_L_not_valid_not_Req_N_not_valid_not_Req_E_not_valid_Req_W_valid_grant_W or 
+										err_arbiter_in_Local_not_Req_S_valid_not_grant_S or 
+										err_arbiter_in_Local_not_Req_L_not_valid_not_Req_N_not_valid_not_Req_E_not_valid_not_Req_W_not_valid_grant_W_previous_value or 
+										err_arbiter_in_Local_not_Req_L_not_valid_not_Req_N_not_valid_not_Req_E_not_valid_Req_W_not_valid_grant_W_previous_value or 
+
+										-- Roung 5
+										err_arbiter_in_IDLE_not_Req_N_not_valid_not_Req_E_not_valid_not_Req_W_not_valid_not_Req_S_not_valid_Req_L_valid_state_in_Local or 
+										err_arbiter_in_IDLE_not_Req_N_not_valid_not_Req_E_not_valid_not_Req_W_not_valid_not_Req_S_not_valid_Req_L_valid_grant_L or 
+										err_arbiter_in_IDLE_not_Req_L_valid_not_grant_L or 
+										err_arbiter_in_IDLE_not_Req_N_not_valid_not_Req_E_not_valid_not_Req_W_not_valid_not_Req_S_not_valid_not_Req_L_not_valid_grant_L_previous_value or 
+										err_arbiter_in_IDLE_not_Req_N_not_valid_not_Req_E_not_valid_not_Req_W_not_valid_not_Req_S_not_valid_Req_L_not_valid_grant_L_previous_value or 
+
+										err_arbiter_in_North_not_Req_N_not_valid_not_Req_E_not_valid_not_Req_W_not_valid_not_Req_S_not_valid_Req_L_valid_state_in_Local or 
+										err_arbiter_in_North_not_Req_N_not_valid_not_Req_E_not_valid_not_Req_W_not_valid_not_Req_S_not_valid_Req_L_valid_grant_L or 
+										err_arbiter_in_North_not_Req_L_valid_not_grant_L or 
+										err_arbiter_in_North_not_Req_N_not_valid_not_Req_E_not_valid_not_Req_W_not_valid_not_Req_S_not_valid_not_Req_L_not_valid_grant_L_previous_value or 
+										err_arbiter_in_North_not_Req_N_not_valid_not_Req_E_not_valid_not_Req_W_not_valid_not_Req_S_not_valid_Req_L_not_valid_grant_L_previous_value or 
+
+										err_arbiter_in_East_not_Req_E_not_valid_not_Req_W_not_valid_not_Req_S_not_valid_not_Req_L_not_valid_Req_N_valid_state_in_North or 
+										err_arbiter_in_East_not_Req_E_not_valid_not_Req_W_not_valid_not_Req_S_not_valid_not_Req_L_not_valid_Req_N_valid_grant_N or 
+										err_arbiter_in_East_not_Req_L_valid_not_grant_L or 
+										err_arbiter_in_East_not_Req_E_not_valid_not_Req_W_not_valid_not_Req_S_not_valid_not_Req_L_not_valid_not_Req_N_not_valid_grant_N_previous_value or 
+										err_arbiter_in_East_not_Req_E_not_valid_not_Req_W_not_valid_not_Req_S_not_valid_not_Req_L_not_valid_Req_N_not_valid_grant_N_previous_value or 
+
+										err_arbiter_in_West_not_Req_W_not_valid_not_Req_S_not_valid_not_Req_L_not_valid_not_Req_N_not_valid_Req_E_valid_state_in_North or 
+										err_arbiter_in_West_not_Req_W_not_valid_not_Req_S_not_valid_not_Req_L_not_valid_not_Req_N_not_valid_Req_E_valid_grant_E or 
+										err_arbiter_in_West_not_Req_L_valid_not_grant_L or 
+										err_arbiter_in_West_not_Req_W_not_valid_not_Req_S_not_valid_not_Req_L_not_valid_not_Req_N_not_valid_not_Req_E_not_valid_grant_E_previous_value or 
+										err_arbiter_in_West_not_Req_W_not_valid_not_Req_S_not_valid_not_Req_L_not_valid_not_Req_N_not_valid_Req_E_not_valid_grant_E_previous_value or 
+
+										err_arbiter_in_South_not_Req_S_not_valid_not_Req_L_not_valid_not_Req_N_not_valid_not_Req_E_not_valid_Req_W_valid_state_in_West or 
+										err_arbiter_in_South_not_Req_S_not_valid_not_Req_L_not_valid_not_Req_N_not_valid_not_Req_E_not_valid_Req_W_valid_grant_W or 
+										err_arbiter_in_South_not_Req_L_valid_not_grant_L or 
+										err_arbiter_in_South_not_Req_S_not_valid_not_Req_L_not_valid_not_Req_N_not_valid_not_Req_E_not_valid_not_Req_W_not_valid_grant_W_previous_value or 
+										err_arbiter_in_South_not_Req_S_not_valid_not_Req_L_not_valid_not_Req_N_not_valid_not_Req_E_not_valid_Req_W_not_valid_grant_W_previous_value or 
+
+										err_arbiter_in_Local_not_Req_L_not_valid_not_Req_N_not_valid_not_Req_E_not_valid_not_Req_W_not_valid_Req_S_valid_state_in_West or 
+										err_arbiter_in_Local_not_Req_L_not_valid_not_Req_N_not_valid_not_Req_E_not_valid_not_Req_W_not_valid_Req_S_valid_grant_W or 
+										err_arbiter_in_Local_not_Req_L_valid_grant_L or 
+										err_arbiter_in_Local_not_Req_L_not_valid_not_Req_N_not_valid_not_Req_E_not_valid_not_Req_W_not_valid_not_Req_S_not_valid_grant_S_previous_value or 
+										err_arbiter_in_Local_not_Req_L_not_valid_not_Req_N_not_valid_not_Req_E_not_valid_not_Req_W_not_valid_Req_S_not_valid_grant_S_previous_value or 
+
+										-- Round 6
+										err_arbiter_in_IDLE_not_Req_N_not_valid_not_Req_E_not_valid_not_Req_W_not_valid_not_Req_S_not_valid_not_Req_L_not_valid_state_in_state_equal or 
+										err_arbiter_in_North_not_Req_N_not_valid_not_Req_E_not_valid_not_Req_W_not_valid_not_Req_S_not_valid_not_Req_L_not_valid_state_in_state_equal or 
+										err_arbiter_in_East_not_Req_E_not_valid_not_Req_W_not_valid_not_Req_S_not_valid_not_Req_L_not_valid_not_Req_N_not_valid_state_in_state_equal or 
+										err_arbiter_in_West_not_Req_W_not_valid_not_Req_S_not_valid_not_Req_L_not_valid_state_not_Req_N_not_valid_not_Req_E_not_valid_in_state_equal or 
+										err_arbiter_in_South_not_Req_S_not_valid_not_Req_L_not_valid_state_not_Req_N_not_valid_not_Req_E_not_valid_not_Req_W_not_valid_in_state_equal or 
+										err_arbiter_in_South_not_Req_L_not_valid_state_not_Req_N_not_valid_not_Req_E_not_valid_not_Req_W_not_valid_not_Req_S_not_valid_in_state_equal) after 1 ps;
+
+
+-----------------------------------------------------------------------
+-----------------------------------------------------------------------
+
+    -- Signals used in checkers logic
 
 	Requests 	   <= req_X_N & req_X_E & req_X_W & req_X_S & req_X_L;
 	Requests_valid <= Req_X_N_valid & Req_X_E_valid & Req_X_W_valid & Req_X_S_valid & Req_X_L_valid;
 	Grants   	   <= X_N & X_E & X_W & X_S & X_L;
 	Grants_prev    <= X_N_prev & X_E_prev & X_W_prev & X_S_prev & X_L_prev;
+
+-----------------------------------------------------------------------
+-----------------------------------------------------------------------
+
+    -- Implementing checkers in form of concurrent assignments (combinational assertions)
+
 
 	-- Functional Checkers
 
@@ -271,14 +490,12 @@ begin
 	end process;
 	-- Checked!!
 
+-----------------------------------------------------------------------
+-----------------------------------------------------------------------
 
 	-- Structural Checkers
 
------------------------------------------------------------------------------------------------------------------------
------------------------------------------------------------------------------------------------------------------------
------------------------------------------------------------------------------------------------------------------------
------------------------------------------------------------------------------------------------------------------------
------------------------------------------------------------------------------------------------------------------------
+
 -- Round 1
 -- checked
 -- N has highest priority, then E, W, S and L (and then again N). 

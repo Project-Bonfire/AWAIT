@@ -18,6 +18,7 @@ entity FIFO_credit_based_with_checkers is
             read_en_W : in  std_logic;
             read_en_S : in  std_logic;
             read_en_L : in  std_logic;
+            hold_in_from_allocator: in std_logic;
 
             credit_out: out std_logic; -- acts as hold_out too ?!
             empty_out : out std_logic; 
@@ -44,32 +45,10 @@ architecture behavior of FIFO_credit_based_with_checkers is
               read_en: in std_logic;
               write_en: in std_logic;
 
-              -- FIFO Control Part Checker Outputs
-              -- Functional Checkers
-              err_full_empty, 
-              err_empty_read_en, 
-              err_full_write_en, 
-              err_read_pointer_in_onehot, 
-              err_write_pointer_in_onehot, 
-
-              -- Structural Checkers
-              err_read_en_ORed_not_empty_read_en, 
-              err_all_read_en_zero_not_read_en, 
-              err_write_en_write_pointer_update, 
-              err_write_en_write_pointer_not_update, 
-              err_read_en_not_empty_read_pointer_update, 
-              err_read_en_empty_read_pointer_not_update, 
-              err_not_read_en_read_pointer_not_update, 
-              err_valid_in_not_full_write_en, 
-              err_valid_in_full_not_write_en, 
-              err_not_valid_in_not_write_en, 
-              err_read_pointer_write_pointer_equal_empty, 
-              err_read_pointer_write_pointer_not_equal_not_empty, 
-              err_write_pointer_after_read_pointer_full, 
-              err_write_pointer_not_after_read_pointer_not_full: out std_logic
+              -- FIFO Control Part Checkers Output
+              FIFO_checkers_output: out std_logic
       );
   end component;
-
 
    signal read_pointer, read_pointer_in,  write_pointer, write_pointer_in: std_logic_vector(3 downto 0);
    signal full, empty: std_logic;
@@ -80,30 +59,10 @@ architecture behavior of FIFO_credit_based_with_checkers is
    signal FIFO_MEM_3, FIFO_MEM_3_in : std_logic_vector(DATA_WIDTH-1 downto 0);
    signal FIFO_MEM_4, FIFO_MEM_4_in : std_logic_vector(DATA_WIDTH-1 downto 0);
 
-   -- Signals related to FIFO control part checkers
+   signal credit: std_logic;
 
-   signal     err_full_empty, 
-              err_empty_read_en, 
-              err_full_write_en, 
-              err_read_pointer_in_onehot, 
-              err_write_pointer_in_onehot, 
-
-              err_read_en_ORed_not_empty_read_en, 
-              err_all_read_en_zero_not_read_en, 
-              err_write_en_write_pointer_update, 
-              err_write_en_write_pointer_not_update, 
-              err_read_en_not_empty_read_pointer_update, 
-              err_read_en_empty_read_pointer_not_update, 
-              err_not_read_en_read_pointer_not_update, 
-              err_valid_in_not_full_write_en, 
-              err_valid_in_full_not_write_en, 
-              err_not_valid_in_not_write_en, 
-              err_read_pointer_write_pointer_equal_empty, 
-              err_read_pointer_write_pointer_not_equal_not_empty, 
-              err_write_pointer_after_read_pointer_full, 
-              err_write_pointer_not_after_read_pointer_not_full: std_logic;
-
-   signal FIFO_checkers_ORed, FIFO_checkers_ORed_sync: std_logic; 
+   -- Checkers output related signals used for AWAT!
+   signal FIFO_checkers_output, FIFO_checkers_output_sync: std_logic; 
 
 begin
 
@@ -120,6 +79,10 @@ begin
 --                                   <--- readP   
  --------------------------------------------------------------------------------------------
 
+-----------------------------------------------------------------------
+-----------------------------------------------------------------------
+
+  -- FIFO control part checkers instantiation
   FIFO_CONTROL_PART_CHECKERS: FIFO_credit_based_checkers port map 
                                           (
                                             valid_in  => valid_in, 
@@ -137,50 +100,15 @@ begin
                                             read_en => read_en, 
                                             write_en => write_en, 
 
-                                            err_full_empty => err_full_empty, 
-                                            err_empty_read_en => err_empty_read_en, 
-                                            err_full_write_en => err_full_write_en, 
-                                            err_read_pointer_in_onehot => err_read_pointer_in_onehot, 
-                                            err_write_pointer_in_onehot => err_write_pointer_in_onehot, 
-
-                                            err_read_en_ORed_not_empty_read_en => err_read_en_ORed_not_empty_read_en, 
-                                            err_all_read_en_zero_not_read_en => err_all_read_en_zero_not_read_en, 
-                                            err_write_en_write_pointer_update => err_write_en_write_pointer_update, 
-                                            err_write_en_write_pointer_not_update => err_write_en_write_pointer_not_update, 
-                                            err_read_en_not_empty_read_pointer_update => err_read_en_not_empty_read_pointer_update, 
-                                            err_read_en_empty_read_pointer_not_update => err_read_en_empty_read_pointer_not_update, 
-                                            err_not_read_en_read_pointer_not_update => err_not_read_en_read_pointer_not_update, 
-                                            err_valid_in_not_full_write_en => err_valid_in_not_full_write_en, 
-                                            err_valid_in_full_not_write_en => err_valid_in_full_not_write_en, 
-                                            err_not_valid_in_not_write_en => err_not_valid_in_not_write_en, 
-                                            err_read_pointer_write_pointer_equal_empty => err_read_pointer_write_pointer_equal_empty, 
-                                            err_read_pointer_write_pointer_not_equal_not_empty => err_read_pointer_write_pointer_not_equal_not_empty, 
-                                            err_write_pointer_after_read_pointer_full => err_write_pointer_after_read_pointer_full, 
-                                            err_write_pointer_not_after_read_pointer_not_full => err_write_pointer_not_after_read_pointer_not_full 
+                                            FIFO_checkers_output => FIFO_checkers_output
                                           );
 
-  FIFO_checkers_ORed  <=  (err_full_empty or
-                           err_empty_read_en or
-                           err_full_write_en or
-                           err_read_pointer_in_onehot or
-                           err_write_pointer_in_onehot or
+-----------------------------------------------------------------------
+-----------------------------------------------------------------------
 
-                           err_read_en_ORed_not_empty_read_en or
-                           err_all_read_en_zero_not_read_en or
-                           err_write_en_write_pointer_update or
-                           err_write_en_write_pointer_not_update or
-                           err_read_en_not_empty_read_pointer_update or
-                           err_read_en_empty_read_pointer_not_update or
-                           err_not_read_en_read_pointer_not_update or
-                           err_valid_in_not_full_write_en or
-                           err_valid_in_full_not_write_en or
-                           err_not_valid_in_not_write_en or
-                           err_read_pointer_write_pointer_equal_empty or
-                           err_read_pointer_write_pointer_not_equal_not_empty or
-                           err_write_pointer_after_read_pointer_full or
-                           err_write_pointer_not_after_read_pointer_not_full) after 1 ps;
+   -- Sequential part
 
-   process (clk, reset, FIFO_checkers_ORed_sync) begin
+   process (clk, reset) begin
         if reset = '0' then
             read_pointer  <= "0001";
             write_pointer <= "0001";
@@ -190,16 +118,18 @@ begin
             FIFO_MEM_3 <= (others=>'0');
             FIFO_MEM_4 <= (others=>'0');
 
-            credit_out <= '0';
+            credit <= '0';
 
         elsif clk'event and clk = '1' then
 
-          if FIFO_checkers_ORed_sync = '0' then
+          if FIFO_checkers_output_sync = '0' then
             write_pointer <= write_pointer_in;
             read_pointer  <=  read_pointer_in;
           end if;
-            credit_out <= '0';   
-          if FIFO_checkers_ORed_sync = '0' then         
+          if hold_in_from_allocator = '0' and credit = '1' then
+            credit <= '0'; 
+          end if;  
+          if FIFO_checkers_output_sync = '0' and hold_in_from_allocator = '0' then         
             if write_en = '1' then 
                 --write into the memory
                   FIFO_MEM_1 <= FIFO_MEM_1_in;
@@ -208,31 +138,41 @@ begin
                   FIFO_MEM_4 <= FIFO_MEM_4_in;                   
             end if;
           end if;
-          if FIFO_checkers_ORed_sync = '0' then
+          if FIFO_checkers_output_sync = '0' then
             if read_en = '1' then 
-              credit_out <= '1';
+              credit <= '1';
             end if;
           end if;
 
         end if;
     end process;
 
-      -- Bubble-related logic
-      process(FIFO_checkers_ORed, clk)
-      begin
-            if FIFO_checkers_ORed = '1' then -- If there is a transient fault detected in FIFO control part
-                  FIFO_checkers_ORed_sync <= '1';
-            else -- Hopefully the transient fault would disappear 
-                  if clk'event and clk = '0' then 
-                        FIFO_checkers_ORed_sync <= '0';
-                  end if;
-            end if; 
-      end process;
+    -- AWAIT-related logic (Sequential)
+    process(FIFO_checkers_output, clk)
+    begin
+          if FIFO_checkers_output = '1' then -- If there is a transient fault detected in FIFO control part
+                FIFO_checkers_output_sync <= '1';
+          else -- Hopefully the transient fault would disappear 
+                if clk'event and clk = '0' then 
+                      FIFO_checkers_output_sync <= '0';
+                end if;
+          end if; 
+    end process;
 
-
- -- anything below here is pure combinational
+-----------------------------------------------------------------------
+-----------------------------------------------------------------------
  
-   -- combinatorial part
+   -- The combionational part
+
+   -- AWAIT-related logic
+
+
+
+
+   -- FIFO-related logic
+
+   credit_out <= credit;
+
    process(RX, write_pointer, FIFO_MEM_1, FIFO_MEM_2, FIFO_MEM_3, FIFO_MEM_4) begin
       case( write_pointer ) is
           when "0001" => FIFO_MEM_1_in <= RX;         FIFO_MEM_2_in <= FIFO_MEM_2; FIFO_MEM_3_in <= FIFO_MEM_3; FIFO_MEM_4_in <= FIFO_MEM_4; 
@@ -254,8 +194,8 @@ begin
   end process;
 
   read_en   <= (read_en_N or read_en_E or read_en_W or read_en_S or read_en_L) and not empty; 
-  empty_out <= empty or FIFO_checkers_ORed_sync; -- ?!
-  hold_out  <= FIFO_checkers_ORed_sync; 
+  empty_out <= empty or FIFO_checkers_output_sync or hold_in_from_allocator; -- ?!
+  hold_out  <= FIFO_checkers_output_sync or hold_in_from_allocator; 
 
   process(write_en, write_pointer) begin
     if write_en = '1'then
