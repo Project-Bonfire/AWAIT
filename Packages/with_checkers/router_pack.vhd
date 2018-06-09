@@ -46,6 +46,7 @@ package router_pack is
             read_en_W : in  std_logic;
             read_en_S : in  std_logic;
             read_en_L : in  std_logic;
+            hold_in_from_allocator: in std_logic;
 
             credit_out: out std_logic;
             empty_out : out std_logic;
@@ -92,7 +93,9 @@ COMPONENT allocator is
             grant_E_N_xbar, grant_E_E_xbar, grant_E_W_xbar, grant_E_S_xbar, grant_E_L_xbar: out std_logic;
             grant_W_N_xbar, grant_W_E_xbar, grant_W_W_xbar, grant_W_S_xbar, grant_W_L_xbar: out std_logic;
             grant_S_N_xbar, grant_S_E_xbar, grant_S_W_xbar, grant_S_S_xbar, grant_S_L_xbar: out std_logic;
-            grant_L_N_xbar, grant_L_E_xbar, grant_L_W_xbar, grant_L_S_xbar, grant_L_L_xbar: out std_logic                       
+            grant_L_N_xbar, grant_L_E_xbar, grant_L_W_xbar, grant_L_S_xbar, grant_L_L_xbar: out std_logic; 
+
+            hold_out_to_next_FIFO_N, hold_out_to_next_FIFO_E, hold_out_to_next_FIFO_W, hold_out_to_next_FIFO_S, hold_out_to_next_FIFO_L: out std_logic                     
             );
 end COMPONENT;
 
