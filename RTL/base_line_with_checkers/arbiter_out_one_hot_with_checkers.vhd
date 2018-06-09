@@ -84,8 +84,7 @@ begin
       if reset = '0' then
           state <= IDLE;
       elsif clk'event and clk ='1' then
-        --if (Arbiter_out_one_hot_checkers_sync = '0') then
-        if (valid_in = '1') then
+        if (valid_in = '1' and Arbiter_out_checkers_output_sync = '0') then
           state <= state_in;
         end if;
       end if;
